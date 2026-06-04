@@ -576,7 +576,7 @@ JSON fields (ใส่เฉพาะที่มีในข้อความ)
     await dbSaveDay(curDay,merged);
     await loadDay();
     toast('✅ ใส่ข้อมูลแล้ว! ☁️');
-  }catch(err){toast('❌ เกิดข้อผิดพลาด');}
+  }catch(err){toast('❌ '+err.message);console.error(err);}
   setSyncBadge('','☁️ พร้อม');
   document.getElementById('chatBar').style.display='flex';
 }
