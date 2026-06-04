@@ -557,30 +557,15 @@ async function sendChat(){
   document.getElementById('chatBar').style.display='none';
   setSyncBadge('syncing','🤖 กำลังประมวลผล...');
 
-  const prompt=`แยกข้อมูลสุขภาพจากข้อความนี้ ตอบ JSON เท่านั้น ห้ามมีข้อความอื่น
+  const prompt=`แยกข้อมูลสุขภาพจากข้อความ ตอบ JSON เท่านั้น ไม่มีข้อความอื่น
+วันที่: ${thaiDate(curDay)}
 ข้อความ: "${txt}"
-
-กฎสำคัญ:
-- m_b = อาหารมื้อเช้าเท่านั้น
-- m_l = อาหารมื้อกลางวันเท่านั้น  
-- m_d = อาหารมื้อเย็นเท่านั้น
-- m_s = ของว่าง/เครื่องดื่ม/Recovery เท่านั้น
-- e1_m = นาที Strength
-- e1_k = kcal Strength
-- e2_m = นาที Cardio
-- e2_k = km Cardio
-- e2_c = kcal Cardio
-- sl_score = Sleep Score (ตัวเลข)
-- sl_rhr = RHR (ตัวเลข)
-- sl_hrv = HRV (ตัวเลข)
-- sl_bb = Body Battery (ตัวเลข)
-- mac_p = โปรตีนรวม (g)
-
-ตอบเฉพาะ JSON นี้ ใส่เฉพาะ field ที่มีข้อมูล:
-{"m_b":"","m_l":"","m_d":"","m_s":"","mac_p":0,"mac_f":0,"mac_s":0,"water":0,"sl_s":"","sl_e":"","sl_score":0,"sl_rhr":0,"sl_hrv":0,"sl_bb":0,"e1_m":0,"e1_h":0,"e1_k":0,"e2_m":0,"e2_k":0,"e2_c":0,"e2_h":0,"ex_n":"","weight":0,"muscle":0,"fat_p":0,"supps":"","h_note":""}`;
+บริบท: เกิลงดน้ำตาล ทำอาหารสดเอง ออกกำลัง Strength+Cardio
+JSON fields (ใส่เฉพาะที่มีในข้อความ):
+{"m_b":"เช้า","m_l":"กลางวัน","m_d":"เย็น","m_s":"ของว่าง","mac_p":0,"mac_f":0,"mac_s":0,"water":0,"sl_s":"HH:MM","sl_e":"HH:MM","sl_score":0,"sl_rhr":0,"sl_hrv":0,"sl_bb":0,"e1_m":0,"e1_h":0,"e1_k":0,"e2_m":0,"e2_k":0,"e2_c":0,"e2_h":0,"ex_n":"โน้ต","weight":0,"muscle":0,"fat_p":0,"supps":"ยา","h_note":"โน้ต"}`;
 
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const raw=data.content.map(i=>i.text||'').join('').trim();
     const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
@@ -612,7 +597,7 @@ Strength:${d.e1_m||0}นาที ${d.e1_k||0}kcal Cardio:${d.e2_m||0}นาท�
 นอน:${d.sl_min?Math.floor(d.sl_min/60)+'h':'—'} Score:${d.sl_score||'—'}
 ตอบ JSON array: [{"type":"good","icon":"✅","title":"...","detail":"..."}] type: good,warn,info,add,miss`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const tips=JSON.parse(data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim());
     content.innerHTML=tips.map(t=>`<div class="ai-tip tip-${t.type}"><div class="ai-tip-ico">${t.icon}</div><div class="ai-tip-body"><strong>${t.title}</strong><span>${t.detail}</span></div></div>`).join('');
@@ -785,7 +770,7 @@ async function analyzeIng(){
 วัตถุดิบ:${ingList||' (ยังไม่มีข้อมูล)'}
 วิเคราะห์ 5-6 ประเด็น ตอบ JSON array: [{"type":"good","icon":"✅","title":"...","detail":"..."}] type: good,info,add,warn,miss`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const tips=JSON.parse(data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim());
     content.innerHTML=tips.map(t=>`<div class="ai-tip tip-${t.type}"><div class="ai-tip-ico">${t.icon}</div><div class="ai-tip-body"><strong>${t.title}</strong><span>${t.detail}</span></div></div>`).join('');
