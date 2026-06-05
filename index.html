@@ -168,6 +168,8 @@ textarea{min-height:42px;}
 .toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--accent);color:#07090e;font-family:'Kanit',sans-serif;font-weight:700;padding:8px 20px;border-radius:40px;font-size:.78rem;pointer-events:none;opacity:0;transition:opacity .3s;z-index:999;}
 .toast.show{opacity:1;}
 .empty{text-align:center;padding:32px 16px;color:var(--muted);font-size:.8rem;}
+.lang-toggle{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:.7rem;cursor:pointer;color:var(--text);font-family:Kanit,sans-serif;transition:all .2s;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.lang-toggle:hover{border-color:var(--accent);color:var(--accent);}
 .div{height:1px;background:var(--border);margin:3px 0 11px;}
 .hist-months{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:10px;}
 .hist-months::-webkit-scrollbar{display:none;}
@@ -186,6 +188,7 @@ textarea{min-height:42px;}
       <div class="ntab" onclick="goPage('stats')">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('ing')">🥗 วัตถุดิบ</div>
     </div>
+    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
   </div>
 </nav>
 
@@ -894,6 +897,218 @@ async function seedData(){
   // Seed day 3
   await dbSaveDay('2026-06-03',{m_b:'มันม่วงบด + แซลมอนย่างหั่นชิ้น + ไข่ดาว 2 ฟอง (Olive oil) + อะโวคาโดสไลด์ + พริกหวานสามสีย่าง (แดง เหลือง เขียว) + Bioactive Collagen สีทอง + มัทฉะนมอัลมอนด์ทำเอง + งาดำคั่ว 1 ช้อน',m_l:'',m_d:'',m_s:'',mac_p:55,mac_f:20,mac_s:8,sl_min:428,sl_score:82,sl_rhr:50,sl_hrv:41,sl_bb:51,sl_q:4,e1_m:50,e1_h:0,e1_k:0,e2_m:30,e2_k:2.72,e2_c:216,e2_h:0,ex_n:'Full body strength 50 นาที + Cardio ลู่วิ่ง ความชัน 5.5 ความเร็ว 5.5 30 นาที',eq:4,supps:'Collagen Bioactive (เช้า), ยาคลายเครียด (ก่อนนอน)',water:0,mood:0,h_note:''});
   toast('✅ โหลดข้อมูลเดิมแล้ว');
+}
+
+
+// ── LANGUAGE ──
+let currentLang = 'th';
+
+const translations = {
+  th: {
+    nav_log: '📝 บันทึกวัน',
+    nav_table: '📋 ตาราง',
+    nav_stats: '📊 สถิติ',
+    nav_ing: '🥗 วัตถุดิบ',
+    sec_eat: 'การกิน',
+    sec_sleep: 'การนอน',
+    sec_ex: 'ออกกำลังกาย',
+    sec_body: 'ข้อมูลร่างกาย',
+    sec_supp: 'อาหารเสริม / ยา',
+    ai_title: 'คำแนะนำสุขภาพวันนี้',
+    ai_sub: 'AI วิเคราะห์จากข้อมูลที่บันทึก',
+    ai_placeholder: 'บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨',
+    ai_btn: '🔍 วิเคราะห์วันนี้',
+    save_btn: '💾 บันทึก',
+    sugar_note: '🚫 งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้',
+    lbl_breakfast: '🌅 เช้า',
+    lbl_lunch: '☀️ กลางวัน',
+    lbl_dinner: '🌆 เย็น',
+    lbl_snack: '🍪 ของว่าง/เครื่องดื่ม',
+    lbl_protein: '🥩 โปรตีน (g)',
+    lbl_fiber: '🥦 ไฟเบอร์ (g)',
+    lbl_kcal: '🔥 แคลอรี่ (kcal)',
+    lbl_fat: '🥑 ไขมัน (g)',
+    lbl_carb: '🍚 คาร์บ (g)',
+    lbl_sugar_total: '🍬 น้ำตาลรวม',
+    lbl_sodium: '🧂 โซเดียม',
+    lbl_fruit_sugar: '🍎 น้ำตาลจากผลไม้ธรรมชาติ',
+    lbl_bedtime: 'นอนเวลา',
+    lbl_waketime: 'ตื่นเวลา',
+    lbl_sleep_total: '⏱️ รวมนอนทั้งหมด',
+    lbl_sleep_score: 'Sleep Score',
+    lbl_rhr: 'RHR (bpm)',
+    lbl_hrv: 'HRV (ms)',
+    lbl_bb: 'Body Battery +',
+    lbl_quality: 'คุณภาพ',
+    lbl_strength: 'Strength',
+    lbl_cardio: 'Cardio',
+    lbl_ex_note: 'โน้ต / กิจกรรมอื่น',
+    lbl_intensity: 'ความเข้มข้น',
+    lbl_weight: '⚖️ น้ำหนัก (กก.)',
+    lbl_water: '💧 น้ำ (ลิตร)',
+    lbl_muscle: '💪 กล้ามเนื้อ (กก.)',
+    lbl_fat_pct: '🔥 ไขมัน (%)',
+    lbl_mood: '😊 อารมณ์',
+    lbl_note: '📝 โน้ตสุขภาพ',
+    lbl_supp_ph: 'Collagen (เช้า), Probiotic (เย็น)...',
+    chat_ph: 'บอกเกิลกินอะไรวันนี้ เช้ากิน... เย็นกิน...',
+    today_btn: 'วันนี้',
+    langBtn: '🇬🇧 EN',
+    ing_analyze_title: 'วิเคราะห์โภชนาการรายเดือน',
+    ing_analyze_sub: 'AI ตรวจสอบความหลากหลายของวัตถุดิบ',
+    ing_analyze_btn: '🔍 วิเคราะห์วัตถุดิบเดือนนี้',
+    ing_placeholder: 'เพิ่มวัตถุดิบก่อน แล้วกด "วิเคราะห์" ✨',
+    lbl_min: 'นาที',
+    lbl_avghr: 'Avg HR',
+    lbl_calories: 'Calories',
+    lbl_km: 'km',
+  },
+  en: {
+    nav_log: '📝 Daily Log',
+    nav_table: '📋 Table',
+    nav_stats: '📊 Stats',
+    nav_ing: '🥗 Ingredients',
+    sec_eat: 'Nutrition',
+    sec_sleep: 'Sleep',
+    sec_ex: 'Exercise',
+    sec_body: 'Body Metrics',
+    sec_supp: 'Supplements / Medication',
+    ai_title: "Today's Health Insights",
+    ai_sub: 'AI analysis from your logged data',
+    ai_placeholder: 'Log your data then tap "Analyze" ✨',
+    ai_btn: '🔍 Analyze Today',
+    save_btn: '💾 Save',
+    sugar_note: '🚫 No added sugar — natural fruit sugar only',
+    lbl_breakfast: '🌅 Breakfast',
+    lbl_lunch: '☀️ Lunch',
+    lbl_dinner: '🌆 Dinner',
+    lbl_snack: '🍪 Snacks / Drinks',
+    lbl_protein: '🥩 Protein (g)',
+    lbl_fiber: '🥦 Fiber (g)',
+    lbl_kcal: '🔥 Calories (kcal)',
+    lbl_fat: '🥑 Fat (g)',
+    lbl_carb: '🍚 Carbs (g)',
+    lbl_sugar_total: '🍬 Total Sugar',
+    lbl_sodium: '🧂 Sodium',
+    lbl_fruit_sugar: '🍎 Natural Fruit Sugar',
+    lbl_bedtime: 'Bedtime',
+    lbl_waketime: 'Wake time',
+    lbl_sleep_total: '⏱️ Total Sleep',
+    lbl_sleep_score: 'Sleep Score',
+    lbl_rhr: 'RHR (bpm)',
+    lbl_hrv: 'HRV (ms)',
+    lbl_bb: 'Body Battery +',
+    lbl_quality: 'Quality',
+    lbl_strength: 'Strength',
+    lbl_cardio: 'Cardio',
+    lbl_ex_note: 'Notes / Other Activities',
+    lbl_intensity: 'Intensity',
+    lbl_weight: '⚖️ Weight (kg)',
+    lbl_water: '💧 Water (L)',
+    lbl_muscle: '💪 Muscle Mass (kg)',
+    lbl_fat_pct: '🔥 Body Fat (%)',
+    lbl_mood: '😊 Mood',
+    lbl_note: '📝 Health Notes',
+    lbl_supp_ph: 'Collagen (morning), Probiotic (evening)...',
+    chat_ph: "Tell GIRL what you ate today — breakfast, lunch, dinner...",
+    today_btn: 'Today',
+    langBtn: '🇹🇭 TH',
+    ing_analyze_title: 'Monthly Nutrition Analysis',
+    ing_analyze_sub: 'AI checks ingredient diversity',
+    ing_analyze_btn: '🔍 Analyze This Month',
+    ing_placeholder: 'Add ingredients first, then tap "Analyze" ✨',
+    lbl_min: 'min',
+    lbl_avghr: 'Avg HR',
+    lbl_calories: 'Calories',
+    lbl_km: 'km',
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'th' ? 'en' : 'th';
+  applyLang();
+}
+
+function applyLang() {
+  const t = translations[currentLang];
+  
+  // Nav tabs
+  const tabs = document.querySelectorAll('.ntab');
+  if (tabs[0]) tabs[0].textContent = t.nav_log;
+  if (tabs[1]) tabs[1].textContent = t.nav_table;
+  if (tabs[2]) tabs[2].textContent = t.nav_stats;
+  if (tabs[3]) tabs[3].textContent = t.nav_ing;
+  
+  // Lang button
+  const langBtn = document.getElementById('langBtn');
+  if (langBtn) langBtn.textContent = t.langBtn;
+  
+  // Today button
+  const todayBtn = document.querySelector('.today-btn');
+  if (todayBtn) todayBtn.textContent = t.today_btn;
+  
+  // Section titles
+  const secTitles = document.querySelectorAll('.sec-ttl');
+  const secKeys = ['sec_eat','sec_sleep','sec_ex','sec_body','sec_supp'];
+  secTitles.forEach((el, i) => { if (secKeys[i]) el.textContent = t[secKeys[i]]; });
+  
+  // AI section
+  const aiTitle = document.querySelector('.ai-ttl');
+  const aiSub = document.querySelector('.ai-sub');
+  const aiBtn = document.getElementById('dayAdvBtn');
+  if (aiTitle) aiTitle.textContent = t.ai_title;
+  if (aiSub) aiSub.textContent = t.ai_sub;
+  if (aiBtn) aiBtn.textContent = t.ai_btn;
+  
+  // Sugar note
+  const sugarNote = document.querySelector('.sugar-note');
+  if (sugarNote) sugarNote.textContent = t.sugar_note;
+  
+  // Save button
+  document.querySelectorAll('.save-btn').forEach(btn => {
+    btn.innerHTML = t.save_btn + ' <span id="save-lbl"></span>';
+  });
+  
+  // Labels
+  const labelMap = {
+    'm_b': 'lbl_breakfast', 'm_l': 'lbl_lunch', 'm_d': 'lbl_dinner', 'm_s': 'lbl_snack',
+    'sl_s': 'lbl_bedtime', 'sl_e': 'lbl_waketime',
+    'sl_score': 'lbl_sleep_score', 'sl_rhr': 'lbl_rhr', 'sl_hrv': 'lbl_hrv', 'sl_bb': 'lbl_bb',
+    'weight': 'lbl_weight', 'water': 'lbl_water', 'muscle': 'lbl_muscle', 'fat_p': 'lbl_fat_pct',
+    'h_note': 'lbl_note', 'supps': 'lbl_supp_ph',
+    'ex_n': 'lbl_ex_note',
+  };
+  
+  Object.entries(labelMap).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const label = el.previousElementSibling || el.parentElement?.querySelector('.lbl');
+      if (label && label.classList.contains('lbl')) label.textContent = t[key];
+      if (el.tagName === 'TEXTAREA' && key.includes('ph')) el.placeholder = t[key];
+    }
+  });
+  
+  // Chat placeholder
+  const chatInput = document.getElementById('chatIn');
+  if (chatInput) chatInput.placeholder = t.chat_ph;
+  
+  // Sleep total label
+  const slTotalLabel = document.querySelector('[for="sl_total_h"]') || 
+    document.getElementById('sl_total_h')?.parentElement?.querySelector('.lbl');
+
+  // Ingredient section
+  const ingTitle = document.querySelector('#page-ing .ai-ttl');
+  const ingSub = document.querySelector('#page-ing .ai-sub');
+  const ingBtn = document.getElementById('ingAdvBtn');
+  if (ingTitle) ingTitle.textContent = t.ing_analyze_title;
+  if (ingSub) ingSub.textContent = t.ing_analyze_sub;
+  if (ingBtn) ingBtn.textContent = t.ing_analyze_btn;
+  
+  // Star labels
+  document.querySelectorAll('.stars label').forEach((el, i) => {
+    const labels = [t.lbl_quality, t.lbl_intensity, t.lbl_mood];
+    if (labels[i]) el.textContent = labels[i];
+  });
 }
 
 init();
