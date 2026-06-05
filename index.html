@@ -226,6 +226,10 @@ textarea{min-height:42px;}
 .meal-btn-primary:active{opacity:.85;transform:scale(.97);}
 .meal-btn-secondary{display:flex;align-items:center;gap:3px;font-size:.62rem;font-weight:600;letter-spacing:.3px;color:var(--muted2);background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;cursor:pointer;transition:all .2s;}
 .meal-btn-secondary:hover{border-color:var(--border2);color:var(--text);}
+.water-btn{flex:1;padding:7px 4px;border-radius:9px;border:1.5px solid var(--border);background:var(--card2);color:var(--muted2);font-size:.68rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .2s;}
+.water-btn.active{border-color:var(--sleep);background:rgba(107,143,163,.12);color:var(--sleep);}
+.water-btn.good{border-color:var(--accent);background:rgba(74,124,89,.1);color:var(--accent);}
+#bad-day-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;}
 </style>
 </head>
 <body>
@@ -351,7 +355,7 @@ textarea{min-height:42px;}
         <div style="display:flex;gap:5px;">
           <label class="meal-btn-secondary">
             📷 Photo
-            <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'b','photo')">
+            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'b','photo')">
           </label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'b','text')">✦ Analyse</button>
         </div>
@@ -368,7 +372,7 @@ textarea{min-height:42px;}
         <div style="display:flex;gap:5px;">
           <label class="meal-btn-secondary">
             📷 Photo
-            <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'l','photo')">
+            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'l','photo')">
           </label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'l','text')">✦ Analyse</button>
         </div>
@@ -385,7 +389,7 @@ textarea{min-height:42px;}
         <div style="display:flex;gap:5px;">
           <label class="meal-btn-secondary">
             📷 Photo
-            <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'d','photo')">
+            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'d','photo')">
           </label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'d','text')">✦ Analyse</button>
         </div>
@@ -402,7 +406,7 @@ textarea{min-height:42px;}
         <div style="display:flex;gap:5px;">
           <label class="meal-btn-secondary">
             📷 Photo
-            <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'s','photo')">
+            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'s','photo')">
           </label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'s','text')">✦ Analyse</button>
         </div>
@@ -465,31 +469,65 @@ textarea{min-height:42px;}
     </div>
   </div>
   <div class="section s-body">
-    <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl">ข้อมูลร่างกาย</div></div>
+    <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl">Body & Wellbeing</div></div>
+
+    <!-- Bad Day + Daily Photo row -->
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <button id="bad-day-btn" onclick="toggleBadDay()" style="flex:1;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;transition:all .25s;color:var(--muted2);">
+        💀 Bad Day
+      </button>
+      <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-radius:12px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);transition:all .25s;" id="daily-photo-label">
+        📸 Day's Meals
+        <input type="file" accept="image/*" style="display:none" id="daily-photo-input" onchange="analyzeDailyPhoto(this)">
+      </label>
+    </div>
+    <div id="daily-photo-preview" style="display:none;margin-bottom:10px;"></div>
+    <div id="daily-photo-result" style="display:none;margin-bottom:10px;"></div>
+
+    <!-- Water quick-pick -->
+    <div style="margin-bottom:12px;">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">💧 Water Intake</div>
+      <div style="display:flex;gap:6px;margin-bottom:7px;">
+        <button onclick="setWater(1.0)" class="water-btn" id="w-1.0">1.0L</button>
+        <button onclick="setWater(1.5)" class="water-btn" id="w-1.5">1.5L</button>
+        <button onclick="setWater(2.0)" class="water-btn" id="w-2.0">2.0L ✓</button>
+        <button onclick="setWater(2.5)" class="water-btn" id="w-2.5">2.5L</button>
+        <button onclick="setWater(3.0)" class="water-btn" id="w-3.0">3.0L</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <input type="number" id="water" step="0.1" placeholder="0.0" oninput="onWaterInput()" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Kanit',sans-serif;font-size:.9rem;padding:7px 10px;outline:none;width:80px;text-align:center;">
+        <span style="font-size:.72rem;color:var(--muted2);">litres</span>
+        <div id="water-status" style="font-size:.68rem;border-radius:20px;padding:3px 10px;font-weight:600;letter-spacing:.3px;"></div>
+      </div>
+      <div id="water-alert" style="display:none;margin-top:7px;font-size:.68rem;padding:7px 10px;border-radius:9px;background:rgba(107,143,163,.1);border:1px solid rgba(107,143,163,.25);color:var(--sleep);letter-spacing:.2px;line-height:1.5;"></div>
+    </div>
+
+    <!-- Weight & body comp -->
     <div class="row2">
-      <div><label class="lbl">⚖️ น้ำหนัก (กก.)</label><input type="number" id="weight" step="0.1"></div>
-      <div><label class="lbl">💧 น้ำ (ลิตร)</label><input type="number" id="water" step="0.1" oninput="updateQ()"></div>
+      <div><label class="lbl">⚖️ Weight (kg)</label><input type="number" id="weight" step="0.1"></div>
+      <div><label class="lbl">🔥 Body Fat (%)</label><input type="number" id="fat_p" step="0.1"></div>
     </div>
     <div class="row2">
-      <div><label class="lbl">💪 กล้ามเนื้อ (กก.)</label><input type="number" id="muscle" step="0.1"></div>
-      <div><label class="lbl">🔥 ไขมัน (%)</label><input type="number" id="fat_p" step="0.1"></div>
+      <div><label class="lbl">💪 Muscle (kg)</label><input type="number" id="muscle" step="0.1"></div>
     </div>
-    <div class="stars"><label>😊 อารมณ์</label>
+
+    <!-- Mood -->
+    <div class="stars" style="margin-top:6px;"><label>Mood</label>
       <span class="star mo-star" data-i="1" onclick="setMQ(1)">★</span><span class="star mo-star" data-i="2" onclick="setMQ(2)">★</span>
       <span class="star mo-star" data-i="3" onclick="setMQ(3)">★</span><span class="star mo-star" data-i="4" onclick="setMQ(4)">★</span>
       <span class="star mo-star" data-i="5" onclick="setMQ(5)">★</span>
     </div>
-    <label class="lbl" style="margin-top:8px">📝 โน้ตสุขภาพ</label>
-    <textarea id="h_note" placeholder="อาการ, ความรู้สึก..."></textarea>
+    <label class="lbl" style="margin-top:8px">📝 Notes</label>
+    <textarea id="h_note" placeholder="symptoms, how you feel, anything worth noting..."></textarea>
   </div>
   <div class="section s-supp">
-    <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl">อาหารเสริม / ยา</div></div>
-    <div style="font-size:.72rem;color:var(--muted2);margin-bottom:9px;">BioActive+ วันนี้ — กด card ไปที่แท็บ 💊 เพื่อ tick รายละเอียด</div>
+    <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl">Supplements</div></div>
+    <div style="font-size:.68rem;color:var(--muted2);letter-spacing:.2px;margin-bottom:9px;">BioActive+ today — tap any pill to log details in the 💊 tab</div>
     <div id="bio-quick" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;"></div>
-    <label class="lbl" style="margin-top:6px">📝 ยาอื่น / หมายเหตุ</label>
-    <textarea id="supps" placeholder="ยาคลายเครียด (ก่อนนอน), ยาอื่นๆ..."></textarea>
+    <label class="lbl" style="margin-top:6px">📝 Other meds / notes</label>
+    <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
-  <button class="save-btn" onclick="saveDay()">💾 บันทึก <span id="save-lbl"></span></button>
+  <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
 </div>
 
 <!-- PAGE TABLE -->
@@ -724,6 +762,7 @@ function updateQ(){
   document.getElementById('q-kcal').textContent=k||'—';
   const w=+document.getElementById('water').value||0;
   document.getElementById('q-water').textContent=w?w+'L':'—';
+  updateWaterUI(w);
   const sl=+document.getElementById('sl_min_h').value||0;
   const totalH=+document.getElementById('sl_total_h').value||0;
   document.getElementById('q-sleep').textContent=sl?Math.floor(sl/60)+'h'+(sl%60?sl%60+'m':''):totalH?totalH+'h':'—';
@@ -763,6 +802,13 @@ async function loadDay(){
   mq=d.mood||0;sq=d.sl_q||0;eq=d.eq||0;
   setMQ(mq);setSQ(sq);setEQ(eq);updateQ();
   document.getElementById('day-advice').innerHTML='<div style="color:var(--muted2);font-size:.76rem">กด "วิเคราะห์" ✨</div>';
+  // Bad day state
+  isBadDay = (d.mood===1 && (d.h_note||'').includes('Bad day'));
+  const btn=document.getElementById('bad-day-btn');
+  btn.classList.toggle('active',isBadDay);
+  btn.textContent=isBadDay?'💀 Bad Day — logged':'💀 Bad Day';
+  // Water alert check
+  await checkWaterAlert();
   // BioActive quick view
   const bioData = await dbLoadBio(curDay);
   renderBioQuick(bioData);
@@ -1526,6 +1572,147 @@ function renderBioMonthStats(monthRows){
       <div class="bio-stat-val" style="color:${p.dotColor}">${count}/${totalDays||'0'} วัน</div>
     </div>`;
   }).join('');
+}
+
+// ── BAD DAY ──
+let isBadDay = false;
+function toggleBadDay(){
+  isBadDay = !isBadDay;
+  const btn = document.getElementById('bad-day-btn');
+  btn.classList.toggle('active', isBadDay);
+  btn.textContent = isBadDay ? '💀 Bad Day — logged' : '💀 Bad Day';
+  if(isBadDay){
+    // Auto-set mood to 1, note bad day
+    setMQ(1);
+    const note = document.getElementById('h_note');
+    if(!note.value) note.value = 'Bad day — low energy, rest & recovery needed.';
+    toast('💀 Bad Day logged — take it easy today');
+  }
+}
+
+// ── WATER ──
+let activeWater = 0;
+function setWater(val){
+  document.getElementById('water').value = val;
+  activeWater = val;
+  updateWaterUI(val);
+  updateQ();
+  checkWaterAlert();
+}
+function onWaterInput(){
+  const val = +document.getElementById('water').value || 0;
+  activeWater = val;
+  updateWaterUI(val);
+  updateQ();
+  checkWaterAlert();
+}
+function updateWaterUI(val){
+  document.querySelectorAll('.water-btn').forEach(b => {
+    const bv = +b.id.replace('w-','');
+    b.classList.remove('active','good');
+    if(Math.abs(bv - val) < 0.05){
+      b.classList.add(val >= 2 ? 'good' : 'active');
+    }
+  });
+  const status = document.getElementById('water-status');
+  if(!val){ status.textContent=''; status.style.display='none'; return; }
+  status.style.display='inline-block';
+  if(val >= 2.5){ status.textContent='🌊 Excellent'; status.style.background='rgba(74,124,89,.1)'; status.style.color='var(--accent)'; }
+  else if(val >= 2.0){ status.textContent='✓ Good'; status.style.background='rgba(74,124,89,.08)'; status.style.color='var(--accent)'; }
+  else if(val >= 1.5){ status.textContent='⚠ A bit low'; status.style.background='rgba(201,169,110,.1)'; status.style.color='var(--grain)'; }
+  else { status.textContent='❗ Too low'; status.style.background='rgba(192,57,43,.08)'; status.style.color='var(--prot)'; }
+}
+async function checkWaterAlert(){
+  const val = +document.getElementById('water').value || 0;
+  const alertBox = document.getElementById('water-alert');
+  if(val >= 2){ alertBox.style.display='none'; return; }
+  // Check last 3 days
+  try{
+    const today = new Date(curDay);
+    const dates = [-1,-2,-3].map(d=>{ const dt=new Date(today); dt.setDate(dt.getDate()+d); return dt.toISOString().split('T')[0]; });
+    const lowDays = [];
+    for(const date of dates){
+      const row = await dbLoadDay(date);
+      if(row && (row.water||0) < 2 && (row.water||0) > 0) lowDays.push(date);
+    }
+    if(lowDays.length >= 2){
+      alertBox.style.display='block';
+      alertBox.innerHTML = `💧 <strong>Hydration Alert</strong> — You've had under 2L for ${lowDays.length+1} days in a row. Dehydration affects energy, skin, and recovery. Try to reach at least 2L today!`;
+    } else {
+      alertBox.style.display='none';
+    }
+  }catch(e){}
+}
+
+// ── DAILY OVERVIEW PHOTO ──
+async function analyzeDailyPhoto(input){
+  const file = input.files[0];
+  if(!file) return;
+  const preview = document.getElementById('daily-photo-preview');
+  const result = document.getElementById('daily-photo-result');
+  const base64 = await new Promise(res=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.split(',')[1]); r.readAsDataURL(file); });
+  preview.style.display='block';
+  preview.innerHTML=`<img src="data:${file.type};base64,${base64}" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;border:1px solid var(--border);">`;
+  result.style.display='block';
+  result.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:9px;margin-top:7px;"><div class="dot-pulse"><span></span><span></span><span></span></div><span style="font-size:.73rem;color:var(--muted2);font-style:italic;">Analysing your full day's meals…</span></div>`;
+  setSyncBadge('syncing','📸 Analysing day…');
+  const isHome = mealMode==='home';
+  const prompt = `You are a precision nutritionist. This photo shows all or some of GIRL's meals for the day.
+${isHome?`IMPORTANT — Home-cooked: no added salt/sauce/sugar, Olive oil only, natural sodium/sugar from ingredients only.`:`IMPORTANT — Dining Out: include realistic restaurant sodium, sauces, and cooking oils.`}
+
+Identify every dish/item visible. Estimate total daily nutrition.
+Respond ONLY with valid JSON:
+{
+  "day_summary": "brief English description of all meals seen",
+  "meals_identified": ["dish 1","dish 2"],
+  "nutrition": {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},
+  "ing_categories": {"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},
+  "confidence": "high|medium|low"
+}`;
+  try{
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},{type:'text',text:prompt}]}]})});
+    const data=await res.json();
+    const raw=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
+    const r=JSON.parse(raw);
+    const n=r.nutrition||{};
+    // Fill daily totals
+    document.getElementById('m_b').value = r.day_summary||'';
+    ['mac_kcal','mac_p','mac_carb','mac_fat','mac_f','mac_sugar_total','mac_s','mac_sodium'].forEach(id=>document.getElementById(id).value='');
+    const set=(id,v)=>{const el=document.getElementById(id);if(el&&v)el.value=Math.round(v);};
+    set('mac_kcal',n.kcal);set('mac_p',n.protein_g);set('mac_carb',n.carb_g);
+    set('mac_fat',n.fat_g);set('mac_f',n.fiber_g);set('mac_sugar_total',n.sugar_g);
+    set('mac_s',n.fruit_sugar_g);set('mac_sodium',n.sodium_mg);
+    updateQ();
+    // Add ingredients
+    const cats=r.ing_categories||{};
+    for(const[catId,items]of Object.entries(cats)){
+      for(const item of(items||[])){
+        const name=(item||'').split('(')[0].trim();
+        if(name.length<2)continue;
+        const existing=await dbLoadIng(curIngMo);
+        const already=(existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
+        if(!already)await dbAddIng(curIngMo,catId,name,ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1);
+      }
+    }
+    const confColor=r.confidence==='high'?'var(--veg)':r.confidence==='medium'?'var(--grain)':'var(--prot)';
+    const mealTags=(r.meals_identified||[]).map(m=>`<span style="display:inline-block;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:2px 9px;font-size:.64rem;margin:2px;">${m}</span>`).join('');
+    result.innerHTML=`<div style="background:linear-gradient(135deg,rgba(74,124,89,.05),rgba(107,143,163,.04));border:1px solid rgba(74,124,89,.18);border-radius:12px;padding:12px;margin-top:7px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;">
+        <span style="font-size:.75rem;font-weight:700;letter-spacing:.3px;">📸 Full Day Analysis</span>
+        <span style="font-size:.6rem;color:${confColor};background:${confColor}18;padding:2px 9px;border-radius:10px;">Accuracy: ${r.confidence}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:9px;">
+        ${[['kcal',n.kcal,'var(--grain)'],['protein',n.protein_g,'var(--prot)'],['carbs',n.carb_g,'var(--other)'],['fat',n.fat_g,'var(--dairy)'],['fiber',n.fiber_g,'var(--veg)'],['sugar',n.sugar_g,'var(--sugar)'],['fruit sugar',n.fruit_sugar_g,'var(--fruit)'],['sodium mg',n.sodium_mg,'var(--muted2)']].map(([l,v,c])=>`<div style="text-align:center;background:var(--card);border-radius:9px;padding:7px 4px;"><div style="font-size:.88rem;font-weight:700;color:${c};font-family:'Kanit',sans-serif;">${Math.round(v||0)}</div><div style="font-size:.57rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.3px;">${l}</div></div>`).join('')}
+      </div>
+      <div style="font-size:.62rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;margin-bottom:5px;">Meals identified</div>
+      ${mealTags}
+    </div>`;
+    setSyncBadge('','☁️ Ready');
+    toast(`📸 Day analysed · ${Math.round(n.kcal||0)} kcal total`);
+  }catch(err){
+    result.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ Analysis failed — please try again</div>`;
+    setSyncBadge('error','⚠ Error');
+  }
 }
 
 // ── MEAL MODE ──
