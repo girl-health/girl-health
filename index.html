@@ -321,10 +321,54 @@ textarea{min-height:42px;}
         <span style="font-size:.65rem;color:var(--muted2);">g</span>
       </div>
     </div>
-    <div class="row2"><div><label class="lbl">🌅 เช้า</label><textarea id="m_b" placeholder="กินอะไร?"></textarea></div></div>
-    <div class="row2"><div><label class="lbl">☀️ กลางวัน</label><textarea id="m_l" placeholder="กินอะไร?"></textarea></div></div>
-    <div class="row2"><div><label class="lbl">🌆 เย็น</label><textarea id="m_d" placeholder="กินอะไร?"></textarea></div></div>
-    <div class="row2" style="margin-bottom:0"><div><label class="lbl">🍪 ของว่าง/เครื่องดื่ม</label><textarea id="m_s" placeholder="ผลไม้, น้ำปั่น..."></textarea></div></div>
+    <div class="row2"><div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <label class="lbl">🌅 เช้า</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.65rem;color:var(--accent);background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.2);border-radius:6px;padding:3px 8px;">
+          📷 <span>ถ่ายรูป/อัปโหลด</span>
+          <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'b')">
+        </label>
+      </div>
+      <textarea id="m_b" placeholder="กินอะไร? หรืออัปโหลดรูปให้ AI วิเคราะห์..."></textarea>
+      <div id="food-img-b" style="display:none;margin-top:6px;"></div>
+      <div id="food-analyze-b" style="display:none;"></div>
+    </div></div>
+    <div class="row2"><div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <label class="lbl">☀️ กลางวัน</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.65rem;color:var(--accent);background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.2);border-radius:6px;padding:3px 8px;">
+          📷 <span>ถ่ายรูป/อัปโหลด</span>
+          <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'l')">
+        </label>
+      </div>
+      <textarea id="m_l" placeholder="กินอะไร? หรืออัปโหลดรูปให้ AI วิเคราะห์..."></textarea>
+      <div id="food-img-l" style="display:none;margin-top:6px;"></div>
+      <div id="food-analyze-l" style="display:none;"></div>
+    </div></div>
+    <div class="row2"><div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <label class="lbl">🌆 เย็น</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.65rem;color:var(--accent);background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.2);border-radius:6px;padding:3px 8px;">
+          📷 <span>ถ่ายรูป/อัปโหลด</span>
+          <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'d')">
+        </label>
+      </div>
+      <textarea id="m_d" placeholder="กินอะไร? หรืออัปโหลดรูปให้ AI วิเคราะห์..."></textarea>
+      <div id="food-img-d" style="display:none;margin-top:6px;"></div>
+      <div id="food-analyze-d" style="display:none;"></div>
+    </div></div>
+    <div class="row2" style="margin-bottom:0"><div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <label class="lbl">🍪 ของว่าง/เครื่องดื่ม</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.65rem;color:var(--accent);background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.2);border-radius:6px;padding:3px 8px;">
+          📷 <span>ถ่ายรูป/อัปโหลด</span>
+          <input type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFood(this,'s')">
+        </label>
+      </div>
+      <textarea id="m_s" placeholder="ผลไม้, น้ำปั่น... หรืออัปโหลดรูป"></textarea>
+      <div id="food-img-s" style="display:none;margin-top:6px;"></div>
+      <div id="food-analyze-s" style="display:none;"></div>
+    </div></div>
   </div>
   <div class="section s-sleep">
     <div class="sec-hdr"><div class="sec-ico">🌙</div><div class="sec-ttl">การนอน</div></div>
@@ -1440,6 +1484,166 @@ function renderBioMonthStats(monthRows){
       <div class="bio-stat-val" style="color:${p.dotColor}">${count}/${totalDays||'0'} วัน</div>
     </div>`;
   }).join('');
+}
+
+// ── FOOD PHOTO ANALYSIS ──
+const MEAL_LABELS = {b:'เช้า', l:'กลางวัน', d:'เย็น', s:'ของว่าง/เครื่องดื่ม'};
+
+async function analyzeFood(input, meal){
+  const file = input.files[0];
+  if(!file) return;
+
+  // Show preview
+  const imgWrap = document.getElementById(`food-img-${meal}`);
+  const analyzeWrap = document.getElementById(`food-analyze-${meal}`);
+  const reader = new FileReader();
+
+  reader.onload = async (e) => {
+    const base64 = e.target.result.split(',')[1];
+    const mediaType = file.type || 'image/jpeg';
+
+    // Show image preview
+    imgWrap.style.display = 'block';
+    imgWrap.innerHTML = `<img src="${e.target.result}" style="width:100%;max-height:180px;object-fit:cover;border-radius:10px;border:1px solid var(--border);">`;
+
+    // Show loading
+    analyzeWrap.style.display = 'block';
+    analyzeWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:8px;margin-top:6px;">
+      <div class="dot-pulse"><span></span><span></span><span></span></div>
+      <span style="font-size:.74rem;color:var(--muted2);">🔍 AI กำลังวิเคราะห์รูปอาหาร...</span>
+    </div>`;
+
+    setSyncBadge('syncing','🍽️ วิเคราะห์รูปอาหาร...');
+
+    const prompt = `คุณเป็นนักโภชนาการผู้เชี่ยวชาญ วิเคราะห์อาหารในรูปนี้อย่างละเอียดและแม่นยำ
+
+ให้ระบุ:
+1. รายการอาหารทั้งหมดที่เห็นในรูป พร้อมปริมาณโดยประมาณ (กรัม/ชิ้น/ช้อน)
+2. วัตถุดิบหลัก (ingredients) ของแต่ละรายการ
+3. ค่าโภชนาการรวมของทั้งจาน/มื้อนี้
+
+ตอบเป็น JSON เท่านั้น ห้ามมีข้อความอื่น:
+{
+  "meal_description": "คำอธิบายอาหารที่เห็น เช่น ข้าวกล้อง + ไก่ย่าง + ผักสด",
+  "ingredients": ["วัตถุดิบ 1 (ปริมาณ)", "วัตถุดิบ 2 (ปริมาณ)", ...],
+  "nutrition": {
+    "kcal": 0,
+    "protein_g": 0,
+    "carb_g": 0,
+    "fat_g": 0,
+    "fiber_g": 0,
+    "sugar_g": 0,
+    "fruit_sugar_g": 0,
+    "sodium_mg": 0
+  },
+  "ing_categories": {
+    "fruit": ["ชื่อผลไม้ที่เห็น"],
+    "veg": ["ผักที่เห็น"],
+    "prot": ["โปรตีนที่เห็น"],
+    "grain": ["ธัญพืชที่เห็น"],
+    "dairy": ["นม/ไขมันที่เห็น"],
+    "other": ["อื่นๆ"]
+  },
+  "confidence": "high/medium/low"
+}`;
+
+    try {
+      const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': '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',
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-allow-browser': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1200,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64 } },
+              { type: 'text', text: prompt }
+            ]
+          }]
+        })
+      });
+
+      const data = await res.json();
+      const raw = data.content.map(i => i.text || '').join('').trim().replace(/```json|```/g,'').trim();
+      const result = JSON.parse(raw);
+
+      // ── Fill meal textarea ──
+      const mealField = document.getElementById(`m_${meal}`);
+      mealField.value = result.meal_description || '';
+
+      // ── Accumulate macros (add to existing) ──
+      const n = result.nutrition || {};
+      const addTo = (id, val) => {
+        const el = document.getElementById(id);
+        if(el && val) el.value = Math.round((+el.value||0) + val);
+      };
+      addTo('mac_kcal', n.kcal);
+      addTo('mac_p',    n.protein_g);
+      addTo('mac_carb', n.carb_g);
+      addTo('mac_fat',  n.fat_g);
+      addTo('mac_f',    n.fiber_g);
+      addTo('mac_sugar_total', n.sugar_g);
+      addTo('mac_s',    n.fruit_sugar_g);
+      addTo('mac_sodium', n.sodium_mg);
+      updateQ();
+
+      // ── Auto-add ingredients to ING page ──
+      const cats = result.ing_categories || {};
+      const ingAdded = [];
+      for(const [catId, items] of Object.entries(cats)){
+        for(const item of (items||[])){
+          if(!item || item.length < 2) continue;
+          const name = item.split('(')[0].trim();
+          if(!name) continue;
+          // Check if already exists this month
+          const existing = await dbLoadIng(curIngMo);
+          const already = (existing[catId]||[]).some(i => i.name.toLowerCase() === name.toLowerCase());
+          if(!already){
+            await dbAddIng(curIngMo, catId, name, ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿', 1);
+            ingAdded.push(name);
+          }
+        }
+      }
+
+      // ── Show result card ──
+      const confColor = result.confidence==='high'?'var(--veg)':result.confidence==='medium'?'var(--grain)':'var(--prot)';
+      const ingList = (result.ingredients||[]).map(i=>`<span style="display:inline-block;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:2px 8px;font-size:.65rem;margin:2px;">${i}</span>`).join('');
+      analyzeWrap.innerHTML = `
+        <div style="background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border:1px solid rgba(74,124,89,.2);border-radius:10px;padding:11px;margin-top:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-family:'Kanit',sans-serif;font-size:.78rem;color:var(--accent);">🍽️ AI วิเคราะห์มื้อ${MEAL_LABELS[meal]}</span>
+            <span style="font-size:.6rem;color:${confColor};background:${confColor}18;padding:2px 7px;border-radius:10px;">ความแม่นยำ: ${result.confidence}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:9px;">
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--grain)">${Math.round(n.kcal||0)}</div><div style="font-size:.58rem;color:var(--muted2)">kcal</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--prot)">${Math.round(n.protein_g||0)}g</div><div style="font-size:.58rem;color:var(--muted2)">โปรตีน</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--other)">${Math.round(n.carb_g||0)}g</div><div style="font-size:.58rem;color:var(--muted2)">คาร์บ</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--dairy)">${Math.round(n.fat_g||0)}g</div><div style="font-size:.58rem;color:var(--muted2)">ไขมัน</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg)">${Math.round(n.fiber_g||0)}g</div><div style="font-size:.58rem;color:var(--muted2)">ไฟเบอร์</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--sugar)">${Math.round(n.sugar_g||0)}g</div><div style="font-size:.58rem;color:var(--muted2)">น้ำตาล</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg)">${Math.round(n.fruit_sugar_g||0)}g</div><div style="font-size:.58rem;color:var(--muted2)">น้ำตาลผลไม้</div></div>
+            <div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--fruit)">${Math.round(n.sodium_mg||0)}</div><div style="font-size:.58rem;color:var(--muted2)">โซเดียม mg</div></div>
+          </div>
+          <div style="margin-bottom:7px;"><div style="font-size:.65rem;color:var(--muted2);margin-bottom:4px;">🥗 วัตถุดิบที่ตรวจพบ:</div>${ingList}</div>
+          ${ingAdded.length ? `<div style="font-size:.65rem;color:var(--veg);">✅ เพิ่มวัตถุดิบ ${ingAdded.length} รายการเข้าหน้าวัตถุดิบแล้ว</div>` : ''}
+        </div>`;
+
+      setSyncBadge('','☁️ พร้อม');
+      toast(`✅ วิเคราะห์มื้อ${MEAL_LABELS[meal]}แล้ว! ${Math.round(n.kcal||0)} kcal`);
+
+    } catch(err) {
+      analyzeWrap.innerHTML = `<div style="padding:8px;background:rgba(239,108,108,.08);border-radius:8px;font-size:.73rem;color:var(--prot);">❌ วิเคราะห์ไม่ได้ ลองใหม่อีกครั้ง</div>`;
+      setSyncBadge('error','❌ Error');
+      console.error(err);
+    }
+  };
+  reader.readAsDataURL(file);
 }
 
 function renderBioQuick(takenObj){
