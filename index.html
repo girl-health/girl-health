@@ -498,7 +498,10 @@ function updateQ(){
 function chDay(delta){
   const[y,m,d]=curDay.split('-').map(Number);
   const dt=new Date(y,m-1,d);dt.setDate(dt.getDate()+delta);
-  curDay=dt.toISOString().split('T')[0];loadDay();
+  const ny=dt.getFullYear();
+  const nm=String(dt.getMonth()+1).padStart(2,'0');
+  const nd=String(dt.getDate()).padStart(2,'0');
+  curDay=ny+'-'+nm+'-'+nd;loadDay();
 }
 function goToday(){curDay=new Date().toISOString().split('T')[0];loadDay();}
 
@@ -557,12 +560,32 @@ async function sendChat(){
   document.getElementById('chatBar').style.display='none';
   setSyncBadge('syncing','🤖 กำลังประมวลผล...');
 
-  const prompt=`แยกข้อมูลสุขภาพจากข้อความ ตอบ JSON เท่านั้น ไม่มีข้อความอื่น
-วันที่: ${thaiDate(curDay)}
+  const prompt=`คุณเป็น AI ช่วยแยกข้อมูลสุขภาพ ตอบเป็น JSON เท่านั้น ห้ามมีข้อความอื่นเด็ดขาด
 ข้อความ: "${txt}"
-บริบท: เกิลงดน้ำตาล ทำอาหารสดเอง ออกกำลัง Strength+Cardio
-JSON fields (ใส่เฉพาะที่มีในข้อความ):
-{"m_b":"เช้า","m_l":"กลางวัน","m_d":"เย็น","m_s":"ของว่าง","mac_p":0,"mac_f":0,"mac_s":0,"water":0,"sl_s":"HH:MM","sl_e":"HH:MM","sl_score":0,"sl_rhr":0,"sl_hrv":0,"sl_bb":0,"e1_m":0,"e1_h":0,"e1_k":0,"e2_m":0,"e2_k":0,"e2_c":0,"e2_h":0,"ex_n":"โน้ต","weight":0,"muscle":0,"fat_p":0,"supps":"ยา","h_note":"โน้ต"}`;
+
+กฎการแยกข้อมูล:
+- m_b = อาหารมื้อเช้าเท่านั้น (ถ้าขึ้นต้นด้วย เช้า: หรือ breakfast)
+- m_l = อาหารมื้อกลางวันเท่านั้น (ถ้าขึ้นต้นด้วย กลางวัน: หรือ lunch)
+- m_d = อาหารมื้อเย็นเท่านั้น (ถ้าขึ้นต้นด้วย เย็น: หรือ dinner)
+- m_s = ของว่าง/เครื่องดื่ม/Recovery (ถ้าขึ้นต้นด้วย ของว่าง: หรือ snack หรือ recovery)
+- e1_m = นาที Strength training
+- e1_k = kcal จาก Strength
+- e2_m = นาที Cardio
+- e2_k = km จาก Cardio
+- e2_c = kcal จาก Cardio
+- sl_score = Sleep Score (ตัวเลข 0-100)
+- sl_rhr = RHR หัวใจขณะพัก (bpm)
+- sl_hrv = HRV (ms)
+- sl_bb = Body Battery change (+/- ตัวเลข)
+- sl_s = เวลาเข้านอน format HH:MM เช่น 23:30
+- sl_e = เวลาตื่น format HH:MM เช่น 07:00
+- mac_p = โปรตีนรวม (g)
+- water = น้ำดื่ม (ลิตร)
+- weight = น้ำหนัก (กก.)
+- supps = อาหารเสริม/ยา
+
+ตอบ JSON นี้เท่านั้น ใส่เฉพาะ field ที่มีข้อมูลจริงๆ:
+{"m_b":"","m_l":"","m_d":"","m_s":"","mac_p":0,"mac_f":0,"mac_s":0,"water":0,"sl_s":"","sl_e":"","sl_score":0,"sl_rhr":0,"sl_hrv":0,"sl_bb":0,"e1_m":0,"e1_h":0,"e1_k":0,"e2_m":0,"e2_k":0,"e2_c":0,"e2_h":0,"ex_n":"","weight":0,"muscle":0,"fat_p":0,"supps":"","h_note":""}`;
 
   try{
     const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})});
