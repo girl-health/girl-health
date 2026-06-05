@@ -540,13 +540,22 @@ textarea{min-height:42px;}
         </div>
         <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Symptoms <span style="font-weight:400;text-transform:none;letter-spacing:0;">(tap all that apply)</span></div>
         <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
-          ${['cramps','bloating','headache','fatigue','mood swings','back pain','nausea','cravings'].map(s=>
-            `<button onclick="togglePeriodSymptom('${s}')" class="period-sym-btn" id="ps-${s.replace(/ /g,'_')}">${s}</button>`
-          ).join('')}
+          <button onclick="togglePeriodSymptom('cramps')" class="period-sym-btn" id="ps-cramps">cramps</button>
+          <button onclick="togglePeriodSymptom('bloating')" class="period-sym-btn" id="ps-bloating">bloating</button>
+          <button onclick="togglePeriodSymptom('headache')" class="period-sym-btn" id="ps-headache">headache</button>
+          <button onclick="togglePeriodSymptom('fatigue')" class="period-sym-btn" id="ps-fatigue">fatigue</button>
+          <button onclick="togglePeriodSymptom('mood swings')" class="period-sym-btn" id="ps-mood_swings">mood swings</button>
+          <button onclick="togglePeriodSymptom('back pain')" class="period-sym-btn" id="ps-back_pain">back pain</button>
+          <button onclick="togglePeriodSymptom('nausea')" class="period-sym-btn" id="ps-nausea">nausea</button>
+          <button onclick="togglePeriodSymptom('cravings')" class="period-sym-btn" id="ps-cravings">cravings</button>
         </div>
         <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Pain <span style="font-weight:400;text-transform:none;">(1 = mild · 5 = severe)</span></div>
         <div style="display:flex;gap:5px;margin-bottom:8px;">
-          ${[1,2,3,4,5].map(i=>`<button onclick="setPeriodPain(${i})" class="period-sub-btn" id="pp-${i}" style="flex:1;text-align:center;">${i}</button>`).join('')}
+          <button onclick="setPeriodPain(1)" class="period-sub-btn" id="pp-1" style="flex:1;text-align:center;">1</button>
+          <button onclick="setPeriodPain(2)" class="period-sub-btn" id="pp-2" style="flex:1;text-align:center;">2</button>
+          <button onclick="setPeriodPain(3)" class="period-sub-btn" id="pp-3" style="flex:1;text-align:center;">3</button>
+          <button onclick="setPeriodPain(4)" class="period-sub-btn" id="pp-4" style="flex:1;text-align:center;">4</button>
+          <button onclick="setPeriodPain(5)" class="period-sub-btn" id="pp-5" style="flex:1;text-align:center;">5</button>
         </div>
         <textarea id="period_note" class="meal-ta" placeholder="extra notes — e.g. came early, unusually light..." oninput="autoResize(this)" style="font-size:.75rem;"></textarea>
       </div>
