@@ -496,7 +496,8 @@ function updateQ(){
   const w=+document.getElementById('water').value||0;
   document.getElementById('q-water').textContent=w?w+'L':'—';
   const sl=+document.getElementById('sl_min_h').value||0;
-  document.getElementById('q-sleep').textContent=sl?Math.floor(sl/60)+'h'+(sl%60?sl%60+'m':''):'—';
+  const totalH=+document.getElementById('sl_total_h').value||0;
+  document.getElementById('q-sleep').textContent=sl?Math.floor(sl/60)+'h'+(sl%60?sl%60+'m':''):totalH?totalH+'h':'—';
 }
 
 // ── LOAD/SAVE DAY ──
@@ -654,7 +655,7 @@ async function renderTable(){
   let h=`<table class="day-table"><thead><tr><th>วัน</th><th>อาหาร</th><th>แมโคร</th><th>นอน</th><th>ออกกำลัง</th><th>น้ำ</th></tr></thead><tbody>`;
   rows.forEach(d=>{
     const exM=(d.e1_m||0)+(d.e2_m||0),exK=(d.e1_k||0)+(d.e2_c||0);
-    const slH=d.sl_min?Math.floor(d.sl_min/60)+'h'+(d.sl_min%60?d.sl_min%60+'m':''):'—';
+    const slH=d.sl_min?Math.floor(d.sl_min/60)+'h'+(d.sl_min%60?d.sl_min%60+'m':''):d.sl_total_h?d.sl_total_h+'h':'—';
     const meals=[d.m_b,d.m_l,d.m_d].filter(Boolean).join(' / ');
     const sm=meals.length>50?meals.substring(0,50)+'…':meals;
     h+=`<tr><td style="white-space:nowrap;color:var(--accent);font-family:'Kanit',sans-serif;font-size:.77rem">${shortDate(d.date)}<br><span style="color:var(--muted2);font-size:.6rem">${DAYS_TH[new Date(d.date).getDay()]}</span></td>
@@ -678,7 +679,7 @@ async function renderStats(){
   const n=rows.length;
   const sum=key=>rows.reduce((a,r)=>a+(+r[key]||0),0);
   const avg=key=>Math.round(sum(key)/n);
-  const avgSlMin=avg('sl_min');
+  const avgSlMin=avg('sl_min')||Math.round(rows.reduce((a,r)=>a+((+r['sl_total_h']||0)*60),0)/n);
   const totalEx=sum('e1_m')+sum('e2_m'),totalK=sum('e1_k')+sum('e2_c');
   function bar(title,data2,color){
     const max=Math.max(...data2.map(r=>r.v),1);
