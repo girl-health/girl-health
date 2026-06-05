@@ -248,6 +248,12 @@ textarea{min-height:42px;}
 .alcohol-btn{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border2);background:var(--card2);color:var(--muted2);font-size:.68rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .2s;}
 .alcohol-btn.active{border-color:#8B5E8B;background:rgba(139,94,139,.15);color:#8B5E8B;}
 #alc-heavy.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;}
+.period-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border2);background:var(--card2);color:var(--muted2);font-size:.68rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .2s;}
+.period-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;}
+.period-sub-btn{padding:5px 10px;border-radius:16px;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-size:.65rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.period-sub-btn.active{border-color:#C0392B;background:rgba(192,57,43,.15);color:#C0392B;}
+.period-sym-btn{padding:4px 9px;border-radius:14px;border:1px solid var(--border);background:var(--card2);color:var(--muted2);font-size:.63rem;cursor:pointer;transition:all .2s;}
+.period-sym-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;font-weight:600;}
 </style>
 </head>
 <body>
@@ -581,6 +587,50 @@ textarea{min-height:42px;}
       <button onclick="analyzeAlcohol()" style="margin-top:6px;font-size:.63rem;font-weight:700;letter-spacing:.6px;color:#fff;background:#8B5E8B;border:none;border-radius:7px;padding:5px 12px;cursor:pointer;text-transform:uppercase;">✦ Calculate Impact</button>
       <div id="alcohol-result" style="display:none;margin-top:7px;"></div>
     </div>
+    <!-- Period Tracker -->
+    <div style="margin-bottom:12px;">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">🌸 Period</div>
+      <!-- On/Off toggle -->
+      <div style="display:flex;gap:6px;margin-bottom:8px;">
+        <button onclick="setPeriod('none')" class="period-btn" id="pd-none">— None</button>
+        <button onclick="setPeriod('on')" class="period-btn" id="pd-on">🩸 On Period</button>
+      </div>
+      <!-- Detail panel (shown when on period) -->
+      <div id="period-detail" style="display:none;background:var(--bg);border:1px solid rgba(192,57,43,.2);border-radius:12px;padding:11px;margin-top:6px;">
+        <!-- Flow amount -->
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Flow</div>
+        <div style="display:flex;gap:5px;margin-bottom:10px;">
+          <button onclick="setPeriodFlow('spot')" class="period-sub-btn" id="pf-spot">🔴 Spotting</button>
+          <button onclick="setPeriodFlow('light')" class="period-sub-btn" id="pf-light">🟠 Light</button>
+          <button onclick="setPeriodFlow('medium')" class="period-sub-btn" id="pf-medium">🔴 Medium</button>
+          <button onclick="setPeriodFlow('heavy')" class="period-sub-btn" id="pf-heavy">🩸 Heavy</button>
+        </div>
+        <!-- Color -->
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Colour</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+          <button onclick="setPeriodColor('bright_red')" class="period-sub-btn" id="pc-bright_red">🔴 Bright red</button>
+          <button onclick="setPeriodColor('dark_red')" class="period-sub-btn" id="pc-dark_red">🟤 Dark red</button>
+          <button onclick="setPeriodColor('brown')" class="period-sub-btn" id="pc-brown">🟫 Brown</button>
+          <button onclick="setPeriodColor('pink')" class="period-sub-btn" id="pc-pink">🩷 Pink</button>
+          <button onclick="setPeriodColor('clots')" class="period-sub-btn" id="pc-clots">⚫ Clots</button>
+        </div>
+        <!-- Symptoms -->
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Symptoms</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;" id="period-symptoms-wrap">
+          ${['cramps','bloating','headache','fatigue','mood swings','back pain','nausea','cravings'].map(s=>
+            `<button onclick="togglePeriodSymptom('${s}')" class="period-sym-btn" id="ps-${s.replace(' ','_')}">${s}</button>`
+          ).join('')}
+        </div>
+        <!-- Pain level -->
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Pain level</div>
+        <div style="display:flex;gap:5px;margin-bottom:8px;">
+          ${[1,2,3,4,5].map(i=>`<button onclick="setPeriodPain(${i})" class="period-sub-btn" id="pp-${i}">${i}</button>`).join('')}
+        </div>
+        <!-- Free note -->
+        <textarea id="period_note" class="meal-ta" placeholder="any other notes — e.g. early, late, unusual..." oninput="autoResize(this)" style="margin-top:2px;font-size:.75rem;"></textarea>
+      </div>
+    </div>
+
     <label class="lbl" style="margin-top:8px">📝 Notes</label>
     <textarea id="h_note" placeholder="symptoms, how you feel, anything worth noting..."></textarea>
   </div>
@@ -740,6 +790,7 @@ ALTER TABLE health_days ADD COLUMN IF NOT EXISTS e2_h INT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS day_rating TEXT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS alcohol_level TEXT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS alcohol_note TEXT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS period_data TEXT;
 
 CREATE TABLE IF NOT EXISTS health_ingredients (
   id SERIAL PRIMARY KEY,
@@ -938,6 +989,7 @@ async function loadDay(){
     setAlcoholUI('none');
     document.getElementById('alcohol_note').value='';
     document.getElementById('alcohol-result').style.display='none';
+    setPeriodUI(null);
     renderBioQuick({});
     return;
   }
@@ -953,6 +1005,8 @@ async function loadDay(){
   setAlcoholUI(d.alcohol_level||'none');
   document.getElementById('alcohol_note').value=d.alcohol_note||'';
   document.getElementById('alcohol-result').style.display='none';
+  // Period
+  try{ setPeriodUI(d.period_data ? JSON.parse(d.period_data) : null); }catch{ setPeriodUI(null); }
   document.getElementById('day-advice').innerHTML='<div style="color:var(--muted2);font-size:.76rem">กด "วิเคราะห์" ✨</div>';
   // Bad day state
   isBadDay = (d.mood===1 && (d.h_note||'').includes('Bad day'));
@@ -987,6 +1041,7 @@ async function saveDay(){
     day_rating:dayRating,
     alcohol_level:alcoholLevel,
     alcohol_note:g('alcohol_note'),
+    period_data: JSON.stringify({...periodState, note: g('period_note')}),
   };
   const ok=await dbSaveDay(curDay,data);
   if(ok){
@@ -1200,7 +1255,11 @@ async function renderStats(){
   const daysInMo=new Date(y,m,0).getDate();
   const firstDow=new Date(y,m-1,1).getDay();
   const today=new Date().toISOString().split('T')[0];
-  const rowMap={};rows.forEach(r=>rowMap[r.date]=r);
+  const rowMap={};rows.forEach(r=>{
+    let pd=null;
+    try{ pd=r.period_data?JSON.parse(r.period_data):null; }catch{}
+    rowMap[r.date]={...r,_period:pd};
+  });
   let calCells='';
   for(let i=0;i<firstDow;i++) calCells+=`<div></div>`;
   for(let d=1;d<=daysInMo;d++){
@@ -1209,12 +1268,15 @@ async function renderStats(){
     const isTdy=ds===today;
     const rating=row?.day_rating||'';
     const hasAlc=row?.alcohol_level&&row.alcohol_level!=='none';
+    const hasPeriod=row?._period?.on;
+    const periodFlow=row?._period?.flow||'';
+    const flowDot=hasPeriod?(periodFlow==='heavy'?'🩸':periodFlow==='medium'?'🔴':periodFlow==='light'?'🟠':'·'):'';
     const col=rating?ratingColor[rating]:'var(--border2)';
     const bg=rating?ratingBg[rating]:'transparent';
     const outline=isTdy?`outline:2px solid var(--accent);outline-offset:1px;`:'';
     calCells+=`<div onclick="pickCalDay('${ds}')" style="aspect-ratio:1;border-radius:7px;background:${bg};border:1px solid ${col};display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;${outline}font-size:.7rem;font-weight:700;color:${col||'var(--muted2)'};">
       <span>${d}</span>
-      ${row?`<span style="font-size:.55rem;">${ratingLabel[rating]||'·'}${hasAlc?' 🍷':''}</span>`:''}
+      ${row?`<span style="font-size:.55rem;">${ratingLabel[rating]||'·'}${hasAlc?' 🍷':''}${hasPeriod?' '+flowDot:''}</span>`:''}
     </div>`;
   }
 
@@ -1255,9 +1317,36 @@ async function renderStats(){
         <div style="display:flex;align-items:center;gap:4px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(74,124,89,.15);border:1px solid #4A7C59;"></div><span style="font-size:.6rem;color:var(--muted2);">🌟✅ Good</span></div>
         <div style="display:flex;align-items:center;gap:4px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(201,169,110,.12);border:1px solid #C9A96E;"></div><span style="font-size:.6rem;color:var(--muted2);">😐 Okay</span></div>
         <div style="display:flex;align-items:center;gap:4px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(192,57,43,.1);border:1px solid #C0392B;"></div><span style="font-size:.6rem;color:var(--muted2);">💀 Bad</span></div>
-        <div style="display:flex;align-items:center;gap:4px;"><span style="font-size:.6rem;color:var(--muted2);">🍷 = alcohol</span></div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="font-size:.6rem;color:var(--muted2);">🍷 alcohol · 🩸🔴🟠 period flow</span></div>
       </div>
     </div>
+
+    ${(()=>{
+      const periodDays=rows.filter(r=>{try{return r.period_data&&JSON.parse(r.period_data).on;}catch{return false;}});
+      if(!periodDays.length) return '';
+      const symptoms={};
+      periodDays.forEach(r=>{
+        try{
+          const p=JSON.parse(r.period_data);
+          (p.symptoms||[]).forEach(s=>{ symptoms[s]=(symptoms[s]||0)+1; });
+        }catch{}
+      });
+      const topSymptoms=Object.entries(symptoms).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      const heavyDays=periodDays.filter(r=>{try{return JSON.parse(r.period_data).flow==='heavy';}catch{return false;}}).length;
+      const avgPain=periodDays.reduce((a,r)=>{try{return a+(JSON.parse(r.period_data).pain||0);}catch{return a;}},0)/periodDays.length;
+      return `<div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.18);border-radius:14px;padding:13px;margin-bottom:14px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;margin-bottom:10px;color:#C0392B;">🌸 Period — ${moLabel(mo)}</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px;">
+          <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.15);"><div class="ms-val" style="color:#C0392B;">${periodDays.length}</div><div class="ms-lbl">Period days</div></div>
+          <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.15);"><div class="ms-val" style="color:#C0392B;">${heavyDays}</div><div class="ms-lbl">Heavy days</div></div>
+          <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.15);"><div class="ms-val" style="color:#C0392B;">${avgPain>0?avgPain.toFixed(1):'—'}</div><div class="ms-lbl">Avg pain</div></div>
+        </div>
+        ${topSymptoms.length?`<div style="font-size:.65rem;color:var(--muted2);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase;">Common symptoms</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          ${topSymptoms.map(([s,c])=>`<span style="background:rgba(192,57,43,.1);color:#C0392B;border-radius:12px;padding:3px 9px;font-size:.65rem;">${s} ×${c}</span>`).join('')}
+        </div>`:''}
+      </div>`;
+    })()}
 
     ${badRows.length?`
     <!-- Good vs Bad comparison -->
@@ -1825,6 +1914,57 @@ function renderBioMonthStats(monthRows){
       <div class="bio-stat-val" style="color:${p.dotColor}">${count}/${totalDays||'0'} วัน</div>
     </div>`;
   }).join('');
+}
+
+// ── PERIOD TRACKER ──
+let periodState = {
+  on: false,
+  flow: '',
+  color: '',
+  symptoms: [],
+  pain: 0,
+  note: ''
+};
+
+function setPeriod(v){
+  periodState.on = v==='on';
+  document.getElementById('pd-none').classList.toggle('active', !periodState.on);
+  document.getElementById('pd-on').classList.toggle('active', periodState.on);
+  document.getElementById('period-detail').style.display = periodState.on ? 'block' : 'none';
+}
+function setPeriodFlow(v){
+  periodState.flow = periodState.flow===v?'':v;
+  document.querySelectorAll('[id^="pf-"]').forEach(b=>b.classList.remove('active'));
+  if(periodState.flow) document.getElementById(`pf-${periodState.flow}`)?.classList.add('active');
+}
+function setPeriodColor(v){
+  periodState.color = periodState.color===v?'':v;
+  document.querySelectorAll('[id^="pc-"]').forEach(b=>b.classList.remove('active'));
+  if(periodState.color) document.getElementById(`pc-${periodState.color}`)?.classList.add('active');
+}
+function togglePeriodSymptom(s){
+  const key = s.replace(' ','_');
+  const idx = periodState.symptoms.indexOf(s);
+  if(idx>=0) periodState.symptoms.splice(idx,1);
+  else periodState.symptoms.push(s);
+  document.querySelectorAll('[id^="ps-"]').forEach(b=>b.classList.remove('active'));
+  periodState.symptoms.forEach(sym=>document.getElementById(`ps-${sym.replace(' ','_')}`)?.classList.add('active'));
+}
+function setPeriodPain(v){
+  periodState.pain = periodState.pain===v?0:v;
+  document.querySelectorAll('[id^="pp-"]').forEach(b=>b.classList.remove('active'));
+  if(periodState.pain) document.getElementById(`pp-${periodState.pain}`)?.classList.add('active');
+}
+function setPeriodUI(p){
+  if(!p){ setPeriod('none'); return; }
+  periodState = {...{on:false,flow:'',color:'',symptoms:[],pain:0,note:''},...p};
+  setPeriod(periodState.on?'on':'none');
+  document.querySelectorAll('[id^="pf-"],[id^="pc-"],[id^="ps-"],[id^="pp-"]').forEach(b=>b.classList.remove('active'));
+  if(periodState.flow) document.getElementById(`pf-${periodState.flow}`)?.classList.add('active');
+  if(periodState.color) document.getElementById(`pc-${periodState.color}`)?.classList.add('active');
+  periodState.symptoms.forEach(s=>document.getElementById(`ps-${s.replace(' ','_')}`)?.classList.add('active'));
+  if(periodState.pain) document.getElementById(`pp-${periodState.pain}`)?.classList.add('active');
+  document.getElementById('period_note').value = periodState.note||'';
 }
 
 // ── DAY RATING ──
