@@ -175,6 +175,44 @@ textarea{min-height:42px;}
 .hist-months::-webkit-scrollbar{display:none;}
 .hm{flex-shrink:0;padding:5px 11px;border-radius:18px;font-size:.72rem;cursor:pointer;border:1px solid var(--border2);color:var(--muted2);background:var(--card);}
 .hm.on{border-color:var(--accent);color:var(--accent);background:rgba(62,207,142,.08);}
+
+/* ── BIOACTIVE+ ── */
+.bio-date-nav{display:flex;align-items:center;gap:8px;margin-bottom:14px;background:var(--card);border-radius:12px;padding:9px 12px;border:1px solid var(--border);}
+.bio-date-nav button{background:var(--card2);border:1px solid var(--border2);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
+.bio-summary-bar{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;padding-bottom:3px;}
+.bio-summary-bar::-webkit-scrollbar{display:none;}
+.bio-sum-pill{display:flex;flex-direction:column;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 10px;flex-shrink:0;min-width:58px;}
+.bio-sum-pill.taken{border-color:currentColor;}
+.bio-sum-count{font-family:'Kanit',sans-serif;font-weight:700;font-size:1rem;}
+.bio-sum-name{font-size:.58rem;color:var(--muted2);margin-top:2px;text-align:center;}
+.bio-month-hdr{font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--muted2);margin-bottom:10px;}
+.bio-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all .2s;}
+.bio-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;}
+.bio-card.taken{box-shadow:0 2px 16px rgba(0,0,0,0.08);}
+.bio-card-top{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
+.bio-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;font-family:'Kanit',sans-serif;}
+.bio-name{font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;}
+.bio-brand{font-size:.62rem;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;}
+.bio-timing{font-size:.68rem;background:rgba(0,0,0,.05);border-radius:20px;padding:3px 9px;color:var(--muted2);margin-left:auto;white-space:nowrap;flex-shrink:0;}
+.bio-benefits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.bio-tag{font-size:.65rem;padding:3px 8px;border-radius:20px;background:rgba(0,0,0,.05);color:var(--text);}
+.bio-note{font-size:.7rem;color:var(--muted2);line-height:1.5;margin-bottom:10px;padding:7px 10px;background:var(--bg);border-radius:8px;}
+.bio-tick-btn{width:100%;padding:10px;border-radius:10px;border:1.5px solid var(--border2);background:var(--card2);font-family:'Kanit',sans-serif;font-size:.8rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:600;}
+.bio-tick-btn.done{color:#fff;border-color:transparent;}
+.bio-month-grid{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.bio-cal-day{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-family:'Kanit',sans-serif;background:var(--bg);color:var(--muted2);border:1px solid var(--border);}
+.bio-cal-day.on{color:#fff;border-color:transparent;}
+.bio-cal-day.today{outline:2px solid var(--accent);outline-offset:1px;}
+.bio-mo-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.bio-mo-nav button{background:var(--card2);border:1px solid var(--border2);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:.9rem;}
+.bio-mo-lbl{flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.88rem;}
+.bio-stats-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;}
+.bio-stats-ttl{font-family:'Kanit',sans-serif;font-size:.82rem;margin-bottom:10px;}
+.bio-stat-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
+.bio-stat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.bio-stat-bar-wrap{flex:1;background:var(--bg);border-radius:4px;height:14px;overflow:hidden;}
+.bio-stat-bar{height:100%;border-radius:4px;transition:width .5s ease;}
+.bio-stat-val{font-size:.7rem;font-family:'Kanit',sans-serif;width:55px;text-align:right;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -187,6 +225,7 @@ textarea{min-height:42px;}
       <div class="ntab" onclick="goPage('table')">📋 ตาราง</div>
       <div class="ntab" onclick="goPage('stats')">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('ing')">🥗 วัตถุดิบ</div>
+      <div class="ntab" onclick="goPage('bio')">💊 BioActive+</div>
     </div>
     <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
   </div>
@@ -359,7 +398,10 @@ textarea{min-height:42px;}
   </div>
   <div class="section s-supp">
     <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl">อาหารเสริม / ยา</div></div>
-    <textarea id="supps" placeholder="Collagen (เช้า), Probiotic (เย็น), Magnesium (ก่อนนอน), ยาคลายเครียด..."></textarea>
+    <div style="font-size:.72rem;color:var(--muted2);margin-bottom:9px;">BioActive+ วันนี้ — กด card ไปที่แท็บ 💊 เพื่อ tick รายละเอียด</div>
+    <div id="bio-quick" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;"></div>
+    <label class="lbl" style="margin-top:6px">📝 ยาอื่น / หมายเหตุ</label>
+    <textarea id="supps" placeholder="ยาคลายเครียด (ก่อนนอน), ยาอื่นๆ..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">💾 บันทึก <span id="save-lbl"></span></button>
 </div>
@@ -391,6 +433,29 @@ textarea{min-height:42px;}
     <button class="analyze-btn" id="ingAdvBtn" onclick="analyzeIng()">🔍 วิเคราะห์วัตถุดิบเดือนนี้</button>
   </div>
   <div id="ing-cats"></div>
+</div>
+
+<!-- PAGE BIO -->
+<div class="page" id="page-bio">
+  <div class="bio-mo-nav">
+    <button onclick="chBioMonth(-1)">‹</button>
+    <div class="bio-mo-lbl" id="bio-mo-lbl">—</div>
+    <button class="today-btn" onclick="goBioToday()" style="font-size:.65rem;color:var(--accent);background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.25);border-radius:5px;padding:3px 7px;cursor:pointer;">วันนี้</button>
+    <button onclick="chBioMonth(1)">›</button>
+  </div>
+  <!-- Monthly summary -->
+  <div class="bio-stats-wrap">
+    <div class="bio-stats-ttl">📊 สรุปรายเดือน — วันที่กิน</div>
+    <div id="bio-month-stats"></div>
+  </div>
+  <!-- Calendar for selected product -->
+  <div id="bio-cal-wrap" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;">
+    <div style="font-family:'Kanit',sans-serif;font-size:.8rem;margin-bottom:8px;" id="bio-cal-title">—</div>
+    <div class="bio-month-grid" id="bio-cal-grid"></div>
+  </div>
+  <!-- Daily tick cards -->
+  <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--muted2);margin-bottom:8px;" id="bio-day-lbl">—</div>
+  <div id="bio-cards"></div>
 </div>
 
 <!-- CHAT BAR -->
@@ -593,6 +658,7 @@ async function loadDay(){
     document.getElementById('sl_min_h').value=0;
     document.getElementById('sl_dur').textContent='';
     mq=0;sq=0;eq=0;setMQ(0);setSQ(0);setEQ(0);updateQ();
+    renderBioQuick({});
     return;
   }
   const g=(k,def='')=>d[k]!==undefined&&d[k]!==null&&d[k]!==0?d[k]:def;
@@ -603,6 +669,9 @@ async function loadDay(){
   mq=d.mood||0;sq=d.sl_q||0;eq=d.eq||0;
   setMQ(mq);setSQ(sq);setEQ(eq);updateQ();
   document.getElementById('day-advice').innerHTML='<div style="color:var(--muted2);font-size:.76rem">กด "วิเคราะห์" ✨</div>';
+  // BioActive quick view
+  const bioData = await dbLoadBio(curDay);
+  renderBioQuick(bioData);
 }
 
 async function saveDay(){
@@ -625,10 +694,55 @@ async function saveDay(){
     mood:mq,h_note:g('h_note'),
   };
   const ok=await dbSaveDay(curDay,data);
-  if(ok)toast('✅ บันทึกแล้ว! ☁️');
+  if(ok){
+    // Auto-detect BioActive from supps + meal text
+    const combined=[g('supps'),g('m_b'),g('m_s')].join(' ');
+    const bioDetected = parseBioFromText(combined);
+    if(Object.keys(bioDetected).length){
+      const existingBio = await dbLoadBio(curDay);
+      const mergedBio = {...existingBio, ...bioDetected};
+      await dbSaveBio(curDay, mergedBio);
+      renderBioQuick(mergedBio);
+    }
+    toast('✅ บันทึกแล้ว! ☁️');
+  }
 }
 
 // ── CHAT AUTO-FILL ──
+
+// Map keywords → product IDs (ใช้สำหรับ parse text อัตโนมัติ)
+const BIO_KEYWORDS = {
+  collagen: ['collagen','คอลลาเจน','collagen bioactive'],
+  gluta:    ['gluta','กลูต้า','gluta bioactive'],
+  asta:     ['asta','แอสต้า','astaxanthin','asta bioactive'],
+  gold:     ['gold','โกลด์','gold bioactive'],
+  kera:     ['kera','เคอร่า','keratin','kera bioactive'],
+  magnesium:['magnesium','แมกนีเซียม','magtein','mag bioactive','magnesium bioactive'],
+  tribiotic:['tribiotic','ไตรไบโอติก','trebiotic','probiotic bioactive','probiotic','โปรไบโอติก','tribiotic 28','tribiotic pro'],
+  immuchew: ['immuchew','อิมมูชิว','colostrum','immuno'],
+  juvecol:  ['juvecol','จูวีคอล','proteoglycan'],
+};
+
+function parseBioFromText(text){
+  if(!text) return {};
+  const lower = text.toLowerCase();
+  const result = {};
+  Object.entries(BIO_KEYWORDS).forEach(([pid, keywords])=>{
+    if(keywords.some(kw => lower.includes(kw))) result[pid] = true;
+  });
+  return result;
+}
+
+async function autoFillBioFromSupps(date, suppsText){
+  const detected = parseBioFromText(suppsText);
+  if(!Object.keys(detected).length) return;
+  // Merge with existing bio_taken
+  const existing = await dbLoadBio(date);
+  const merged = {...existing, ...detected};
+  await dbSaveBio(date, merged);
+  return merged;
+}
+
 async function sendChat(){
   const inp=document.getElementById('chatIn');
   const txt=inp.value.trim();if(!txt)return;
@@ -659,7 +773,7 @@ async function sendChat(){
 - mac_p = โปรตีนรวม (g)
 - water = น้ำดื่ม (ลิตร)
 - weight = น้ำหนัก (กก.)
-- supps = อาหารเสริม/ยา
+- supps = อาหารเสริม/ยา (ใส่ทั้งหมดที่กล่าวถึง รวม BioActive ด้วย)
 
 ตอบ JSON นี้เท่านั้น ใส่เฉพาะ field ที่มีข้อมูลจริงๆ:
 {"m_b":"","m_l":"","m_d":"","m_s":"","mac_p":0,"mac_f":0,"mac_s":0,"water":0,"sl_s":"","sl_e":"","sl_score":0,"sl_rhr":0,"sl_hrv":0,"sl_bb":0,"e1_m":0,"e1_h":0,"e1_k":0,"e2_m":0,"e2_k":0,"e2_c":0,"e2_h":0,"ex_n":"","weight":0,"muscle":0,"fat_p":0,"supps":"","h_note":""}`;
@@ -674,8 +788,23 @@ async function sendChat(){
     const merged={...existing};
     Object.keys(parsed).forEach(k=>{if(parsed[k]!==undefined&&parsed[k]!=='')merged[k]=parsed[k];});
     await dbSaveDay(curDay,merged);
+
+    // ── AUTO BioActive detect ──
+    // 1) จาก supps field ที่ AI แยกได้
+    const bioFromSupps = parseBioFromText(parsed.supps||'');
+    // 2) จาก raw text ที่เกิลพิมพ์ทั้งหมด
+    const bioFromRaw = parseBioFromText(txt);
+    const bioDetected = {...bioFromRaw, ...bioFromSupps};
+    if(Object.keys(bioDetected).length){
+      const existingBio = await dbLoadBio(curDay);
+      await dbSaveBio(curDay, {...existingBio, ...bioDetected});
+      const names = Object.keys(bioDetected).map(pid=>BIOACTIVE_PRODUCTS.find(p=>p.id===pid)?.name).filter(Boolean);
+      toast(`✅ ข้อมูลเข้าแล้ว! BioActive: ${names.join(', ')}`);
+    } else {
+      toast('✅ ใส่ข้อมูลแล้ว! ☁️');
+    }
+
     await loadDay();
-    toast('✅ ใส่ข้อมูลแล้ว! ☁️');
   }catch(err){toast('❌ เกิดข้อผิดพลาด');}
   setSyncBadge('','☁️ พร้อม');
   document.getElementById('chatBar').style.display='flex';
@@ -707,13 +836,14 @@ Strength:${d.e1_m||0}นาที ${d.e1_k||0}kcal Cardio:${d.e2_m||0}นาท�
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  document.querySelectorAll('.ntab').forEach((t,i)=>t.classList.toggle('active',['log','table','stats','ing'][i]===name));
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.classList.toggle('active',['log','table','stats','ing','bio'][i]===name));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.getElementById('chatBar').classList.toggle('visible',name==='log');
   if(name==='table')renderTable();
   if(name==='stats')renderStats();
   if(name==='ing')renderIng();
+  if(name==='bio'){curBioDay=curDay;curBioMo=curDay.substring(0,7);renderBio();}
 }
 
 // ── TABLE ──
@@ -883,9 +1013,27 @@ async function init(){
   const ok=await setupTables();
   if(ok){
     await loadDay();
-    // Seed historical data
     await seedData();
+    await migrateBioFromSupps(); // retroactively fill bio_taken from old supps text
   }
+}
+
+// Retroactively parse bio_taken from supps field for all existing days
+async function migrateBioFromSupps(){
+  try{
+    const{data,error}=await db.from('health_days').select('date,supps,m_b,m_s,bio_taken');
+    if(error||!data) return;
+    for(const row of data){
+      // Skip if already has bio data
+      if(row.bio_taken && row.bio_taken !== '{}') continue;
+      // Combine supps + breakfast + snack text (seeded data has supps in m_b sometimes)
+      const combined = [row.supps||'', row.m_b||'', row.m_s||''].join(' ');
+      const detected = parseBioFromText(combined);
+      if(Object.keys(detected).length){
+        await db.from('health_days').update({bio_taken: JSON.stringify(detected)}).eq('date', row.date);
+      }
+    }
+  }catch(e){}
 }
 
 async function seedData(){
@@ -893,12 +1041,19 @@ async function seedData(){
   const existing=await dbLoadDay('2026-06-01');
   if(existing) return; // Already seeded
 
+  const supps1='Magnesium Bioactive (ก่อนนอน), ยาคลายเครียด (ก่อนนอน)';
+  const supps2='Collagen Bioactive (เช้า), Probiotic (เย็น), Magnesium Bioactive (ก่อนนอน), ยาคลายเครียด (ก่อนนอน)';
+  const supps3='Collagen Bioactive (เช้า), ยาคลายเครียด (ก่อนนอน)';
+
   // Seed day 1
-  await dbSaveDay('2026-06-01',{m_b:'ขนมปังธัญพืช 1 แผ่น + อะโวคาโด + แซลมอนชิ้นเล็ก',m_l:'',m_d:'ลาบแซลมอน + ไข่ 2 ฟอง + ผัก',m_s:'น้ำผลไม้ปั่น (เช้า), ดาร์กช็อกโกแลต 2 ชิ้น, แตงโมเหลือง, สับปะรด',mac_p:60,mac_f:18,mac_s:22,sl_min:600,sl_score:0,sl_q:5,e1_m:0,e1_k:0,e2_m:0,e2_c:0,ex_n:'วันพัก Recovery นอน 10h หลังทริป',eq:1,supps:'Magnesium Bioactive (ก่อนนอน), ยาคลายเครียด (ก่อนนอน)',water:2.5,mood:4,h_note:'Recovery วันแรก นอน 10h'});
+  await dbSaveDay('2026-06-01',{m_b:'ขนมปังธัญพืช 1 แผ่น + อะโวคาโด + แซลมอนชิ้นเล็ก',m_l:'',m_d:'ลาบแซลมอน + ไข่ 2 ฟอง + ผัก',m_s:'น้ำผลไม้ปั่น (เช้า), ดาร์กช็อกโกแลต 2 ชิ้น, แตงโมเหลือง, สับปะรด',mac_p:60,mac_f:18,mac_s:22,sl_min:600,sl_score:0,sl_q:5,e1_m:0,e1_k:0,e2_m:0,e2_c:0,ex_n:'วันพัก Recovery นอน 10h หลังทริป',eq:1,supps:supps1,bio_taken:JSON.stringify(parseBioFromText(supps1)),water:2.5,mood:4,h_note:'Recovery วันแรก นอน 10h'});
   // Seed day 2
-  await dbSaveDay('2026-06-02',{m_b:'Oat Pancake ไร้แป้ง (ข้าวโอ้ต+ไข่+Greek yogurt+นมอัลมอนด์) + แซลมอน + ไข่ดาว (Olive oil) + กาแฟดำ+งาดำบด + Collagen Bioactive',m_l:'',m_d:'ลาบปลาแซลมอน + ไข่ดาว 2 ฟอง + ข้าวกล้อง',m_s:'น้ำผลไม้ปั่น (กีวี+มะละกอ+สับปะรด+แคนตาลูป+เลมอน+ขิง) + Probiotic, ของว่างก่อนนอน 22:30: ข้าวกล้อง+ไข่ดาว 2 ฟอง, แอปเปิ้ล+บลูเบอร์รี่+ดาร์กช็อกโกแลต',mac_p:75,mac_f:22,mac_s:18,sl_min:478,sl_score:93,sl_rhr:49,sl_hrv:51,sl_bb:76,sl_q:5,e1_m:40,e1_h:126,e1_k:210,e2_m:30,e2_k:2.75,e2_c:218,e2_h:142,ex_n:'Full body strength + ลู่วิ่ง ความชัน 5.5',eq:4,supps:'Collagen Bioactive (เช้า), Probiotic (เย็น), Magnesium Bioactive (ก่อนนอน), ยาคลายเครียด (ก่อนนอน)',water:2.5,mood:5,h_note:'Sleep Score 93/100 Excellent ✨'});
+  const m_b2='Oat Pancake ไร้แป้ง (ข้าวโอ้ต+ไข่+Greek yogurt+นมอัลมอนด์) + แซลมอน + ไข่ดาว (Olive oil) + กาแฟดำ+งาดำบด + Collagen Bioactive';
+  const m_s2='น้ำผลไม้ปั่น (กีวี+มะละกอ+สับปะรด+แคนตาลูป+เลมอน+ขิง) + Probiotic, ของว่างก่อนนอน 22:30: ข้าวกล้อง+ไข่ดาว 2 ฟอง, แอปเปิ้ล+บลูเบอร์รี่+ดาร์กช็อกโกแลต';
+  await dbSaveDay('2026-06-02',{m_b:m_b2,m_l:'',m_d:'ลาบปลาแซลมอน + ไข่ดาว 2 ฟอง + ข้าวกล้อง',m_s:m_s2,mac_p:75,mac_f:22,mac_s:18,sl_min:478,sl_score:93,sl_rhr:49,sl_hrv:51,sl_bb:76,sl_q:5,e1_m:40,e1_h:126,e1_k:210,e2_m:30,e2_k:2.75,e2_c:218,e2_h:142,ex_n:'Full body strength + ลู่วิ่ง ความชัน 5.5',eq:4,supps:supps2,bio_taken:JSON.stringify(parseBioFromText([supps2,m_b2,m_s2].join(' '))),water:2.5,mood:5,h_note:'Sleep Score 93/100 Excellent ✨'});
   // Seed day 3
-  await dbSaveDay('2026-06-03',{m_b:'มันม่วงบด + แซลมอนย่างหั่นชิ้น + ไข่ดาว 2 ฟอง (Olive oil) + อะโวคาโดสไลด์ + พริกหวานสามสีย่าง (แดง เหลือง เขียว) + Bioactive Collagen สีทอง + มัทฉะนมอัลมอนด์ทำเอง + งาดำคั่ว 1 ช้อน',m_l:'',m_d:'',m_s:'',mac_p:55,mac_f:20,mac_s:8,sl_min:428,sl_score:82,sl_rhr:50,sl_hrv:41,sl_bb:51,sl_q:4,e1_m:50,e1_h:0,e1_k:0,e2_m:30,e2_k:2.72,e2_c:216,e2_h:0,ex_n:'Full body strength 50 นาที + Cardio ลู่วิ่ง ความชัน 5.5 ความเร็ว 5.5 30 นาที',eq:4,supps:'Collagen Bioactive (เช้า), ยาคลายเครียด (ก่อนนอน)',water:0,mood:0,h_note:''});
+  const m_b3='มันม่วงบด + แซลมอนย่างหั่นชิ้น + ไข่ดาว 2 ฟอง (Olive oil) + อะโวคาโดสไลด์ + พริกหวานสามสีย่าง (แดง เหลือง เขียว) + Bioactive Collagen สีทอง + มัทฉะนมอัลมอนด์ทำเอง + งาดำคั่ว 1 ช้อน';
+  await dbSaveDay('2026-06-03',{m_b:m_b3,m_l:'',m_d:'',m_s:'',mac_p:55,mac_f:20,mac_s:8,sl_min:428,sl_score:82,sl_rhr:50,sl_hrv:41,sl_bb:51,sl_q:4,e1_m:50,e1_h:0,e1_k:0,e2_m:30,e2_k:2.72,e2_c:216,e2_h:0,ex_n:'Full body strength 50 นาที + Cardio ลู่วิ่ง ความชัน 5.5 ความเร็ว 5.5 30 นาที',eq:4,supps:supps3,bio_taken:JSON.stringify(parseBioFromText([supps3,m_b3].join(' '))),water:0,mood:0,h_note:''});
   toast('✅ โหลดข้อมูลเดิมแล้ว');
 }
 
@@ -1112,6 +1267,184 @@ function applyLang() {
     const labels = [t.lbl_quality, t.lbl_intensity, t.lbl_mood];
     if (labels[i]) el.textContent = labels[i];
   });
+}
+
+// ── BIOACTIVE+ ──
+const BIOACTIVE_PRODUCTS = [
+  {
+    id:'collagen', name:'Collagen', color:'#2C2C2C', dotColor:'#2C2C2C', label:'⬛ ดำ',
+    timing:'ดื่มก่อนอาหาร', form:'Concentrated Liquid',
+    benefits:['ผิวชุ่มชื้น','ผิวเด้ง','ลดริ้วรอย','รูขุมขนกระชับ'],
+    note:'คอลลาเจนดูดซึมไว · ผิวลื่น ชุ่มชื้น เรียบเนียน · ลดริ้วรอย รูขุมขนกระชับ',
+    icon:'🖤'
+  },
+  {
+    id:'gluta', name:'Gluta', color:'#D4607A', dotColor:'#D4607A', label:'💗 ชมพู',
+    timing:'ดื่มก่อนอาหาร', form:'Concentrated Liquid',
+    benefits:['ผิวกระจ่างใส','ลดหมองคล้ำ','Antioxidant','ลดรอยดำ รอยสิว'],
+    note:'กลูต้า 2 ฟอร์ม ดูดซึมไว · ผิวกระจ่างใส ชมพูออร่า · ลดเม็ดสี รอยดำ รอยสิว',
+    icon:'💗'
+  },
+  {
+    id:'asta', name:'Asta', color:'#C0392B', dotColor:'#C0392B', label:'❤️ แดง',
+    timing:'ดื่มหลังอาหาร', form:'Concentrated Liquid',
+    benefits:['กันแดดจากภายใน','ผิวเด็ก','ลดอักเสบ','AstaReal 6mg'],
+    note:'AstaReal เข้มข้น 6mg · ผิวทนแดด ปกป้องรังสี UV · ลดริ้วรอย สดใส ไม่ล้า',
+    icon:'❤️'
+  },
+  {
+    id:'gold', name:'Gold', color:'#B8860B', dotColor:'#C9A96E', label:'💛 เหลือง',
+    timing:'ดื่มหลังอาหาร', form:'Concentrated Liquid',
+    benefits:['ข้อ เอ็น กระดูก','Double SOD','กันแก่','ลดความเสื่อมระดับเซลล์'],
+    note:'Double SOD สุดยอดสารต้านอนุมูลอิสระ · กันแก่ ฟื้นฟูลึก ลดความเสื่อม · เสริมภูมิคุ้มกัน',
+    icon:'💛'
+  },
+  {
+    id:'kera', name:'Kera', color:'#888888', dotColor:'#AAAAAA', label:'⬜ ขาว',
+    timing:'ดื่มหลังอาหาร', form:'Concentrated Liquid',
+    benefits:['ผม เล็บ ผิว','ลดผมร่วง','ผมบาง ฟื้นรากผม','เล็บแข็งแรง'],
+    note:'Keratin กินได้ รูปแบบใหม่ · ลดผมร่วง ผมบาง ฟื้นรากผม · เล็บแข็งแรง เงาสุขภาพดี',
+    icon:'🤍'
+  },
+  {
+    id:'magnesium', name:'Magnesium', color:'#4A7CB0', dotColor:'#6B8FA3', label:'💙 ฟ้า',
+    timing:'ดื่มก่อนนอน 1 ชม.', form:'Concentrated Liquid / เม็ด',
+    benefits:['หลับลึก','นอนดีมีคุณภาพ','คลายเครียด','ลดปวดไมเกรน','คลายกล้ามเนื้อ'],
+    note:'Magtein® Magnesium L-Threonate Plus · รวมแมกนีเซียมระดับโลก · ดูดซึมเร็ว ร่างกายนำไปใช้ได้ทันที',
+    icon:'💙'
+  },
+  {
+    id:'tribiotic', name:'Tribiotic 28', color:'#5C7A3A', dotColor:'#4A7C59', label:'🟢 เขียว',
+    timing:'รับประทานหลังอาหารเย็น', form:'ซอง',
+    benefits:['ลำไส้','ภูมิคุ้มกัน','ขับถ่าย','Gut Health','25 Billion CFU'],
+    note:'22 สายพันธุ์ Probiotics + 5 Prebiotics + 1 Postbiotics · ขับถ่ายไม่เป็นเวลา ท้องอืด ท้องผูก รับประทานยาเชื้อบ่อย',
+    icon:'🟢'
+  },
+  {
+    id:'immuchew', name:'Immuchew', color:'#8B6914', dotColor:'#C9A96E', label:'🟤 น้ำตาล',
+    timing:'รับประทานวันละ 2 เม็ด', form:'เม็ดเคี้ยว',
+    benefits:['ภูมิคุ้มกัน','Colostrum NZ','ลดโอกาสป่วยง่าย','เสริมภูมิแบบอ่อนโยน'],
+    note:'Colostrum จากนิวซีแลนด์ · เสริมภูมิคุ้มกันตั้งแต่ด่านแรก · ไม่กระตุ้นร่างกายรุนแรง · รสนม เคี้ยวง่าย',
+    icon:'🤎'
+  },
+  {
+    id:'juvecol', name:'Juvecol', color:'#C0622A', dotColor:'#D4845A', label:'🟠 ส้ม',
+    timing:'รับประทานหลังอาหาร', form:'เม็ด',
+    benefits:['ข้อ กระดูก','Vitamin D3+K2','น้ำหล่อเลี้ยง','การเคลื่อนไหว'],
+    note:'Purified Proteoglycan จากญี่ปุ่น · ดูแลข้อแบบถึงโครงสร้าง · ผสาน Vit D3+K2 ดูแลกระดูกและแคลเซียม',
+    icon:'🟠'
+  },
+];
+
+let curBioDay = new Date().toISOString().split('T')[0];
+let curBioMo = curBioDay.substring(0,7);
+let bioTodayData = {}; // {productId: true/false}
+
+// Load BioActive data from Supabase (stored as JSON in health_days.bio_taken)
+async function dbLoadBio(date){
+  const{data,error}=await db.from('health_days').select('bio_taken').eq('date',date).single();
+  if(error||!data) return {};
+  try{ return JSON.parse(data.bio_taken||'{}'); }catch{ return {}; }
+}
+async function dbSaveBio(date, bioObj){
+  const{error}=await db.from('health_days').upsert({date, bio_taken: JSON.stringify(bioObj)});
+  return !error;
+}
+async function dbLoadBioMonth(month){
+  const{data,error}=await db.from('health_days').select('date,bio_taken').like('date',`${month}%`);
+  if(error) return [];
+  return (data||[]).map(r=>({date:r.date,taken:(() => { try{ return JSON.parse(r.bio_taken||'{}'); }catch{ return {}; } })()}));
+}
+
+function chBioMonth(delta){
+  const[y,m]=curBioMo.split('-').map(Number);
+  let nm=m+delta,ny=y;
+  if(nm>12){nm=1;ny++;}if(nm<1){nm=12;ny--;}
+  curBioMo=`${ny}-${String(nm).padStart(2,'0')}`;
+  renderBio();
+}
+function goBioToday(){ curBioDay=new Date().toISOString().split('T')[0]; curBioMo=curBioDay.substring(0,7); renderBio(); }
+
+async function renderBio(){
+  document.getElementById('bio-mo-lbl').textContent=`${MONTHS_EN[+curBioMo.split('-')[1]]} ${curBioMo.split('-')[0]}`;
+  document.getElementById('bio-day-lbl').textContent=`📅 ${thaiDate(curBioDay)} — กด ✓ เพื่อบันทึกว่ากินแล้ว`;
+
+  // Load today
+  bioTodayData = await dbLoadBio(curBioDay);
+  renderBioCards();
+
+  // Load month stats
+  const monthRows = await dbLoadBioMonth(curBioMo);
+  renderBioMonthStats(monthRows);
+}
+
+function renderBioCards(){
+  const wrap = document.getElementById('bio-cards');
+  wrap.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
+    const done = !!bioTodayData[p.id];
+    const tagHtml = p.benefits.map(b=>`<span class="bio-tag" style="background:${p.dotColor}18;color:${p.dotColor}">${b}</span>`).join('');
+    return `<div class="bio-card${done?' taken':''}" id="biocard-${p.id}" style="--bc:${p.dotColor}">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:${p.dotColor};border-radius:4px 0 0 4px;"></div>
+      <div class="bio-card-top">
+        <div class="bio-dot" style="background:${p.dotColor}">${p.icon}</div>
+        <div>
+          <div class="bio-name">${p.name}</div>
+          <div class="bio-brand">BioActive+ · ${p.form}</div>
+        </div>
+        <div class="bio-timing">${p.timing}</div>
+      </div>
+      <div class="bio-benefits">${tagHtml}</div>
+      <div class="bio-note">${p.note}</div>
+      <button class="bio-tick-btn${done?' done':''}" id="biotick-${p.id}"
+        style="${done?`background:${p.dotColor};border-color:${p.dotColor};`:'color:var(--muted2);'}"
+        onclick="toggleBio('${p.id}')">
+        ${done ? '✅ กินแล้ว!' : `☐ ยังไม่ได้กิน`}
+      </button>
+    </div>`;
+  }).join('');
+}
+
+async function toggleBio(pid){
+  bioTodayData[pid] = !bioTodayData[pid];
+  renderBioCards();
+  await dbSaveBio(curBioDay, bioTodayData);
+  // Refresh stats
+  const monthRows = await dbLoadBioMonth(curBioMo);
+  renderBioMonthStats(monthRows);
+  const p = BIOACTIVE_PRODUCTS.find(x=>x.id===pid);
+  toast(bioTodayData[pid] ? `✅ บันทึก ${p.name} แล้ว!` : `↩️ ยกเลิก ${p.name}`);
+}
+
+function renderBioMonthStats(monthRows){
+  const daysInMo = new Date(+curBioMo.split('-')[0], +curBioMo.split('-')[1], 0).getDate();
+  const wrap = document.getElementById('bio-month-stats');
+  const totalDays = monthRows.length;
+
+  wrap.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
+    const count = monthRows.filter(r=>r.taken[p.id]).length;
+    const pct = totalDays ? Math.round(count/totalDays*100) : 0;
+    return `<div class="bio-stat-row">
+      <div class="bio-stat-dot" style="background:${p.dotColor}"></div>
+      <div style="font-size:.72rem;width:70px;flex-shrink:0;font-family:'Kanit',sans-serif;color:${p.dotColor}">${p.name}</div>
+      <div class="bio-stat-bar-wrap">
+        <div class="bio-stat-bar" style="width:${pct}%;background:${p.dotColor}"></div>
+      </div>
+      <div class="bio-stat-val" style="color:${p.dotColor}">${count}/${totalDays||'0'} วัน</div>
+    </div>`;
+  }).join('');
+}
+
+function renderBioQuick(takenObj){
+  const wrap = document.getElementById('bio-quick');
+  if(!wrap) return;
+  wrap.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
+    const done = !!(takenObj||{})[p.id];
+    return `<div onclick="goPage('bio')" style="display:flex;align-items:center;gap:4px;padding:5px 9px;border-radius:18px;border:1px solid ${done?p.dotColor:'var(--border2)'};background:${done?p.dotColor+'18':'var(--card2)'};cursor:pointer;transition:all .2s;">
+      <span style="font-size:.8rem">${p.icon}</span>
+      <span style="font-size:.67rem;font-family:'Kanit',sans-serif;color:${done?p.dotColor:'var(--muted2)'};">${p.name}</span>
+      ${done?`<span style="font-size:.62rem;color:${p.dotColor}">✓</span>`:''}
+    </div>`;
+  }).join('');
 }
 
 init();
