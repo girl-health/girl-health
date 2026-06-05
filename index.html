@@ -515,6 +515,43 @@ textarea{min-height:42px;}
   <div class="section s-body">
     <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl">Body & Wellbeing</div></div>
 
+    <!-- 🌸 Period Tracker — TOP for easy access -->
+    <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:13px;padding:11px 13px;margin-bottom:12px;">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#C0392B;margin-bottom:8px;">🌸 Period Tracker</div>
+      <div style="display:flex;gap:6px;margin-bottom:8px;">
+        <button onclick="setPeriod('none')" class="period-btn" id="pd-none" style="flex:1;">— None</button>
+        <button onclick="setPeriod('on')" class="period-btn" id="pd-on" style="flex:2;">🩸 On Period today</button>
+      </div>
+      <div id="period-detail" style="display:none;">
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Flow</div>
+        <div style="display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;">
+          <button onclick="setPeriodFlow('spot')" class="period-sub-btn" id="pf-spot">· Spotting</button>
+          <button onclick="setPeriodFlow('light')" class="period-sub-btn" id="pf-light">🟠 Light</button>
+          <button onclick="setPeriodFlow('medium')" class="period-sub-btn" id="pf-medium">🔴 Medium</button>
+          <button onclick="setPeriodFlow('heavy')" class="period-sub-btn" id="pf-heavy">🩸 Heavy</button>
+        </div>
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Colour</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+          <button onclick="setPeriodColor('bright_red')" class="period-sub-btn" id="pc-bright_red">🔴 Bright red</button>
+          <button onclick="setPeriodColor('dark_red')" class="period-sub-btn" id="pc-dark_red">🟤 Dark red</button>
+          <button onclick="setPeriodColor('brown')" class="period-sub-btn" id="pc-brown">🟫 Brown</button>
+          <button onclick="setPeriodColor('pink')" class="period-sub-btn" id="pc-pink">🩷 Pink</button>
+          <button onclick="setPeriodColor('clots')" class="period-sub-btn" id="pc-clots">⚫ Clots</button>
+        </div>
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Symptoms <span style="font-weight:400;text-transform:none;letter-spacing:0;">(tap all that apply)</span></div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+          ${['cramps','bloating','headache','fatigue','mood swings','back pain','nausea','cravings'].map(s=>
+            `<button onclick="togglePeriodSymptom('${s}')" class="period-sym-btn" id="ps-${s.replace(/ /g,'_')}">${s}</button>`
+          ).join('')}
+        </div>
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Pain <span style="font-weight:400;text-transform:none;">(1 = mild · 5 = severe)</span></div>
+        <div style="display:flex;gap:5px;margin-bottom:8px;">
+          ${[1,2,3,4,5].map(i=>`<button onclick="setPeriodPain(${i})" class="period-sub-btn" id="pp-${i}" style="flex:1;text-align:center;">${i}</button>`).join('')}
+        </div>
+        <textarea id="period_note" class="meal-ta" placeholder="extra notes — e.g. came early, unusually light..." oninput="autoResize(this)" style="font-size:.75rem;"></textarea>
+      </div>
+    </div>
+
     <!-- Bad Day + Daily Photo row -->
     <div style="display:flex;gap:8px;margin-bottom:12px;">
       <button id="bad-day-btn" onclick="toggleBadDay()" style="flex:1;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;transition:all .25s;color:var(--muted2);">
@@ -587,50 +624,6 @@ textarea{min-height:42px;}
       <button onclick="analyzeAlcohol()" style="margin-top:6px;font-size:.63rem;font-weight:700;letter-spacing:.6px;color:#fff;background:#8B5E8B;border:none;border-radius:7px;padding:5px 12px;cursor:pointer;text-transform:uppercase;">✦ Calculate Impact</button>
       <div id="alcohol-result" style="display:none;margin-top:7px;"></div>
     </div>
-    <!-- Period Tracker -->
-    <div style="margin-bottom:12px;">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">🌸 Period</div>
-      <!-- On/Off toggle -->
-      <div style="display:flex;gap:6px;margin-bottom:8px;">
-        <button onclick="setPeriod('none')" class="period-btn" id="pd-none">— None</button>
-        <button onclick="setPeriod('on')" class="period-btn" id="pd-on">🩸 On Period</button>
-      </div>
-      <!-- Detail panel (shown when on period) -->
-      <div id="period-detail" style="display:none;background:var(--bg);border:1px solid rgba(192,57,43,.2);border-radius:12px;padding:11px;margin-top:6px;">
-        <!-- Flow amount -->
-        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Flow</div>
-        <div style="display:flex;gap:5px;margin-bottom:10px;">
-          <button onclick="setPeriodFlow('spot')" class="period-sub-btn" id="pf-spot">🔴 Spotting</button>
-          <button onclick="setPeriodFlow('light')" class="period-sub-btn" id="pf-light">🟠 Light</button>
-          <button onclick="setPeriodFlow('medium')" class="period-sub-btn" id="pf-medium">🔴 Medium</button>
-          <button onclick="setPeriodFlow('heavy')" class="period-sub-btn" id="pf-heavy">🩸 Heavy</button>
-        </div>
-        <!-- Color -->
-        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Colour</div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
-          <button onclick="setPeriodColor('bright_red')" class="period-sub-btn" id="pc-bright_red">🔴 Bright red</button>
-          <button onclick="setPeriodColor('dark_red')" class="period-sub-btn" id="pc-dark_red">🟤 Dark red</button>
-          <button onclick="setPeriodColor('brown')" class="period-sub-btn" id="pc-brown">🟫 Brown</button>
-          <button onclick="setPeriodColor('pink')" class="period-sub-btn" id="pc-pink">🩷 Pink</button>
-          <button onclick="setPeriodColor('clots')" class="period-sub-btn" id="pc-clots">⚫ Clots</button>
-        </div>
-        <!-- Symptoms -->
-        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Symptoms</div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;" id="period-symptoms-wrap">
-          ${['cramps','bloating','headache','fatigue','mood swings','back pain','nausea','cravings'].map(s=>
-            `<button onclick="togglePeriodSymptom('${s}')" class="period-sym-btn" id="ps-${s.replace(' ','_')}">${s}</button>`
-          ).join('')}
-        </div>
-        <!-- Pain level -->
-        <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">Pain level</div>
-        <div style="display:flex;gap:5px;margin-bottom:8px;">
-          ${[1,2,3,4,5].map(i=>`<button onclick="setPeriodPain(${i})" class="period-sub-btn" id="pp-${i}">${i}</button>`).join('')}
-        </div>
-        <!-- Free note -->
-        <textarea id="period_note" class="meal-ta" placeholder="any other notes — e.g. early, late, unusual..." oninput="autoResize(this)" style="margin-top:2px;font-size:.75rem;"></textarea>
-      </div>
-    </div>
-
     <label class="lbl" style="margin-top:8px">📝 Notes</label>
     <textarea id="h_note" placeholder="symptoms, how you feel, anything worth noting..."></textarea>
   </div>
