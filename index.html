@@ -230,6 +230,15 @@ textarea{min-height:42px;}
 .water-btn.active{border-color:var(--sleep);background:rgba(107,143,163,.12);color:var(--sleep);}
 .water-btn.good{border-color:var(--accent);background:rgba(74,124,89,.1);color:var(--accent);}
 #bad-day-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;}
+.cal-cell{width:100%;aspect-ratio:1;border-radius:8px;border:none;background:transparent;cursor:pointer;font-size:.78rem;font-family:'Kanit',sans-serif;color:var(--muted2);transition:all .15s;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;}
+.cal-cell:hover{background:var(--bg);}
+.cal-cell.has-data{color:var(--text);font-weight:600;}
+.cal-cell.has-data::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);position:absolute;bottom:3px;left:50%;transform:translateX(-50%);}
+.cal-cell.bad-day::after{background:#C0392B !important;}
+.cal-cell.selected{background:var(--accent) !important;color:#fff !important;font-weight:700;}
+.cal-cell.selected::after{display:none;}
+.cal-cell.today-cell{outline:2px solid var(--accent);outline-offset:1px;}
+.cal-cell.other-month{opacity:.3;}
 </style>
 </head>
 <body>
@@ -254,9 +263,29 @@ textarea{min-height:42px;}
 <div class="page active" id="page-log">
   <div class="date-nav">
     <button onclick="chDay(-1)">‹</button>
-    <div class="date-lbl" id="dateLbl">—</div>
-    <button class="today-btn" onclick="goToday()">วันนี้</button>
+    <div class="date-lbl" id="dateLbl" onclick="openCalendar()" style="cursor:pointer;user-select:none;" title="Tap to pick a date">—</div>
+    <button class="today-btn" onclick="goToday()">Today</button>
     <button onclick="chDay(1)">›</button>
+  </div>
+
+  <!-- Calendar Popup -->
+  <div id="cal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;backdrop-filter:blur(3px);" onclick="closeCalendar()"></div>
+  <div id="cal-popup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;width:min(340px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25);">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+      <button onclick="chCalMonth(-1)" style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:var(--card2);color:var(--text);cursor:pointer;font-size:1rem;">‹</button>
+      <div id="cal-mo-lbl" style="flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.95rem;font-weight:600;"></div>
+      <button onclick="chCalMonth(1)" style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:var(--card2);color:var(--text);cursor:pointer;font-size:1rem;">›</button>
+      <button onclick="closeCalendar()" style="width:30px;height:30px;border-radius:8px;border:none;background:rgba(239,108,108,.1);color:var(--prot);cursor:pointer;font-size:.9rem;margin-left:4px;">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:8px;">
+      ${['S','M','T','W','T','F','S'].map(d=>`<div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">${d}</div>`).join('')}
+    </div>
+    <div id="cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"></div>
+    <div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></div><span style="font-size:.6rem;color:var(--muted2);">Has data</span></div>
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:8px;height:8px;border-radius:50%;background:#C0392B;"></div><span style="font-size:.6rem;color:var(--muted2);">Bad day</span></div>
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:8px;height:8px;border-radius:2px;border:2px solid var(--accent);"></div><span style="font-size:.6rem;color:var(--muted2);">Today</span></div>
+    </div>
   </div>
   <div class="qstats">
     <div class="qcard"><div class="qval" id="q-kcal" style="color:var(--grain)">—</div><div class="qlbl">🔥 kcal</div></div>
@@ -663,7 +692,7 @@ CREATE TABLE IF NOT EXISTS health_days (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ถ้าตารางมีอยู่แล้ว ให้รันบรรทัดนี้เพื่อเพิ่ม column bio_taken:
+-- ถ้าตารางมีอยู่แล้ว รันทุกบรรทัดนี้:
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS bio_taken TEXT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_kcal INT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_fat INT;
@@ -671,6 +700,8 @@ ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_carb INT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_sugar_total INT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_sodium INT;
 ALTER TABLE health_days ADD COLUMN IF NOT EXISTS sl_total_h FLOAT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS e1_h INT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS e2_h INT;
 
 CREATE TABLE IF NOT EXISTS health_ingredients (
   id SERIAL PRIMARY KEY,
@@ -766,6 +797,80 @@ function updateQ(){
   const sl=+document.getElementById('sl_min_h').value||0;
   const totalH=+document.getElementById('sl_total_h').value||0;
   document.getElementById('q-sleep').textContent=sl?Math.floor(sl/60)+'h'+(sl%60?sl%60+'m':''):totalH?totalH+'h':'—';
+}
+
+// ── CALENDAR PICKER ──
+let calMo = '';
+let calDaysWithData = {}; // { 'YYYY-MM-DD': {hasData, isBadDay} }
+
+async function openCalendar(){
+  calMo = curDay.substring(0,7);
+  document.getElementById('cal-overlay').style.display='block';
+  document.getElementById('cal-popup').style.display='block';
+  await renderCalendar();
+}
+function closeCalendar(){
+  document.getElementById('cal-overlay').style.display='none';
+  document.getElementById('cal-popup').style.display='none';
+}
+async function chCalMonth(delta){
+  const[y,m]=calMo.split('-').map(Number);
+  let nm=m+delta,ny=y;
+  if(nm>12){nm=1;ny++;}if(nm<1){nm=12;ny--;}
+  calMo=`${ny}-${String(nm).padStart(2,'0')}`;
+  await renderCalendar();
+}
+async function renderCalendar(){
+  const[y,m]=calMo.split('-').map(Number);
+  document.getElementById('cal-mo-lbl').textContent=`${MONTHS_EN[m]} ${y}`;
+  // Load month data
+  const{data}=await db.from('health_days').select('date,mood,h_note').like('date',`${calMo}%`);
+  calDaysWithData={};
+  (data||[]).forEach(r=>{
+    calDaysWithData[r.date]={
+      hasData:true,
+      isBadDay: r.mood===1 && (r.h_note||'').includes('Bad day')
+    };
+  });
+  // Build grid
+  const firstDay=new Date(y,m-1,1).getDay();
+  const daysInMonth=new Date(y,m,0).getDate();
+  const today=new Date().toISOString().split('T')[0];
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML='';
+  // Previous month tail
+  const prevDays=new Date(y,m-1,0).getDate();
+  for(let i=firstDay-1;i>=0;i--){
+    const d=prevDays-i;
+    const[py,pm]=[m===1?y-1:y, m===1?12:m-1];
+    const dateStr=`${py}-${String(pm).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    grid.innerHTML+=`<button class="cal-cell other-month" onclick="pickCalDay('${dateStr}')">${d}</button>`;
+  }
+  // This month
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const info=calDaysWithData[dateStr]||{};
+    const cls=['cal-cell',
+      info.hasData?'has-data':'',
+      info.isBadDay?'bad-day':'',
+      dateStr===curDay?'selected':'',
+      dateStr===today?'today-cell':''
+    ].filter(Boolean).join(' ');
+    grid.innerHTML+=`<button class="${cls}" onclick="pickCalDay('${dateStr}')">${d}</button>`;
+  }
+  // Next month fill
+  const total=firstDay+daysInMonth;
+  const remaining=(7-total%7)%7;
+  for(let d=1;d<=remaining;d++){
+    const[ny2,nm2]=[m===12?y+1:y, m===12?1:m+1];
+    const dateStr=`${ny2}-${String(nm2).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    grid.innerHTML+=`<button class="cal-cell other-month" onclick="pickCalDay('${dateStr}')">${d}</button>`;
+  }
+}
+function pickCalDay(dateStr){
+  curDay=dateStr;
+  closeCalendar();
+  loadDay();
 }
 
 // ── LOAD/SAVE DAY ──
@@ -1152,10 +1257,19 @@ async function analyzeIng(){
 async function init(){
   const ok=await setupTables();
   if(ok){
-    await loadDay();
+    await goLatestDay(); // load most recent day with data
     await seedData();
-    await migrateBioFromSupps(); // retroactively fill bio_taken from old supps text
+    await migrateBioFromSupps();
   }
+}
+
+async function goLatestDay(){
+  try{
+    const{data}=await db.from('health_days').select('date').order('date',{ascending:false}).limit(1);
+    if(data&&data.length) curDay=data[0].date;
+    else curDay=new Date().toISOString().split('T')[0];
+  }catch(e){ curDay=new Date().toISOString().split('T')[0]; }
+  await loadDay();
 }
 
 // Retroactively parse bio_taken from supps field for all existing days
