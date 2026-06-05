@@ -229,6 +229,11 @@ textarea{min-height:42px;}
       <div><label class="lbl">ตื่นเวลา</label><input type="time" id="sl_e" onchange="calcSleep()"></div>
     </div>
     <div class="sleep-dur" id="sl_dur"></div>
+    <div class="metric-row" style="margin-top:7px;">
+      <span class="lbl" style="flex:1">⏱️ รวมนอนทั้งหมด</span>
+      <input type="number" id="sl_total_h" min="0" max="24" step="0.5" placeholder="6.5" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:80px;text-align:center;" oninput="updateQ()">
+      <span class="lbl" style="margin-left:5px">ชม.</span>
+    </div>
     <div class="row2" style="margin-top:7px">
       <div><label class="lbl">Sleep Score</label><input type="number" id="sl_score" placeholder="0-100" min="0" max="100"></div>
       <div><label class="lbl">RHR (bpm)</label><input type="number" id="sl_rhr" placeholder="49"></div>
@@ -521,7 +526,7 @@ async function loadDay(){
   }
   const g=(k,def='')=>d[k]!==undefined&&d[k]!==null&&d[k]!==0?d[k]:def;
   ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value=g(id));
-  ['mac_p','mac_f','mac_s','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p'].forEach(id=>document.getElementById(id).value=g(id,''));
+  ['mac_p','mac_f','mac_s','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p','sl_total_h'].forEach(id=>document.getElementById(id).value=g(id,''));
   document.getElementById('sl_min_h').value=d.sl_min||0;
   if(d.sl_s&&d.sl_e)calcSleep();else document.getElementById('sl_dur').textContent='';
   mq=d.mood||0;sq=d.sl_q||0;eq=d.eq||0;
@@ -541,7 +546,7 @@ async function saveDay(){
     m_b:g('m_b'),m_l:g('m_l'),m_d:g('m_d'),m_s:g('m_s'),
     mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,
     sl_s:g('sl_s'),sl_e:g('sl_e'),sl_min,sl_score:+g('sl_score')||0,
-    sl_rhr:+g('sl_rhr')||0,sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,sl_q:sq,
+    sl_rhr:+g('sl_rhr')||0,sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,sl_q:sq,sl_total_h:+g('sl_total_h')||0,
     e1_m:+g('e1_m')||0,e1_h:+g('e1_h')||0,e1_k:+g('e1_k')||0,
     e2_m:+g('e2_m')||0,e2_k:+g('e2_k')||0,e2_c:+g('e2_c')||0,e2_h:+g('e2_h')||0,
     ex_n:g('ex_n'),eq,supps:g('supps'),
@@ -577,6 +582,7 @@ async function sendChat(){
 - sl_rhr = RHR หัวใจขณะพัก (bpm)
 - sl_hrv = HRV (ms)
 - sl_bb = Body Battery change (+/- ตัวเลข)
+- sl_total_h = จำนวนชั่วโมงนอนรวม เช่น นอน 7 ชั่วโมง = 7, นอน 6 ชม 43 นาที = 6.7
 - sl_s = เวลาเข้านอน format HH:MM เช่น 23:30
 - sl_e = เวลาตื่น format HH:MM เช่น 07:00
 - mac_p = โปรตีนรวม (g)
