@@ -2009,6 +2009,8 @@ Respond ONLY with valid JSON:
     const raw=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const r=JSON.parse(raw);
     const n=r.nutrition||{};
+    // Home-cooked = sodium is 0
+    if(mealMode==='home') n.sodium_mg=0;
     // Fill daily totals
     document.getElementById('m_b').value = r.day_summary||'';
     ['mac_kcal','mac_p','mac_carb','mac_fat','mac_f','mac_sugar_total','mac_s','mac_sodium'].forEach(id=>document.getElementById(id).value='');
@@ -2161,6 +2163,9 @@ async function analyzeFood(input, meal, mode){
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const result = JSON.parse(raw);
     const n = result.nutrition || {};
+
+    // Home-cooked = sodium is 0 (no added salt/sauces at all)
+    if(mealMode === 'home') n.sodium_mg = 0;
 
     // Fill description
     if(result.meal_description) document.getElementById(`m_${meal}`).value = result.meal_description;
