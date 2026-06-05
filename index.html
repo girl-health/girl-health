@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>สมุดสุขภาพเกิล</title>
+<title>GIRL Health Journal</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Kanit:wght@300;500;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -219,7 +219,7 @@ textarea{min-height:42px;}
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-brand">🌿เกิล</div>
+    <div class="nav-brand">🌿 GIRL</div>
     <div class="nav-tabs">
       <div class="ntab active" onclick="goPage('log')">📝 บันทึกวัน</div>
       <div class="ntab" onclick="goPage('table')">📋 ตาราง</div>
@@ -460,7 +460,7 @@ textarea{min-height:42px;}
 
 <!-- CHAT BAR -->
 <div class="chat-bar visible" id="chatBar">
-  <textarea class="chat-input" id="chatIn" placeholder="บอกเกิลกินอะไรวันนี้ เช้ากิน... เย็นกิน... ออกกำลัง..." rows="1" oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+  <textarea class="chat-input" id="chatIn" placeholder="Tell GIRL what you ate today — breakfast, lunch, dinner, workout..." rows="1" oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
   <button class="chat-send" onclick="sendChat()">↑</button>
 </div>
 
@@ -505,13 +505,10 @@ function setSyncBadge(state,msg){const b=document.getElementById('syncBadge');b.
 
 // ── SUPABASE SETUP ──
 async function setupTables(){
-  // Create tables via RPC if not exist - we'll use upsert approach
   setSyncBadge('syncing','☁️ กำลังเชื่อมต่อ...');
   try{
-    // Test connection
     const {error}=await db.from('health_days').select('date').limit(1);
     if(error && error.code==='42P01'){
-      // Table doesn't exist, show instructions
       setSyncBadge('error','⚠️ ต้องสร้าง Table');
       showTableSetupModal();
       return false;
@@ -526,21 +523,32 @@ async function setupTables(){
 
 function showTableSetupModal(){
   const sql=`-- รันใน Supabase SQL Editor
-CREATE TABLE health_days (
+CREATE TABLE IF NOT EXISTS health_days (
   date TEXT PRIMARY KEY,
   m_b TEXT, m_l TEXT, m_d TEXT, m_s TEXT,
   mac_p INT, mac_f INT, mac_s INT,
-  sl_s TEXT, sl_e TEXT, sl_min INT,
+  mac_kcal INT, mac_fat INT, mac_carb INT, mac_sugar_total INT, mac_sodium INT,
+  sl_s TEXT, sl_e TEXT, sl_min INT, sl_total_h FLOAT,
   sl_score INT, sl_rhr INT, sl_hrv INT, sl_bb INT, sl_q INT,
   e1_m INT, e1_h INT, e1_k INT,
   e2_m INT, e2_k FLOAT, e2_c INT, e2_h INT,
   ex_n TEXT, eq INT, supps TEXT,
   weight FLOAT, water FLOAT, muscle FLOAT, fat_p FLOAT,
   mood INT, h_note TEXT,
+  bio_taken TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE TABLE health_ingredients (
+-- ถ้าตารางมีอยู่แล้ว ให้รันบรรทัดนี้เพื่อเพิ่ม column bio_taken:
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS bio_taken TEXT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_kcal INT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_fat INT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_carb INT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_sugar_total INT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS mac_sodium INT;
+ALTER TABLE health_days ADD COLUMN IF NOT EXISTS sl_total_h FLOAT;
+
+CREATE TABLE IF NOT EXISTS health_ingredients (
   id SERIAL PRIMARY KEY,
   month TEXT NOT NULL,
   category TEXT NOT NULL,
@@ -552,8 +560,8 @@ CREATE TABLE health_ingredients (
 
 ALTER TABLE health_days ENABLE ROW LEVEL SECURITY;
 ALTER TABLE health_ingredients ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON health_days FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Allow all" ON health_ingredients FOR ALL USING (true) WITH CHECK (true);`;
+CREATE POLICY IF NOT EXISTS "Allow all" ON health_days FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY IF NOT EXISTS "Allow all" ON health_ingredients FOR ALL USING (true) WITH CHECK (true);`;
 
   const modal=document.createElement('div');
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
@@ -792,7 +800,7 @@ async function sendChat(){
     // ── AUTO BioActive detect ──
     // 1) จาก supps field ที่ AI แยกได้
     const bioFromSupps = parseBioFromText(parsed.supps||'');
-    // 2) จาก raw text ที่เกิลพิมพ์ทั้งหมด
+    // 2) จาก raw text ที่ GIRL พิมพ์ทั้งหมด
     const bioFromRaw = parseBioFromText(txt);
     const bioDetected = {...bioFromRaw, ...bioFromSupps};
     if(Object.keys(bioDetected).length){
@@ -817,7 +825,7 @@ async function analyzeDay(){
   btn.disabled=true;
   content.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.76rem"><div class="dot-pulse"><span></span><span></span><span></span></div> กำลังวิเคราะห์...</div>';
   const d=await dbLoadDay(curDay)||{};
-  const prompt=`นักโภชนาการวิเคราะห์ข้อมูลสุขภาพของเกิล ภาษาไทยเป็นกันเอง
+  const prompt=`นักโภชนาการวิเคราะห์ข้อมูลสุขภาพของ GIRL ภาษาไทยเป็นกันเอง
 บริบท: ทำอาหารสดเอง งดน้ำตาล รับจากผลไม้เท่านั้น รักษาการนอนกับหมอ ออกกำลัง Strength+Cardio
 ข้อมูล ${thaiDate(curDay)}:
 เช้า:${d.m_b||'—'} กลางวัน:${d.m_l||'—'} เย็น:${d.m_d||'—'} ของว่าง:${d.m_s||'—'}
@@ -995,7 +1003,7 @@ async function analyzeIng(){
   const ingData=await dbLoadIng(curIngMo);
   let ingList='';
   ING_CATS.forEach(c=>{const items=ingData[c.id]||[];if(items.length){ingList+=`\n${c.label}:\n`;items.forEach(i=>{ingList+=`  - ${i.emoji} ${i.name} (${FREQ_L[i.freq||1]})\n`;});}});
-  const prompt=`นักโภชนาการวิเคราะห์วัตถุดิบของเกิลใน${moLabel(curIngMo)} ภาษาไทยเป็นกันเอง
+  const prompt=`นักโภชนาการวิเคราะห์วัตถุดิบของ GIRL ใน${moLabel(curIngMo)} ภาษาไทยเป็นกันเอง
 บริบท: ทำอาหารสดเอง งดน้ำตาล ออกกำลัง Strength+Cardio รักษาการนอนกับหมอ
 วัตถุดิบ:${ingList||' (ยังไม่มีข้อมูล)'}
 วิเคราะห์ 5-6 ประเด็น ตอบ JSON array: [{"type":"good","icon":"✅","title":"...","detail":"..."}] type: good,info,add,warn,miss`;
@@ -1109,7 +1117,7 @@ const translations = {
     lbl_mood: '😊 อารมณ์',
     lbl_note: '📝 โน้ตสุขภาพ',
     lbl_supp_ph: 'Collagen (เช้า), Probiotic (เย็น)...',
-    chat_ph: 'บอกเกิลกินอะไรวันนี้ เช้ากิน... เย็นกิน...',
+    chat_ph: 'Tell GIRL what you ate — breakfast, lunch, dinner...',
     today_btn: 'วันนี้',
     langBtn: '🇬🇧 EN',
     ing_analyze_title: 'วิเคราะห์โภชนาการรายเดือน',
