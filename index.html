@@ -2073,60 +2073,43 @@ function setMealMode(mode){
 // ── FOOD ANALYSIS (photo + text) ──
 const MEAL_LABELS = {b:'Breakfast', l:'Lunch', d:'Dinner', s:'Snacks & Drinks'};
 
-function buildFoodPrompt(mode, inputType){
-  const isHome = mode === 'home';
+function buildFoodPrompt(mealMode, inputType){
+  const isHome = mealMode === 'home';
   const homeContext = isHome ? `
-🔴 CRITICAL — GIRL's home-cooking rules (MUST follow exactly):
-• Zero added salt, zero sauces, zero condiments of any kind
-• No fish sauce, soy sauce, oyster sauce, seasoning powder — none at all
-• Cooks only with Olive oil (or no oil), natural herbs only
-• Zero added sugar — ALL sugar is purely from whole fruit/veg
-• Proteins: salmon, eggs, chicken — plain, never marinated
+STRICT HOME-COOKED RULES — override all default assumptions:
+• Zero added salt. Zero sauces. Zero condiments. Nothing seasoned.
+• Olive oil only (or dry-cooked). Never deep-fried.
+• Proteins (salmon, eggs, chicken) are plain — no marinade, no sauce.
+• Zero added sugar. Sweetness only from whole fruit/vegetables naturally.
 
-SODIUM CALCULATION — home-cooked only:
-• Count ONLY the sodium naturally occurring inside raw ingredients
-• Reference values (use these exactly):
-  - 1 large egg = 70mg sodium
-  - 100g salmon = 59mg sodium  
-  - 100g chicken breast = 74mg sodium
-  - 100g broccoli = 33mg sodium
-  - 100g oats = 2mg sodium
-  - 100g brown rice = 4mg sodium
-  - Other fresh veg/fruit = 5–30mg per 100g
-• DO NOT add any seasoning sodium. If no explicit salt/sauce, sodium from seasoning = 0
-• Typical home-cooked meal for GIRL: 80–200mg sodium total (NOT 500–1500mg)
+SODIUM — count ONLY naturally occurring sodium in raw ingredients. No exceptions.
+Exact reference values to use:
+  egg (1 large, 50g) = 70mg
+  salmon (100g) = 59mg
+  chicken breast (100g) = 74mg
+  oats (100g) = 2mg
+  brown rice (100g) = 4mg
+  avocado (100g) = 7mg
+  broccoli (100g) = 33mg
+  spinach (100g) = 79mg
+  fresh fruit (100g) = 1–5mg
+  milk/yoghurt (100g) = 40–50mg
+  olive oil = 0mg
+  ADDED SEASONING = 0mg (none used)
+Hard cap: sodium_mg MUST be under 300mg for a single home-cooked meal.
+If your calculation exceeds 300mg, you have incorrectly added seasoning — recalculate.
 
-SUGAR CALCULATION — home-cooked only:
-• sugar_g = only natural sugars in whole ingredients (no added sugar ever)
-• fruit_sugar_g = only the portion from whole fruit
-• A meal with no fruit = fruit_sugar_g: 0` : `
-🔴 DINING OUT — realistic restaurant values:
-• Include all sodium from sauces, seasoning, cooking oils
-• Thai restaurant avg: 800–1500mg sodium per meal
-• Include added sugars from dressings, marinades, sauces
-• Be accurate and realistic for commercially prepared food`;
+SUGAR — natural sugars from whole ingredients only. No added sugar ever.
+fruit_sugar_g = 0 if no fruit present.` : `
+DINING OUT — use realistic restaurant values:
+Sodium: 600–1500mg per Thai restaurant meal (sauces, seasoning included).
+Sugar: include added sugar from dressings and sauces.`;
 
-  return `You are a precision nutritionist. Analyse the food${inputType==='photo'?' in this image':' described below'} for GIRL.
+  return `You are a clinical nutritionist. Analyse the food ${inputType==='photo'?'shown in this image':'described below'}.
 ${homeContext}
 
-Respond ONLY with valid JSON, no other text:
-{
-  "meal_description": "concise English description",
-  "ingredients": ["Ingredient (weight)"],
-  "nutrition": {
-    "kcal": 0,
-    "protein_g": 0,
-    "carb_g": 0,
-    "fat_g": 0,
-    "fiber_g": 0,
-    "sugar_g": 0,
-    "fruit_sugar_g": 0,
-    "sodium_mg": 0
-  },
-  "ing_categories": {"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},
-  "cooking_method": "brief note",
-  "confidence": "high|medium|low"
-}`;
+Output ONLY valid JSON. No explanation, no markdown fences:
+{"meal_description":"concise description","ingredients":["item (amount)"],"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"cooking_method":"","confidence":"high|medium|low"}`;
 }
 
 async function analyzeFood(input, meal, mode){
@@ -2165,7 +2148,14 @@ async function analyzeFood(input, meal, mode){
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
-      body:JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1200, messages:[{role:'user',content:messageContent}] })
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        system: mealMode==='home'
+          ? 'You are a clinical nutritionist calculating nutrition for home-cooked food with ZERO added salt, sauces, or seasonings. Sodium comes ONLY from the natural content of raw ingredients. Hard rule: sodium_mg must be under 300mg per meal. If your number exceeds 300mg you have made an error — recalculate. Output only compact valid JSON, no markdown.'
+          : 'You are a clinical nutritionist. Output only compact valid JSON, no markdown.',
+        messages:[{role:'user',content:messageContent}]
+      })
     });
     const data = await res.json();
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
