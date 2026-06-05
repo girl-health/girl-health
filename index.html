@@ -546,7 +546,7 @@ async function saveDay(){
   const data={
     m_b:g('m_b'),m_l:g('m_l'),m_d:g('m_d'),m_s:g('m_s'),
     mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,
-    sl_s:g('sl_s'),sl_e:g('sl_e'),sl_min,sl_score:+g('sl_score')||0,
+    sl_s:g('sl_s'),sl_e:g('sl_e'),sl_min:sl_min||(+g('sl_total_h')||0)*60,sl_score:+g('sl_score')||0,
     sl_rhr:+g('sl_rhr')||0,sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,sl_q:sq,sl_total_h:+g('sl_total_h')||0,
     e1_m:+g('e1_m')||0,e1_h:+g('e1_h')||0,e1_k:+g('e1_k')||0,
     e2_m:+g('e2_m')||0,e2_k:+g('e2_k')||0,e2_c:+g('e2_c')||0,e2_h:+g('e2_h')||0,
