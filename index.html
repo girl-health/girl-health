@@ -181,7 +181,7 @@ textarea{min-height:42px;}
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-brand">🌿 GIRL</div>
+    <div class="nav-brand">🌿เกิล</div>
     <div class="nav-tabs">
       <div class="ntab active" onclick="goPage('log')">📝 บันทึกวัน</div>
       <div class="ntab" onclick="goPage('table')">📋 ตาราง</div>
@@ -197,14 +197,10 @@ textarea{min-height:42px;}
 <!-- PAGE LOG -->
 <div class="page active" id="page-log">
   <div class="date-nav">
-    <button onclick="chDay(-1)" style="font-size:1.1rem;">‹</button>
-    <div style="flex:1;text-align:center;cursor:pointer;" onclick="document.getElementById('datePicker').showPicker()">
-      <div class="date-lbl" id="dateLbl">—</div>
-      <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;">📅 tap to pick date</div>
-      <input type="date" id="datePicker" style="position:absolute;opacity:0;width:0;height:0;" onchange="pickDate(this.value)">
-    </div>
-    <button class="today-btn" onclick="goToday()" id="todayBtn">วันนี้</button>
-    <button onclick="chDay(1)" style="font-size:1.1rem;">›</button>
+    <button onclick="chDay(-1)">‹</button>
+    <div class="date-lbl" id="dateLbl">—</div>
+    <button class="today-btn" onclick="goToday()">วันนี้</button>
+    <button onclick="chDay(1)">›</button>
   </div>
   <div class="qstats">
     <div class="qcard"><div class="qval" id="q-kcal" style="color:var(--grain)">—</div><div class="qlbl">🔥 kcal</div></div>
@@ -416,6 +412,9 @@ const db = createClient(SUPA_URL, SUPA_KEY);
 // ── CONSTANTS ──
 const MONTHS_TH=['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
 const DAYS_TH=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
+const MONTHS_EN=['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTHS_SHORT_EN=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS_EN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const FREQ_L=['ทุกวัน','หลายครั้ง/สป.','1-2×/สป.','บางครั้ง'];
 const ING_CATS=[
   {id:'fruit',label:'ผลไม้',icon:'🍎',color:'var(--fruit)',cls:'c-fruit',emojis:['🍎','🍊','🍋','🍇','🫐','🥭','🍍','🥝','🍈','🍓','🍑','🍒','🍌','🍉'],ex:'กีวี, มะละกอ'},
@@ -432,18 +431,9 @@ let mq=0,sq=0,eq=0;
 let ingOpenForm=null,ingSelEmoji={},ingSelFreq={};
 
 // ── HELPERS ──
-const MONTHS_EN=['','January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAYS_EN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-function thaiDate(d){
-  const[y,m,dd]=d.split('-').map(Number);
-  const dt=new Date(y,m-1,dd);
-  if(currentLang==='en'){
-    return `${DAYS_EN[dt.getDay()]}, ${dd} ${MONTHS_EN[m]} ${y}`;
-  }
-  return `${DAYS_TH[dt.getDay()]}ที่ ${dd} ${MONTHS_TH[m]} ${y+543}`;
-}
+function thaiDate(d){const[y,m,dd]=d.split('-').map(Number);const dt=new Date(y,m-1,dd);return `${DAYS_EN[dt.getDay()]}, ${MONTHS_EN[m]} ${dd}, ${y}`;}
 function shortDate(d){const[y,m,dd]=d.split('-').map(Number);return `${dd}/${m}`;}
-function moLabel(mo){const[y,m]=mo.split('-').map(Number);return `${MONTHS_TH[m]} ${y+543}`;}
+function moLabel(mo){const[y,m]=mo.split('-').map(Number);return `${MONTHS_EN[m]} ${y}`;}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
 function setSyncBadge(state,msg){const b=document.getElementById('syncBadge');b.className='sync-badge'+(state?' '+state:'');b.textContent=msg;}
@@ -588,9 +578,6 @@ function chDay(delta){
   const nm=String(dt.getMonth()+1).padStart(2,'0');
   const nd=String(dt.getDate()).padStart(2,'0');
   curDay=ny+'-'+nm+'-'+nd;loadDay();
-}
-function pickDate(val){
-  if(val){curDay=val;loadDay();}
 }
 function goToday(){curDay=new Date().toISOString().split('T')[0];loadDay();}
 
@@ -741,7 +728,7 @@ async function renderTable(){
     const slH=d.sl_min?Math.floor(d.sl_min/60)+'h'+(d.sl_min%60?d.sl_min%60+'m':''):d.sl_total_h?d.sl_total_h+'h':'—';
     const meals=[d.m_b,d.m_l,d.m_d].filter(Boolean).join(' / ');
     const sm=meals.length>50?meals.substring(0,50)+'…':meals;
-    h+=`<tr><td style="white-space:nowrap;color:var(--accent);font-family:'Kanit',sans-serif;font-size:.77rem">${shortDate(d.date)}<br><span style="color:var(--muted2);font-size:.6rem">${DAYS_TH[new Date(d.date).getDay()]}</span></td>
+    h+=`<tr><td style="white-space:nowrap;color:var(--accent);font-family:'Kanit',sans-serif;font-size:.77rem">${shortDate(d.date)}<br><span style="color:var(--muted2);font-size:.6rem">${DAYS_EN[new Date(d.date).getDay()]}</span></td>
     <td style="max-width:100px;font-size:.7rem">${sm||'—'}</td>
     <td><span class="pill pp">P:${d.mac_p||0}g</span><span class="pill pf">F:${d.mac_f||0}g</span><span class="pill ps">S:${d.mac_s||0}g</span>${d.mac_kcal?`<span class="pill" style="background:rgba(240,160,64,.15);color:var(--grain)">${d.mac_kcal}kcal</span>`:''}</td>
     <td><span style="color:var(--sleep);font-family:'Kanit',sans-serif;font-size:.78rem">${slH}</span>${d.sl_score?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.sl_score}pts</span>`:''}</td>
@@ -808,7 +795,7 @@ function chIngMonth(delta){
 
 async function renderIng(){
   const[y,m]=curIngMo.split('-').map(Number);
-  document.getElementById('ing-mo-lbl').textContent=`${MONTHS_TH[m]} ${y+543}`;
+  document.getElementById('ing-mo-lbl').textContent=`${MONTHS_EN[m]} ${y}`;
   const ingData=await dbLoadIng(curIngMo);
   let sumH='';
   ING_CATS.forEach(c=>{const items=ingData[c.id]||[];sumH+=`<div class="ing-pill"><div class="ing-dot" style="background:${c.color}"></div><span class="ing-pill-txt">${c.label}</span><span class="ing-pill-num" style="color:${c.color}">${items.length}</span></div>`;});
