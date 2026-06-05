@@ -217,6 +217,11 @@ textarea{min-height:42px;}
       <div class="mac-box"><div class="mac-lbl">🥦 ไฟเบอร์ (g)</div><input type="number" id="mac_f" placeholder="0" min="0"></div>
       <div class="mac-box"><div class="mac-lbl">🍬 น้ำตาล(ผลไม้)</div><input type="number" id="mac_s" placeholder="0" min="0"></div>
     </div>
+    <div class="mac-row">
+      <div class="mac-box"><div class="mac-lbl">🔥 แคลอรี่ (kcal)</div><input type="number" id="mac_kcal" placeholder="0" min="0" oninput="updateQ()"></div>
+      <div class="mac-box"><div class="mac-lbl">🥑 ไขมัน (g)</div><input type="number" id="mac_fat" placeholder="0" min="0"></div>
+      <div class="mac-box"><div class="mac-lbl">🍚 คาร์บ (g)</div><input type="number" id="mac_carb" placeholder="0" min="0"></div>
+    </div>
     <div class="row2"><div><label class="lbl">🌅 เช้า</label><textarea id="m_b" placeholder="กินอะไร?"></textarea></div></div>
     <div class="row2"><div><label class="lbl">☀️ กลางวัน</label><textarea id="m_l" placeholder="กินอะไร?"></textarea></div></div>
     <div class="row2"><div><label class="lbl">🌆 เย็น</label><textarea id="m_d" placeholder="กินอะไร?"></textarea></div></div>
@@ -491,7 +496,9 @@ function calcSleep(){
   document.getElementById('sl_min_h').value=diff;updateQ();
 }
 function updateQ(){
-  const k=(+document.getElementById('e1_k').value||0)+(+document.getElementById('e2_c').value||0);
+  const exK=(+document.getElementById('e1_k').value||0)+(+document.getElementById('e2_c').value||0);
+  const foodK=+document.getElementById('mac_kcal').value||0;
+  const k=foodK||exK;
   document.getElementById('q-kcal').textContent=k||'—';
   const w=+document.getElementById('water').value||0;
   document.getElementById('q-water').textContent=w?w+'L':'—';
@@ -519,7 +526,7 @@ async function loadDay(){
   setSyncBadge('','☁️ พร้อม');
   if(!d){
     ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value='');
-    ['mac_p','mac_f','mac_s','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p'].forEach(id=>document.getElementById(id).value='');
+    ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('sl_min_h').value=0;
     document.getElementById('sl_dur').textContent='';
     mq=0;sq=0;eq=0;setMQ(0);setSQ(0);setEQ(0);updateQ();
@@ -527,7 +534,7 @@ async function loadDay(){
   }
   const g=(k,def='')=>d[k]!==undefined&&d[k]!==null&&d[k]!==0?d[k]:def;
   ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value=g(id));
-  ['mac_p','mac_f','mac_s','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p','sl_total_h'].forEach(id=>document.getElementById(id).value=g(id,''));
+  ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p','sl_total_h'].forEach(id=>document.getElementById(id).value=g(id,''));
   document.getElementById('sl_min_h').value=d.sl_min||0;
   if(d.sl_s&&d.sl_e)calcSleep();else document.getElementById('sl_dur').textContent='';
   mq=d.mood||0;sq=d.sl_q||0;eq=d.eq||0;
@@ -545,7 +552,7 @@ async function saveDay(){
   }
   const data={
     m_b:g('m_b'),m_l:g('m_l'),m_d:g('m_d'),m_s:g('m_s'),
-    mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,
+    mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,mac_kcal:+g('mac_kcal')||0,mac_fat:+g('mac_fat')||0,mac_carb:+g('mac_carb')||0,
     sl_s:g('sl_s'),sl_e:g('sl_e'),sl_min:sl_min||(+g('sl_total_h')||0)*60,sl_score:+g('sl_score')||0,
     sl_rhr:+g('sl_rhr')||0,sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,sl_q:sq,sl_total_h:+g('sl_total_h')||0,
     e1_m:+g('e1_m')||0,e1_h:+g('e1_h')||0,e1_k:+g('e1_k')||0,
@@ -660,7 +667,7 @@ async function renderTable(){
     const sm=meals.length>50?meals.substring(0,50)+'…':meals;
     h+=`<tr><td style="white-space:nowrap;color:var(--accent);font-family:'Kanit',sans-serif;font-size:.77rem">${shortDate(d.date)}<br><span style="color:var(--muted2);font-size:.6rem">${DAYS_TH[new Date(d.date).getDay()]}</span></td>
     <td style="max-width:100px;font-size:.7rem">${sm||'—'}</td>
-    <td><span class="pill pp">P:${d.mac_p||0}g</span><span class="pill pf">F:${d.mac_f||0}g</span><span class="pill ps">S:${d.mac_s||0}g</span></td>
+    <td><span class="pill pp">P:${d.mac_p||0}g</span><span class="pill pf">F:${d.mac_f||0}g</span><span class="pill ps">S:${d.mac_s||0}g</span>${d.mac_kcal?`<span class="pill" style="background:rgba(240,160,64,.15);color:var(--grain)">${d.mac_kcal}kcal</span>`:''}</td>
     <td><span style="color:var(--sleep);font-family:'Kanit',sans-serif;font-size:.78rem">${slH}</span>${d.sl_score?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.sl_score}pts</span>`:''}</td>
     <td>${exM?`<span class="pill pe">${exM}นาที</span><br><span style="font-size:.62rem;color:var(--muted2)">${exK}kcal</span>`:'<span style="color:var(--muted)">พัก</span>'}</td>
     <td><span style="color:var(--water);font-size:.78rem">${d.water?d.water+'L':'—'}</span>${d.weight?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.weight}kg</span>`:''}</td></tr>`;
