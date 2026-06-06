@@ -527,14 +527,12 @@ textarea{min-height:42px;}
       <div class="meal-hdr">
         <span class="meal-label">🌅 Breakfast</span>
         <div style="display:flex;gap:5px;">
-          <label class="meal-btn-secondary">
-            📷 Photo
-            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'b','photo')">
-          </label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'b','text')">✦ Analyse</button>
+          <button class="meal-btn-secondary" onclick="openMealPicker('b')" style="background:rgba(201,169,110,.12);border-color:rgba(201,169,110,.4);color:var(--grain);">🍱 เมนู</button>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'b','photo')"></label>
+          <button class="meal-btn-primary" onclick="analyzeFood(null,'b','text')">✦ AI</button>
         </div>
       </div>
-      <textarea id="m_b" class="meal-ta" placeholder="e.g. 2 boiled eggs · salmon 150g · oatmeal ½ cup  — or upload a photo" oninput="autoResize(this)"></textarea>
+      <textarea id="m_b" class="meal-ta" placeholder="e.g. 2 boiled eggs · salmon 150g · oatmeal ½ cup" oninput="autoResize(this)"></textarea>
       <div id="food-img-b" style="display:none;margin-top:6px;"></div>
       <div id="food-analyze-b" style="display:none;"></div>
     </div>
@@ -544,14 +542,12 @@ textarea{min-height:42px;}
       <div class="meal-hdr">
         <span class="meal-label">☀️ Lunch</span>
         <div style="display:flex;gap:5px;">
-          <label class="meal-btn-secondary">
-            📷 Photo
-            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'l','photo')">
-          </label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'l','text')">✦ Analyse</button>
+          <button class="meal-btn-secondary" onclick="openMealPicker('l')" style="background:rgba(74,124,89,.1);border-color:rgba(74,124,89,.35);color:var(--veg);">🍱 เมนู</button>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'l','photo')"></label>
+          <button class="meal-btn-primary" onclick="analyzeFood(null,'l','text')">✦ AI</button>
         </div>
       </div>
-      <textarea id="m_l" class="meal-ta" placeholder="e.g. brown rice 1 cup · grilled chicken 200g · fresh greens" oninput="autoResize(this)"></textarea>
+      <textarea id="m_l" class="meal-ta" placeholder="e.g. brown rice · grilled chicken 200g · fresh greens" oninput="autoResize(this)"></textarea>
       <div id="food-img-l" style="display:none;margin-top:6px;"></div>
       <div id="food-analyze-l" style="display:none;"></div>
     </div>
@@ -561,11 +557,9 @@ textarea{min-height:42px;}
       <div class="meal-hdr">
         <span class="meal-label">🌆 Dinner</span>
         <div style="display:flex;gap:5px;">
-          <label class="meal-btn-secondary">
-            📷 Photo
-            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'d','photo')">
-          </label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'d','text')">✦ Analyse</button>
+          <button class="meal-btn-secondary" onclick="openMealPicker('d')" style="background:rgba(139,94,82,.1);border-color:rgba(139,94,82,.35);color:var(--prot);">🍱 เมนู</button>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'d','photo')"></label>
+          <button class="meal-btn-primary" onclick="analyzeFood(null,'d','text')">✦ AI</button>
         </div>
       </div>
       <textarea id="m_d" class="meal-ta" placeholder="e.g. pan-seared salmon 150g · 2 fried eggs · steamed broccoli" oninput="autoResize(this)"></textarea>
@@ -578,11 +572,9 @@ textarea{min-height:42px;}
       <div class="meal-hdr">
         <span class="meal-label">🍃 Snacks &amp; Drinks</span>
         <div style="display:flex;gap:5px;">
-          <label class="meal-btn-secondary">
-            📷 Photo
-            <input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'s','photo')">
-          </label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'s','text')">✦ Analyse</button>
+          <button class="meal-btn-secondary" onclick="openMealPicker('s')" style="background:rgba(107,143,163,.1);border-color:rgba(107,143,163,.35);color:var(--sleep);">🍱 เมนู</button>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'s','photo')"></label>
+          <button class="meal-btn-primary" onclick="analyzeFood(null,'s','text')">✦ AI</button>
         </div>
       </div>
       <textarea id="m_s" class="meal-ta" placeholder="e.g. watermelon 200g · black coffee · dark chocolate 2 squares" oninput="autoResize(this)"></textarea>
@@ -967,6 +959,21 @@ textarea{min-height:42px;}
     </div>
     <button onclick="addMealPreset()" style="width:100%;padding:10px;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.3);color:var(--accent);font-family:'Kanit',sans-serif;font-weight:700;font-size:.78rem;border-radius:9px;cursor:pointer;">+ Save Meal</button>
   </div>
+</div>
+
+<!-- MEAL PICKER POPUP -->
+<div id="meal-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;backdrop-filter:blur(4px);" onclick="closeMealPicker()"></div>
+<div id="meal-picker-popup" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--card);border-radius:20px 20px 0 0;padding:16px 14px 32px;max-height:75vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2);">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <div>
+      <div id="meal-picker-title" style="font-family:'Kanit',sans-serif;font-size:.95rem;color:var(--text);font-weight:700;"></div>
+      <div style="font-size:.65rem;color:var(--muted2);margin-top:1px;">กดเลือกเมนูที่ต้องการ</div>
+    </div>
+    <button onclick="closeMealPicker()" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+  </div>
+  <!-- drag handle -->
+  <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:36px;height:4px;border-radius:2px;background:var(--border2);"></div>
+  <div id="meal-picker-list"></div>
 </div>
 
 <!-- CHAT BAR -->
@@ -2684,7 +2691,63 @@ async function analyzeFood(input, meal, mode){
   }
 }
 
-// ── SLEEP PHOTO SCAN ──
+// ── QUICK MEAL PICKER (inline in Log page) ──
+let mealPickerTarget = 'b';
+
+const MEAL_CAT_LABELS = {b:'🌅 Breakfast', l:'☀️ Lunch', d:'🌆 Dinner', s:'🍃 Snacks & Drinks'};
+const MEAL_CAT_COLORS = {b:'var(--grain)', l:'var(--veg)', d:'var(--prot)', s:'var(--sleep)'};
+const MEAL_CAT_BG    = {b:'rgba(201,169,110,.08)', l:'rgba(74,124,89,.08)', d:'rgba(139,94,82,.08)', s:'rgba(107,143,163,.08)'};
+
+function openMealPicker(cat){
+  mealPickerTarget = cat;
+  const title = document.getElementById('meal-picker-title');
+  title.textContent = MEAL_CAT_LABELS[cat];
+  title.style.color = MEAL_CAT_COLORS[cat];
+
+  const meals = getMealPresets().filter(m => m.cat === cat);
+  const list = document.getElementById('meal-picker-list');
+
+  list.innerHTML = meals.map(m => {
+    const currentVal = document.getElementById('m_'+cat)?.value || '';
+    const isSelected = currentVal && currentVal.includes(m.desc.substring(0,20));
+    return `<div onclick="pickMeal('${cat}','${m.desc.replace(/'/g,"\\'").replace(/\n/g,' ')}')"
+      style="display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:13px;border:1.5px solid ${isSelected?MEAL_CAT_COLORS[cat]:'var(--border)'};background:${isSelected?MEAL_CAT_BG[cat]:'var(--card2)'};margin-bottom:8px;cursor:pointer;transition:all .15s;active-transform:scale(.98);">
+      <div style="width:40px;height:40px;border-radius:10px;background:${MEAL_CAT_BG[cat]};display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;">${m.emoji}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--text);font-weight:600;margin-bottom:2px;">${m.name}${isSelected?' <span style="color:'+MEAL_CAT_COLORS[cat]+'">✓</span>':''}</div>
+        <div style="font-size:.68rem;color:var(--muted2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">${m.desc}</div>
+        ${m.note ? `<div style="font-size:.62rem;color:${MEAL_CAT_COLORS[cat]};margin-top:3px;opacity:.85;">${m.note}</div>` : ''}
+      </div>
+      <div style="flex-shrink:0;font-size:.68rem;color:var(--muted2);text-align:right;">${m.kcal ? m.kcal+'<br>kcal' : ''}</div>
+    </div>`;
+  }).join('');
+
+  if(!meals.length){
+    list.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-size:.8rem;">ยังไม่มีเมนูในหมวดนี้<br><span style="font-size:.7rem;">ไปที่หน้า 🍱 Meals เพื่อเพิ่มเมนูค่ะ</span></div>`;
+  }
+
+  document.getElementById('meal-picker-overlay').style.display = 'block';
+  document.getElementById('meal-picker-popup').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function pickMeal(cat, desc){
+  const ta = document.getElementById('m_'+cat);
+  if(ta){
+    ta.value = desc;
+    autoResize(ta);
+  }
+  closeMealPicker();
+  toast(`✓ เลือกเมนูแล้ว`);
+}
+
+function closeMealPicker(){
+  document.getElementById('meal-picker-overlay').style.display = 'none';
+  document.getElementById('meal-picker-popup').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+
 async function analyzeSleepPhoto(input){
   const file = input.files[0];
   if(!file) return;
