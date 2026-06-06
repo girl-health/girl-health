@@ -432,8 +432,9 @@ textarea{min-height:42px;}
       <div style="display:flex;align-items:center;gap:4px;"><div style="width:8px;height:8px;border-radius:2px;border:2px solid var(--accent);"></div><span style="font-size:.6rem;color:var(--muted2);">Today</span></div>
     </div>
   </div>
-  <div class="qstats">
+  <div class="qstats" style="grid-template-columns:repeat(4,1fr);">
     <div class="qcard"><div class="qval" id="q-kcal" style="color:var(--grain)">—</div><div class="qlbl">🔥 kcal</div></div>
+    <div class="qcard"><div class="qval" id="q-prot" style="color:var(--prot)">—</div><div class="qlbl">🥩 protein</div></div>
     <div class="qcard"><div class="qval" id="q-sleep" style="color:var(--sleep)">—</div><div class="qlbl">🌙 นอน</div></div>
     <div class="qcard"><div class="qval" id="q-water" style="color:var(--water)">—</div><div class="qlbl">💧 น้ำ</div></div>
   </div>
@@ -528,7 +529,7 @@ textarea{min-height:42px;}
         <span class="meal-label">🌅 Breakfast</span>
         <div style="display:flex;gap:5px;">
           <button class="meal-btn-secondary" onclick="openMealPicker('b')" style="background:rgba(201,169,110,.12);border-color:rgba(201,169,110,.4);color:var(--grain);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'b','photo')"></label>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'b','photo')"></label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'b','text')">✦ AI</button>
         </div>
       </div>
@@ -543,7 +544,7 @@ textarea{min-height:42px;}
         <span class="meal-label">☀️ Lunch</span>
         <div style="display:flex;gap:5px;">
           <button class="meal-btn-secondary" onclick="openMealPicker('l')" style="background:rgba(74,124,89,.1);border-color:rgba(74,124,89,.35);color:var(--veg);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'l','photo')"></label>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'l','photo')"></label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'l','text')">✦ AI</button>
         </div>
       </div>
@@ -558,7 +559,7 @@ textarea{min-height:42px;}
         <span class="meal-label">🌆 Dinner</span>
         <div style="display:flex;gap:5px;">
           <button class="meal-btn-secondary" onclick="openMealPicker('d')" style="background:rgba(139,94,82,.1);border-color:rgba(139,94,82,.35);color:var(--prot);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'d','photo')"></label>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'d','photo')"></label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'d','text')">✦ AI</button>
         </div>
       </div>
@@ -573,7 +574,7 @@ textarea{min-height:42px;}
         <span class="meal-label">🍃 Snacks &amp; Drinks</span>
         <div style="display:flex;gap:5px;">
           <button class="meal-btn-secondary" onclick="openMealPicker('s')" style="background:rgba(107,143,163,.1);border-color:rgba(107,143,163,.35);color:var(--sleep);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" style="display:none" onchange="analyzeFood(this,'s','photo')"></label>
+          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'s','photo')"></label>
           <button class="meal-btn-primary" onclick="analyzeFood(null,'s','text')">✦ AI</button>
         </div>
       </div>
@@ -747,15 +748,6 @@ textarea{min-height:42px;}
         <div id="water-status" style="font-size:.68rem;border-radius:20px;padding:3px 10px;font-weight:600;letter-spacing:.3px;"></div>
       </div>
       <div id="water-alert" style="display:none;margin-top:7px;font-size:.68rem;padding:7px 10px;border-radius:9px;background:rgba(107,143,163,.1);border:1px solid rgba(107,143,163,.25);color:var(--sleep);letter-spacing:.2px;line-height:1.5;"></div>
-    </div>
-
-    <!-- Weight & body comp -->
-    <div class="row2">
-      <div><label class="lbl">⚖️ Weight (kg)</label><input type="number" id="weight" step="0.1"></div>
-      <div><label class="lbl">🔥 Body Fat (%)</label><input type="number" id="fat_p" step="0.1"></div>
-    </div>
-    <div class="row2">
-      <div><label class="lbl">💪 Muscle (kg)</label><input type="number" id="muscle" step="0.1"></div>
     </div>
 
     <!-- Mood + Day Rating -->
@@ -1160,6 +1152,9 @@ function updateQ(){
   const foodK=+document.getElementById('mac_kcal').value||0;
   const k=foodK||exK;
   document.getElementById('q-kcal').textContent=k||'—';
+  const prot=+document.getElementById('mac_p').value||0;
+  const qp=document.getElementById('q-prot');
+  if(qp) qp.textContent=prot?prot+'g':'—';
   const w=+document.getElementById('water').value||0;
   document.getElementById('q-water').textContent=w?w+'L':'—';
   updateWaterUI(w);
@@ -1496,7 +1491,7 @@ async function renderTable(){
     const sm=meals.length>50?meals.substring(0,50)+'…':meals;
     h+=`<tr><td style="white-space:nowrap;color:var(--accent);font-family:'Kanit',sans-serif;font-size:.77rem">${shortDate(d.date)}<br><span style="color:var(--muted2);font-size:.6rem">${DAYS_EN[new Date(d.date).getDay()]}</span></td>
     <td style="max-width:100px;font-size:.7rem">${sm||'—'}</td>
-    <td><span class="pill pp">P:${d.mac_p||0}g</span><span class="pill pf">F:${d.mac_f||0}g</span><span class="pill ps">S:${d.mac_s||0}g</span>${d.mac_kcal?`<span class="pill" style="background:rgba(240,160,64,.15);color:var(--grain)">${d.mac_kcal}kcal</span>`:''}</td>
+    <td><span class="pill pp">P:${d.mac_p||0}g</span><span class="pill pf">F:${d.mac_f||0}g</span><span class="pill ps">S:${d.mac_s||0}g</span><br><span class="pill" style="background:rgba(240,160,64,.15);color:var(--grain)">${d.mac_kcal||0}kcal</span></td>
     <td><span style="color:var(--sleep);font-family:'Kanit',sans-serif;font-size:.78rem">${slH}</span>${d.sl_score?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.sl_score}pts</span>`:''}</td>
     <td>${exM?`<span class="pill pe">${exM}นาที</span><br><span style="font-size:.62rem;color:var(--muted2)">${exK}kcal</span>`:'<span style="color:var(--muted)">พัก</span>'}</td>
     <td><span style="color:var(--water);font-size:.78rem">${d.water?d.water+'L':'—'}</span>${d.weight?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.weight}kg</span>`:''}</td></tr>`;
@@ -2573,18 +2568,24 @@ async function analyzeFood(input, meal, mode){
   const prompt = buildFoodPrompt(mealMode, mode);
   let messageContent;
 
-  if(mode === 'photo' && input && input.files[0]){
-    const file = input.files[0];
-    const base64 = await new Promise(res => {
-      const r = new FileReader();
-      r.onload = e => res(e.target.result.split(',')[1]);
-      r.readAsDataURL(file);
-    });
+  if(mode === 'photo' && input && input.files.length > 0){
+    const files = Array.from(input.files).slice(0,3); // max 3
+    const imageBlocks = [];
+    const thumbs = [];
+    for(const file of files){
+      const base64 = await new Promise(res => {
+        const r = new FileReader();
+        r.onload = e => res(e.target.result.split(',')[1]);
+        r.readAsDataURL(file);
+      });
+      imageBlocks.push({ type:'image', source:{ type:'base64', media_type: file.type||'image/jpeg', data: base64 } });
+      thumbs.push(`<img src="data:${file.type};base64,${base64}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid var(--border);">`);
+    }
     imgWrap.style.display = 'block';
-    imgWrap.innerHTML = `<img src="data:${file.type};base64,${base64}" style="width:100%;max-height:200px;object-fit:cover;border-radius:10px;border:1px solid var(--border);margin-top:5px;">`;
+    imgWrap.innerHTML = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;">${thumbs.join('')}</div>`;
     messageContent = [
-      { type:'image', source:{ type:'base64', media_type: file.type||'image/jpeg', data: base64 } },
-      { type:'text', text: prompt }
+      ...imageBlocks,
+      { type:'text', text: prompt + (files.length > 1 ? `\n\nNote: ${files.length} food photos provided — combine all into one nutrition total.` : '') }
     ];
   } else {
     const text = document.getElementById(`m_${meal}`).value.trim();
