@@ -1290,7 +1290,7 @@ async function loadDay(){
   setSyncBadge('','☁️ พร้อม');
   if(!d){
     ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value='');
-    ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','mac_sugar_total','mac_sodium','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p'].forEach(id=>document.getElementById(id).value='');
+    ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','mac_sugar_total','mac_sodium','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','water','sl_total_h'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
     document.getElementById('sl_min_h').value=0;
     document.getElementById('sl_dur').textContent='';
     mq=0;sq=0;eq=0;setMQ(0);setSQ(0);setEQ(0);updateQ();
@@ -1304,7 +1304,7 @@ async function loadDay(){
   }
   const g=(k,def='')=>d[k]!==undefined&&d[k]!==null&&d[k]!==0?d[k]:def;
   ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value=g(id));
-  ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','mac_sugar_total','mac_sodium','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','weight','water','muscle','fat_p','sl_total_h'].forEach(id=>document.getElementById(id).value=g(id,''));
+  ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','mac_sugar_total','mac_sodium','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','water','sl_total_h'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=g(id,''); });
   document.getElementById('sl_min_h').value=d.sl_min||0;
   if(d.sl_s&&d.sl_e)calcSleep();else document.getElementById('sl_dur').textContent='';
   mq=d.mood||0;sq=d.sl_q||0;eq=d.eq||0;
@@ -1345,7 +1345,7 @@ async function saveDay(){
     e1_m:+g('e1_m')||0,e1_h:+g('e1_h')||0,e1_k:+g('e1_k')||0,
     e2_m:+g('e2_m')||0,e2_k:+g('e2_k')||0,e2_c:+g('e2_c')||0,e2_h:+g('e2_h')||0,
     ex_n:g('ex_n'),eq,supps:g('supps'),
-    weight:+g('weight')||0,water:+g('water')||0,muscle:+g('muscle')||0,fat_p:+g('fat_p')||0,
+    water:+g('water')||0,
     mood:mq,h_note:g('h_note'),
     day_rating:dayRating,
     alcohol_level:alcoholLevel,
