@@ -392,6 +392,64 @@ textarea{min-height:42px;}
     </div>
   </div>
 
+  <!-- Body Stats — editable -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);" id="profile-body-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:30px;height:30px;border-radius:7px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem;">📐</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">สัดส่วนร่างกาย</div>
+      </div>
+      <button onclick="toggleProfileEdit()" id="profile-edit-btn" style="padding:5px 12px;border-radius:18px;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.65rem;cursor:pointer;">✏️ แก้ไข</button>
+    </div>
+    <!-- Display mode -->
+    <div id="profile-body-display">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);" id="pb-weight-val">48.7</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">⚖️ น้ำหนัก kg</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--prot);" id="pb-fat-val">25.3%</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🔥 ไขมัน</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--veg);" id="pb-muscle-val">20.2</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">💪 กล้ามเนื้อ kg</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);" id="pb-bmi-val">19.0</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">📊 BMI</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--veg);" id="pb-visceral-val">4</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🏃 ไขมันช่องท้อง</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--grain);" id="pb-score-val">—</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🎯 InBody Score</div>
+        </div>
+      </div>
+      <div style="margin-top:9px;padding:8px 11px;background:rgba(74,124,89,.06);border-radius:9px;">
+        <div style="font-size:.63rem;color:var(--muted2);">📅 อัปเดตล่าสุด: <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
+      </div>
+    </div>
+    <!-- Edit mode -->
+    <div id="profile-body-edit" style="display:none;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div><label class="lbl">⚖️ น้ำหนัก (kg)</label><input type="number" id="pb-weight-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">🔥 ไขมัน (%)</label><input type="number" id="pb-fat-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">💪 กล้ามเนื้อ (kg)</label><input type="number" id="pb-muscle-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">📊 BMI</label><input type="number" id="pb-bmi-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">🏃 ไขมันช่องท้อง</label><input type="number" id="pb-visceral-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">🎯 InBody Score</label><input type="number" id="pb-score-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+      </div>
+      <div style="margin-bottom:8px;"><label class="lbl">📅 วันที่วัด</label><input type="date" id="pb-date-in" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+      <button onclick="saveProfileBody()" style="width:100%;padding:11px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;">💾 บันทึก</button>
+    </div>
+  </div>
+
   <!-- Physician notes -->
   <div style="background:rgba(74,124,89,.04);border:1px solid rgba(74,124,89,.2);border-radius:14px;padding:12px 14px;margin-bottom:12px;">
     <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--accent);margin-bottom:6px;">📋 Physician Notes</div>
@@ -423,7 +481,13 @@ textarea{min-height:42px;}
       <button onclick="closeCalendar()" style="width:30px;height:30px;border-radius:8px;border:none;background:rgba(239,108,108,.1);color:var(--prot);cursor:pointer;font-size:.9rem;margin-left:4px;">✕</button>
     </div>
     <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:8px;">
-      ${['S','M','T','W','T','F','S'].map(d=>`<div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">${d}</div>`).join('')}
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">S</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">M</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">T</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">W</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">T</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">F</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;color:var(--muted2);letter-spacing:.5px;padding:4px 0;">S</div>
     </div>
     <div id="cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"></div>
     <div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap;">
@@ -1804,6 +1868,9 @@ async function init(){
   const bodyDateEl = document.getElementById('body-date');
   if(bodyDateEl) bodyDateEl.value = todayStr;
 
+  // Load profile body stats
+  loadProfileBody();
+
   // Start on log page
   goPage('log');
 
@@ -2956,7 +3023,67 @@ Identify all dishes. Respond ONLY with valid JSON:
 }
 
 
-// ── INBODY IMPORT ──
+// ── PROFILE BODY STATS ──
+const PB_KEY = 'girl_profile_body';
+function loadProfileBody(){
+  try {
+    const d = JSON.parse(localStorage.getItem(PB_KEY)||'{}');
+    const set = (id, v, suffix='') => { const el=document.getElementById(id); if(el&&v) el.textContent=v+suffix; };
+    set('pb-weight-val', d.weight, ' kg');
+    set('pb-fat-val', d.fat, '%');
+    set('pb-muscle-val', d.muscle, ' kg');
+    set('pb-bmi-val', d.bmi, '');
+    set('pb-visceral-val', d.visceral, '');
+    set('pb-score-val', d.score, '');
+    if(d.date){ const el=document.getElementById('pb-date-val'); if(el) el.textContent=d.date; }
+  } catch(e){}
+}
+function toggleProfileEdit(){
+  const disp = document.getElementById('profile-body-display');
+  const edit = document.getElementById('profile-body-edit');
+  const btn  = document.getElementById('profile-edit-btn');
+  const isEdit = edit.style.display !== 'none';
+  if(isEdit){ disp.style.display='block'; edit.style.display='none'; btn.textContent='✏️ แก้ไข'; }
+  else {
+    // Pre-fill from current values
+    try {
+      const d = JSON.parse(localStorage.getItem(PB_KEY)||'{}');
+      const setIn = (id,v) => { const el=document.getElementById(id); if(el) el.value=v||''; };
+      setIn('pb-weight-in', d.weight); setIn('pb-fat-in', d.fat);
+      setIn('pb-muscle-in', d.muscle); setIn('pb-bmi-in', d.bmi);
+      setIn('pb-visceral-in', d.visceral); setIn('pb-score-in', d.score);
+      setIn('pb-date-in', d.rawDate||new Date().toISOString().split('T')[0]);
+    } catch(e){}
+    disp.style.display='none'; edit.style.display='block'; btn.textContent='✕ ปิด';
+  }
+}
+function saveProfileBody(){
+  const g = id => document.getElementById(id)?.value||'';
+  const dateVal = g('pb-date-in');
+  const d = {
+    weight: parseFloat(g('pb-weight-in'))||0,
+    fat: parseFloat(g('pb-fat-in'))||0,
+    muscle: parseFloat(g('pb-muscle-in'))||0,
+    bmi: parseFloat(g('pb-bmi-in'))||0,
+    visceral: parseInt(g('pb-visceral-in'))||0,
+    score: parseInt(g('pb-score-in'))||0,
+    rawDate: dateVal,
+    date: dateVal ? new Date(dateVal).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}) : ''
+  };
+  localStorage.setItem(PB_KEY, JSON.stringify(d));
+  loadProfileBody();
+  toggleProfileEdit();
+  // Also save to body snapshots
+  if(dateVal && d.weight){
+    const snaps = getBodySnaps().filter(s=>s.date!==dateVal);
+    snaps.push({date:dateVal, weight:d.weight, fat:d.fat, muscle:d.muscle});
+    snaps.sort((a,b)=>a.date.localeCompare(b.date));
+    saveBodySnaps(snaps);
+  }
+  toast('✓ บันทึกสัดส่วนแล้ว!');
+}
+
+
 async function importInBody(input){
   const file = input.files[0];
   if(!file) return;
