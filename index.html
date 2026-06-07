@@ -2963,12 +2963,24 @@ async function analyzeFood(input, meal, mode){
         messages:[{role:'user',content:messageContent}]
       })
     });
+
+    // Handle non-200 responses
+    if(!res.ok){
+      const errText = await res.text().catch(()=>'');
+      console.error('AI API error:', res.status, errText);
+      analyzeWrap.innerHTML = `<div style="padding:10px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.73rem;color:var(--prot);">
+        ⚠ AI ไม่ตอบสนอง (${res.status}) — กรอกข้อมูลเองได้เลยค่ะ
+      </div>`;
+      setSyncBadge('','☁️ พร้อม');
+      return;
+    }
+
     const data = await res.json();
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const result = JSON.parse(raw);
     const n = result.nutrition || {};
 
-    // Home-cooked = sodium is 0 (no added salt/sauces at all)
+    // Home-cooked = sodium is 0
     if(mealMode === 'home') n.sodium_mg = 0;
 
     // Fill description
@@ -2981,18 +2993,20 @@ async function analyzeFood(input, meal, mode){
     addTo('mac_s', n.fruit_sugar_g); addTo('mac_sodium', n.sodium_mg);
     updateQ();
 
-    // Auto-add ingredients
-    const cats = result.ing_categories || {};
+    // Auto-add ingredients — do in background, don't block UI
     const ingAdded = [];
-    for(const [catId, items] of Object.entries(cats)){
-      for(const item of (items||[])){
-        const name = (item||'').split('(')[0].trim();
-        if(name.length < 2) continue;
-        const existing = await dbLoadIng(curIngMo);
-        const already = (existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
-        if(!already){ await dbAddIng(curIngMo, catId, name, ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1); ingAdded.push(name); }
+    try {
+      const cats = result.ing_categories || {};
+      const existing = await dbLoadIng(curIngMo);
+      for(const [catId, items] of Object.entries(cats)){
+        for(const item of (items||[])){
+          const name = (item||'').split('(')[0].trim();
+          if(name.length < 2) continue;
+          const already = (existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
+          if(!already){ await dbAddIng(curIngMo, catId, name, ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1); ingAdded.push(name); }
+        }
       }
-    }
+    } catch(ingErr){ console.warn('Ingredient add error:', ingErr); }
 
     // Result card
     const isHome = mealMode === 'home';
@@ -3039,13 +3053,13 @@ async function analyzeFood(input, meal, mode){
         ${ingAdded.length?`<div style="font-size:.63rem;color:var(--veg);margin-top:6px;letter-spacing:.2px;">✓ ${ingAdded.length} ingredient${ingAdded.length>1?'s':''} added to your monthly log</div>`:''}
       </div>`;
 
-    setSyncBadge('','☁️ Ready');
+    setSyncBadge('','☁️ พร้อม');
     toast(`✓ ${MEAL_LABELS[meal]} analysed · ${Math.round(n.kcal||0)} kcal`);
 
   } catch(err){
-    analyzeWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);letter-spacing:.2px;">⚠ Analysis failed — please try again</div>`;
-    setSyncBadge('error','⚠ Error');
-    console.error(err);
+    analyzeWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);letter-spacing:.2px;">⚠ Analysis failed — กรอกข้อมูลเองได้เลยค่ะ</div>`;
+    setSyncBadge('','☁️ พร้อม'); // Reset badge so Save still works
+    console.error('analyzeFood error:', err);
   }
 }
 
@@ -3125,6 +3139,7 @@ async function analyzeSleepPhoto(input){
         ]}]
       })
     });
+    if(!res.ok){ throw new Error('HTTP '+res.status); }
     const data = await res.json();
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const s = JSON.parse(raw);
@@ -3184,10 +3199,10 @@ Identify all dishes. Respond ONLY with valid JSON:
         {type:'text', text:prompts[mode]}
       ]}]})
     });
+    if(!res.ok){ throw new Error('HTTP '+res.status); }
     const data = await res.json();
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const r = JSON.parse(raw);
-
     if(mode === 'meals'){
       const n = r.nutrition || {};
       if(isHome) n.sodium_mg = 0;
