@@ -318,118 +318,103 @@ textarea{min-height:42px;}
     </div>
   </div>
 
-  <!-- Health Conditions -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-      <div style="width:30px;height:30px;border-radius:7px;background:rgba(192,57,43,.1);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🩺</div>
-      <div style="font-family:'Kanit',sans-serif;font-size:.87rem;color:#C0392B;">Health Conditions</div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:9px;">
-      <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:11px;padding:11px 13px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:#C0392B;margin-bottom:4px;">🌸 Hormonal / Menstrual</div>
-        <div style="font-size:.73rem;color:var(--text);line-height:1.6;">Menstrual cycle cannot occur naturally — under physician care with hormonal contraceptives to regulate cycle.</div>
-      </div>
-      <div style="background:rgba(107,143,163,.06);border:1px solid rgba(107,143,163,.2);border-radius:11px;padding:11px 13px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--sleep);margin-bottom:4px;">🌙 Sleep / Anxiety</div>
-        <div style="font-size:.73rem;color:var(--text);line-height:1.6;">Prescribed muscle relaxant / mild anxiolytic nightly for 5+ years. Dosage monitored and adjusted by physician. <strong style="color:var(--sleep)">Magnesium supplementation required nightly.</strong></div>
-      </div>
-    </div>
-  </div>
-
   <!-- Daily Wellness Routine -->
   <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
       <div style="width:30px;height:30px;border-radius:7px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🌿</div>
-      <div style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--accent);">Daily Self-Care Routine</div>
+      <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--accent);">กิจวัตรประจำวัน</div>
+      <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--accent);display:none;">Daily Self-Care Routine</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:7px;">
       <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
         <span style="font-size:.95rem;margin-top:1px;">🍳</span>
-        <div><div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">Fresh cooking — daily</div><div style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Home-cooked meals every day · No added sugar · Zero processed food</div></div>
+        <div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ทำอาหารเองทุกวัน</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Fresh home-cooking — daily</div>
+          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">ไม่เติมน้ำตาล · ไม่กินอาหารแปรรูป</div>
+          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">No added sugar · Zero processed food</div>
+        </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
         <span style="font-size:.95rem;margin-top:1px;">🏋️</span>
-        <div><div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">Strength + Cardio training</div><div style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Regular sessions combining weight training and cardio (treadmill incline)</div></div>
+        <div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ออกกำลังกาย · เวทและคาร์ดิโอ</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Strength + Cardio training</div>
+          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">เวทเทรนนิ่ง + ลู่วิ่งความชัน สม่ำเสมอ</div>
+          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Weight training + treadmill incline — consistent sessions</div>
+        </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
         <span style="font-size:.95rem;margin-top:1px;">⌚</span>
-        <div><div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">Garmin health tracking</div><div style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Sleep score, HRV, RHR, Body Battery tracked daily</div></div>
+        <div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ติดตามสุขภาพด้วย Garmin</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Garmin health tracking</div>
+          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Sleep Score · HRV · RHR · Body Battery ทุกวัน</div>
+          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Sleep score, HRV, RHR, Body Battery tracked daily</div>
+        </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
         <span style="font-size:.95rem;margin-top:1px;">💊</span>
-        <div><div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">BioActive+ protocol</div><div style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3">Magnesium (nightly)</strong> · Tribiotic · Immuchew · Juvecol</div></div>
+        <div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">BioActive+ protocol</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">BioActive+ protocol</div>
+          <div style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3">Magnesium (nightly)</strong> · Tribiotic · Immuchew · Juvecol</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Tracking & Goals -->
   <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
       <div style="width:30px;height:30px;border-radius:7px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem;">📊</div>
       <div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">Tracking &amp; Goals</div>
-        <div style="font-size:.6rem;color:var(--muted2);">เป้าหมายสุขภาพประจำวัน</div>
+        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">เป้าหมายสุขภาพ</div>
+        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);display:none;">Tracking &amp; Goals</div>
       </div>
+    </div>
+    <!-- Longevity note -->
+    <div style="margin-bottom:11px;padding:8px 11px;background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:10px;border-left:3px solid var(--accent);">
+      <div class="lang-th" style="font-size:.67rem;color:var(--accent);line-height:1.6;font-style:italic;">"รับเฉพาะน้ำตาลธรรมชาติ งดน้ำตาลเพิ่ม — ใช้ชีวิตอย่างมีคุณภาพและยั่งยืน"</div>
+      <div class="lang-en" style="font-size:.67rem;color:var(--accent);line-height:1.6;font-style:italic;display:none;">"Natural sugars only. No added sugar. Live with intention — strong, sustainable, and built to last."</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
       <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
         <div style="font-size:1.3rem;margin-bottom:3px;">💧</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">2.5L+</div>
-        <div style="font-size:.6rem;color:var(--muted2);">Water · เป้าน้ำดื่ม</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">น้ำดื่มต่อวัน</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Daily water</div>
       </div>
       <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
         <div style="font-size:1.3rem;margin-bottom:3px;">🌙</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">7.5–8.5h</div>
-        <div style="font-size:.6rem;color:var(--muted2);">Sleep · เป้าการนอน</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">เป้าการนอน</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Sleep target</div>
       </div>
       <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
         <div style="font-size:1.3rem;margin-bottom:3px;">🔥</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">1,600–1,850</div>
-        <div style="font-size:.6rem;color:var(--muted2);">kcal · แคลอรี่</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">แคลอรี่</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">kcal / day</div>
       </div>
       <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
         <div style="font-size:1.3rem;margin-bottom:3px;">🥩</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">90–110g</div>
-        <div style="font-size:.6rem;color:var(--muted2);">Protein · โปรตีน</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">โปรตีน</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Protein / day</div>
       </div>
       <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
         <div style="font-size:1.3rem;margin-bottom:3px;">🥦</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">25–30g</div>
-        <div style="font-size:.6rem;color:var(--muted2);">Fiber · ไฟเบอร์</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">ไฟเบอร์</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Fiber / day</div>
       </div>
       <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
         <div style="font-size:1.3rem;margin-bottom:3px;">🍎</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">15–25g</div>
-        <div style="font-size:.6rem;color:var(--muted2);">Fruit Sugar · น้ำตาลผลไม้</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">น้ำตาลผลไม้</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Fruit sugar</div>
       </div>
-    </div>
-  </div>
-
-  <!-- GIRL Health Score -->
-  <div style="background:linear-gradient(135deg,rgba(74,124,89,.08),rgba(201,169,110,.06));border:1px solid rgba(74,124,89,.2);border-radius:16px;padding:15px;margin-bottom:12px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-      <div style="width:30px;height:30px;border-radius:7px;background:rgba(74,124,89,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🌿</div>
-      <div>
-        <div style="font-family:'Playfair Display',serif;font-size:.9rem;color:var(--accent);font-weight:700;">GIRL Health Score</div>
-        <div style="font-size:.6rem;color:var(--muted2);">คะแนนสุขภาพเฉพาะของเกิล · คำนวณจากข้อมูลจริง</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
-      <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(74,124,89,.3);">
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:1.3rem;font-weight:700;color:#fff;line-height:1;" id="girl-health-score">82</div><div style="font-size:.45rem;color:rgba(255,255,255,.8);letter-spacing:.3px;">/100</div></div>
-      </div>
-      <div style="flex:1;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--accent);font-weight:700;margin-bottom:4px;">Excellent Progress 🔥</div>
-        <div style="font-size:.65rem;color:var(--muted2);line-height:1.5;">คำนวณจาก: Sleep · Protein · Fiber · Water · Body Fat · Muscle Mass</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-      <div style="background:var(--card);border-radius:9px;padding:7px;text-align:center;"><div style="font-size:.75rem;color:var(--sleep);font-weight:700;">🌙</div><div style="font-size:.6rem;color:var(--muted2);">Sleep</div></div>
-      <div style="background:var(--card);border-radius:9px;padding:7px;text-align:center;"><div style="font-size:.75rem;color:var(--prot);font-weight:700;">🥩</div><div style="font-size:.6rem;color:var(--muted2);">Protein</div></div>
-      <div style="background:var(--card);border-radius:9px;padding:7px;text-align:center;"><div style="font-size:.75rem;color:var(--veg);font-weight:700;">🥦</div><div style="font-size:.6rem;color:var(--muted2);">Fiber</div></div>
-      <div style="background:var(--card);border-radius:9px;padding:7px;text-align:center;"><div style="font-size:.75rem;color:var(--water);font-weight:700;">💧</div><div style="font-size:.6rem;color:var(--muted2);">Water</div></div>
-      <div style="background:var(--card);border-radius:9px;padding:7px;text-align:center;"><div style="font-size:.75rem;color:var(--grain);font-weight:700;">🔥</div><div style="font-size:.6rem;color:var(--muted2);">Body Fat</div></div>
-      <div style="background:var(--card);border-radius:9px;padding:7px;text-align:center;"><div style="font-size:.75rem;color:var(--veg);font-weight:700;">💪</div><div style="font-size:.6rem;color:var(--muted2);">Muscle</div></div>
     </div>
   </div>
 
@@ -438,92 +423,136 @@ textarea{min-height:42px;}
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:30px;height:30px;border-radius:7px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem;">📐</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">สัดส่วนร่างกาย</div>
+        <div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">สัดส่วนร่างกาย</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);display:none;">Body Composition</div>
+        </div>
       </div>
-      <button onclick="toggleProfileEdit()" id="profile-edit-btn" style="padding:5px 12px;border-radius:18px;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.65rem;cursor:pointer;">✏️ แก้ไข</button>
+      <button onclick="toggleProfileEdit()" id="profile-edit-btn" style="padding:5px 12px;border-radius:18px;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.65rem;cursor:pointer;">✏️ <span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
     </div>
     <!-- Display mode -->
     <div id="profile-body-display">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;">
         <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);" id="pb-weight-val">48.7</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">⚖️ น้ำหนัก kg</div>
+          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">⚖️ น้ำหนัก kg</div>
+          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">⚖️ Weight kg</div>
         </div>
         <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--prot);" id="pb-fat-val">25.3%</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🔥 ไขมัน</div>
+          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🔥 ไขมัน</div>
+          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">🔥 Body Fat</div>
         </div>
         <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--veg);" id="pb-muscle-val">20.2</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">💪 กล้ามเนื้อ kg</div>
+          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">💪 กล้ามเนื้อ kg</div>
+          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">💪 Muscle kg</div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;">
         <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);" id="pb-bmi-val">19.0</div>
           <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">📊 BMI</div>
         </div>
         <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--veg);" id="pb-visceral-val">4</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🏃 ไขมันช่องท้อง</div>
+          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🏃 ไขมันช่องท้อง</div>
+          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">🏃 Visceral Fat</div>
         </div>
         <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--grain);" id="pb-score-val">82</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🌿 GIRL Health Score</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🌿 GIRL Score</div>
         </div>
       </div>
-      <div style="margin-top:9px;padding:8px 11px;background:rgba(74,124,89,.06);border-radius:9px;">
-        <div style="font-size:.63rem;color:var(--muted2);">📅 อัปเดตล่าสุด: <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
+
+      <!-- Fitness Age banner -->
+      <div style="background:linear-gradient(135deg,rgba(74,124,89,.1),rgba(201,169,110,.08));border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:.72rem;color:var(--muted2);margin-bottom:2px;">
+            <span class="lang-th">อายุร่างกาย (Fitness Age)</span>
+            <span class="lang-en" style="display:none;">Fitness Age</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:5px;">
+            <div style="font-family:'Kanit',sans-serif;font-size:1.5rem;font-weight:700;color:var(--accent);" id="pb-fitness-age">25</div>
+            <div style="font-size:.65rem;color:var(--muted2);">
+              <span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);">🎉 <span id="pb-age-diff">6.1 yrs younger</span></div>
+          <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;">
+            <span class="lang-th">กว่าอายุจริง 32 ปี</span>
+            <span class="lang-en" style="display:none;">than chronological age 32</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:7px 11px;background:rgba(74,124,89,.06);border-radius:9px;">
+        <div style="font-size:.63rem;color:var(--muted2);">📅 <span class="lang-th">อัปเดตล่าสุด:</span><span class="lang-en" style="display:none;">Last updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
       </div>
     </div>
     <!-- Edit mode -->
     <div id="profile-body-edit" style="display:none;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-        <div><label class="lbl">⚖️ น้ำหนัก (kg)</label><input type="number" id="pb-weight-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">🔥 ไขมัน (%)</label><input type="number" id="pb-fat-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">💪 กล้ามเนื้อ (kg)</label><input type="number" id="pb-muscle-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">⚖️ <span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> (kg)</label><input type="number" id="pb-weight-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">🔥 <span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span> (%)</label><input type="number" id="pb-fat-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">💪 <span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> (kg)</label><input type="number" id="pb-muscle-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
         <div><label class="lbl">📊 BMI</label><input type="number" id="pb-bmi-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">🏃 ไขมันช่องท้อง</label><input type="number" id="pb-visceral-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
         <div><label class="lbl">🌿 GIRL Health Score</label><input type="number" id="pb-score-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">🎂 Fitness Age</label><input type="number" id="pb-fitpage-in" step="0.1" placeholder="25" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
       </div>
-      <div style="margin-bottom:8px;"><label class="lbl">📅 วันที่วัด</label><input type="date" id="pb-date-in" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-      <button onclick="saveProfileBody()" style="width:100%;padding:11px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;">💾 บันทึก</button>
+      <div style="margin-bottom:8px;"><label class="lbl">📅 <span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+      <button onclick="saveProfileBody()" style="width:100%;padding:11px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;">💾 <span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
     </div>
   </div>
 
-  <!-- Physician notes -->
-  <div style="background:rgba(74,124,89,.04);border:1px solid rgba(74,124,89,.2);border-radius:14px;padding:13px 15px;margin-bottom:12px;">
-    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;">
-      <span style="font-size:1rem;">📋</span>
+  <!-- GIRL Health Score — compact, below body stats -->
+  <div style="background:linear-gradient(135deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.2);border-radius:16px;padding:14px 15px;margin-bottom:12px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(74,124,89,.3);flex-shrink:0;">
+          <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1;" id="girl-health-score">82</div><div style="font-size:.42rem;color:rgba(255,255,255,.8);">/100</div></div>
+        </div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:.88rem;color:var(--accent);font-weight:700;">GIRL Health Score</div>
+          <div style="font-size:.62rem;color:var(--muted2);margin-top:2px;">Sleep · Protein · Fiber · Water · Body Fat · Muscle</div>
+        </div>
+      </div>
+      <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--accent);font-weight:700;padding:5px 10px;background:rgba(74,124,89,.1);border-radius:20px;white-space:nowrap;">Excellent 🔥</div>
+    </div>
+  </div>
+
+  <!-- Health Conditions + Physician Notes — merged at bottom -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+      <div style="width:30px;height:30px;border-radius:7px;background:rgba(192,57,43,.08);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🩺</div>
       <div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.78rem;color:var(--accent);font-weight:600;">Physician Notes · บันทึกจากแพทย์</div>
-        <div style="font-size:.6rem;color:var(--muted2);">ข้อมูลสุขภาพที่อยู่ในการดูแลของแพทย์</div>
+        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:#C0392B;">สุขภาพ &amp; ยา</div>
+        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:#C0392B;display:none;">Health &amp; Medication</div>
+        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">อยู่ในการดูแลของแพทย์</div>
+        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Under physician supervision</div>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;">
 
-      <div style="background:rgba(212,96,122,.06);border-left:3px solid #D4607A;border-radius:0 9px 9px 0;padding:9px 12px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:#D4607A;font-weight:600;margin-bottom:3px;">🌸 Hormonal Contraceptive · ยาคุมกำเนิด</div>
-        <div style="font-size:.68rem;color:var(--text);line-height:1.65;">
-          รับประทานยาคุมกำเนิดต่อเนื่องมากกว่า 10 ปี เพื่อควบคุมฮอร์โมนและรอบเดือน<br>
-          <span style="color:var(--muted2);">Taking hormonal contraceptives for 10+ years to regulate menstrual cycle &amp; hormone balance — under physician supervision.</span>
-        </div>
+      <div style="background:rgba(212,96,122,.05);border-left:3px solid #D4607A;border-radius:0 10px 10px 0;padding:10px 13px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:#D4607A;font-weight:600;margin-bottom:4px;">🌸 <span class="lang-th">ยาคุมกำเนิด · ฮอร์โมน</span><span class="lang-en" style="display:none;">Hormonal Contraceptive</span></div>
+        <div class="lang-th" style="font-size:.68rem;color:var(--text);line-height:1.65;">รับประทานต่อเนื่องมากกว่า 10 ปี เพื่อควบคุมฮอร์โมนและรอบเดือน อยู่ในการดูแลของแพทย์</div>
+        <div class="lang-en" style="font-size:.68rem;color:var(--text);line-height:1.65;display:none;">Hormonal contraceptives for 10+ years to regulate menstrual cycle &amp; hormone balance — under physician supervision.</div>
       </div>
 
-      <div style="background:rgba(107,143,163,.06);border-left:3px solid #6B8FA3;border-radius:0 9px 9px 0;padding:9px 12px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:#6B8FA3;font-weight:600;margin-bottom:3px;">🌙 Sleep Medication · ยานอนหลับ</div>
-        <div style="font-size:.68rem;color:var(--text);line-height:1.65;">
-          ยาคลายเครียดก่อนนอนต่อเนื่องกว่า 5 ปี ขนาดยาอยู่ในการดูแลของแพทย์<br>
-          <span style="color:var(--muted2);">Mild muscle relaxant / anxiolytic nightly for 5+ years — dosage managed by physician.</span>
-        </div>
+      <div style="background:rgba(107,143,163,.05);border-left:3px solid #6B8FA3;border-radius:0 10px 10px 0;padding:10px 13px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:#6B8FA3;font-weight:600;margin-bottom:4px;">🌙 <span class="lang-th">ยานอนหลับ · ยาคลายเครียด</span><span class="lang-en" style="display:none;">Sleep Medication</span></div>
+        <div class="lang-th" style="font-size:.68rem;color:var(--text);line-height:1.65;">ยาคลายเครียดก่อนนอนต่อเนื่องกว่า 5 ปี ขนาดยาอยู่ในการดูแลของแพทย์ <strong style="color:#6B8FA3">ต้องทานแมกนีเซียมทุกคืน</strong></div>
+        <div class="lang-en" style="font-size:.68rem;color:var(--text);line-height:1.65;display:none;">Mild muscle relaxant / anxiolytic nightly for 5+ years — dosage managed by physician. <strong style="color:#6B8FA3">Magnesium required every night.</strong></div>
       </div>
 
-      <div style="background:rgba(74,124,89,.06);border-left:3px solid #4A7C59;border-radius:0 9px 9px 0;padding:9px 12px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--accent);font-weight:600;margin-bottom:3px;">💊 Required Supplements · อาหารเสริมที่จำเป็น</div>
-        <div style="font-size:.68rem;color:var(--text);line-height:1.65;">
-          <strong>แมกนีเซียมทุกคืน</strong> — จำเป็นเพื่อสนับสนุนการทำงานของยานอนหลับ<br>
-          <span style="color:var(--muted2);"><strong>Magnesium every night</strong> — essential to support sleep medication efficacy.</span>
-        </div>
+      <div style="background:rgba(74,124,89,.05);border-left:3px solid #4A7C59;border-radius:0 10px 10px 0;padding:10px 13px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--accent);font-weight:600;margin-bottom:4px;">💊 <span class="lang-th">อาหารเสริมที่จำเป็น</span><span class="lang-en" style="display:none;">Required Supplements</span></div>
+        <div class="lang-th" style="font-size:.68rem;color:var(--text);line-height:1.65;"><strong>แมกนีเซียมทุกคืน</strong> — จำเป็นเพื่อสนับสนุนการทำงานของยานอนหลับ</div>
+        <div class="lang-en" style="font-size:.68rem;color:var(--text);line-height:1.65;display:none;"><strong>Magnesium every night</strong> — essential to support sleep medication efficacy.</div>
       </div>
 
     </div>
@@ -982,42 +1011,76 @@ textarea{min-height:42px;}
 <!-- PAGE BODY COMPOSITION -->
 <div class="page" id="page-body">
   <div style="margin-bottom:12px;">
-    <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);margin-bottom:4px;">📐 Body Composition Tracker</div>
-    <div style="font-size:.7rem;color:var(--muted2);">Year-over-year comparison · Weight · Fat % · Muscle %</div>
+    <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);margin-bottom:4px;">📐 Body Composition</div>
+    <div style="font-size:.7rem;color:var(--muted2);">Weight · Body Fat · Muscle — year over year</div>
   </div>
 
-  <!-- InBody data pre-filled from photo -->
-  <div style="background:linear-gradient(135deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.2);border-radius:16px;padding:13px;margin-bottom:13px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);">📄 Import InBody Report</div>
-        <div style="font-size:.62rem;color:var(--muted2);margin-top:2px;">ถ่ายรูปกระดาษ InBody — AI อ่านตัวเลขให้เลย</div>
-      </div>
-      <label style="display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:20px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;">
-        📸 Scan
-        <input type="file" accept="image/*" style="display:none" onchange="importInBody(this)">
-      </label>
+  <!-- 2025 vs 2026 Comparison card — fixed data from InBody -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+    <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);margin-bottom:12px;">📊 2025 vs 2026</div>
+
+    <!-- Column headers -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:6px;">
+      <div style="font-size:.6rem;color:var(--muted2);font-weight:600;"></div>
+      <div style="font-size:.62rem;color:var(--muted2);font-weight:700;text-align:center;padding:4px;background:var(--bg);border-radius:7px;">Apr 2025</div>
+      <div style="font-size:.62rem;color:var(--accent);font-weight:700;text-align:center;padding:4px;background:rgba(74,124,89,.08);border-radius:7px;">Jun 2026</div>
+      <div style="font-size:.62rem;color:var(--muted2);font-weight:700;text-align:center;padding:4px;background:var(--bg);border-radius:7px;">Change</div>
     </div>
-    <div id="inbody-result" style="display:none;"></div>
-    <!-- Last InBody snapshot summary -->
-    <div style="background:var(--card);border-radius:11px;padding:11px;margin-top:2px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.7rem;color:var(--muted2);margin-bottom:8px;">📊 Latest InBody — 28 Apr 2025</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);">45.7</div><div style="font-size:.58rem;color:var(--muted2);">kg</div></div>
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:700;color:var(--prot);">33.7%</div><div style="font-size:.58rem;color:var(--muted2);">Body Fat</div></div>
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:700;color:var(--veg);">15.9</div><div style="font-size:.58rem;color:var(--muted2);">Muscle kg</div></div>
+
+    <!-- Rows -->
+    <div style="display:flex;flex-direction:column;gap:5px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
+        <div style="font-size:.65rem;color:var(--muted2);">⚖️ Weight</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--text);text-align:center;">45.7 kg</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--text);text-align:center;">48.7 kg</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--muted2);text-align:center;">+3.0</div>
       </div>
-      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);">48.7</div><div style="font-size:.58rem;color:var(--muted2);">kg now</div></div>
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:700;color:var(--veg);">25.3%</div><div style="font-size:.58rem;color:var(--muted2);">Fat now</div></div>
-        <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:700;color:var(--veg);">20.2</div><div style="font-size:.58rem;color:var(--muted2);">Muscle now</div></div>
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
+        <div style="font-size:.65rem;color:var(--muted2);">🔥 Body Fat</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--prot);text-align:center;">33.7%</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);text-align:center;">25.3%</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--veg);text-align:center;">-8.4% 🔥</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;">
-        <div style="text-align:center;background:rgba(74,124,89,.07);border-radius:8px;padding:5px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--prot);">+3.0kg</div><div style="font-size:.56rem;color:var(--muted2);">น้ำหนัก</div></div>
-        <div style="text-align:center;background:rgba(74,124,89,.07);border-radius:8px;padding:5px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);">-8.4%</div><div style="font-size:.56rem;color:var(--muted2);">ไขมัน%</div></div>
-        <div style="text-align:center;background:rgba(74,124,89,.07);border-radius:8px;padding:5px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);">+4.3kg</div><div style="font-size:.56rem;color:var(--muted2);">กล้ามเนื้อ 🔥</div></div>
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
+        <div style="font-size:.65rem;color:var(--muted2);">💪 Muscle</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--muted2);text-align:center;">15.9 kg</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);text-align:center;">20.2 kg</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--veg);text-align:center;">+4.3 🔥</div>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
+        <div style="font-size:.65rem;color:var(--muted2);">📊 BMI</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--muted2);text-align:center;">17.9</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);text-align:center;">19.0</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--veg);text-align:center;">+1.1</div>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
+        <div style="font-size:.65rem;color:var(--muted2);">🏃 Visceral</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--prot);text-align:center;">7</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);text-align:center;">4</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--veg);text-align:center;">-3 ✓</div>
       </div>
     </div>
+
+    <!-- Summary pills -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px;">
+      <div style="text-align:center;background:rgba(192,57,43,.06);border-radius:10px;padding:8px 5px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:700;color:var(--prot);">+3.0 kg</div>
+        <div style="font-size:.56rem;color:var(--muted2);margin-top:1px;">น้ำหนัก</div>
+      </div>
+      <div style="text-align:center;background:rgba(74,124,89,.07);border-radius:10px;padding:8px 5px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:700;color:var(--veg);">-8.4%</div>
+        <div style="font-size:.56rem;color:var(--muted2);margin-top:1px;">ไขมัน 🔥</div>
+      </div>
+      <div style="text-align:center;background:rgba(74,124,89,.07);border-radius:10px;padding:8px 5px;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:700;color:var(--veg);">+4.3 kg</div>
+        <div style="font-size:.56rem;color:var(--muted2);margin-top:1px;">กล้ามเนื้อ 🔥</div>
+      </div>
+    </div>
+    <div style="margin-top:9px;font-size:.62rem;color:var(--muted2);text-align:center;">InBody 270 · Apr 28, 2025 → Jun 5, 2026</div>
   </div>
 
   <!-- Add new snapshot -->
@@ -1025,27 +1088,95 @@ textarea{min-height:42px;}
     <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);margin-bottom:11px;">➕ Add Measurement</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
       <div><label class="lbl">📅 Date</label><input type="date" id="body-date" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
-      <div><label class="lbl">⚖️ Weight (kg)</label><input type="number" id="body-weight" step="0.1" placeholder="54.5" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
-      <div><label class="lbl">🔥 Body Fat (%)</label><input type="number" id="body-fat" step="0.1" placeholder="22.5" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
-      <div><label class="lbl">💪 Muscle Mass (kg)</label><input type="number" id="body-muscle" step="0.1" placeholder="38.0" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
+      <div><label class="lbl">⚖️ Weight (kg)</label><input type="number" id="body-weight" step="0.1" placeholder="48.7" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
+      <div><label class="lbl">🔥 Body Fat (%)</label><input type="number" id="body-fat" step="0.1" placeholder="25.3" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
+      <div><label class="lbl">💪 Muscle (kg)</label><input type="number" id="body-muscle" step="0.1" placeholder="20.2" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
     </div>
     <button onclick="saveBodySnapshot()" style="width:100%;padding:11px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;letter-spacing:.5px;">💾 Save Measurement</button>
   </div>
 
-  <!-- Comparison Table -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-    <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--text);margin-bottom:11px;">📊 Year-over-Year Comparison</div>
-    <div id="body-table-wrap">
-      <div style="text-align:center;padding:24px 16px;color:var(--muted);font-size:.78rem;">Loading measurements…</div>
+  <!-- Next Goals -->
+  <div style="background:linear-gradient(135deg,rgba(74,124,89,.08),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.25);border-radius:16px;padding:15px;margin-bottom:14px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+      <div style="width:28px;height:28px;border-radius:7px;background:rgba(74,124,89,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;">🎯</div>
+      <div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--accent);font-weight:700;">Next Goals</div>
+        <div style="font-size:.6rem;color:var(--muted2);">เป้าหมายถัดไป · จาก Jun 2026</div>
+      </div>
     </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+
+      <!-- Muscle -->
+      <div style="background:var(--card);border-radius:12px;padding:11px 13px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:.68rem;color:var(--muted2);">💪 Muscle Mass</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--veg);font-weight:700;">20.2 → 22.0 kg</div>
+        </div>
+        <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
+          <div style="width:91.8%;height:100%;background:linear-gradient(90deg,#4A7C59,#6aaa7a);border-radius:20px;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;">
+          <div style="font-size:.58rem;color:var(--muted2);">เหลือ +1.8 kg</div>
+          <div style="font-size:.58rem;color:var(--veg);font-weight:600;">91.8% ✓</div>
+        </div>
+      </div>
+
+      <!-- Body Fat -->
+      <div style="background:var(--card);border-radius:12px;padding:11px 13px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:.68rem;color:var(--muted2);">🔥 Body Fat %</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--grain);font-weight:700;">25.3% → 22.0%</div>
+        </div>
+        <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
+          <div style="width:72%;height:100%;background:linear-gradient(90deg,#C9A96E,#e8c98a);border-radius:20px;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;">
+          <div style="font-size:.58rem;color:var(--muted2);">เหลือ -3.3%</div>
+          <div style="font-size:.58rem;color:var(--grain);font-weight:600;">72%</div>
+        </div>
+      </div>
+
+      <!-- Visceral Fat -->
+      <div style="background:var(--card);border-radius:12px;padding:11px 13px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:.68rem;color:var(--muted2);">🏃 Visceral Fat</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--veg);font-weight:700;">4 → 3</div>
+        </div>
+        <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
+          <div style="width:57%;height:100%;background:linear-gradient(90deg,#4A7C59,#6aaa7a);border-radius:20px;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;">
+          <div style="font-size:.58rem;color:var(--muted2);">เหลือ -1</div>
+          <div style="font-size:.58rem;color:var(--veg);font-weight:600;">57%</div>
+        </div>
+      </div>
+
+      <!-- Weight cap -->
+      <div style="background:var(--card);border-radius:12px;padding:11px 13px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:.68rem;color:var(--muted2);">⚖️ Weight (cap)</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--text);font-weight:700;">ไม่เกิน 49 kg</div>
+        </div>
+        <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
+          <div style="width:99%;height:100%;background:linear-gradient(90deg,#4A7C59,#6aaa7a);border-radius:20px;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;">
+          <div style="font-size:.58rem;color:var(--muted2);">ปัจจุบัน 48.7 kg · เหลือ 0.3 kg</div>
+          <div style="font-size:.58rem;color:var(--veg);font-weight:600;">99% ✓</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:10px;padding:8px 11px;background:rgba(74,124,89,.06);border-radius:9px;font-size:.63rem;color:var(--accent);text-align:center;font-style:italic;">"More muscle, less fat — same bodyweight range. That's body recomposition." 🌿</div>
   </div>
 
-  <!-- Trend chart visual -->
+  <!-- Dynamic comparison table (from saved snapshots) -->
   <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-    <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--text);margin-bottom:11px;">📈 Progress Trend</div>
-    <div id="body-chart-wrap">
-      <div style="text-align:center;padding:16px;color:var(--muted);font-size:.75rem;">Add measurements to see trend</div>
+    <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--text);margin-bottom:11px;">📈 My Snapshots</div>
+    <div id="body-table-wrap">
+      <div style="text-align:center;padding:24px 16px;color:var(--muted);font-size:.78rem;">Add a measurement to track progress</div>
     </div>
+    <div id="body-chart-wrap" style="margin-top:10px;"></div>
   </div>
 </div>
 
@@ -1262,10 +1393,38 @@ CREATE POLICY IF NOT EXISTS "Allow all" ON health_ingredients FOR ALL USING (tru
 // ── DAY CRUD ──
 async function dbSaveDay(date, data){
   setSyncBadge('syncing','☁️ กำลังบันทึก...');
-  const{error}=await db.from('health_days').upsert({date,...data});
-  if(error){setSyncBadge('error','❌ บันทึกไม่ได้');return false;}
-  setSyncBadge('','☁️ บันทึกแล้ว ✅');
-  return true;
+  try {
+    // Sanitize to plain primitives
+    const clean = {date};
+    Object.entries(data).forEach(([k,v])=>{
+      if(v===undefined||v===null) return;
+      if(typeof v==='string'||typeof v==='number'||typeof v==='boolean') clean[k]=v;
+      else clean[k]=String(v);
+    });
+    // Use raw fetch to avoid Supabase postMessage/DataCloneError on iOS
+    const res = await fetch(`${SUPA_URL}/rest/v1/health_days`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPA_KEY,
+        'Authorization': `Bearer ${SUPA_KEY}`,
+        'Prefer': 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify(clean)
+    });
+    if(!res.ok){
+      const err = await res.text();
+      console.error('Save HTTP error:', res.status, err);
+      setSyncBadge('error','❌ '+res.status);
+      return false;
+    }
+    setSyncBadge('','☁️ บันทึกแล้ว ✅');
+    return true;
+  } catch(e){
+    console.error('Save exception:', e?.message||e);
+    setSyncBadge('error','❌ บันทึกไม่ได้');
+    return false;
+  }
 }
 
 async function dbLoadDay(date){
@@ -1421,7 +1580,7 @@ async function loadDay(){
   const d=await dbLoadDay(curDay);
   setSyncBadge('','☁️ พร้อม');
   if(!d){
-    ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value='');
+    ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','mac_sugar_total','mac_sodium','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','water','sl_total_h'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
     document.getElementById('sl_min_h').value=0;
     document.getElementById('sl_dur').textContent='';
@@ -1435,7 +1594,7 @@ async function loadDay(){
     return;
   }
   const g=(k,def='')=>d[k]!==undefined&&d[k]!==null&&d[k]!==0?d[k]:def;
-  ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>document.getElementById(id).value=g(id));
+  ['m_b','m_l','m_d','m_s','sl_s','sl_e','ex_n','supps','h_note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=g(id);});
   ['mac_p','mac_f','mac_s','mac_kcal','mac_fat','mac_carb','mac_sugar_total','mac_sodium','sl_score','sl_rhr','sl_hrv','sl_bb','e1_m','e1_h','e1_k','e2_m','e2_k','e2_c','e2_h','water','sl_total_h'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=g(id,''); });
   document.getElementById('sl_min_h').value=d.sl_min||0;
   if(d.sl_s&&d.sl_e)calcSleep();else document.getElementById('sl_dur').textContent='';
@@ -1462,40 +1621,52 @@ async function loadDay(){
 }
 
 async function saveDay(){
-  const g=id=>document.getElementById(id).value;
+  const g=id=>{const el=document.getElementById(id);return el?el.value:'';};
   let sl_min=+g('sl_min_h')||0;
   if(g('sl_s')&&g('sl_e')){
     let sm=+g('sl_s').split(':')[0]*60+ +g('sl_s').split(':')[1];
     let em=+g('sl_e').split(':')[0]*60+ +g('sl_e').split(':')[1];
     if(em<=sm)em+=1440;sl_min=em-sm;
   }
+  // Only include columns that exist in Supabase schema
   const data={
     m_b:g('m_b'),m_l:g('m_l'),m_d:g('m_d'),m_s:g('m_s'),
-    mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,mac_kcal:+g('mac_kcal')||0,mac_fat:+g('mac_fat')||0,mac_carb:+g('mac_carb')||0,mac_sugar_total:+g('mac_sugar_total')||0,mac_sodium:+g('mac_sodium')||0,
-    sl_s:g('sl_s'),sl_e:g('sl_e'),sl_min:sl_min||(+g('sl_total_h')||0)*60,sl_score:+g('sl_score')||0,
-    sl_rhr:+g('sl_rhr')||0,sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,sl_q:sq,sl_total_h:+g('sl_total_h')||0,
+    mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,
+    mac_kcal:+g('mac_kcal')||0,mac_fat:+g('mac_fat')||0,
+    mac_carb:+g('mac_carb')||0,mac_sugar_total:+g('mac_sugar_total')||0,
+    mac_sodium:+g('mac_sodium')||0,
+    sl_s:g('sl_s'),sl_e:g('sl_e'),
+    sl_min:sl_min||(+g('sl_total_h')||0)*60,
+    sl_score:+g('sl_score')||0,sl_rhr:+g('sl_rhr')||0,
+    sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,
+    sl_q:sq,sl_total_h:+g('sl_total_h')||0,
     e1_m:+g('e1_m')||0,e1_h:+g('e1_h')||0,e1_k:+g('e1_k')||0,
     e2_m:+g('e2_m')||0,e2_k:+g('e2_k')||0,e2_c:+g('e2_c')||0,e2_h:+g('e2_h')||0,
     ex_n:g('ex_n'),eq,supps:g('supps'),
-    water:+g('water')||0,
-    mood:mq,h_note:g('h_note'),
-    day_rating:dayRating,
-    alcohol_level:alcoholLevel,
-    alcohol_note:g('alcohol_note'),
-    period_data: JSON.stringify({...periodState, note: g('period_note')}),
+    water:+g('water')||0,mood:mq,h_note:g('h_note'),
   };
+  // Add optional columns safely
+  try { data.day_rating = dayRating||''; } catch(e){}
+  try { data.alcohol_level = alcoholLevel||'none'; } catch(e){}
+  try { data.alcohol_note = g('alcohol_note'); } catch(e){}
+  try { data.period_data = JSON.stringify({...periodState, note:g('period_note')}); } catch(e){}
+
   const ok=await dbSaveDay(curDay,data);
   if(ok){
     // Auto-detect BioActive from supps + meal text
-    const combined=[g('supps'),g('m_b'),g('m_s')].join(' ');
-    const bioDetected = parseBioFromText(combined);
-    if(Object.keys(bioDetected).length){
-      const existingBio = await dbLoadBio(curDay);
-      const mergedBio = {...existingBio, ...bioDetected};
-      await dbSaveBio(curDay, mergedBio);
-      renderBioQuick(mergedBio);
-    }
+    try {
+      const combined=[g('supps'),g('m_b'),g('m_s')].join(' ');
+      const bioDetected = parseBioFromText(combined);
+      if(Object.keys(bioDetected).length){
+        const existingBio = await dbLoadBio(curDay);
+        const mergedBio = {...existingBio, ...bioDetected};
+        await dbSaveBio(curDay, mergedBio);
+        renderBioQuick(mergedBio);
+      }
+    } catch(e){}
     toast('✅ บันทึกแล้ว! ☁️');
+  } else {
+    toast('❌ บันทึกไม่ได้ — เช็คการเชื่อมต่อ');
   }
 }
 
@@ -2175,6 +2346,11 @@ function applyLang() {
   const sugarNote = document.querySelector('.sugar-note');
   if (sugarNote) sugarNote.textContent = t.sugar_note;
   
+  // Toggle .lang-th / .lang-en elements (profile page bilingual)
+  const isEN = currentLang === 'en';
+  document.querySelectorAll('.lang-th').forEach(el => el.style.display = isEN ? 'none' : '');
+  document.querySelectorAll('.lang-en').forEach(el => el.style.display = isEN ? '' : 'none');
+
   // Save button
   document.querySelectorAll('.save-btn').forEach(btn => {
     btn.innerHTML = t.save_btn + ' <span id="save-lbl"></span>';
@@ -2300,8 +2476,19 @@ async function dbLoadBio(date){
   try{ return JSON.parse(data.bio_taken||'{}'); }catch{ return {}; }
 }
 async function dbSaveBio(date, bioObj){
-  const{error}=await db.from('health_days').upsert({date, bio_taken: JSON.stringify(bioObj)});
-  return !error;
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/health_days`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPA_KEY,
+        'Authorization': `Bearer ${SUPA_KEY}`,
+        'Prefer': 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify({date, bio_taken: JSON.stringify(bioObj)})
+    });
+    return res.ok;
+  } catch(e){ return false; }
 }
 async function dbLoadBioMonth(month){
   const{data,error}=await db.from('health_days').select('date,bio_taken').like('date',`${month}%`);
@@ -2624,7 +2811,7 @@ Respond ONLY with valid JSON:
     if(mealMode==='home') n.sodium_mg=0;
     // Fill daily totals
     document.getElementById('m_b').value = r.day_summary||'';
-    ['mac_kcal','mac_p','mac_carb','mac_fat','mac_f','mac_sugar_total','mac_s','mac_sodium'].forEach(id=>document.getElementById(id).value='');
+    ['mac_kcal','mac_p','mac_carb','mac_fat','mac_f','mac_sugar_total','mac_s','mac_sodium'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     const set=(id,v)=>{const el=document.getElementById(id);if(el&&v)el.value=Math.round(v);};
     set('mac_kcal',n.kcal);set('mac_p',n.protein_g);set('mac_carb',n.carb_g);
     set('mac_fat',n.fat_g);set('mac_f',n.fiber_g);set('mac_sugar_total',n.sugar_g);
@@ -3104,6 +3291,13 @@ function loadProfileBody(){
     set('pb-visceral-val', d.visceral, '');
     set('pb-score-val', d.score, '');
     if(d.date){ const el=document.getElementById('pb-date-val'); if(el) el.textContent=d.date; }
+    // Fitness age
+    const fa = d.fitnessAge || 25;
+    const faEl = document.getElementById('pb-fitness-age');
+    if(faEl) faEl.textContent = fa;
+    const diff = (32 - fa).toFixed(1);
+    const diffEl = document.getElementById('pb-age-diff');
+    if(diffEl) diffEl.textContent = diff > 0 ? `${diff} yrs younger` : `${Math.abs(diff)} yrs older`;
   } catch(e){}
 }
 function toggleProfileEdit(){
@@ -3135,6 +3329,7 @@ function saveProfileBody(){
     bmi: parseFloat(g('pb-bmi-in'))||0,
     visceral: parseInt(g('pb-visceral-in'))||0,
     score: parseInt(g('pb-score-in'))||0,
+    fitnessAge: parseFloat(g('pb-fitpage-in'))||25,
     rawDate: dateVal,
     date: dateVal ? new Date(dateVal).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}) : ''
   };
