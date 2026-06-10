@@ -302,7 +302,7 @@ textarea{min-height:42px;}
         <div style="font-family:'Kanit',sans-serif;font-size:.67rem;color:rgba(255,255,255,.55);margin-top:3px;">07 May 1994 · Age 32 · Female</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;position:relative;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;position:relative;">
       <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:8px;text-align:center;">
         <div style="font-family:'Kanit',sans-serif;font-size:.95rem;color:#fff;font-weight:700;">32</div>
         <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">Age</div>
@@ -314,6 +314,10 @@ textarea{min-height:42px;}
       <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:8px;text-align:center;">
         <div style="font-family:'Kanit',sans-serif;font-size:.95rem;color:#fff;font-weight:700;">B</div>
         <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">Blood Type</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.2);">
+        <div style="font-family:'Kanit',sans-serif;font-size:.88rem;color:#fff;font-weight:700;letter-spacing:.5px;">ENFJ</div>
+        <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">MBTI</div>
       </div>
     </div>
   </div>
@@ -338,10 +342,19 @@ textarea{min-height:42px;}
       <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
         <span style="font-size:.95rem;margin-top:1px;">🏋️</span>
         <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ออกกำลังกาย · เวทและคาร์ดิโอ</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Strength + Cardio training</div>
-          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">เวทเทรนนิ่ง + ลู่วิ่งความชัน สม่ำเสมอ</div>
-          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Weight training + treadmill incline — consistent sessions</div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ออกกำลังกาย · เวท · คาร์ดิโอ · วิ่ง · เทนนิส</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Strength + Cardio + Run + Tennis</div>
+          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">เวทเทรนนิ่ง + ลู่วิ่งความชัน + วิ่งกลางแจ้ง + เทนนิส สม่ำเสมอ</div>
+          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Weight training + treadmill incline + outdoor run + tennis — consistent sessions</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
+        <span style="font-size:.95rem;margin-top:1px;">🧊</span>
+        <div>
+          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">Recovery · Ice Bath &amp; Sauna</div>
+          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Recovery · Ice Bath &amp; Sauna</div>
+          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Ice Bath ฟื้นฟูกล้ามเนื้อ · Sauna detox &amp; ผ่อนคลาย</div>
+          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Ice bath for muscle recovery · Sauna for detox &amp; relaxation</div>
         </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
@@ -465,11 +478,12 @@ textarea{min-height:42px;}
         </div>
       </div>
 
-      <!-- Fitness Age banner -->
-      <div style="background:linear-gradient(135deg,rgba(74,124,89,.1),rgba(201,169,110,.08));border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+      <!-- Fitness Age + Skin Age banners -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div style="background:linear-gradient(135deg,rgba(74,124,89,.1),rgba(201,169,110,.08));border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;">
         <div>
           <div style="font-family:'Playfair Display',serif;font-size:.72rem;color:var(--muted2);margin-bottom:2px;">
-            <span class="lang-th">อายุร่างกาย (Fitness Age)</span>
+            <span class="lang-th">อายุร่างกาย</span>
             <span class="lang-en" style="display:none;">Fitness Age</span>
           </div>
           <div style="display:flex;align-items:baseline;gap:5px;">
@@ -480,12 +494,34 @@ textarea{min-height:42px;}
           </div>
         </div>
         <div style="text-align:right;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);">🎉 <span id="pb-age-diff">6.1 yrs younger</span></div>
-          <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--veg);">🎉 <span id="pb-age-diff">6.1 yrs younger</span></div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">
             <span class="lang-th">กว่าอายุจริง 32 ปี</span>
-            <span class="lang-en" style="display:none;">than chronological age 32</span>
+            <span class="lang-en" style="display:none;">vs age 32</span>
           </div>
         </div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(255,126,179,.08),rgba(212,132,90,.06));border:1px solid rgba(255,126,179,.2);border-radius:11px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:.72rem;color:var(--muted2);margin-bottom:2px;">
+            <span class="lang-th">อายุผิว</span>
+            <span class="lang-en" style="display:none;">Skin Age</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:5px;">
+            <div style="font-family:'Kanit',sans-serif;font-size:1.5rem;font-weight:700;color:var(--fruit);" id="pb-skin-age">25</div>
+            <div style="font-size:.65rem;color:var(--muted2);">
+              <span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--fruit);">✨ 7 yrs younger</div>
+          <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">
+            <span class="lang-th">กว่าอายุจริง 32 ปี</span>
+            <span class="lang-en" style="display:none;">vs age 32</span>
+          </div>
+        </div>
+      </div>
       </div>
 
       <div style="padding:7px 11px;background:rgba(74,124,89,.06);border-radius:9px;">
@@ -502,26 +538,30 @@ textarea{min-height:42px;}
         <div><label class="lbl">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
         <div><label class="lbl">🌿 GIRL Health Score</label><input type="number" id="pb-score-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
         <div><label class="lbl">🎂 Fitness Age</label><input type="number" id="pb-fitpage-in" step="0.1" placeholder="25" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
       </div>
       <div style="margin-bottom:8px;"><label class="lbl">📅 <span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
       <button onclick="saveProfileBody()" style="width:100%;padding:11px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;">💾 <span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
     </div>
   </div>
 
-  <!-- GIRL Health Score — compact, below body stats -->
+  <!-- GIRL Health Score — computed from real logs -->
   <div style="background:linear-gradient(135deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.2);border-radius:16px;padding:14px 15px;margin-bottom:12px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:10px;">
-        <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(74,124,89,.3);flex-shrink:0;">
-          <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1;" id="girl-health-score">82</div><div style="font-size:.42rem;color:rgba(255,255,255,.8);">/100</div></div>
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(74,124,89,.3);flex-shrink:0;">
+          <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1;" id="girl-health-score">—</div><div style="font-size:.42rem;color:rgba(255,255,255,.8);">/100</div></div>
         </div>
         <div>
           <div style="font-family:'Playfair Display',serif;font-size:.88rem;color:var(--accent);font-weight:700;">GIRL Health Score</div>
-          <div style="font-size:.62rem;color:var(--muted2);margin-top:2px;">Sleep · Protein · Fiber · Water · Body Fat · Muscle</div>
+          <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;" id="score-period-lbl">คำนวณจากบันทึก 30 วันล่าสุด</div>
         </div>
       </div>
-      <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--accent);font-weight:700;padding:5px 10px;background:rgba(74,124,89,.1);border-radius:20px;white-space:nowrap;">Excellent 🔥</div>
+      <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--accent);font-weight:700;padding:5px 10px;background:rgba(74,124,89,.1);border-radius:20px;white-space:nowrap;" id="score-label">—</div>
     </div>
+    <!-- Score breakdown bars -->
+    <div id="score-breakdown" style="display:flex;flex-direction:column;gap:5px;"></div>
+    <button onclick="computeGirlScore()" style="width:100%;margin-top:10px;padding:8px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.25);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.75rem;border-radius:10px;cursor:pointer;font-weight:600;">🔄 คำนวณใหม่</button>
   </div>
 
   <!-- Health Conditions + Physician Notes — merged at bottom -->
@@ -1818,6 +1858,7 @@ function goPage(name){
   if(name==='bio'){curBioDay=curDay;curBioMo=curDay.substring(0,7);renderBio();}
   if(name==='body')renderBodyPage();
   if(name==='meals'){renderMealPresets();}
+  if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
 }
 
 // ── TABLE ──
@@ -2126,6 +2167,7 @@ async function init(){
     await goLatestDay(); // load most recent day with data
     await seedData();
     await migrateBioFromSupps();
+    computeGirlScore(); // compute score from real data on startup
   }
 }
 
@@ -3321,6 +3363,18 @@ function loadProfileBody(){
     const diff = (32 - fa).toFixed(1);
     const diffEl = document.getElementById('pb-age-diff');
     if(diffEl) diffEl.textContent = diff > 0 ? `${diff} yrs younger` : `${Math.abs(diff)} yrs older`;
+    // Skin age
+    const sa = d.skinAge || 25;
+    const saEl = document.getElementById('pb-skin-age');
+    if(saEl) saEl.textContent = sa;
+    const skinDiffEl = saEl?.parentElement?.parentElement?.querySelector('[style*="yrs younger"]');
+    // update skin age diff text dynamically
+    const skinDiff = 32 - sa;
+    const skinParent = document.getElementById('pb-skin-age')?.closest('div[style*="border-radius:11px"]');
+    if(skinParent){
+      const diffSpan = skinParent.querySelector('.skin-age-diff');
+      if(diffSpan) diffSpan.textContent = skinDiff > 0 ? `✨ ${skinDiff} yrs younger` : `${Math.abs(skinDiff)} yrs older`;
+    }
   } catch(e){}
 }
 function toggleProfileEdit(){
@@ -3338,6 +3392,8 @@ function toggleProfileEdit(){
       setIn('pb-muscle-in', d.muscle); setIn('pb-bmi-in', d.bmi);
       setIn('pb-visceral-in', d.visceral); setIn('pb-score-in', d.score);
       setIn('pb-date-in', d.rawDate||new Date().toISOString().split('T')[0]);
+      setIn('pb-fitpage-in', d.fitnessAge||25);
+      setIn('pb-skinage-in', d.skinAge||25);
     } catch(e){}
     disp.style.display='none'; edit.style.display='block'; btn.textContent='✕ ปิด';
   }
@@ -3353,6 +3409,7 @@ function saveProfileBody(){
     visceral: parseInt(g('pb-visceral-in'))||0,
     score: parseInt(g('pb-score-in'))||0,
     fitnessAge: parseFloat(g('pb-fitpage-in'))||25,
+    skinAge: parseInt(g('pb-skinage-in'))||25,
     rawDate: dateVal,
     date: dateVal ? new Date(dateVal).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}) : ''
   };
@@ -3713,6 +3770,157 @@ async function toggleBioQuick(pid){
   renderBioQuick(bioQuickState);
   const p = BIOACTIVE_PRODUCTS.find(x=>x.id===pid);
   toast(bioQuickState[pid] ? `✓ ${p?.name} — บันทึกแล้ว!` : `${p?.name} — ยกเลิก`);
+}
+
+// ── GIRL HEALTH SCORE — computed from real logs ──
+async function computeGirlScore(){
+  const scoreEl = document.getElementById('girl-health-score');
+  const labelEl = document.getElementById('score-label');
+  const bdEl    = document.getElementById('score-breakdown');
+  const periodEl = document.getElementById('score-period-lbl');
+  if(!scoreEl) return;
+
+  scoreEl.textContent = '…';
+  if(bdEl) bdEl.innerHTML = '<div style="font-size:.7rem;color:var(--muted2);text-align:center;padding:6px 0;">กำลังโหลด...</div>';
+
+  // Load last 30 days of data
+  const today = new Date();
+  const from = new Date(today); from.setDate(today.getDate()-29);
+  const fromStr = from.toISOString().split('T')[0];
+  const toStr   = today.toISOString().split('T')[0];
+
+  const {data, error} = await db.from('health_days')
+    .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,e1_k,e2_c,bio_taken')
+    .gte('date', fromStr).lte('date', toStr).order('date');
+
+  if(error || !data || data.length === 0){
+    scoreEl.textContent = '—';
+    if(labelEl) labelEl.textContent = 'ยังไม่มีข้อมูล';
+    if(bdEl) bdEl.innerHTML = '<div style="font-size:.7rem;color:var(--muted2);text-align:center;padding:6px 0;">ยังไม่มีข้อมูลใน 30 วันที่ผ่านมา</div>';
+    return;
+  }
+
+  const n = data.length;
+  if(periodEl) periodEl.textContent = `คำนวณจาก ${n} วัน (${fromStr} – ${toStr})`;
+
+  // ── SCORING DIMENSIONS (each 0–100, then weighted) ──
+  // 1. Sleep quality (25 pts) — target 7.5–8.5h, score ≥75
+  let sleepSum = 0;
+  data.forEach(d => {
+    const h = d.sl_total_h || (d.sl_min ? d.sl_min/60 : 0);
+    const sc = d.sl_score || 0;
+    // hours score (0–60): 0h=0, 6h=40, 7.5h=60, 8.5h=60, 10h=40
+    const hScore = h >= 7.5 && h <= 8.5 ? 60 :
+                   h >= 6.5 ? 40 + (h - 6.5) * 20 / 1 :
+                   h >= 5   ? 20 + (h - 5) * 13.3 :
+                   h > 0    ? h * 4 : 0;
+    // garmin sleep score (0–40)
+    const scScore = sc >= 80 ? 40 : sc >= 60 ? 25 : sc > 0 ? sc * 0.3 : 0;
+    sleepSum += Math.min(100, hScore + scScore);
+  });
+  const sleepScore = sleepSum / n;
+
+  // 2. Nutrition — Protein (20 pts)
+  let protSum = 0;
+  data.forEach(d => {
+    const p = d.mac_p || 0;
+    // Target 90–110g → 100pts; 80g→70, 70g→50, <50g→20
+    protSum += p >= 90  ? 100 :
+               p >= 80  ? 70 + (p-80)*3 :
+               p >= 70  ? 50 + (p-70)*2 :
+               p >= 50  ? 30 + (p-50) :
+               p > 0    ? p * 0.4 : 0;
+  });
+  const protScore = protSum / n;
+
+  // 3. Hydration (15 pts) — target 2.5L
+  let waterSum = 0;
+  data.forEach(d => {
+    const w = d.water || 0;
+    waterSum += w >= 2.5 ? 100 : w >= 2.0 ? 75 : w >= 1.5 ? 50 : w > 0 ? w * 20 : 0;
+  });
+  const waterScore = waterSum / n;
+
+  // 4. Exercise (20 pts) — target ≥30 min/day (strength or cardio)
+  let exSum = 0;
+  data.forEach(d => {
+    const mins = (d.e1_m || 0) + (d.e2_m || 0);
+    exSum += mins >= 60 ? 100 : mins >= 45 ? 85 : mins >= 30 ? 70 : mins >= 20 ? 50 : mins > 0 ? mins * 1.5 : 0;
+  });
+  const exScore = exSum / n;
+
+  // 5. BioActive consistency (10 pts) — target: all 9 taken daily
+  let bioSum = 0;
+  data.forEach(d => {
+    try {
+      const taken = typeof d.bio_taken === 'string' ? JSON.parse(d.bio_taken||'{}') : (d.bio_taken||{});
+      const count = Object.values(taken).filter(Boolean).length;
+      bioSum += count >= 9 ? 100 : count >= 7 ? 80 : count >= 5 ? 60 : count >= 3 ? 40 : count > 0 ? 20 : 0;
+    } catch(e){ bioSum += 0; }
+  });
+  const bioScore = bioSum / n;
+
+  // 6. Calorie consistency (10 pts) — target 1600–1850 kcal
+  let kcalSum = 0;
+  let kcalLogged = 0;
+  data.forEach(d => {
+    if(!d.mac_kcal) return;
+    kcalLogged++;
+    const k = d.mac_kcal;
+    kcalSum += k >= 1600 && k <= 1850 ? 100 :
+               k >= 1400 && k < 1600  ? 75 :
+               k > 1850 && k <= 2100  ? 75 :
+               k >= 1200              ? 50 :
+               k > 0                  ? 30 : 0;
+  });
+  const kcalScore = kcalLogged > 0 ? kcalSum / kcalLogged : 50; // default 50 if not logged
+
+  // ── WEIGHTED TOTAL ──
+  const total = Math.round(
+    sleepScore * 0.25 +
+    protScore  * 0.20 +
+    waterScore * 0.15 +
+    exScore    * 0.20 +
+    bioScore   * 0.10 +
+    kcalScore  * 0.10
+  );
+
+  const label = total >= 90 ? 'Elite 🏆' :
+                total >= 80 ? 'Excellent 🔥' :
+                total >= 70 ? 'Great 💪' :
+                total >= 60 ? 'Good 🌿' :
+                total >= 50 ? 'Fair ⚡' : 'Needs Work 🌱';
+
+  scoreEl.textContent = total;
+  if(labelEl){ labelEl.textContent = label; }
+
+  // ── BREAKDOWN BARS ──
+  const dims = [
+    { name:'💤 Sleep',   score: sleepScore, weight:'25%', color:'var(--sleep)' },
+    { name:'🥩 Protein', score: protScore,  weight:'20%', color:'var(--prot)' },
+    { name:'🏋️ Exercise',score: exScore,    weight:'20%', color:'var(--exercise)' },
+    { name:'💧 Water',   score: waterScore, weight:'15%', color:'var(--water)' },
+    { name:'💊 BioActive',score: bioScore,  weight:'10%', color:'#8B5E52' },
+    { name:'🔥 Calories',score: kcalScore,  weight:'10%', color:'var(--grain)' },
+  ];
+
+  if(bdEl){
+    bdEl.innerHTML = dims.map(d => {
+      const pct = Math.round(d.score);
+      return `<div style="display:flex;align-items:center;gap:7px;">
+        <div style="font-size:.66rem;color:var(--muted2);width:92px;flex-shrink:0;white-space:nowrap;">${d.name}</div>
+        <div style="flex:1;background:var(--card2);border-radius:4px;height:14px;overflow:hidden;">
+          <div style="width:${pct}%;height:100%;background:${d.color};border-radius:4px;transition:width .6s ease;"></div>
+        </div>
+        <div style="font-size:.65rem;font-family:'Kanit',sans-serif;font-weight:600;color:var(--text);width:30px;text-align:right;">${pct}</div>
+        <div style="font-size:.58rem;color:var(--muted2);width:22px;">${d.weight}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Also update pb-score-val on profile body card
+  const pbScore = document.getElementById('pb-score-val');
+  if(pbScore) pbScore.textContent = total;
 }
 
 init();
