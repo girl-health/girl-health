@@ -3860,7 +3860,7 @@ async function inlineEditCell(date, field, currentVal, el){
 
 
 // ── BODY PAGE TABS ──
-function switchBodyTab(tab){
+async function switchBodyTab(tab){
   ['map','skin','stats'].forEach(t=>{
     document.getElementById('bpanel-'+t).style.display = t===tab ? 'block' : 'none';
     document.getElementById('btab-'+t).classList.toggle('active', t===tab);
@@ -3868,7 +3868,7 @@ function switchBodyTab(tab){
   if(tab==='stats') renderBodyPage();
   if(tab==='skin'){
     renderSkinHistory();
-    const log = getSkinLog();
+    const log = await getSkinLog();
     if(log.length){
       document.getElementById('skin-dashboard').style.display = 'block';
       document.getElementById('skin-dashboard-btn-wrap').style.display = 'none';
@@ -3966,8 +3966,47 @@ async function showOrgan(organId){
 
 // ── SKIN AGE SCAN ──
 const SKIN_LOG_KEY = 'girl_skin_log';
-function getSkinLog(){ try { return JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]'); } catch{ return []; } }
-function saveSkinLog(arr){ localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(arr.slice(-90))); }
+
+// ── Supabase-backed skin log (with localStorage cache) ──
+async function getSkinLog(){
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/skin_scans?select=*&order=date.asc`, {
+      headers:{ 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` }
+    });
+    if(!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    // Cache locally
+    localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(data));
+    return data;
+  } catch(e) {
+    // Fallback to localStorage cache
+    try { return JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]'); } catch { return []; }
+  }
+}
+
+async function saveSkinEntry(entry){
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/skin_scans`, {
+      method: 'POST',
+      headers:{
+        'apikey': SUPA_KEY,
+        'Authorization': `Bearer ${SUPA_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify(entry)
+    });
+    return res.ok;
+  } catch(e) {
+    // Save to localStorage as fallback
+    try {
+      const log = JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]').filter(e=>e.date!==entry.date);
+      log.push(entry); log.sort((a,b)=>a.date.localeCompare(b.date));
+      localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(log.slice(-90)));
+    } catch(e2){}
+    return false;
+  }
+}
 
 // Store selected files globally
 let skinPhotoFiles = [];
@@ -4106,12 +4145,17 @@ Respond ONLY with valid JSON (no markdown, no backticks):
     const raw = data.content.map(i => i.text||'').join('').replace(/```json|```/g,'').trim();
     const r = JSON.parse(raw);
 
-    // Save to log
+    // Save to Supabase
     const today = new Date().toISOString().split('T')[0];
-    const log = getSkinLog().filter(e => e.date !== today);
-    log.push({ date: today, photos: images.length, ...r });
-    log.sort((a,b) => a.date.localeCompare(b.date));
-    saveSkinLog(log);
+    const entry = { date: today, photos: images.length, ...r };
+    await saveSkinEntry(entry);
+
+    // Update local cache
+    try {
+      const cached = JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]').filter(e=>e.date!==today);
+      cached.push(entry); cached.sort((a,b)=>a.date.localeCompare(b.date));
+      localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(cached.slice(-90)));
+    } catch(e){}
 
     // Update profile skin age
     try {
@@ -4270,8 +4314,8 @@ function renderSkinResult(r){
 // ── SKIN DASHBOARD ──
 let skinHistMo = new Date().toISOString().substring(0,7);
 
-function showSkinDashboard(){
-  const log = getSkinLog();
+async function showSkinDashboard(){
+  const log = await getSkinLog();
   if(!log.length){ toast('ยังไม่มีข้อมูล — สแกนวันแรกก่อนนะคะ'); return; }
   document.getElementById('skin-dashboard').style.display = 'block';
   document.getElementById('skin-dashboard-btn-wrap').style.display = 'none';
@@ -4289,8 +4333,8 @@ function switchSkinTab(tab){
   if(tab==='insights')  renderSkinInsights();
 }
 
-function renderSkinOverview(){
-  const log = getSkinLog();
+async function renderSkinOverview(){
+  const log = await getSkinLog();
   if(!log.length) return;
 
   const avgAge   = Math.round(log.reduce((s,e)=>s+(e.skin_age||32),0)/log.length);
@@ -4352,8 +4396,8 @@ function renderSkinOverview(){
   }).join('') : '<div style="font-size:.7rem;color:var(--muted2);">ยังไม่มีข้อมูล</div>';
 }
 
-function renderSkinTrend(){
-  const log = getSkinLog();
+async function renderSkinTrend(){
+  const log = await getSkinLog();
   if(!log.length) return;
 
   const canvas = document.getElementById('skin-trend-chart');
@@ -4441,8 +4485,8 @@ function skinHistoryMonth(delta){
   renderSkinHistory();
 }
 
-function renderSkinHistory(){
-  const log = getSkinLog();
+async function renderSkinHistory(){
+  const log = await getSkinLog();
   const wrap = document.getElementById('skin-history-wrap');
   if(!wrap) return;
 
@@ -4491,8 +4535,8 @@ function renderSkinHistory(){
 }
 
 // Show detail of a past entry
-function showSkinEntry(date){
-  const log = getSkinLog();
+async function showSkinEntry(date){
+  const log = await getSkinLog();
   const entry = log.find(e=>e.date===date);
   if(!entry) return;
   // Switch to result view
@@ -4509,8 +4553,8 @@ function showSkinEntry(date){
   wrap.prepend(backBtn);
 }
 
-function renderSkinInsights(){
-  const log = getSkinLog();
+async function renderSkinInsights(){
+  const log = await getSkinLog();
   const wrap = document.getElementById('sdash-insights-wrap');
   if(!log.length){ wrap.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted2);">ยังไม่มีข้อมูล</div>'; return; }
 
