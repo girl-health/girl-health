@@ -2554,6 +2554,7 @@ async function init(){
     await seedData();
     await migrateBioFromSupps();
     computeGirlScore(); // compute score from real data on startup
+    migrateSkinLog();   // migrate localStorage skin data → Supabase (once)
   }
 }
 
@@ -3967,24 +3968,49 @@ async function showOrgan(organId){
 // ── SKIN AGE SCAN ──
 const SKIN_LOG_KEY = 'girl_skin_log';
 
+// ── Migrate old localStorage skin data to Supabase (runs once) ──
+async function migrateSkinLog(){
+  const MIGRATED_KEY = 'girl_skin_migrated';
+  if(localStorage.getItem(MIGRATED_KEY)) return;
+  try {
+    const local = JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]');
+    if(!local.length){ localStorage.setItem(MIGRATED_KEY,'1'); return; }
+    // Upload each entry
+    for(const entry of local){
+      await fetch(`${SUPA_URL}/rest/v1/skin_scans`, {
+        method:'POST',
+        headers:{ 'apikey':SUPA_KEY, 'Authorization':`Bearer ${SUPA_KEY}`, 'Content-Type':'application/json', 'Prefer':'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify(entry)
+      });
+    }
+    localStorage.setItem(MIGRATED_KEY,'1');
+    console.log('✅ Skin log migrated:', local.length, 'entries');
+  } catch(e){ console.warn('Skin migrate failed:', e?.message); }
+}
+
 // ── Supabase-backed skin log (with localStorage cache) ──
 async function getSkinLog(){
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/skin_scans?select=*&order=date.asc`, {
       headers:{ 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` }
     });
-    if(!res.ok) throw new Error('fetch failed');
+    if(!res.ok) throw new Error('fetch failed '+res.status);
     const data = await res.json();
-    // Cache locally
     localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(data));
     return data;
   } catch(e) {
-    // Fallback to localStorage cache
+    console.warn('getSkinLog fallback:', e?.message);
     try { return JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]'); } catch { return []; }
   }
 }
 
 async function saveSkinEntry(entry){
+  // Prepare entry — JSONB fields must be objects/arrays, not strings
+  const clean = { ...entry };
+  // These are JSONB in Supabase — pass as-is (arrays/objects)
+  ['strengths','concerns','nutrition_deficiencies','skincare_routine','lifestyle_tips','supplement_stack'].forEach(k => {
+    if(typeof clean[k] === 'string'){ try { clean[k] = JSON.parse(clean[k]); } catch(e){ delete clean[k]; } }
+  });
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/skin_scans`, {
       method: 'POST',
@@ -3994,11 +4020,15 @@ async function saveSkinEntry(entry){
         'Content-Type': 'application/json',
         'Prefer': 'resolution=merge-duplicates,return=minimal'
       },
-      body: JSON.stringify(entry)
+      body: JSON.stringify(clean)
     });
+    if(!res.ok){
+      const err = await res.text().catch(()=>'');
+      console.error('saveSkinEntry error:', res.status, err.substring(0,120));
+    }
     return res.ok;
   } catch(e) {
-    // Save to localStorage as fallback
+    console.warn('saveSkinEntry fallback:', e?.message);
     try {
       const log = JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]').filter(e=>e.date!==entry.date);
       log.push(entry); log.sort((a,b)=>a.date.localeCompare(b.date));
