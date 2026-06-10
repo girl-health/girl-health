@@ -1288,38 +1288,53 @@ textarea{min-height:42px;}
   <!-- ───────── TAB: SKIN SCAN ───────── -->
   <div id="bpanel-skin" style="display:none;">
 
-    <!-- Daily scan upload -->
+    <!-- Upload zone -->
     <div style="background:linear-gradient(135deg,rgba(255,126,179,.06),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.2);border-radius:16px;padding:15px;margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(255,126,179,.3),rgba(212,132,90,.3));display:flex;align-items:center;justify-content:center;font-size:1rem;">✨</div>
+        <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,rgba(255,126,179,.3),rgba(212,132,90,.3));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">✨</div>
         <div>
-          <div style="font-family:'Kanit',sans-serif;font-size:.88rem;color:var(--fruit);font-weight:700;">Skin Age Scan</div>
-          <div style="font-size:.62rem;color:var(--muted2);">ถ่ายหน้าทุกวัน · AI วิเคราะห์อายุผิว + สิ่งที่ผิวต้องการ</div>
+          <div style="font-family:'Playfair Display',serif;font-size:.92rem;color:var(--fruit);font-weight:700;">Skin Age Scan</div>
+          <div style="font-size:.62rem;color:var(--muted2);">อัปโหลด 1–4 รูป · AI วิเคราะห์อายุผิวจริง + แนะนำสารอาหาร</div>
         </div>
       </div>
-      <!-- Scan button -->
-      <label id="skin-scan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:13px;border:2px dashed rgba(255,126,179,.35);background:rgba(255,126,179,.04);cursor:pointer;transition:all .2s;">
-        <span style="font-size:1.4rem;">📸</span>
+
+      <!-- Photo preview grid -->
+      <div id="skin-preview-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;"></div>
+
+      <!-- Upload button -->
+      <label id="skin-scan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:13px;border:2px dashed rgba(255,126,179,.35);background:rgba(255,126,179,.03);cursor:pointer;">
+        <span style="font-size:1.3rem;">📸</span>
         <div style="text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;">ถ่ายหน้าวันนี้</div>
-          <div style="font-size:.62rem;color:var(--muted2);">ภายใต้แสงธรรมชาติ · ไม่มีเครื่องสำอาง</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;">เลือกรูปหน้า 1–4 รูป</div>
+          <div style="font-size:.6rem;color:var(--muted2);">แสงธรรมชาติ · ไม่มีเมคอัพ · หลายมุม</div>
         </div>
-        <input type="file" accept="image/*" capture="user" style="display:none" onchange="analyzeSkinAge(this)">
+        <input type="file" accept="image/*" multiple style="display:none" onchange="previewSkinPhotos(this)">
       </label>
-      <div id="skin-scan-loading" style="display:none;text-align:center;padding:14px;color:var(--muted2);font-size:.75rem;">
-        <div class="dot-pulse" style="justify-content:center;display:flex;margin-bottom:6px;"><span></span><span></span><span></span></div>
-        AI กำลังวิเคราะห์ผิว…
+
+      <!-- Analyze button (shows after preview) -->
+      <button id="skin-analyze-btn" onclick="analyzeSkinAge()" style="display:none;width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,rgba(255,126,179,.8),rgba(212,132,90,.8));color:#fff;border:none;border-radius:12px;font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">
+        ✨ วิเคราะห์ผิวหน้า
+      </button>
+
+      <!-- Loading -->
+      <div id="skin-scan-loading" style="display:none;text-align:center;padding:16px;">
+        <div style="font-size:1.5rem;margin-bottom:8px;">🔍</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;margin-bottom:4px;">AI กำลังวิเคราะห์ผิวหน้า…</div>
+        <div style="font-size:.65rem;color:var(--muted2);">ใช้เวลาสักครู่ · วิเคราะห์จาก <span id="skin-photo-count">1</span> รูป</div>
       </div>
     </div>
 
-    <!-- Today's result -->
+    <!-- Result -->
     <div id="skin-result-wrap" style="display:none;"></div>
 
-    <!-- Skin history log -->
+    <!-- History -->
     <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:12px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.78rem;color:var(--text);margin-bottom:8px;">📅 ประวัติ Skin Age</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);">📅 ประวัติ Skin Age</div>
+        <div style="font-size:.6rem;color:var(--muted2);">90 วันล่าสุด</div>
+      </div>
       <div id="skin-history-wrap">
-        <div style="text-align:center;padding:16px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล — สแกนวันแรกได้เลยค่ะ</div>
+        <div style="text-align:center;padding:16px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล</div>
       </div>
     </div>
   </div><!-- /bpanel-skin -->
@@ -1603,7 +1618,10 @@ textarea{min-height:42px;}
 const SUPA_URL = 'https://moycqmyzpsirrcenkuvy.supabase.co';
 const SUPA_KEY = 'sb_publishable_lbZYBL1Jh_3Z63Hh4J2DDA_tPDotm6W';
 const { createClient } = supabase;
-const db = createClient(SUPA_URL, SUPA_KEY);
+const db = createClient(SUPA_URL, SUPA_KEY, {
+  auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+  global: { headers: { 'apikey': SUPA_KEY } }
+});
 
 // ── CONSTANTS ──
 const MONTHS_TH=['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
@@ -1638,16 +1656,26 @@ function setSyncBadge(state,msg){const b=document.getElementById('syncBadge');b.
 async function setupTables(){
   setSyncBadge('syncing','☁️ กำลังเชื่อมต่อ...');
   try{
-    const {error}=await db.from('health_days').select('date').limit(1);
-    if(error && error.code==='42P01'){
-      setSyncBadge('error','⚠️ ต้องสร้าง Table');
-      showTableSetupModal();
-      return false;
+    const res = await fetch(`${SUPA_URL}/rest/v1/health_days?select=date&limit=1`, {
+      headers:{ 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` }
+    });
+    if(res.status===401||res.status===403){
+      setSyncBadge('error','❌ ไม่มีสิทธิ์เข้าถึง');
+      toast('❌ RLS Policy ยังไม่ถูกต้อง'); return false;
+    }
+    if(res.status===404){ setSyncBadge('error','⚠️ ต้องสร้าง Table'); showTableSetupModal(); return false; }
+    if(!res.ok){
+      let code=''; try{ code=(await res.json())?.code||''; }catch(e){}
+      if(code==='42P01'){ setSyncBadge('error','⚠️ ต้องสร้าง Table'); showTableSetupModal(); return false; }
+      setSyncBadge('error','❌ HTTP '+res.status);
+      toast('❌ DB Error: HTTP '+res.status); return false;
     }
     setSyncBadge('','☁️ เชื่อมต่อแล้ว ✅');
     return true;
   }catch(e){
+    console.error('DB exception:', e?.message||e);
     setSyncBadge('error','❌ เชื่อมต่อไม่ได้');
+    toast('❌ Network error — เช็ค WiFi');
     return false;
   }
 }
@@ -3845,116 +3873,329 @@ const SKIN_LOG_KEY = 'girl_skin_log';
 function getSkinLog(){ try { return JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]'); } catch{ return []; } }
 function saveSkinLog(arr){ localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(arr.slice(-90))); }
 
-async function analyzeSkinAge(input){
-  const file = input.files[0];
-  if(!file) return;
-  document.getElementById('skin-scan-label').style.display = 'none';
+// Store selected files globally
+let skinPhotoFiles = [];
+
+function previewSkinPhotos(input){
+  const files = Array.from(input.files).slice(0,4);
+  if(!files.length) return;
+  skinPhotoFiles = files;
+  const grid = document.getElementById('skin-preview-grid');
+  grid.innerHTML = files.map((f,i) => {
+    const url = URL.createObjectURL(f);
+    return `<div style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1.5px solid rgba(255,126,179,.3);">
+      <img src="${url}" style="width:100%;height:100%;object-fit:cover;">
+      <div style="position:absolute;bottom:3px;right:4px;background:rgba(0,0,0,.5);color:#fff;font-size:.55rem;border-radius:4px;padding:1px 4px;">${i+1}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('skin-analyze-btn').style.display = 'block';
+  document.getElementById('skin-analyze-btn').textContent = `✨ วิเคราะห์จาก ${files.length} รูป`;
+}
+
+async function analyzeSkinAge(){
+  if(!skinPhotoFiles.length){ toast('กรุณาเลือกรูปก่อนค่ะ'); return; }
+  document.getElementById('skin-analyze-btn').style.display = 'none';
   document.getElementById('skin-scan-loading').style.display = 'block';
+  document.getElementById('skin-photo-count').textContent = skinPhotoFiles.length;
   document.getElementById('skin-result-wrap').style.display = 'none';
 
-  const base64 = await new Promise(r=>{ const rd=new FileReader(); rd.onload=e=>r(e.target.result.split(',')[1]); rd.readAsDataURL(file); });
+  // Convert all images to base64
+  const images = await Promise.all(skinPhotoFiles.map(f => new Promise(r => {
+    const rd = new FileReader();
+    rd.onload = e => r({ data: e.target.result.split(',')[1], type: f.type||'image/jpeg' });
+    rd.readAsDataURL(f);
+  })));
 
-  const prompt = `You are a dermatology AI. Analyze this facial photo of a 32-year-old Thai woman.
-Assess ONLY from visible skin features. Be encouraging and accurate.
-Respond ONLY with valid JSON (no markdown):
-{"skin_age":25,"chronological_age":32,"age_difference":7,"overall_condition":"Excellent","skin_score":85,"hydration":"Good","radiance":"High","texture":"Smooth","pore_size":"Small","fine_lines":"Minimal","pigmentation":"Even","strengths":["str1","str2","str3"],"needs":["need1","need2"],"food_recommendations":[{"food":"Salmon","emoji":"🐟","benefit":"Omega-3 for radiance"},{"food":"Blueberries","emoji":"🫐","benefit":"Antioxidants"},{"food":"Avocado","emoji":"🥑","benefit":"Healthy fats"}],"skincare_tips":["tip1","tip2","tip3"],"note":"one sentence positive observation"}`;
+  const prompt = `You are an expert dermatologist AI with 20 years of clinical experience analyzing skin from photos.
+
+Analyze these ${images.length} facial photo(s) of a 32-year-old Thai woman. Study every visible detail carefully across all provided angles.
+
+Assess: texture, pores, fine lines, wrinkles, radiance, elasticity, hydration level, pigmentation, dark spots, uneven tone, redness, acne/blemishes, under-eye area, nasolabial folds, forehead lines, jaw definition.
+
+Be precise and honest. Use clinical accuracy.
+
+Respond ONLY with valid JSON (no markdown, no backticks):
+{
+  "skin_age": 25,
+  "chronological_age": 32,
+  "overall_condition": "Excellent",
+  "skin_score": 88,
+  "confidence": "High",
+  "hydration": "Good",
+  "radiance": "High", 
+  "texture": "Smooth",
+  "pore_size": "Small",
+  "fine_lines": "Minimal",
+  "pigmentation": "Even",
+  "elasticity": "Firm",
+  "dark_spots": "None",
+  "redness": "None",
+  "under_eye": "Bright",
+  "acne": "Clear",
+  "strengths": [
+    "Excellent skin elasticity and firmness for age",
+    "Even skin tone with minimal pigmentation",
+    "Good hydration — plump and dewy texture"
+  ],
+  "concerns": [
+    "Slight dehydration around T-zone",
+    "Early fine lines forming at outer eye corners"
+  ],
+  "nutrition_deficiencies": [
+    {
+      "nutrient": "Vitamin C",
+      "reason": "Slight dullness suggests oxidative stress",
+      "foods": ["Kiwi", "Bell pepper", "Guava", "Strawberries"],
+      "priority": "High"
+    },
+    {
+      "nutrient": "Omega-3 Fatty Acids",
+      "reason": "Skin barrier needs strengthening for hydration retention",
+      "foods": ["Salmon", "Sardines", "Walnuts", "Flaxseed"],
+      "priority": "High"
+    },
+    {
+      "nutrient": "Collagen Peptides",
+      "reason": "Support skin elasticity and reduce early fine lines",
+      "foods": ["Bone broth", "Collagen supplement", "Egg whites"],
+      "priority": "Medium"
+    },
+    {
+      "nutrient": "Astaxanthin",
+      "reason": "Powerful antioxidant for UV protection and anti-aging",
+      "foods": ["Astaxanthin supplement", "Wild salmon", "Shrimp"],
+      "priority": "Medium"
+    }
+  ],
+  "skincare_routine": [
+    "AM: Vitamin C serum → SPF 50+ sunscreen (most important step)",
+    "PM: Retinol 0.025% 3x/week to stimulate collagen",
+    "Weekly: Gentle exfoliation + hydrating mask"
+  ],
+  "lifestyle_tips": [
+    "Drink 2.5L water daily — visible improvement in 2 weeks",
+    "Sleep 7.5–8.5h — skin repairs 80% during deep sleep",
+    "Reduce refined sugar — accelerates glycation and aging"
+  ],
+  "supplement_stack": [
+    {"name":"Collagen Peptides","dose":"5g/day","timing":"Morning"},
+    {"name":"Astaxanthin","dose":"6mg/day","timing":"With meal"},
+    {"name":"Vitamin C","dose":"500mg/day","timing":"Morning"},
+    {"name":"Glutathione","dose":"250mg/day","timing":"Before bed"}
+  ],
+  "next_focus": "Focus on strengthening skin barrier and UV protection for the next 30 days",
+  "reassess_in_days": 30
+}`;
 
   try {
-    const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
-      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:900, messages:[{role:'user', content:[
-        {type:'image', source:{type:'base64', media_type:file.type||'image/jpeg', data:base64}},
-        {type:'text', text:prompt}
-      ]}]})
+    // Build content array with all images
+    const content = images.map(img => ({
+      type: 'image',
+      source: { type: 'base64', media_type: img.type, data: img.data }
+    }));
+    content.push({ type: 'text', text: prompt });
+
+    const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': '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',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1800, messages: [{ role: 'user', content }] })
     });
+
     const data = await res.json();
-    const raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const raw = data.content.map(i => i.text||'').join('').replace(/```json|```/g,'').trim();
     const r = JSON.parse(raw);
 
+    // Save to log
     const today = new Date().toISOString().split('T')[0];
-    const log = getSkinLog().filter(e=>e.date!==today);
-    log.push({date:today, ...r});
-    log.sort((a,b)=>a.date.localeCompare(b.date));
+    const log = getSkinLog().filter(e => e.date !== today);
+    log.push({ date: today, photos: images.length, ...r });
+    log.sort((a,b) => a.date.localeCompare(b.date));
     saveSkinLog(log);
 
+    // Update profile skin age
     try {
       const pb = JSON.parse(localStorage.getItem('girl_profile_body')||'{}');
       pb.skinAge = r.skin_age;
       localStorage.setItem('girl_profile_body', JSON.stringify(pb));
     } catch(e){}
 
-    renderSkinResult(r, true);
-    renderSkinHistory();
-    toast(`✨ Skin Age: ${r.skin_age} yrs · Score ${r.skin_score}/100`);
-  } catch(err) {
     document.getElementById('skin-scan-loading').style.display = 'none';
+    renderSkinResult(r);
+    renderSkinHistory();
+
+    // Reset
+    skinPhotoFiles = [];
+    document.getElementById('skin-preview-grid').innerHTML = '';
+    document.getElementById('skin-scan-label').style.display = 'flex';
+    toast(`✨ Skin Age ${r.skin_age} yrs · Score ${r.skin_score}/100`);
+
+  } catch(err) {
+    console.error('Skin scan error:', err);
+    document.getElementById('skin-scan-loading').style.display = 'none';
+    document.getElementById('skin-analyze-btn').style.display = 'block';
     document.getElementById('skin-scan-label').style.display = 'flex';
     toast('⚠ วิเคราะห์ไม่ได้ — ลองอีกครั้ง');
   }
 }
 
-function renderSkinResult(r, isNew=false){
-  document.getElementById('skin-scan-loading').style.display = 'none';
-  document.getElementById('skin-scan-label').style.display = isNew ? 'none' : 'flex';
+function renderSkinResult(r){
   const wrap = document.getElementById('skin-result-wrap');
   wrap.style.display = 'block';
-  const diff = (r.chronological_age||32) - r.skin_age;
-  const diffColor = diff>=5?'#4A7C59':diff>=0?'#C9A96E':'#C0392B';
-  const condColor = r.overall_condition==='Excellent'?'#4A7C59':r.overall_condition==='Good'?'#6B8FA3':r.overall_condition==='Fair'?'#C9A96E':'#C0392B';
-  const mp = (label,val) => {
-    const isGood = ['High','Good','Smooth','Minimal','None','Even','Small'].includes(val);
-    return `<div style="text-align:center;background:var(--bg);border-radius:10px;padding:8px 5px;"><div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:${isGood?'var(--veg)':'var(--grain)'};">${val||'—'}</div><div style="font-size:.56rem;color:var(--muted2);margin-top:2px;">${label}</div></div>`;
+  const diff = 32 - r.skin_age;
+  const diffColor = diff >= 5 ? '#4A7C59' : diff >= 0 ? '#C9A96E' : '#C0392B';
+  const condColor = {Excellent:'#4A7C59', Good:'#6B8FA3', Fair:'#C9A96E'}[r.overall_condition] || '#C0392B';
+
+  const metricPill = (label, val) => {
+    const good = ['High','Good','Smooth','Minimal','None','Even','Small','Firm','Bright','Clear'].includes(val);
+    return `<div style="background:var(--bg);border-radius:10px;padding:8px 6px;text-align:center;">
+      <div style="font-family:'Kanit',sans-serif;font-size:.7rem;font-weight:700;color:${good?'var(--veg)':'var(--grain)'};">${val||'—'}</div>
+      <div style="font-size:.54rem;color:var(--muted2);margin-top:2px;">${label}</div>
+    </div>`;
   };
+
   wrap.innerHTML = `
-  <div style="background:linear-gradient(135deg,rgba(255,126,179,.06),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.2);border-radius:16px;padding:15px;margin-bottom:12px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-      <div style="text-align:center;background:rgba(255,126,179,.1);border-radius:14px;padding:10px 14px;flex-shrink:0;">
-        <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--fruit);line-height:1;">${r.skin_age}</div>
-        <div style="font-size:.58rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;">Skin Age</div>
-      </div>
-      <div style="flex:1;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:${condColor};font-weight:700;margin-bottom:3px;">${r.overall_condition} ✨</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1rem;font-weight:700;color:${diffColor};">${diff>=0?'+':''}${diff} yrs ${diff>=0?'younger':'older'}</div>
-        <div style="font-size:.6rem;color:var(--muted2);">กว่าอายุจริง ${r.chronological_age||32} ปี</div>
-        <div style="margin-top:6px;background:var(--bg);border-radius:20px;height:6px;overflow:hidden;"><div style="width:${r.skin_score||70}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;"></div></div>
-        <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Score ${r.skin_score||'—'}/100</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.06);">
+
+    <!-- Header score -->
+    <div style="background:linear-gradient(135deg,rgba(255,126,179,.08),rgba(212,132,90,.05));padding:16px;border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="text-align:center;background:rgba(255,126,179,.12);border-radius:16px;padding:12px 16px;flex-shrink:0;">
+          <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--fruit);line-height:1;">${r.skin_age}</div>
+          <div style="font-size:.58rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;">Skin Age</div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:${condColor};font-weight:700;margin-bottom:2px;">${r.overall_condition} ✨</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:${diffColor};">${diff>=0?'+':''}${diff} yrs ${diff>=0?'younger':'older'}</div>
+          <div style="font-size:.6rem;color:var(--muted2);margin-bottom:6px;">กว่าอายุจริง 32 ปี · วิเคราะห์จาก ${r.photos||1} รูป</div>
+          <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
+            <div style="width:${r.skin_score}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;transition:width .8s;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:3px;">
+            <div style="font-size:.58rem;color:var(--muted2);">Skin Score</div>
+            <div style="font-size:.65rem;font-family:'Kanit',sans-serif;font-weight:700;color:var(--accent);">${r.skin_score}/100</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;">
-      ${mp('💧 Hydration',r.hydration)}${mp('✨ Radiance',r.radiance)}${mp('🪄 Texture',r.texture)}${mp('🔬 Pores',r.pore_size)}${mp('〰️ Lines',r.fine_lines)}${mp('🎨 Pigment',r.pigmentation)}
+
+    <!-- Metrics grid -->
+    <div style="padding:12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">การวิเคราะห์รายละเอียด</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
+        ${metricPill('💧 Hydration', r.hydration)}
+        ${metricPill('✨ Radiance', r.radiance)}
+        ${metricPill('🪄 Texture', r.texture)}
+        ${metricPill('🔬 Pores', r.pore_size)}
+        ${metricPill('〰️ Lines', r.fine_lines)}
+        ${metricPill('🎨 Pigment', r.pigmentation)}
+        ${metricPill('💪 Elasticity', r.elasticity)}
+        ${metricPill('👁️ Under-eye', r.under_eye)}
+      </div>
     </div>
-    <div style="margin-bottom:10px;"><div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">💚 จุดแข็ง</div>${(r.strengths||[]).map(s=>`<div style="font-size:.7rem;margin-bottom:3px;"><span style="color:var(--veg);">✓</span> ${s}</div>`).join('')}</div>
-    <div style="margin-bottom:12px;"><div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">💡 ผิวต้องการ</div>${(r.needs||[]).map(n=>`<div style="font-size:.7rem;margin-bottom:3px;"><span style="color:var(--grain);">→</span> ${n}</div>`).join('')}</div>
-    <div style="margin-bottom:12px;"><div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">🍽️ อาหารบำรุงผิว</div>${(r.food_recommendations||[]).map(f=>`<div style="display:flex;align-items:center;gap:9px;padding:8px 10px;background:rgba(255,126,179,.05);border:1px solid rgba(255,126,179,.15);border-radius:10px;margin-bottom:5px;"><span style="font-size:1.1rem;">${f.emoji}</span><div><div style="font-family:'Kanit',sans-serif;font-size:.75rem;font-weight:600;">${f.food}</div><div style="font-size:.62rem;color:var(--muted2);">${f.benefit}</div></div></div>`).join('')}</div>
-    <div style="background:rgba(74,124,89,.05);border-radius:11px;padding:10px 12px;"><div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">🌿 Skincare Tips</div>${(r.skincare_tips||[]).map((t,i)=>`<div style="font-size:.7rem;margin-bottom:3px;"><span style="color:var(--accent);font-weight:700;">${i+1}.</span> ${t}</div>`).join('')}</div>
-    ${r.note?`<div style="margin-top:10px;font-size:.67rem;color:var(--accent);font-style:italic;text-align:center;">"${r.note}"</div>`:''}
+
+    <!-- Strengths & Concerns -->
+    <div style="padding:12px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">💚 จุดแข็ง</div>
+        ${(r.strengths||[]).map(s=>`<div style="font-size:.67rem;color:var(--text);margin-bottom:4px;display:flex;gap:5px;"><span style="color:var(--veg);flex-shrink:0;">✓</span>${s}</div>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;">⚠️ ควรดูแล</div>
+        ${(r.concerns||[]).map(c=>`<div style="font-size:.67rem;color:var(--text);margin-bottom:4px;display:flex;gap:5px;"><span style="color:var(--grain);flex-shrink:0;">→</span>${c}</div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Nutrition Deficiencies — most detailed section -->
+    <div style="padding:12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">🍽️ สารอาหารที่ผิวต้องการ (จากการวิเคราะห์)</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${(r.nutrition_deficiencies||[]).map(n=>`
+          <div style="background:var(--bg);border-radius:12px;padding:10px 12px;border-left:3px solid ${n.priority==='High'?'var(--prot)':n.priority==='Medium'?'var(--grain)':'var(--veg)'};">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--text);">${n.nutrient}</div>
+              <div style="font-size:.55rem;padding:2px 7px;border-radius:10px;background:${n.priority==='High'?'rgba(192,57,43,.1)':n.priority==='Medium'?'rgba(201,169,110,.15)':'rgba(74,124,89,.1)'};color:${n.priority==='High'?'var(--prot)':n.priority==='Medium'?'var(--grain)':'var(--veg)'};">${n.priority}</div>
+            </div>
+            <div style="font-size:.63rem;color:var(--muted2);margin-bottom:6px;">${n.reason}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              ${(n.foods||[]).map(f=>`<span style="padding:2px 8px;border-radius:12px;background:rgba(255,126,179,.08);border:1px solid rgba(255,126,179,.2);font-size:.6rem;color:var(--fruit);">${f}</span>`).join('')}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Supplement Stack -->
+    <div style="padding:12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">💊 Supplement Stack แนะนำ</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        ${(r.supplement_stack||[]).map(s=>`
+          <div style="background:var(--bg);border-radius:10px;padding:8px 10px;">
+            <div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:var(--text);">${s.name}</div>
+            <div style="font-size:.6rem;color:var(--accent);margin-top:1px;">${s.dose}</div>
+            <div style="font-size:.57rem;color:var(--muted2);">${s.timing}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Skincare Routine -->
+    <div style="padding:12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">🌿 Skincare Routine</div>
+      ${(r.skincare_routine||[]).map((s,i)=>`<div style="font-size:.68rem;color:var(--text);margin-bottom:5px;display:flex;gap:6px;"><span style="color:var(--accent);font-weight:700;flex-shrink:0;">${i+1}.</span>${s}</div>`).join('')}
+    </div>
+
+    <!-- Lifestyle tips -->
+    <div style="padding:12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">⚡ Lifestyle Tips</div>
+      ${(r.lifestyle_tips||[]).map(t=>`<div style="font-size:.68rem;color:var(--text);margin-bottom:5px;display:flex;gap:6px;"><span style="color:var(--grain);flex-shrink:0;">→</span>${t}</div>`).join('')}
+    </div>
+
+    <!-- Next focus -->
+    <div style="padding:12px;">
+      <div style="background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:11px;padding:10px 12px;">
+        <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">🎯 เป้าหมาย ${r.reassess_in_days||30} วัน</div>
+        <div style="font-size:.7rem;color:var(--accent);line-height:1.5;">${r.next_focus||''}</div>
+      </div>
+    </div>
+
   </div>`;
+  wrap.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function renderSkinHistory(){
   const log = getSkinLog();
   const wrap = document.getElementById('skin-history-wrap');
   if(!wrap) return;
-  if(!log.length){ wrap.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล — สแกนวันแรกได้เลยค่ะ</div>'; return; }
-  const recent = log.slice(-14).reverse();
-  wrap.innerHTML = recent.map(e=>{
-    const diff = (e.chronological_age||32) - e.skin_age;
+  if(!log.length){
+    wrap.innerHTML = '<div style="text-align:center;padding:16px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล — สแกนวันแรกได้เลยค่ะ</div>';
+    return;
+  }
+  const recent = log.slice(-30).reverse();
+  wrap.innerHTML = recent.map(e => {
+    const diff = 32 - e.skin_age;
     const diffColor = diff>=5?'var(--veg)':diff>=0?'var(--grain)':'var(--prot)';
-    return `<div style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-bottom:1px solid var(--border);">
-      <div style="font-size:.65rem;color:var(--muted2);width:52px;flex-shrink:0;font-family:'Kanit',sans-serif;">${e.date.substring(5)}</div>
+    const condMap = {Excellent:'🌟',Good:'✨',Fair:'⚡','Needs Attention':'⚠️'};
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.63rem;color:var(--muted2);width:46px;flex-shrink:0;font-family:'Kanit',sans-serif;">${e.date.substring(5)}</div>
       <div style="flex:1;">
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--fruit);">${e.skin_age} yrs</div>
-          <div style="font-size:.65rem;color:${diffColor};font-weight:600;">${diff>=0?'+':''}${diff}</div>
-          <div style="font-size:.62rem;color:var(--muted2);">${e.overall_condition||''}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+          <div style="font-family:'Playfair Display',serif;font-size:.85rem;font-weight:700;color:var(--fruit);">${e.skin_age} yrs</div>
+          <div style="font-size:.63rem;color:${diffColor};font-weight:600;">${diff>=0?'+':''}${diff}</div>
+          <div style="font-size:.6rem;">${condMap[e.overall_condition]||''}</div>
+          ${e.photos>1?`<div style="font-size:.56rem;color:var(--muted2);">${e.photos}📸</div>`:''}
         </div>
-        <div style="background:var(--bg);border-radius:20px;height:5px;overflow:hidden;"><div style="width:${e.skin_score||70}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;"></div></div>
+        <div style="background:var(--bg);border-radius:20px;height:5px;overflow:hidden;">
+          <div style="width:${e.skin_score||70}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;"></div>
+        </div>
       </div>
-      <div style="font-size:.68rem;font-family:'Kanit',sans-serif;color:var(--accent);font-weight:700;">${e.skin_score||'—'}</div>
+      <div style="font-size:.7rem;font-family:'Kanit',sans-serif;font-weight:700;color:var(--accent);flex-shrink:0;">${e.skin_score||'—'}</div>
     </div>`;
   }).join('');
 }
+
 
 const BODY_SNAP_KEY = 'girl_body_snapshots';
 
