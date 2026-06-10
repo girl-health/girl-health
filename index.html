@@ -1327,16 +1327,104 @@ textarea{min-height:42px;}
     <!-- Result -->
     <div id="skin-result-wrap" style="display:none;"></div>
 
-    <!-- History -->
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);">📅 ประวัติ Skin Age</div>
-        <div style="font-size:.6rem;color:var(--muted2);">90 วันล่าสุด</div>
+    <!-- SKIN DASHBOARD -->
+    <div id="skin-dashboard" style="display:none;">
+
+      <!-- Dashboard sub-tabs -->
+      <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;">
+        <button onclick="switchSkinTab('overview')" class="body-tab active" id="stab-overview">📊 Overview</button>
+        <button onclick="switchSkinTab('trend')"    class="body-tab"        id="stab-trend">📈 Trend</button>
+        <button onclick="switchSkinTab('history')"  class="body-tab"        id="stab-history">📅 History</button>
+        <button onclick="switchSkinTab('insights')" class="body-tab"        id="stab-insights">💡 Insights</button>
       </div>
-      <div id="skin-history-wrap">
-        <div style="text-align:center;padding:16px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล</div>
+
+      <!-- OVERVIEW TAB -->
+      <div id="spanel-overview">
+        <!-- Big score summary -->
+        <div style="background:linear-gradient(135deg,rgba(255,126,179,.07),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.18);border-radius:16px;padding:16px;margin-bottom:10px;">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;">ค่าเฉลี่ยทั้งหมด</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--fruit);" id="sdash-avg-age">—</div>
+              <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Avg Skin Age</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--accent);" id="sdash-avg-score">—</div>
+              <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Avg Score</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--veg);" id="sdash-scans">—</div>
+              <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Total Scans</div>
+            </div>
+          </div>
+          <!-- Best / latest -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:var(--card);border-radius:12px;padding:10px;">
+              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;">🏆 Best Score</div>
+              <div style="font-family:'Kanit',sans-serif;font-size:.88rem;font-weight:700;color:var(--veg);" id="sdash-best"></div>
+            </div>
+            <div style="background:var(--card);border-radius:12px;padding:10px;">
+              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;">📅 ล่าสุด</div>
+              <div style="font-family:'Kanit',sans-serif;font-size:.88rem;font-weight:700;color:var(--fruit);" id="sdash-latest"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metrics average radar -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;">ค่าเฉลี่ยแต่ละ Metric</div>
+          <div id="sdash-metrics-wrap" style="display:flex;flex-direction:column;gap:6px;"></div>
+        </div>
+
+        <!-- Most common needs -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">🍽️ สารอาหารที่ขาดบ่อยที่สุด</div>
+          <div id="sdash-nutrients-wrap"></div>
+        </div>
       </div>
+
+      <!-- TREND TAB -->
+      <div id="spanel-trend" style="display:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);">📈 Skin Age Trend</div>
+            <div style="font-size:.6rem;color:var(--muted2);">เส้นสีชมพู = Skin Age · เส้นสีทอง = Score/10</div>
+          </div>
+          <canvas id="skin-trend-chart" style="width:100%;height:160px;display:block;"></canvas>
+        </div>
+
+        <!-- Score trend -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;">
+          <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);margin-bottom:4px;">🔄 Progress vs Last Scan</div>
+          <div id="sdash-progress-wrap" style="margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <!-- HISTORY TAB -->
+      <div id="spanel-history" style="display:none;">
+        <!-- month selector -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <button onclick="skinHistoryMonth(-1)" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted2);">‹</button>
+          <div id="skin-hist-mo-lbl" style="flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.78rem;color:var(--text);font-weight:600;"></div>
+          <button onclick="skinHistoryMonth(1)" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted2);">›</button>
+        </div>
+        <div id="skin-history-wrap" style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+          <div style="text-align:center;padding:20px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล</div>
+        </div>
+      </div>
+
+      <!-- INSIGHTS TAB -->
+      <div id="spanel-insights" style="display:none;">
+        <div id="sdash-insights-wrap"></div>
+      </div>
+
+    </div><!-- /skin-dashboard -->
+
+    <!-- Show dashboard button (when no scan yet today) -->
+    <div id="skin-dashboard-btn-wrap" style="text-align:center;margin-top:6px;margin-bottom:4px;">
+      <button onclick="showSkinDashboard()" style="padding:8px 20px;border-radius:20px;border:1px solid rgba(255,126,179,.3);background:rgba(255,126,179,.06);color:var(--fruit);font-family:'Kanit',sans-serif;font-size:.72rem;cursor:pointer;">📊 ดู Dashboard ประวัติผิว</button>
     </div>
+
   </div><!-- /bpanel-skin -->
 
   <!-- ───────── TAB: STATS ───────── -->
@@ -3778,7 +3866,15 @@ function switchBodyTab(tab){
     document.getElementById('btab-'+t).classList.toggle('active', t===tab);
   });
   if(tab==='stats') renderBodyPage();
-  if(tab==='skin')  renderSkinHistory();
+  if(tab==='skin'){
+    renderSkinHistory();
+    const log = getSkinLog();
+    if(log.length){
+      document.getElementById('skin-dashboard').style.display = 'block';
+      document.getElementById('skin-dashboard-btn-wrap').style.display = 'none';
+      switchSkinTab('overview');
+    }
+  }
 }
 
 // ── ORGAN NUTRITION MAP ──
@@ -4027,6 +4123,12 @@ Respond ONLY with valid JSON (no markdown, no backticks):
     document.getElementById('skin-scan-loading').style.display = 'none';
     renderSkinResult(r);
     renderSkinHistory();
+    // Show dashboard
+    setTimeout(()=>{
+      document.getElementById('skin-dashboard').style.display = 'block';
+      document.getElementById('skin-dashboard-btn-wrap').style.display = 'none';
+      switchSkinTab('overview');
+    }, 300);
 
     // Reset
     skinPhotoFiles = [];
@@ -4165,36 +4267,330 @@ function renderSkinResult(r){
   wrap.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
+// ── SKIN DASHBOARD ──
+let skinHistMo = new Date().toISOString().substring(0,7);
+
+function showSkinDashboard(){
+  const log = getSkinLog();
+  if(!log.length){ toast('ยังไม่มีข้อมูล — สแกนวันแรกก่อนนะคะ'); return; }
+  document.getElementById('skin-dashboard').style.display = 'block';
+  document.getElementById('skin-dashboard-btn-wrap').style.display = 'none';
+  switchSkinTab('overview');
+}
+
+function switchSkinTab(tab){
+  ['overview','trend','history','insights'].forEach(t => {
+    document.getElementById('spanel-'+t).style.display = t===tab ? 'block' : 'none';
+    document.getElementById('stab-'+t).classList.toggle('active', t===tab);
+  });
+  if(tab==='overview')  renderSkinOverview();
+  if(tab==='trend')     renderSkinTrend();
+  if(tab==='history')   renderSkinHistory();
+  if(tab==='insights')  renderSkinInsights();
+}
+
+function renderSkinOverview(){
+  const log = getSkinLog();
+  if(!log.length) return;
+
+  const avgAge   = Math.round(log.reduce((s,e)=>s+(e.skin_age||32),0)/log.length);
+  const avgScore = Math.round(log.reduce((s,e)=>s+(e.skin_score||0),0)/log.length);
+  const best     = log.reduce((b,e)=> (e.skin_score||0)>(b.skin_score||0)?e:b, log[0]);
+  const latest   = log[log.length-1];
+
+  document.getElementById('sdash-avg-age').textContent   = avgAge+' yrs';
+  document.getElementById('sdash-avg-score').textContent = avgScore;
+  document.getElementById('sdash-scans').textContent     = log.length;
+  document.getElementById('sdash-best').textContent      = `${best.skin_age} yrs · ${best.skin_score} pts (${best.date.substring(5)})`;
+  document.getElementById('sdash-latest').textContent    = `${latest.skin_age} yrs · ${latest.skin_score} pts`;
+
+  // Metrics average — count good vs fair
+  const metricKeys = ['hydration','radiance','texture','pore_size','fine_lines','pigmentation','elasticity','under_eye'];
+  const metricLabels = {'hydration':'💧 Hydration','radiance':'✨ Radiance','texture':'🪄 Texture','pore_size':'🔬 Pores','fine_lines':'〰️ Fine Lines','pigmentation':'🎨 Pigment','elasticity':'💪 Elasticity','under_eye':'👁️ Under-eye'};
+  const goodVals = ['High','Good','Smooth','Minimal','None','Even','Small','Firm','Bright','Clear'];
+
+  const mWrap = document.getElementById('sdash-metrics-wrap');
+  mWrap.innerHTML = metricKeys.map(k => {
+    const vals = log.map(e=>e[k]).filter(Boolean);
+    if(!vals.length) return '';
+    const goodCount = vals.filter(v=>goodVals.includes(v)).length;
+    const pct = Math.round(goodCount/vals.length*100);
+    const color = pct>=80?'var(--veg)':pct>=50?'var(--grain)':'var(--prot)';
+    // Most common value
+    const freq = {}; vals.forEach(v=>{freq[v]=(freq[v]||0)+1;});
+    const topVal = Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
+    return `<div style="display:flex;align-items:center;gap:8px;">
+      <div style="font-size:.65rem;color:var(--muted2);width:96px;flex-shrink:0;">${metricLabels[k]||k}</div>
+      <div style="flex:1;background:var(--bg);border-radius:20px;height:10px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:${color};border-radius:20px;transition:width .6s;"></div>
+      </div>
+      <div style="font-size:.6rem;color:var(--muted2);width:28px;text-align:right;">${pct}%</div>
+      <div style="font-size:.6rem;font-weight:600;color:${color};width:50px;text-align:right;">${topVal}</div>
+    </div>`;
+  }).join('');
+
+  // Most needed nutrients
+  const nutrientCount = {};
+  log.forEach(e => {
+    (e.nutrition_deficiencies||[]).forEach(n => {
+      const key = n.nutrient||n.name||'';
+      if(!key) return;
+      nutrientCount[key] = (nutrientCount[key]||0) + 1;
+    });
+  });
+  const sortedNutrients = Object.entries(nutrientCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const nWrap = document.getElementById('sdash-nutrients-wrap');
+  nWrap.innerHTML = sortedNutrients.length ? sortedNutrients.map(([name,count])=>{
+    const pct = Math.round(count/log.length*100);
+    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <div style="font-size:.67rem;color:var(--text);flex:1;font-weight:600;">${name}</div>
+      <div style="font-size:.6rem;color:var(--muted2);">${count}/${log.length} scans</div>
+      <div style="width:60px;background:var(--bg);border-radius:20px;height:8px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:rgba(255,126,179,.6);border-radius:20px;"></div>
+      </div>
+    </div>`;
+  }).join('') : '<div style="font-size:.7rem;color:var(--muted2);">ยังไม่มีข้อมูล</div>';
+}
+
+function renderSkinTrend(){
+  const log = getSkinLog();
+  if(!log.length) return;
+
+  const canvas = document.getElementById('skin-trend-chart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 320;
+  const H = 160;
+  canvas.width = W * window.devicePixelRatio;
+  canvas.height = H * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+  const recent = log.slice(-30);
+  const ages   = recent.map(e=>e.skin_age||32);
+  const scores = recent.map(e=>(e.skin_score||70)/10); // scale to same range as age
+  const dates  = recent.map(e=>e.date.substring(5));
+
+  const pad = {t:16,r:16,b:28,l:30};
+  const chartW = W - pad.l - pad.r;
+  const chartH = H - pad.t - pad.b;
+
+  const allVals = [...ages, ...scores];
+  const minV = Math.floor(Math.min(...allVals)) - 2;
+  const maxV = Math.ceil(Math.max(...allVals))  + 2;
+
+  const xPos = (i) => pad.l + (i/(recent.length-1||1)) * chartW;
+  const yPos = (v) => pad.t + chartH - ((v-minV)/(maxV-minV)) * chartH;
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(150,140,130,.15)';
+  ctx.lineWidth = 1;
+  for(let v=Math.ceil(minV);v<=maxV;v+=2){
+    const y = yPos(v);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W-pad.r, y); ctx.stroke();
+    ctx.fillStyle='rgba(120,110,100,.5)'; ctx.font='9px system-ui'; ctx.textAlign='right';
+    ctx.fillText(v, pad.l-4, y+3);
+  }
+
+  const drawLine = (vals, color, dash=[]) => {
+    ctx.beginPath(); ctx.strokeStyle=color; ctx.lineWidth=2.5; ctx.setLineDash(dash);
+    vals.forEach((v,i)=>{ const x=xPos(i),y=yPos(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+    ctx.stroke(); ctx.setLineDash([]);
+    // dots
+    vals.forEach((v,i)=>{
+      ctx.beginPath(); ctx.arc(xPos(i),yPos(v),3.5,0,Math.PI*2);
+      ctx.fillStyle=color; ctx.fill();
+    });
+  };
+
+  drawLine(scores, 'rgba(201,169,110,.8)', [4,3]);
+  drawLine(ages,   'rgba(255,126,179,.9)');
+
+  // X labels (every 5)
+  ctx.fillStyle='rgba(120,110,100,.6)'; ctx.font='9px system-ui'; ctx.textAlign='center';
+  recent.forEach((e,i)=>{ if(i%5===0||i===recent.length-1) ctx.fillText(dates[i], xPos(i), H-6); });
+
+  // Progress vs last
+  const progWrap = document.getElementById('sdash-progress-wrap');
+  if(log.length>=2){
+    const prev = log[log.length-2], curr = log[log.length-1];
+    const ageDiff  = curr.skin_age   - prev.skin_age;
+    const scoreDiff= curr.skin_score - prev.skin_score;
+    progWrap.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:var(--bg);border-radius:12px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1rem;font-weight:700;color:${ageDiff<=0?'var(--veg)':'var(--prot)'};">${ageDiff<=0?'▼':'▲'} ${Math.abs(ageDiff)} yrs</div>
+          <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;">Skin Age ${ageDiff<=0?'ดีขึ้น':'แย่ลง'}</div>
+        </div>
+        <div style="background:var(--bg);border-radius:12px;padding:10px;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:1rem;font-weight:700;color:${scoreDiff>=0?'var(--veg)':'var(--prot)'};">${scoreDiff>=0?'▲':'▼'} ${Math.abs(scoreDiff)} pts</div>
+          <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;">Score ${scoreDiff>=0?'ดีขึ้น':'ลดลง'}</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:.65rem;color:var(--muted2);text-align:center;">เทียบกับการสแกนครั้งก่อน ${prev.date.substring(5)}</div>`;
+  } else {
+    progWrap.innerHTML = '<div style="font-size:.7rem;color:var(--muted2);text-align:center;padding:10px;">ต้องการอย่างน้อย 2 scans</div>';
+  }
+}
+
+function skinHistoryMonth(delta){
+  const [y,m] = skinHistMo.split('-').map(Number);
+  let nm=m+delta, ny=y;
+  if(nm>12){nm=1;ny++;}
+  if(nm<1){nm=12;ny--;}
+  skinHistMo=`${ny}-${String(nm).padStart(2,'0')}`;
+  renderSkinHistory();
+}
+
 function renderSkinHistory(){
   const log = getSkinLog();
   const wrap = document.getElementById('skin-history-wrap');
   if(!wrap) return;
-  if(!log.length){
-    wrap.innerHTML = '<div style="text-align:center;padding:16px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล — สแกนวันแรกได้เลยค่ะ</div>';
+
+  const lblEl = document.getElementById('skin-hist-mo-lbl');
+  const months = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const [y,m] = skinHistMo.split('-').map(Number);
+  if(lblEl) lblEl.textContent = `${months[m]} ${y}`;
+
+  const filtered = log.filter(e=>e.date.startsWith(skinHistMo)).reverse();
+
+  if(!filtered.length){
+    wrap.innerHTML = `<div style="text-align:center;padding:20px;color:var(--muted2);font-size:.75rem;">ไม่มีข้อมูลใน ${months[m]} ${y}</div>`;
     return;
   }
-  const recent = log.slice(-30).reverse();
-  wrap.innerHTML = recent.map(e => {
+
+  wrap.innerHTML = filtered.map(e => {
     const diff = 32 - e.skin_age;
     const diffColor = diff>=5?'var(--veg)':diff>=0?'var(--grain)':'var(--prot)';
-    const condMap = {Excellent:'🌟',Good:'✨',Fair:'⚡','Needs Attention':'⚠️'};
-    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);">
-      <div style="font-size:.63rem;color:var(--muted2);width:46px;flex-shrink:0;font-family:'Kanit',sans-serif;">${e.date.substring(5)}</div>
-      <div style="flex:1;">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
-          <div style="font-family:'Playfair Display',serif;font-size:.85rem;font-weight:700;color:var(--fruit);">${e.skin_age} yrs</div>
-          <div style="font-size:.63rem;color:${diffColor};font-weight:600;">${diff>=0?'+':''}${diff}</div>
-          <div style="font-size:.6rem;">${condMap[e.overall_condition]||''}</div>
-          ${e.photos>1?`<div style="font-size:.56rem;color:var(--muted2);">${e.photos}📸</div>`:''}
+    const condIcon = {Excellent:'🌟',Good:'✨',Fair:'⚡','Needs Attention':'⚠️'}[e.overall_condition]||'';
+    const topNutrient = (e.nutrition_deficiencies||[])[0]?.nutrient||'';
+    return `<div onclick="showSkinEntry('${e.date}')" style="padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;" onmousedown="this.style.background='var(--card2)'" onmouseup="this.style.background=''">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;flex-shrink:0;text-align:center;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.8rem;font-weight:700;color:var(--muted2);">${e.date.substring(8)}</div>
+          <div style="font-size:.58rem;color:var(--muted2);">${months[parseInt(e.date.substring(5,7))]}</div>
         </div>
-        <div style="background:var(--bg);border-radius:20px;height:5px;overflow:hidden;">
-          <div style="width:${e.skin_score||70}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;"></div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+            <div style="font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;color:var(--fruit);">${e.skin_age} yrs</div>
+            <div style="font-size:.63rem;font-weight:600;color:${diffColor};">${diff>=0?'+':''}${diff}</div>
+            <div style="font-size:.6rem;">${condIcon}</div>
+            ${e.photos>1?`<div style="font-size:.55rem;color:var(--muted2);">${e.photos}📸</div>`:''}
+          </div>
+          <div style="background:var(--bg);border-radius:20px;height:5px;overflow:hidden;margin-bottom:3px;">
+            <div style="width:${e.skin_score||70}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;"></div>
+          </div>
+          ${topNutrient?`<div style="font-size:.58rem;color:var(--muted2);">⚠ ขาด: ${topNutrient}</div>`:''}
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--accent);">${e.skin_score||'—'}</div>
+          <div style="font-size:.55rem;color:var(--muted2);">pts</div>
         </div>
       </div>
-      <div style="font-size:.7rem;font-family:'Kanit',sans-serif;font-weight:700;color:var(--accent);flex-shrink:0;">${e.skin_score||'—'}</div>
     </div>`;
   }).join('');
 }
+
+// Show detail of a past entry
+function showSkinEntry(date){
+  const log = getSkinLog();
+  const entry = log.find(e=>e.date===date);
+  if(!entry) return;
+  // Switch to result view
+  document.getElementById('skin-dashboard').style.display = 'none';
+  document.getElementById('skin-dashboard-btn-wrap').style.display = 'block';
+  renderSkinResult(entry);
+  document.getElementById('skin-result-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+  // Add back button
+  const wrap = document.getElementById('skin-result-wrap');
+  const backBtn = document.createElement('button');
+  backBtn.textContent = '← กลับ Dashboard';
+  backBtn.style.cssText='width:100%;padding:10px;margin-bottom:10px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted2);font-family:Kanit,sans-serif;font-size:.75rem;cursor:pointer;';
+  backBtn.onclick = ()=>{ wrap.style.display='none'; document.getElementById('skin-dashboard').style.display='block'; switchSkinTab('history'); backBtn.remove(); };
+  wrap.prepend(backBtn);
+}
+
+function renderSkinInsights(){
+  const log = getSkinLog();
+  const wrap = document.getElementById('sdash-insights-wrap');
+  if(!log.length){ wrap.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted2);">ยังไม่มีข้อมูล</div>'; return; }
+
+  // Trend direction
+  const recent5 = log.slice(-5);
+  const ageImproving = recent5.length>=2 && recent5[recent5.length-1].skin_age <= recent5[0].skin_age;
+  const scoreImproving = recent5.length>=2 && recent5[recent5.length-1].skin_score >= recent5[0].skin_score;
+
+  // Best day of week
+  const dayScores = {};
+  log.forEach(e=>{ const d=new Date(e.date).getDay(); if(!dayScores[d]) dayScores[d]=[]; dayScores[d].push(e.skin_score||0); });
+  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const bestDay = Object.entries(dayScores).map(([d,s])=>({day:d,avg:s.reduce((a,b)=>a+b,0)/s.length})).sort((a,b)=>b.avg-a.avg)[0];
+
+  // Streak
+  const today = new Date().toISOString().split('T')[0];
+  let streak = 0;
+  const sortedDates = log.map(e=>e.date).sort().reverse();
+  let checkDate = today;
+  for(const d of sortedDates){
+    if(d===checkDate){ streak++; const dt=new Date(checkDate); dt.setDate(dt.getDate()-1); checkDate=dt.toISOString().split('T')[0]; } else break;
+  }
+
+  // Consistency — scans per week
+  const weeksSpanned = Math.max(1, Math.ceil((new Date(log[log.length-1].date)-new Date(log[0].date))/(7*86400000)));
+  const scansPerWeek = (log.length/weeksSpanned).toFixed(1);
+
+  wrap.innerHTML = `
+  <div style="display:flex;flex-direction:column;gap:10px;">
+
+    <!-- Trend status -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">📊 แนวโน้มล่าสุด</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:${ageImproving?'rgba(74,124,89,.08)':'rgba(201,169,110,.08)'};border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-size:1.2rem;">${ageImproving?'📉':'📈'}</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:${ageImproving?'var(--veg)':'var(--grain)'};margin-top:3px;">Skin Age ${ageImproving?'ดีขึ้น':'คงที่/ขึ้น'}</div>
+          <div style="font-size:.58rem;color:var(--muted2);">5 scans ล่าสุด</div>
+        </div>
+        <div style="background:${scoreImproving?'rgba(74,124,89,.08)':'rgba(201,169,110,.08)'};border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-size:1.2rem;">${scoreImproving?'📈':'📉'}</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:${scoreImproving?'var(--veg)':'var(--grain)'};">Score ${scoreImproving?'ดีขึ้น':'ลดลง'}</div>
+          <div style="font-size:.58rem;color:var(--muted2);">5 scans ล่าสุด</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Streak + consistency -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">🔥 Consistency</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+        <div><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent);">${streak}</div><div style="font-size:.58rem;color:var(--muted2);">Day Streak</div></div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent);">${log.length}</div><div style="font-size:.58rem;color:var(--muted2);">Total Scans</div></div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent);">${scansPerWeek}</div><div style="font-size:.58rem;color:var(--muted2);">Scans/Week</div></div>
+      </div>
+      ${bestDay?`<div style="margin-top:8px;font-size:.65rem;color:var(--muted2);text-align:center;">วันที่ผิวดีที่สุดคือ <span style="color:var(--accent);font-weight:700;">${dayNames[bestDay.day]}</span> (avg ${Math.round(bestDay.avg)} pts)</div>`:''}
+    </div>
+
+    <!-- Personal record -->
+    ${(()=>{
+      const bestEntry = log.reduce((b,e)=>(e.skin_score||0)>(b.skin_score||0)?e:b, log[0]);
+      const worstEntry = log.reduce((b,e)=>(e.skin_score||100)<(b.skin_score||100)?e:b, log[0]);
+      return `<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">🏅 Personal Records</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(74,124,89,.06);border-radius:10px;">
+            <div style="font-size:.68rem;color:var(--text);">🏆 Best scan</div>
+            <div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:var(--veg);">${bestEntry.skin_age} yrs · ${bestEntry.skin_score} pts · ${bestEntry.date.substring(5)}</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(201,169,110,.06);border-radius:10px;">
+            <div style="font-size:.68rem;color:var(--text);">📌 Lowest scan</div>
+            <div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:var(--grain);">${worstEntry.skin_age} yrs · ${worstEntry.skin_score} pts · ${worstEntry.date.substring(5)}</div>
+          </div>
+        </div>
+      </div>`;
+    })()}
+
+  </div>`;
+}
+
 
 
 const BODY_SNAP_KEY = 'girl_body_snapshots';
