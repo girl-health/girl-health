@@ -149,6 +149,47 @@ textarea{min-height:42px;}
 .bar-fill span{font-size:.6rem;font-weight:600;color:rgba(255,255,255,.85);white-space:nowrap;}
 .bar-val{font-size:.65rem;color:var(--text);width:42px;flex-shrink:0;}
 .ms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:13px;}
+
+/* ══════════ STATS · PREMIUM ══════════ */
+/* Hero good-rate */
+.st-hero{display:flex;align-items:center;gap:16px;background:linear-gradient(145deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.16);border-radius:22px;padding:18px 19px;margin-bottom:13px;}
+.st-hero-ring{width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.st-hero-ring-inner{width:66px;height:66px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.st-hero-pct{font-family:'Kanit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--accent);line-height:.9;letter-spacing:-1px;}
+.st-hero-pct-lbl{font-size:.54rem;color:var(--muted2);margin-top:2px;}
+.st-hero-meta{flex:1;min-width:0;}
+.st-hero-ttl{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);}
+.st-hero-sub{font-size:.64rem;color:var(--muted2);margin-top:2px;margin-bottom:9px;}
+.st-hero-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.st-hero-chip{font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:600;padding:4px 10px;border-radius:20px;}
+/* Card */
+.st-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 19px;margin-bottom:13px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.st-card-head{display:flex;align-items:center;gap:11px;margin-bottom:14px;}
+.st-card-ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.st-card-ttl{font-family:'Kanit',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);}
+.st-card-sub{font-size:.62rem;color:var(--muted2);margin-top:2px;}
+.st-legend{display:flex;align-items:center;gap:4px;font-size:.6rem;color:var(--muted2);}
+.st-legend-dot{width:9px;height:9px;border-radius:3px;border:1px solid;flex-shrink:0;}
+/* Trend mini-cards */
+.st-trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px;}
+.st-trend{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:15px 16px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.st-trend-top{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.st-trend-emoji{font-size:.95rem;}
+.st-trend-lbl{font-family:'Sarabun',sans-serif;font-size:.66rem;color:var(--muted2);}
+.st-trend-val{font-family:'Kanit',sans-serif;font-size:1.4rem;font-weight:800;line-height:1;letter-spacing:-.5px;margin-bottom:9px;}
+.st-trend-spark{height:34px;margin-bottom:6px;}
+.st-trend-foot{font-family:'Kanit',sans-serif;font-size:.66rem;font-weight:600;}
+/* Good vs Bad */
+.st-cmp-head{display:grid;grid-template-columns:1.3fr 1fr 1fr;padding:6px 0;border-bottom:1px solid var(--border);font-size:.62rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;}
+.st-cmp-head .st-cmp-good{text-align:center;color:var(--veg);}
+.st-cmp-head .st-cmp-bad{text-align:center;color:#C0392B;}
+.st-cmp-row{display:grid;grid-template-columns:1.3fr 1fr 1fr;padding:8px 0;border-bottom:1px solid var(--border);font-size:.74rem;align-items:center;}
+.st-cmp-row:last-child{border-bottom:none;}
+.st-cmp-lbl{color:var(--muted2);font-family:'Sarabun',sans-serif;}
+.st-cmp-good{text-align:center;font-family:'Kanit',sans-serif;font-weight:600;}
+.st-cmp-bad{text-align:center;font-family:'Kanit',sans-serif;font-weight:600;}
+.st-symptom{background:rgba(192,57,43,.1);color:#C0392B;border-radius:20px;padding:4px 11px;font-size:.65rem;font-family:'Kanit',sans-serif;}
+
 .ms-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;}
 .ms-val{font-family:'Kanit',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:1px;}
 .ms-lbl{font-size:.62rem;color:var(--muted2);}
@@ -1294,7 +1335,23 @@ body.ltab-supp .s-supp{display:block;}
 
 <!-- PAGE STATS -->
 <div class="page" id="page-stats">
-  <div class="month-sel"><select id="stat-mo" onchange="renderStats()"></select></div>
+  <!-- Month selector header -->
+  <div class="tbl-monthbar">
+    <button class="tbl-mo-arrow" onclick="chStatMonth(-1)">‹</button>
+    <div class="tbl-mo-label" id="stat-mo-label" onclick="openStatMonthPicker()" title="เลือกเดือน">— <span class="tbl-mo-caret">▾</span></div>
+    <button class="tbl-mo-arrow" onclick="chStatMonth(1)">›</button>
+    <select id="stat-mo" onchange="renderStats()" style="display:none;"></select>
+  </div>
+  <!-- Month picker popup -->
+  <div id="stat-mp-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);" onclick="closeStatMonthPicker()"></div>
+  <div id="stat-mp-popup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;width:min(330px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <button class="tbl-mo-arrow" onclick="statMpChYear(-1)">‹</button>
+      <div id="stat-mp-year" style="font-family:'Kanit',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);"></div>
+      <button class="tbl-mo-arrow" onclick="statMpChYear(1)">›</button>
+    </div>
+    <div id="stat-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
+  </div>
   <div id="stat-wrap"></div>
 </div>
 
@@ -2733,165 +2790,227 @@ async function renderTable(){
 }
 
 // ── STATS ──
+// ── STAT MONTH NAV + PICKER ──
+function chStatMonth(delta){
+  const cur=document.getElementById('stat-mo').value||curDay.substring(0,7);
+  const[y,m]=cur.split('-').map(Number);
+  let nm=m+delta,ny=y; if(nm>12){nm=1;ny++;} if(nm<1){nm=12;ny--;}
+  const nv=`${ny}-${String(nm).padStart(2,'0')}`;
+  const sel=document.getElementById('stat-mo');
+  if(![...sel.options].some(o=>o.value===nv)){const o=document.createElement('option');o.value=nv;o.textContent=moLabel(nv);sel.appendChild(o);}
+  sel.value=nv; renderStats();
+}
+let _statMpYear=null;
+function openStatMonthPicker(){
+  const cur=document.getElementById('stat-mo').value||curDay.substring(0,7);
+  _statMpYear=parseInt(cur.split('-')[0]); renderStatMonthPicker();
+  document.getElementById('stat-mp-overlay').style.display='block';
+  document.getElementById('stat-mp-popup').style.display='block';
+}
+function closeStatMonthPicker(){
+  document.getElementById('stat-mp-overlay').style.display='none';
+  document.getElementById('stat-mp-popup').style.display='none';
+}
+function statMpChYear(d){_statMpYear+=d;renderStatMonthPicker();}
+function renderStatMonthPicker(){
+  const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
+  document.getElementById('stat-mp-year').textContent=_statMpYear;
+  const cur=document.getElementById('stat-mo').value||curDay.substring(0,7);
+  const[curY,curM]=cur.split('-').map(Number);
+  const nowY=new Date().getFullYear(),nowM=new Date().getMonth()+1;
+  const moNames=isEN?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']:['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  document.getElementById('stat-mp-grid').innerHTML=moNames.map((nm,i)=>{
+    const m=i+1, isFuture=(_statMpYear>nowY)||(_statMpYear===nowY&&m>nowM), isSel=(_statMpYear===curY&&m===curM);
+    const style=isSel?'background:var(--accent);color:#fff;border-color:transparent;':isFuture?'background:var(--bg);color:var(--muted);opacity:.45;cursor:not-allowed;':'background:var(--bg);color:var(--text);';
+    const onclick=isFuture?'':`onclick="pickStatMonth(${_statMpYear},${m})"`;
+    return `<button ${onclick} style="${style}padding:11px 4px;border:1px solid var(--border2);border-radius:12px;font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;">${nm}</button>`;
+  }).join('');
+}
+function pickStatMonth(y,m){
+  const nv=`${y}-${String(m).padStart(2,'0')}`;
+  const sel=document.getElementById('stat-mo');
+  if(![...sel.options].some(o=>o.value===nv)){const o=document.createElement('option');o.value=nv;o.textContent=moLabel(nv);sel.appendChild(o);}
+  sel.value=nv; closeStatMonthPicker(); renderStats();
+}
+
+// Sparkline SVG generator
+function sparkline(vals, color, w=120, h=34){
+  const nums=vals.map(v=>+v||0);
+  if(!nums.length) return '';
+  const max=Math.max(...nums,1), min=Math.min(...nums,0);
+  const range=max-min||1;
+  const step=nums.length>1?w/(nums.length-1):w;
+  const pts=nums.map((v,i)=>`${(i*step).toFixed(1)},${(h-((v-min)/range)*(h-6)-3).toFixed(1)}`).join(' ');
+  const lastX=((nums.length-1)*step).toFixed(1), lastY=(h-((nums[nums.length-1]-min)/range)*(h-6)-3).toFixed(1);
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:${h}px;overflow:visible;">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${lastX}" cy="${lastY}" r="3" fill="${color}"/>
+  </svg>`;
+}
+
 async function renderStats(){
+  const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
   const mo=document.getElementById('stat-mo').value||curDay.substring(0,7);
+  document.getElementById('stat-mo-label').innerHTML=moLabel(mo)+' <span class="tbl-mo-caret">▾</span>';
   const rows=await dbLoadMonth(mo);
   const wrap=document.getElementById('stat-wrap');
-  if(!rows.length){wrap.innerHTML='<div class="empty">No data this month</div>';return;}
+  if(!rows.length){wrap.innerHTML=`<div class="tbl-empty">📭 ${isEN?'No data this month':'ยังไม่มีข้อมูลเดือนนี้'}</div>`;populateMoSels(rows);return;}
+
   const n=rows.length;
-  const sum=key=>rows.reduce((a,r)=>a+(+r[key]||0),0);
-  const avg=key=>Math.round(sum(key)/n);
+  const sorted=[...rows].sort((a,b)=>a.date.localeCompare(b.date));
+  const sum=k=>rows.reduce((a,r)=>a+(+r[k]||0),0);
+  const avg=k=>Math.round(sum(k)/n);
   const avgSlMin=avg('sl_min')||Math.round(rows.reduce((a,r)=>a+((+r['sl_total_h']||0)*60),0)/n);
-  const totalEx=sum('e1_m')+sum('e2_m'),totalK=sum('e1_k')+sum('e2_c');
+  const avgSlH=avgSlMin?Math.floor(avgSlMin/60)+'h'+(avgSlMin%60?String(avgSlMin%60).padStart(2,'0')+'m':''):'—';
 
   // Classify days
-  const badRows = rows.filter(r=>r.day_rating==='bad'||r.day_rating==='sick'||(r.mood===1&&(r.h_note||'').includes('Bad day')));
-  const goodRows = rows.filter(r=>!badRows.find(b=>b.date===r.date));
-  const alcoholDays = rows.filter(r=>r.alcohol_level&&r.alcohol_level!=='none');
-  const heavyAlcDays = rows.filter(r=>r.alcohol_level==='heavy');
-  const badCount=badRows.length, goodCount=goodRows.length;
+  const badRows=rows.filter(r=>r.day_rating==='bad'||r.day_rating==='sick'||(r.mood===1&&(r.h_note||'').includes('Bad day')));
+  const goodRows=rows.filter(r=>!badRows.find(b=>b.date===r.date));
+  const alcoholDays=rows.filter(r=>r.alcohol_level&&r.alcohol_level!=='none');
+  const heavyAlcDays=rows.filter(r=>r.alcohol_level==='heavy');
+  const badCount=badRows.length,goodCount=goodRows.length;
   const goodRate=Math.round(goodCount/n*100);
-
-  const goodAvg=key=>goodRows.length?Math.round(goodRows.reduce((a,r)=>a+(+r[key]||0),0)/goodRows.length):0;
-  const badAvg=key=>badRows.length?Math.round(badRows.reduce((a,r)=>a+(+r[key]||0),0)/badRows.length):0;
+  const goodAvg=k=>goodRows.length?Math.round(goodRows.reduce((a,r)=>a+(+r[k]||0),0)/goodRows.length):0;
+  const badAvg=k=>badRows.length?Math.round(badRows.reduce((a,r)=>a+(+r[k]||0),0)/badRows.length):0;
   const goodAvgSlH=goodRows.length?(goodRows.reduce((a,r)=>a+((r.sl_min||r.sl_total_h*60||0)),0)/goodRows.length/60).toFixed(1):0;
   const badAvgSlH=badRows.length?(badRows.reduce((a,r)=>a+((r.sl_min||r.sl_total_h*60||0)),0)/badRows.length/60).toFixed(1):0;
 
-  // Rating color map
+  // Heatmap cells
   const ratingColor={'excellent':'#4A7C59','good':'#4A7C59','okay':'#C9A96E','bad':'#C0392B','sick':'#8B5E8B'};
-  const ratingBg={'excellent':'rgba(74,124,89,.15)','good':'rgba(74,124,89,.1)','okay':'rgba(201,169,110,.12)','bad':'rgba(192,57,43,.1)','sick':'rgba(139,94,139,.1)'};
-  const ratingLabel={'excellent':'🌟','good':'✅','okay':'😐','bad':'💀','sick':'🤒',''  :'⬜'};
-
-  // Heatmap
+  const ratingBg={'excellent':'rgba(74,124,89,.16)','good':'rgba(74,124,89,.1)','okay':'rgba(201,169,110,.13)','bad':'rgba(192,57,43,.1)','sick':'rgba(139,94,139,.1)'};
+  const ratingLabel={'excellent':'🌟','good':'✅','okay':'😐','bad':'💀','sick':'🤒','':''};
   const [y,m]=mo.split('-').map(Number);
   const daysInMo=new Date(y,m,0).getDate();
   const firstDow=new Date(y,m-1,1).getDay();
   const today=new Date().toISOString().split('T')[0];
-  const rowMap={};rows.forEach(r=>{
-    let pd=null;
-    try{ pd=r.period_data?JSON.parse(r.period_data):null; }catch{}
-    rowMap[r.date]={...r,_period:pd};
-  });
+  const rowMap={};rows.forEach(r=>{let pd=null;try{pd=r.period_data?JSON.parse(r.period_data):null;}catch{}rowMap[r.date]={...r,_period:pd};});
   let calCells='';
   for(let i=0;i<firstDow;i++) calCells+=`<div></div>`;
   for(let d=1;d<=daysInMo;d++){
     const ds=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const row=rowMap[ds];
-    const isTdy=ds===today;
+    const row=rowMap[ds]; const isTdy=ds===today;
     const rating=row?.day_rating||'';
     const hasAlc=row?.alcohol_level&&row.alcohol_level!=='none';
     const hasPeriod=row?._period?.on;
-    const periodFlow=row?._period?.flow||'';
-    const flowDot=hasPeriod?(periodFlow==='heavy'?'🩸':periodFlow==='medium'?'🔴':periodFlow==='light'?'🟠':'·'):'';
+    const flowDot=hasPeriod?(row._period.flow==='heavy'?'🩸':row._period.flow==='medium'?'🔴':row._period.flow==='light'?'🟠':'·'):'';
     const col=rating?ratingColor[rating]:'var(--border2)';
     const bg=rating?ratingBg[rating]:'transparent';
     const outline=isTdy?`outline:2px solid var(--accent);outline-offset:1px;`:'';
-    calCells+=`<div onclick="pickCalDay('${ds}')" style="aspect-ratio:1;border-radius:7px;background:${bg};border:1px solid ${col};display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;${outline}font-size:.7rem;font-weight:700;color:${col||'var(--muted2)'};">
-      <span>${d}</span>
-      ${row?`<span style="font-size:.55rem;">${ratingLabel[rating]||'·'}${hasAlc?' 🍷':''}${hasPeriod?' '+flowDot:''}</span>`:''}
+    calCells+=`<div onclick="pickCalDay('${ds}')" style="aspect-ratio:1;border-radius:9px;background:${bg};border:1px solid ${col};display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;${outline}font-size:.68rem;font-weight:700;color:${col||'var(--muted2)'};">
+      <span>${d}</span>${row?`<span style="font-size:.5rem;">${ratingLabel[rating]||'·'}${hasAlc?'🍷':''}${hasPeriod?flowDot:''}</span>`:''}
     </div>`;
   }
 
-  function bar(title,data2,color){
-    const max=Math.max(...data2.map(r=>r.v),1);
-    return`<div class="chart-sec"><div class="chart-ttl">${title}</div><div class="bar-chart">${data2.map(r=>`<div class="bar-row"><div class="bar-lbl">${r.l}</div><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(r.v/max*100)}%;background:${color}"><span>${r.v}</span></div></div><div class="bar-val">${r.u}</div></div>`).join('')}</div></div>`;
-  }
-
-  const cmpRow=(label,gv,bv,unit,goodIsHigh=true)=>{
-    const gWins=goodIsHigh?(+gv>+bv):(+gv<+bv);
-    return `<div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;padding:5px 0;border-bottom:1px solid var(--border);font-size:.71rem;">
-      <span style="color:var(--muted2);">${label}</span>
-      <span style="text-align:center;color:${gWins?'var(--veg)':'var(--text)'};">${gv}${unit}</span>
-      <span style="text-align:center;color:${!gWins&&badRows.length?'var(--prot)':'var(--muted2)'};">${bv}${unit}</span>
+  // Trend mini-card helper
+  const trendCard=(emoji,label,vals,avgTxt,color)=>{
+    const nums=vals.map(v=>+v||0).filter(v=>v>0);
+    const first=nums.length>1?nums[0]:0, last=nums.length?nums[nums.length-1]:0;
+    let trend='', tcol='var(--muted2)';
+    if(nums.length>1){
+      const d=last-first;
+      const pct=first?Math.round(d/first*100):0;
+      if(Math.abs(pct)<3){trend=isEN?'steady':'คงที่';tcol='var(--muted2)';}
+      else if(pct>0){trend=`▲ ${Math.abs(pct)}%`;tcol='var(--veg)';}
+      else{trend=`▼ ${Math.abs(pct)}%`;tcol='var(--prot)';}
+    }
+    return `<div class="st-trend">
+      <div class="st-trend-top"><span class="st-trend-emoji">${emoji}</span><span class="st-trend-lbl">${label}</span></div>
+      <div class="st-trend-val" style="color:${color};">${avgTxt}</div>
+      <div class="st-trend-spark">${sparkline(vals,color)}</div>
+      <div class="st-trend-foot" style="color:${tcol};">${trend}</div>
     </div>`;
   };
 
+  // Good vs Bad comparison row
+  const cmpRow=(label,gv,bv,unit,goodIsHigh=true)=>{
+    const gWins=goodIsHigh?(+gv>+bv):(+gv<+bv);
+    return `<div class="st-cmp-row">
+      <span class="st-cmp-lbl">${label}</span>
+      <span class="st-cmp-good" style="color:${gWins?'var(--veg)':'var(--text)'};">${gv}${unit}</span>
+      <span class="st-cmp-bad" style="color:${!gWins&&badRows.length?'var(--prot)':'var(--muted2)'};">${bv}${unit}</span>
+    </div>`;
+  };
+
+  // Period block (optional)
+  const periodBlock=(()=>{
+    const periodDays=rows.filter(r=>{try{return r.period_data&&JSON.parse(r.period_data).on;}catch{return false;}});
+    if(!periodDays.length) return '';
+    const symptoms={};
+    periodDays.forEach(r=>{try{const p=JSON.parse(r.period_data);(p.symptoms||[]).forEach(s=>{symptoms[s]=(symptoms[s]||0)+1;});}catch{}});
+    const topSymptoms=Object.entries(symptoms).sort((a,b)=>b[1]-a[1]).slice(0,4);
+    const avgPain=(periodDays.reduce((a,r)=>{try{return a+(JSON.parse(r.period_data).pain||0);}catch{return a;}},0)/periodDays.length).toFixed(1);
+    return `<div class="st-card" style="border-color:rgba(192,57,43,.18);">
+      <div class="st-card-head"><div class="st-card-ico" style="background:rgba(192,57,43,.08);">🌸</div>
+        <div><div class="st-card-ttl">${isEN?'Period':'รอบเดือน'}</div><div class="st-card-sub">${periodDays.length} ${isEN?'days · avg pain':'วัน · ปวดเฉลี่ย'} ${avgPain}/5</div></div></div>
+      ${topSymptoms.length?`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">${topSymptoms.map(([s,c])=>`<span class="st-symptom">${s} ·${c}</span>`).join('')}</div>`:''}
+    </div>`;
+  })();
+
+  // Build trend value arrays
+  const protVals=sorted.map(r=>r.mac_p||0);
+  const sleepVals=sorted.map(r=>r.sl_min?+(r.sl_min/60).toFixed(1):(+r.sl_total_h||0));
+  const waterVals=sorted.map(r=>+r.water||0);
+  const exVals=sorted.map(r=>(r.e1_m||0)+(r.e2_m||0));
+  const totalEx=sum('e1_m')+sum('e2_m');
+
   wrap.innerHTML=`
-    <div style="font-family:'Kanit',sans-serif;font-size:.92rem;color:var(--text);margin-bottom:12px;">${moLabel(mo)} · ${n} days logged</div>
-
-    <!-- Summary cards -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px;">
-      <div class="ms-box"><div class="ms-val" style="color:var(--text)">${n}</div><div class="ms-lbl">Days</div></div>
-      <div class="ms-box"><div class="ms-val" style="color:var(--veg)">${goodCount}</div><div class="ms-lbl">Good</div></div>
-      <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.2)"><div class="ms-val" style="color:#C0392B">${badCount}</div><div class="ms-lbl" style="color:#C0392B">Bad / Sick</div></div>
-      <div class="ms-box"><div class="ms-val" style="color:var(--veg)">${goodRate}%</div><div class="ms-lbl">Good rate</div></div>
+    <!-- HERO: Good Rate -->
+    <div class="st-hero">
+      <div class="st-hero-ring" style="background:conic-gradient(var(--accent) ${goodRate*3.6}deg, rgba(74,124,89,.12) 0deg);">
+        <div class="st-hero-ring-inner">
+          <div class="st-hero-pct">${goodRate}<span style="font-size:1rem;">%</span></div>
+          <div class="st-hero-pct-lbl">${isEN?'good days':'วันที่ดี'}</div>
+        </div>
+      </div>
+      <div class="st-hero-meta">
+        <div class="st-hero-ttl">${moLabel(mo)}</div>
+        <div class="st-hero-sub">${n} ${isEN?'days logged':'วันที่บันทึก'}</div>
+        <div class="st-hero-chips">
+          <span class="st-hero-chip" style="background:rgba(74,124,89,.1);color:var(--veg);">✅ ${goodCount} ${isEN?'good':'ดี'}</span>
+          ${badCount?`<span class="st-hero-chip" style="background:rgba(192,57,43,.08);color:#C0392B;">💀 ${badCount} ${isEN?'bad':'แย่'}</span>`:''}
+          ${alcoholDays.length?`<span class="st-hero-chip" style="background:rgba(139,94,139,.08);color:#8B5E8B;">🍷 ${alcoholDays.length}</span>`:''}
+        </div>
+      </div>
     </div>
-    ${alcoholDays.length?`<div style="background:rgba(139,94,139,.06);border:1px solid rgba(139,94,139,.2);border-radius:10px;padding:9px 12px;margin-bottom:12px;font-size:.72rem;color:#8B5E8B;">🍷 Alcohol: ${alcoholDays.length} days this month${heavyAlcDays.length?` · ${heavyAlcDays.length} heavy nights`:''}</div>`:''}
 
-    <!-- Day Quality Heatmap -->
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:14px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.82rem;margin-bottom:10px;">📅 Day Quality — ${moLabel(mo)}</div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px;">
-        ${['S','M','T','W','T','F','S'].map(d=>`<div style="text-align:center;font-size:.58rem;font-weight:700;color:var(--muted2);letter-spacing:.4px;padding:3px 0;">${d}</div>`).join('')}
+    <!-- DAY QUALITY HEATMAP -->
+    <div class="st-card">
+      <div class="st-card-head"><div class="st-card-ico" style="background:rgba(74,124,89,.1);">📅</div>
+        <div><div class="st-card-ttl">${isEN?'Day Quality':'คุณภาพแต่ละวัน'}</div><div class="st-card-sub">${isEN?'tap a day to view':'แตะเพื่อดูรายวัน'}</div></div></div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:10px;">
+        ${(isEN?['S','M','T','W','T','F','S']:['อา','จ','อ','พ','พฤ','ศ','ส']).map(d=>`<div style="text-align:center;font-size:.55rem;font-weight:700;color:var(--muted2);letter-spacing:.3px;padding:2px 0;">${d}</div>`).join('')}
         ${calCells}
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
-        <div style="display:flex;align-items:center;gap:4px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(74,124,89,.15);border:1px solid #4A7C59;"></div><span style="font-size:.6rem;color:var(--muted2);">🌟✅ Good</span></div>
-        <div style="display:flex;align-items:center;gap:4px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(201,169,110,.12);border:1px solid #C9A96E;"></div><span style="font-size:.6rem;color:var(--muted2);">😐 Okay</span></div>
-        <div style="display:flex;align-items:center;gap:4px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(192,57,43,.1);border:1px solid #C0392B;"></div><span style="font-size:.6rem;color:var(--muted2);">💀 Bad</span></div>
-        <div style="display:flex;align-items:center;gap:4px;"><span style="font-size:.6rem;color:var(--muted2);">🍷 alcohol · 🩸🔴🟠 period flow</span></div>
+      <div style="display:flex;gap:11px;flex-wrap:wrap;margin-top:8px;">
+        <span class="st-legend"><span class="st-legend-dot" style="background:rgba(74,124,89,.16);border-color:#4A7C59;"></span>🌟✅ ${isEN?'Good':'ดี'}</span>
+        <span class="st-legend"><span class="st-legend-dot" style="background:rgba(201,169,110,.13);border-color:#C9A96E;"></span>😐 ${isEN?'Okay':'พอใช้'}</span>
+        <span class="st-legend"><span class="st-legend-dot" style="background:rgba(192,57,43,.1);border-color:#C0392B;"></span>💀 ${isEN?'Bad':'แย่'}</span>
       </div>
     </div>
 
-    ${(()=>{
-      const periodDays=rows.filter(r=>{try{return r.period_data&&JSON.parse(r.period_data).on;}catch{return false;}});
-      if(!periodDays.length) return '';
-      const symptoms={};
-      periodDays.forEach(r=>{
-        try{
-          const p=JSON.parse(r.period_data);
-          (p.symptoms||[]).forEach(s=>{ symptoms[s]=(symptoms[s]||0)+1; });
-        }catch{}
-      });
-      const topSymptoms=Object.entries(symptoms).sort((a,b)=>b[1]-a[1]).slice(0,5);
-      const heavyDays=periodDays.filter(r=>{try{return JSON.parse(r.period_data).flow==='heavy';}catch{return false;}}).length;
-      const avgPain=periodDays.reduce((a,r)=>{try{return a+(JSON.parse(r.period_data).pain||0);}catch{return a;}},0)/periodDays.length;
-      return `<div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.18);border-radius:14px;padding:13px;margin-bottom:14px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.82rem;margin-bottom:10px;color:#C0392B;">🌸 Period — ${moLabel(mo)}</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px;">
-          <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.15);"><div class="ms-val" style="color:#C0392B;">${periodDays.length}</div><div class="ms-lbl">Period days</div></div>
-          <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.15);"><div class="ms-val" style="color:#C0392B;">${heavyDays}</div><div class="ms-lbl">Heavy days</div></div>
-          <div class="ms-box" style="background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.15);"><div class="ms-val" style="color:#C0392B;">${avgPain>0?avgPain.toFixed(1):'—'}</div><div class="ms-lbl">Avg pain</div></div>
-        </div>
-        ${topSymptoms.length?`<div style="font-size:.65rem;color:var(--muted2);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase;">Common symptoms</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          ${topSymptoms.map(([s,c])=>`<span style="background:rgba(192,57,43,.1);color:#C0392B;border-radius:12px;padding:3px 9px;font-size:.65rem;">${s} ×${c}</span>`).join('')}
-        </div>`:''}
-      </div>`;
-    })()}
+    <!-- TREND MINI-CARDS -->
+    <div class="st-trend-grid">
+      ${trendCard('🥩',isEN?'Protein':'โปรตีน',protVals,`${avg('mac_p')}g`,'var(--prot)')}
+      ${trendCard('🌙',isEN?'Sleep':'การนอน',sleepVals,avgSlH,'var(--sleep)')}
+      ${trendCard('💧',isEN?'Water':'น้ำ',waterVals,`${(sum('water')/n).toFixed(1)}L`,'var(--water)')}
+      ${trendCard('🏋️',isEN?'Exercise':'ออกกำลัง',exVals,`${Math.round(totalEx/n)}m`,'var(--veg)')}
+    </div>
 
-    ${badRows.length?`
-    <!-- Good vs Bad comparison -->
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:14px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.82rem;margin-bottom:10px;">📊 Good day vs Bad day averages</div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;padding:5px 0;border-bottom:1px solid var(--border);font-size:.65rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;">
-        <span style="color:var(--muted2);">Metric</span><span style="text-align:center;color:var(--veg);">✅ Good (${goodRows.length}d)</span><span style="text-align:center;color:#C0392B;">💀 Bad (${badRows.length}d)</span>
-      </div>
-      ${cmpRow('Sleep',goodAvgSlH+'h',badAvgSlH+'h','','true')}
-      ${cmpRow('Water',goodAvg('water')+'L',badAvg('water')+'L','')}
-      ${cmpRow('Protein',goodAvg('mac_p')+'g',badAvg('mac_p')+'g','')}
-      ${cmpRow('Calories',goodAvg('mac_kcal'),badAvg('mac_kcal'),' kcal')}
-      ${cmpRow('Exercise',(goodRows.reduce((a,r)=>a+(r.e1_m||0)+(r.e2_m||0),0)/Math.max(goodRows.length,1)).toFixed(0),(badRows.reduce((a,r)=>a+(r.e1_m||0)+(r.e2_m||0),0)/Math.max(badRows.length,1)).toFixed(0),' min')}
-      ${cmpRow('Sleep score',goodAvg('sl_score'),badAvg('sl_score'),'')}
+    <!-- GOOD VS BAD -->
+    ${badRows.length?`<div class="st-card">
+      <div class="st-card-head"><div class="st-card-ico" style="background:rgba(201,169,110,.12);">📊</div>
+        <div><div class="st-card-ttl">${isEN?'Good vs Bad days':'วันดี vs วันแย่'}</div><div class="st-card-sub">${isEN?'what made the difference':'อะไรทำให้ต่างกัน'}</div></div></div>
+      <div class="st-cmp-head"><span class="st-cmp-lbl">${isEN?'Metric':'ตัวชี้วัด'}</span><span class="st-cmp-good">✅ ${goodRows.length}${isEN?'d':'ว'}</span><span class="st-cmp-bad">💀 ${badRows.length}${isEN?'d':'ว'}</span></div>
+      ${cmpRow(isEN?'Sleep':'นอน',goodAvgSlH+'h',badAvgSlH+'h','')}
+      ${cmpRow(isEN?'Water':'น้ำ',goodAvg('water')+'L',badAvg('water')+'L','')}
+      ${cmpRow(isEN?'Protein':'โปรตีน',goodAvg('mac_p')+'g',badAvg('mac_p')+'g','')}
+      ${cmpRow(isEN?'Sleep score':'คะแนนนอน',goodAvg('sl_score'),badAvg('sl_score'),'')}
     </div>`:''}
 
-    <div class="ms-grid">
-      <div class="ms-box"><div class="ms-val" style="color:var(--prot)">${sum('mac_p')}g</div><div class="ms-lbl">🥩 Protein total</div><div class="ms-sub">avg ${avg('mac_p')}g/day</div></div>
-      <div class="ms-box"><div class="ms-val" style="color:var(--veg)">${sum('mac_f')}g</div><div class="ms-lbl">🥦 Fiber total</div><div class="ms-sub">avg ${avg('mac_f')}g/day</div></div>
-      <div class="ms-box"><div class="ms-val" style="color:var(--water)">${(sum('water')/n).toFixed(1)}L</div><div class="ms-lbl">💧 Avg water/day</div><div class="ms-sub">total ${sum('water').toFixed(1)}L</div></div>
-    </div>
-    <div class="ms-grid">
-      <div class="ms-box"><div class="ms-val" style="color:var(--exercise)">${totalEx}min</div><div class="ms-lbl">🏃 Exercise total</div><div class="ms-sub">${totalK} kcal</div></div>
-      <div class="ms-box"><div class="ms-val" style="color:var(--sleep)">${avgSlMin?Math.floor(avgSlMin/60)+'h'+(avgSlMin%60?avgSlMin%60+'m':''):'—'}</div><div class="ms-lbl">🌙 Avg sleep</div><div class="ms-sub">score avg ${avg('sl_score')||'—'}</div></div>
-    </div>
-    ${bar('🥩 Daily protein (g)',rows.map(r=>({l:shortDate(r.date),v:r.mac_p||0,u:'g'})),'var(--prot)')}
-    ${bar('🥦 Daily fiber (g)',rows.map(r=>({l:shortDate(r.date),v:r.mac_f||0,u:'g'})),'var(--veg)')}
-    ${bar('🏃 Exercise (min)',rows.map(r=>({l:shortDate(r.date),v:(r.e1_m||0)+(r.e2_m||0),u:'min'})),'var(--exercise)')}
-    ${bar('🌙 Sleep (hours)',rows.map(r=>({l:shortDate(r.date),v:r.sl_min?+(r.sl_min/60).toFixed(1):0,u:'h'})),'var(--sleep)')}
-    ${bar('💧 Water (litres)',rows.map(r=>({l:shortDate(r.date),v:r.water||0,u:'L'})),'var(--water)')}`;
+    ${periodBlock}
+  `;
   populateMoSels(rows);
 }
-
 function populateMoSels(rows){
   const mo=curDay.substring(0,7);
   ['tbl-mo','stat-mo'].forEach(id=>{
@@ -3398,6 +3517,10 @@ function applyLang() {
   // Re-render Table if active (labels are language-dependent)
   if(document.getElementById('page-table')?.classList.contains('active')){
     if(typeof renderTable === 'function') renderTable();
+  }
+  // Re-render Stats if active (labels are language-dependent)
+  if(document.getElementById('page-stats')?.classList.contains('active')){
+    if(typeof renderStats === 'function') renderStats();
   }
 
   // Save lang preference
