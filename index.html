@@ -26,30 +26,25 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;min
 .ntab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 .page{display:none;padding:66px 14px 80px;min-height:100vh;}
 .page.active{display:block;}
-.date-nav{display:flex;align-items:center;gap:8px;margin-bottom:14px;background:var(--card);border-radius:12px;padding:9px 12px;border:1px solid var(--border);}
+.date-nav{display:flex;align-items:center;gap:8px;margin-bottom:14px;background:var(--card);border-radius:18px;padding:11px 14px;border:1px solid var(--border);box-shadow:0 3px 16px rgba(0,0,0,.04);}
 .date-nav button{background:var(--card2);border:1px solid var(--border2);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
 .date-lbl{flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.88rem;}
-.today-btn{font-size:.65rem;color:var(--accent);background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.25);border-radius:5px;padding:3px 7px;cursor:pointer;}
-.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+.today-btn{font-size:.66rem;color:var(--accent);background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.2);border-radius:20px;padding:5px 11px;cursor:pointer;font-family:'Kanit',sans-serif;font-weight:600;}
+.section{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:19px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 3px 16px rgba(0,0,0,0.04);}
 .section::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
 .s-eat::before{background:var(--veg);}
 .s-sleep::before{background:var(--sleep);}
 .s-ex::before{background:var(--exercise);}
 .s-body::before{background:var(--sugar);}
 .s-supp::before{background:var(--prot);}
-.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:11px;}
-.sec-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.sec-hdr{display:flex;align-items:center;gap:11px;margin-bottom:15px;}
+.sec-ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
 .s-eat .sec-ico{background:rgba(62,207,142,.12);}
 .s-sleep .sec-ico{background:rgba(162,155,254,.12);}
 .s-ex .sec-ico{background:rgba(84,160,255,.12);}
 .s-body .sec-ico{background:rgba(240,192,64,.12);}
 .s-supp .sec-ico{background:rgba(239,108,108,.12);}
-.sec-ttl{font-family:'Kanit',sans-serif;font-size:.87rem;}
-.s-eat .sec-ttl{color:var(--veg);}
-.s-sleep .sec-ttl{color:var(--sleep);}
-.s-ex .sec-ttl{color:var(--exercise);}
-.s-body .sec-ttl{color:var(--sugar);}
-.s-supp .sec-ttl{color:var(--prot);}
+.sec-ttl{font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);}
 textarea,input[type=text],input[type=number],input[type=time]{background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;resize:none;transition:border-color .2s;}
 textarea:focus,input:focus{border-color:var(--accent);}
 textarea{min-height:42px;}
@@ -71,14 +66,14 @@ textarea{min-height:42px;}
 .ex-bl-ttl{font-size:.72rem;color:var(--exercise);font-family:'Kanit',sans-serif;margin-bottom:6px;}
 .ex-g{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
 .ex-g input{text-align:center;font-size:.78rem;padding:5px 3px;}
-.qstats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px;}
-.qcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 5px;text-align:center;}
-.qval{font-family:'Kanit',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:1px;}
+.qstats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px;}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 6px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.qval{font-family:'Kanit',sans-serif;font-weight:700;font-size:1.18rem;margin-bottom:2px;letter-spacing:-.5px;}
 .qlbl{font-size:.6rem;color:var(--muted2);}
 .save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.88rem;border:none;border-radius:14px;cursor:pointer;transition:all .25s;letter-spacing:.5px;box-shadow:0 4px 15px rgba(74,124,89,0.3);}
 .save-btn:hover{opacity:.88;}
-.sugar-note{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);border-radius:8px;padding:6px 10px;margin-bottom:10px;font-size:.72rem;color:var(--sugar);}
-.ai-wrap{background:linear-gradient(135deg,rgba(74,124,89,.05),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.2);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.sugar-note{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:9px 13px;margin-bottom:13px;font-size:.7rem;color:var(--sugar);line-height:1.5;}
+.ai-wrap{background:linear-gradient(145deg,rgba(74,124,89,.055),rgba(201,169,110,.045));border:1px solid rgba(74,124,89,.16);border-radius:22px;padding:18px 19px;margin-bottom:14px;}
 .ai-hdr{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
 .ai-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 2px 8px rgba(74,124,89,0.3);}
 .ai-ttl{font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--accent);}
@@ -95,7 +90,7 @@ textarea{min-height:42px;}
 .tip-bio strong{color:#4A7CB0;}
 .tip-add strong{color:var(--fruit);}
 .tip-miss strong{color:var(--prot);}
-.analyze-btn{width:100%;padding:10px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.25);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.8rem;border-radius:10px;cursor:pointer;margin-top:9px;transition:all .2s;font-weight:600;}
+.analyze-btn{width:100%;padding:11px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.22);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.8rem;border-radius:13px;cursor:pointer;margin-top:11px;transition:all .2s;font-weight:600;}
 .analyze-btn:disabled{opacity:.5;cursor:not-allowed;}
 .dot-pulse span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);margin:0 2px;animation:dp 1.2s ease-in-out infinite;}
 .dot-pulse span:nth-child(2){animation-delay:.2s;}
@@ -222,11 +217,11 @@ textarea{min-height:42px;}
 .bio-stat-val{font-size:.7rem;font-family:'Kanit',sans-serif;width:55px;text-align:right;flex-shrink:0;}
 
 /* ── MEAL BLOCKS ── */
-.meal-block{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:11px 13px;margin-bottom:8px;transition:border-color .2s;}
+.meal-block{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:13px 14px;margin-bottom:10px;transition:border-color .2s;}
 .meal-block:focus-within{border-color:rgba(74,124,89,.35);}
 .meal-hdr{display:flex;align-items:center;margin-bottom:7px;}
 .meal-label{font-size:.68rem;font-weight:700;letter-spacing:.5px;color:var(--muted2);text-transform:uppercase;flex:1;}
-.meal-ta{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:8px 10px;resize:none;outline:none;min-height:42px;line-height:1.5;transition:border-color .2s;box-sizing:border-box;}
+.meal-ta{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:12px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:10px 12px;resize:none;outline:none;min-height:44px;line-height:1.5;transition:border-color .2s;box-sizing:border-box;}
 .meal-ta:focus{border-color:rgba(74,124,89,.4);}
 .meal-ta::placeholder{color:var(--muted2);font-size:.74rem;font-style:italic;}
 .meal-btn-primary{font-size:.62rem;font-weight:700;letter-spacing:.6px;color:#fff;background:var(--accent);border:none;border-radius:7px;padding:5px 12px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
@@ -771,7 +766,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="pf-well-row" style="border-left-color:#C9A96E;">
         <div class="pf-well-ico" style="background:rgba(201,169,110,.14);">💊</div>
         <div class="pf-well-body">
-          <div class="pf-well-name">Supplement Protocol</div>
+          <div class="pf-well-name">BioActive+ Protocol</div>
           <div class="pf-well-desc">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3;">Magnesium (<span class="lang-th">ทุกคืน</span><span class="lang-en" style="display:none;">nightly</span>)</strong> · Tribiotic · Immuchew · Juvecol</div>
         </div>
       </div>
@@ -826,7 +821,7 @@ body.ltab-supp .s-supp{display:block;}
         <div class="pf-med-desc lang-en" style="display:none;">Mild muscle relaxant / anxiolytic nightly for 5+ years — dosage managed by physician. <strong style="color:#6B8FA3">Magnesium required every night.</strong></div>
       </div>
       <div class="pf-med" style="border-left-color:#4A7C59;background:rgba(74,124,89,.05);">
-        <div class="pf-med-ttl" style="color:var(--accent);">💊 <span class="lang-th">อาหารเสริมที่จำเป็น</span><span class="lang-en" style="display:none;">Required Supplements</span></div>
+        <div class="pf-med-ttl" style="color:var(--accent);">💊 <span class="lang-th">BioActive+ ที่จำเป็น</span><span class="lang-en" style="display:none;">BioActive+ Essentials</span></div>
         <div class="pf-med-desc lang-th"><strong>แมกนีเซียมทุกคืน</strong> — จำเป็นเพื่อสนับสนุนการทำงานของยานอนหลับ</div>
         <div class="pf-med-desc lang-en" style="display:none;"><strong>Magnesium every night</strong> — essential to support sleep medication efficacy.</div>
       </div>
@@ -885,7 +880,7 @@ body.ltab-supp .s-supp{display:block;}
   <div class="log-tabs" id="log-tabs">
     <button class="log-tab active" data-ltab="eat" onclick="setLogTab('eat')">🍽️ <span class="lang-th">กิน</span><span class="lang-en" style="display:none;">Food</span></button>
     <button class="log-tab" data-ltab="health" onclick="setLogTab('health')">💪 <span class="lang-th">สุขภาพ</span><span class="lang-en" style="display:none;">Health</span></button>
-    <button class="log-tab" data-ltab="supp" onclick="setLogTab('supp')">💊 <span class="lang-th">เสริม</span><span class="lang-en" style="display:none;">Supps</span></button>
+    <button class="log-tab" data-ltab="supp" onclick="setLogTab('supp')">💊 <span class="lang-th">BioActive+</span><span class="lang-en" style="display:none;">BioActive+</span></button>
   </div>
 
   <div class="section s-eat">
@@ -893,7 +888,7 @@ body.ltab-supp .s-supp{display:block;}
     <div class="sugar-note">🚫 งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
       <!-- แคลอรี่ - featured -->
-      <div style="grid-column:1/-1;background:linear-gradient(135deg,rgba(240,160,64,.08),rgba(240,160,64,.04));border:1px solid rgba(240,160,64,.25);border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;">
+      <div style="grid-column:1/-1;background:linear-gradient(135deg,rgba(240,160,64,.08),rgba(240,160,64,.04));border:1px solid rgba(240,160,64,.25);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;">
         <div style="font-size:1.6rem;">🔥</div>
         <div style="flex:1;">
           <div style="font-size:.65rem;color:var(--muted2);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase;"><span class="lang-th">แคลอรี่รวม</span><span class="lang-en" style="display:none;">Total Calories</span></div>
@@ -904,7 +899,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <!-- โปรตีน -->
-      <div style="background:rgba(239,108,108,.06);border:1px solid rgba(239,108,108,.2);border-radius:12px;padding:11px;">
+      <div style="background:rgba(239,108,108,.06);border:1px solid rgba(239,108,108,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--prot);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥩 โปรตีน</span><span class="lang-en" style="display:none;">🥩 Protein</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_p" placeholder="0" min="0" oninput="updateQ()" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
@@ -912,7 +907,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <!-- คาร์บ -->
-      <div style="background:rgba(162,155,254,.06);border:1px solid rgba(162,155,254,.2);border-radius:12px;padding:11px;">
+      <div style="background:rgba(162,155,254,.06);border:1px solid rgba(162,155,254,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--other);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🍚 คาร์บ</span><span class="lang-en" style="display:none;">🍚 Carbs</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_carb" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
@@ -920,7 +915,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <!-- ไขมัน -->
-      <div style="background:rgba(116,185,255,.06);border:1px solid rgba(116,185,255,.2);border-radius:12px;padding:11px;">
+      <div style="background:rgba(116,185,255,.06);border:1px solid rgba(116,185,255,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--dairy);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥑 ไขมัน</span><span class="lang-en" style="display:none;">🥑 Fat</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_fat" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
@@ -928,7 +923,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <!-- ไฟเบอร์ -->
-      <div style="background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.2);border-radius:12px;padding:11px;">
+      <div style="background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--veg);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥦 ไฟเบอร์</span><span class="lang-en" style="display:none;">🥦 Fiber</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_f" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
@@ -936,7 +931,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <!-- น้ำตาลรวม -->
-      <div style="background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:11px;">
+      <div style="background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--sugar);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🍬 น้ำตาลรวม</span><span class="lang-en" style="display:none;">🍬 Total Sugar</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_sugar_total" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
@@ -944,7 +939,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <!-- โซเดียม -->
-      <div style="background:rgba(255,126,179,.06);border:1px solid rgba(255,126,179,.2);border-radius:12px;padding:11px;">
+      <div style="background:rgba(255,126,179,.06);border:1px solid rgba(255,126,179,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--fruit);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🧂 โซเดียม</span><span class="lang-en" style="display:none;">🧂 Sodium</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_sodium" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:70px;padding:0;">
@@ -2934,7 +2929,7 @@ const translations = {
     sec_sleep: 'การนอน',
     sec_ex: 'ออกกำลังกาย',
     sec_body: 'ข้อมูลร่างกาย',
-    sec_supp: 'อาหารเสริม / ยา',
+    sec_supp: 'BioActive+ / ยา',
     ai_title: 'คำแนะนำสุขภาพวันนี้',
     ai_sub: 'AI วิเคราะห์จากข้อมูลที่บันทึก',
     ai_placeholder: '<span class="lang-th">บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨</span><span class="lang-en" style="display:none;">Log your data then tap "Analyze" ✨</span>',
@@ -2998,7 +2993,7 @@ const translations = {
     sec_sleep: 'Sleep',
     sec_ex: 'Exercise',
     sec_body: 'Body Metrics',
-    sec_supp: 'Supplements / Medication',
+    sec_supp: 'BioActive+ / Medication',
     ai_title: "Today's Health Insights",
     ai_sub: 'AI analysis from your logged data',
     ai_placeholder: 'Log your data then tap "Analyze" ✨',
@@ -5052,9 +5047,9 @@ function renderSkinResult(r){
       </div>
     </div>
 
-    <!-- Supplement Stack -->
+    <!-- BioActive+ Stack -->
     <div style="padding:12px;border-bottom:1px solid var(--border);">
-      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">💊 Supplement Stack แนะนำ</div>
+      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">💊 BioActive+ Stack แนะนำ</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
         ${(r.supplement_stack||[]).map(s=>`
           <div style="background:var(--bg);border-radius:10px;padding:8px 10px;">
