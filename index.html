@@ -1042,7 +1042,7 @@ textarea{min-height:42px;}
     <div class="sec-hdr"><div class="sec-ico">🌙</div><div class="sec-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div>
       <label style="margin-left:auto;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;border:1px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.65rem;font-weight:700;letter-spacing:.3px;color:var(--sleep);white-space:nowrap;">
         📸 Scan
-        <input type="file" accept="image/*" style="display:none" onchange="analyzeSleepPhoto(this)">
+        <input type="file" accept="image/*" multiple style="display:none" onchange="analyzeSleepPhoto(this)">
       </label>
     </div>
     <div id="sleep-scan-result" style="display:none;margin-bottom:10px;"></div>
@@ -4177,46 +4177,70 @@ function closeMealPicker(){
 
 
 async function analyzeSleepPhoto(input){
-  const file = input.files[0];
-  if(!file) return;
+  const files = Array.from(input.files||[]).slice(0,5);
+  if(!files.length) return;
   const resWrap = document.getElementById('sleep-scan-result');
   resWrap.style.display = 'block';
-  resWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:rgba(107,143,163,.07);border:1px solid rgba(107,143,163,.2);border-radius:10px;font-size:.72rem;color:var(--sleep);"><div class="dot-pulse"><span></span><span></span><span></span></div> Reading Garmin sleep data…</div>`;
-  const base64 = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result.split(',')[1]); r.readAsDataURL(file); });
+  resWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:rgba(107,143,163,.07);border:1px solid rgba(107,143,163,.2);border-radius:10px;font-size:.72rem;color:var(--sleep);"><div class="dot-pulse"><span></span><span></span><span></span></div> Reading ${files.length} Garmin screenshot${files.length>1?'s':''}…</div>`;
+  // convert all images
+  const images = await Promise.all(files.map(f => new Promise(res => {
+    const r = new FileReader();
+    r.onload = e => res({ data: e.target.result.split(',')[1], type: f.type||'image/jpeg' });
+    r.readAsDataURL(f);
+  })));
   try {
+    const content = images.map(img => ({ type:'image', source:{ type:'base64', media_type:img.type, data:img.data } }));
+    content.push({ type:'text', text:`These are ${images.length} Garmin screenshot(s) — they may show different Garmin screens (Sleep, HRV Status, Body Battery, or the daily overview). Carefully extract EVERY metric you can find across ALL images and combine them into one result.
+
+WHERE TO LOOK in Garmin:
+- "Sleep Score" — a number 0-100 on the Sleep screen (e.g. "88", often labeled "Sleep Score" or shown in a colored ring)
+- "total_hours" — total sleep duration like "7h 48m" → convert to decimal hours (7.8)
+- "hrv" — HRV value in milliseconds, on the "HRV Status" screen (e.g. "62 ms", "Balanced 51"). This is a SEPARATE Garmin screen from sleep.
+- "rhr" — Resting Heart Rate in bpm (e.g. "49")
+- "body_battery" — Body Battery value or the "+xx" charge gained during sleep (e.g. "76")
+- deep_min / light_min / rem_min / awake_min — sleep stage durations in minutes
+
+IMPORTANT:
+- If a value is genuinely NOT visible in ANY image, use 0 (do not guess).
+- HRV and Sleep Score are often on DIFFERENT Garmin screens — scan every image for each metric.
+- Convert all sleep stage times to minutes, total sleep to decimal hours.
+
+Respond ONLY with valid JSON, no markdown:
+{"bedtime":"HH:MM","waketime":"HH:MM","total_hours":0.0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0,"notes":"brief summary of what each screen showed"}` });
+
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
       method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-6', max_tokens:600,
-        messages:[{role:'user', content:[
-          {type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},
-          {type:'text',text:`This is a Garmin sleep summary screenshot. Extract all sleep data and respond ONLY with valid JSON:
-{"bedtime":"HH:MM","waketime":"HH:MM","total_hours":0.0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0,"notes":"brief summary"}`}
-        ]}]
-      })
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:700, messages:[{role:'user', content}] })
     });
     if(!res.ok){ throw new Error('HTTP '+res.status); }
     const data = await res.json();
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const s = JSON.parse(raw);
-    // Auto-fill sleep fields
-    if(s.bedtime) document.getElementById('sl_s').value = s.bedtime;
-    if(s.waketime) document.getElementById('sl_e').value = s.waketime;
-    if(s.total_hours) document.getElementById('sl_total_h').value = s.total_hours;
-    if(s.sleep_score) document.getElementById('sl_score').value = s.sleep_score;
-    if(s.rhr) document.getElementById('sl_rhr').value = s.rhr;
-    if(s.hrv) document.getElementById('sl_hrv').value = s.hrv;
-    if(s.body_battery) document.getElementById('sl_bb').value = s.body_battery;
+    // Auto-fill sleep fields — merge: only overwrite when a value is present (don't wipe existing with 0)
+    const setIf = (id,v)=>{ if(v && +v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
+    if(s.bedtime && s.bedtime!=='HH:MM') document.getElementById('sl_s').value = s.bedtime;
+    if(s.waketime && s.waketime!=='HH:MM') document.getElementById('sl_e').value = s.waketime;
+    setIf('sl_total_h', s.total_hours);
+    setIf('sl_score', s.sleep_score);
+    setIf('sl_rhr', s.rhr);
+    setIf('sl_hrv', s.hrv);
+    setIf('sl_bb', s.body_battery);
     calcSleep(); updateQ();
+    // Warn if key Garmin metrics still missing
+    const missing = [];
+    if(!s.sleep_score) missing.push('Sleep Score');
+    if(!s.hrv) missing.push('HRV');
+    const missNote = missing.length ? `<div style="font-size:.64rem;color:var(--grain);margin-top:6px;">⚠ ไม่พบ ${missing.join(' · ')} ในรูป — ลองเพิ่มรูปหน้าจอนั้น หรือกรอกเองได้ค่ะ</div>` : '';
     resWrap.innerHTML = `<div style="background:rgba(107,143,163,.08);border:1px solid rgba(107,143,163,.25);border-radius:10px;padding:11px 13px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--sleep);margin-bottom:8px;">📸 Sleep scan complete</div>
+      <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--sleep);margin-bottom:8px;">📸 Sleep scan complete · ${images.length} ${images.length>1?'รูป':'รูป'}</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:7px;">
-        ${[['🌙','Total',s.total_hours+'h'],['💙','Score',s.sleep_score||'—'],['❤️','RHR',s.rhr||'—'],['🧠','HRV',s.hrv||'—'],['⚡','Battery',s.body_battery||'—'],['💤','Deep',(s.deep_min||0)+'m'],['😴','REM',(s.rem_min||0)+'m'],['☀️','Awake',(s.awake_min||0)+'m']].map(([e,l,v])=>`<div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 3px;"><div style="font-size:.78rem;font-weight:700;color:var(--sleep);font-family:'Kanit',sans-serif;">${v}</div><div style="font-size:.56rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.3px;">${l}</div></div>`).join('')}
+        ${[['🌙','Total',(s.total_hours||0)+'h'],['💙','Score',s.sleep_score||'—'],['❤️','RHR',s.rhr||'—'],['🧠','HRV',s.hrv?s.hrv+'ms':'—'],['⚡','Battery',s.body_battery||'—'],['💤','Deep',(s.deep_min||0)+'m'],['😴','REM',(s.rem_min||0)+'m'],['☀️','Awake',(s.awake_min||0)+'m']].map(([e,l,v])=>`<div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 3px;"><div style="font-size:.78rem;font-weight:700;color:var(--sleep);font-family:'Kanit',sans-serif;">${v}</div><div style="font-size:.56rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.3px;">${l}</div></div>`).join('')}
       </div>
       ${s.notes?`<div style="font-size:.67rem;color:var(--muted2);font-style:italic;">${s.notes}</div>`:''}
-      <div style="font-size:.62rem;color:var(--accent);margin-top:6px;">✓ Fields auto-filled from your Garmin screenshot</div>
+      <div style="font-size:.62rem;color:var(--accent);margin-top:6px;">✓ Fields auto-filled — เลื่อนลงกด Save เพื่อบันทึก</div>
+      ${missNote}
     </div>`;
-    toast('📸 Sleep data filled from scan!');
+    toast(missing.length?`📸 สแกนแล้ว · ขาด ${missing.join(', ')}`:'📸 Sleep data filled from scan!');
   } catch(err) {
     resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ Could not read sleep data — please check image and try again</div>`;
   }
@@ -4241,7 +4265,7 @@ async function analyzeAllDay(input, mode){
     meals: `This photo shows GIRL's meals for the day. ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Dining out: include restaurant sodium.'}
 Identify all dishes. Respond ONLY with valid JSON:
 {"meals":{"breakfast":"description or empty","lunch":"description or empty","dinner":"description or empty","snack":"description or empty"},"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high|medium|low","summary":"brief"}`,
-    sleep: `This is a Garmin sleep or workout summary screenshot. Extract ALL visible data. Respond ONLY with valid JSON:
+    sleep: `This is a Garmin screenshot — it may be the Sleep screen, HRV Status screen, or Body Battery screen. Extract EVERY metric visible. Note: HRV (ms) and Sleep Score are often on DIFFERENT Garmin screens. If a value is not visible, use 0 (don't guess). Convert sleep duration to decimal hours and stage times to minutes. Respond ONLY with valid JSON:
 {"type":"sleep","bedtime":"HH:MM or empty","waketime":"HH:MM or empty","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0}`,
     exercise: `This is a Garmin exercise/activity summary screenshot. Extract ALL visible data. Respond ONLY with valid JSON:
 {"type":"exercise","activity":"running|strength|cycling|other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":"brief description of what you see"}`
@@ -4298,22 +4322,25 @@ Identify all dishes. Respond ONLY with valid JSON:
     }
 
     else if(mode === 'sleep'){
+      const setIf = (id,v)=>{ if(v && +v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
       if(r.bedtime && r.bedtime!=='HH:MM') document.getElementById('sl_s').value = r.bedtime;
       if(r.waketime && r.waketime!=='HH:MM') document.getElementById('sl_e').value = r.waketime;
-      if(r.total_hours) document.getElementById('sl_total_h').value = r.total_hours;
-      if(r.sleep_score) document.getElementById('sl_score').value = r.sleep_score;
-      if(r.rhr) document.getElementById('sl_rhr').value = r.rhr;
-      if(r.hrv) document.getElementById('sl_hrv').value = r.hrv;
-      if(r.body_battery) document.getElementById('sl_bb').value = r.body_battery;
+      setIf('sl_total_h', r.total_hours);
+      setIf('sl_score', r.sleep_score);
+      setIf('sl_rhr', r.rhr);
+      setIf('sl_hrv', r.hrv);
+      setIf('sl_bb', r.body_battery);
       calcSleep(); updateQ();
+      const miss=[]; if(!r.sleep_score) miss.push('Sleep Score'); if(!r.hrv) miss.push('HRV');
       resWrap.innerHTML = `<div style="background:rgba(107,143,163,.08);border:1px solid rgba(107,143,163,.25);border-radius:11px;padding:11px;">
         <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--sleep);margin-bottom:8px;">🌙 Sleep Data Scanned</div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">
-          ${[['Total',r.total_hours+'h'],['Score',r.sleep_score||'—'],['RHR',r.rhr||'—'],['HRV',r.hrv||'—'],['Battery',r.body_battery||'—'],['Deep',(r.deep_min||0)+'m'],['REM',(r.rem_min||0)+'m'],['Awake',(r.awake_min||0)+'m']].map(([l,v])=>`<div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 3px;"><div style="font-size:.78rem;font-weight:700;color:var(--sleep);font-family:'Kanit',sans-serif;">${v}</div><div style="font-size:.54rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.3px;">${l}</div></div>`).join('')}
+          ${[['Total',(r.total_hours||0)+'h'],['Score',r.sleep_score||'—'],['RHR',r.rhr||'—'],['HRV',r.hrv?r.hrv+'ms':'—'],['Battery',r.body_battery||'—'],['Deep',(r.deep_min||0)+'m'],['REM',(r.rem_min||0)+'m'],['Awake',(r.awake_min||0)+'m']].map(([l,v])=>`<div style="text-align:center;background:var(--card);border-radius:8px;padding:6px 3px;"><div style="font-size:.78rem;font-weight:700;color:var(--sleep);font-family:'Kanit',sans-serif;">${v}</div><div style="font-size:.54rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.3px;">${l}</div></div>`).join('')}
         </div>
         <div style="font-size:.65rem;color:var(--sleep);margin-top:7px;">✓ Sleep fields filled from Garmin screenshot</div>
+        ${miss.length?`<div style="font-size:.64rem;color:var(--grain);margin-top:5px;">⚠ ไม่พบ ${miss.join(' · ')} — ลองสแกนรูปหน้าจอนั้นเพิ่ม หรือกรอกเองได้ค่ะ</div>`:''}
       </div>`;
-      toast('🌙 Sleep data scanned!');
+      toast(miss.length?`🌙 สแกนแล้ว · ขาด ${miss.join(', ')}`:'🌙 Sleep data scanned!');
     }
 
     else if(mode === 'exercise'){
@@ -6131,15 +6158,33 @@ async function loadHomeDashboard(force){
     }
   }catch(e){}
 
-  // ── RECOVERY · GARMIN ──
+  // ── RECOVERY · GARMIN (latest available value per metric) ──
   {
-    const bb=td?.sl_bb||0, hrv=td?.sl_hrv||0, rhr=td?.sl_rhr||0, slSc=td?.sl_score||0;
+    let bb=td?.sl_bb||0, hrv=td?.sl_hrv||0, rhr=td?.sl_rhr||0, slSc=td?.sl_score||0;
+    // For any metric missing today, look back through recent days for the most recent value
+    if(!bb||!hrv||!rhr||!slSc){
+      try{
+        const f=new Date(today); f.setDate(today.getDate()-29);
+        const {data:gd}=await db.from('health_days')
+          .select('date,sl_bb,sl_hrv,sl_rhr,sl_score')
+          .gte('date',f.toISOString().split('T')[0]).lte('date',todayStr)
+          .order('date',{ascending:false});
+        if(gd&&gd.length){
+          for(const d of gd){
+            if(!bb && d.sl_bb) bb=d.sl_bb;
+            if(!hrv && d.sl_hrv) hrv=d.sl_hrv;
+            if(!rhr && d.sl_rhr) rhr=d.sl_rhr;
+            if(!slSc && d.sl_score) slSc=d.sl_score;
+            if(bb&&hrv&&rhr&&slSc) break;
+          }
+        }
+      }catch(e){}
+    }
     const setRec=(id,v,suffix='')=>{ const e=document.getElementById(id); if(e) e.textContent = v?v+suffix:'—'; };
     setRec('hd-rec-bb', bb, bb>0?'+':'');
     setRec('hd-rec-hrv', hrv, hrv?'ms':'');
     setRec('hd-rec-rhr', rhr, rhr?'':'');
     setRec('hd-rec-sleep', slSc, '');
-    // color sleep score
     const slEl=document.getElementById('hd-rec-sleep');
     if(slEl) slEl.style.color = slSc>=80?'var(--veg)':slSc>=60?'var(--grain)':slSc>0?'var(--prot)':'var(--sleep)';
   }
