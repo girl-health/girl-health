@@ -5034,7 +5034,7 @@ async function saveSkinEntry(entry){
   // Prepare entry — JSONB fields must be objects/arrays, not strings
   const clean = { ...entry };
   // These are JSONB in Supabase — pass as-is (arrays/objects)
-  ['strengths','concerns','nutrition_deficiencies','skincare_routine','lifestyle_tips','supplement_stack'].forEach(k => {
+  ['strengths','concerns','nutrition_deficiencies','skincare_routine','lifestyle_tips','supplement_stack','bioactive_recommendations'].forEach(k => {
     if(typeof clean[k] === 'string'){ try { clean[k] = JSON.parse(clean[k]); } catch(e){ delete clean[k]; } }
   });
   try {
@@ -5097,13 +5097,41 @@ async function analyzeSkinAge(){
     rd.readAsDataURL(f);
   })));
 
-  const prompt = `You are an expert dermatologist AI with 20 years of clinical experience analyzing skin from photos.
+  const prompt = `You are GIRL's elite dermatology AI — a board-certified cosmetic dermatologist with 20+ years analyzing Asian (Thai) skin, plus a clinical nutritionist specializing in skin-from-within protocols. You are analyzing skin for a premium skincare-supplement brand, so your assessment must be precise, insightful, and commercially actionable.
 
-Analyze these ${images.length} facial photo(s) of a 32-year-old Thai woman. Study every visible detail carefully across all provided angles.
+Analyze these ${images.length} facial photo(s) of a 32-year-old Thai woman. Examine EVERY angle and detail with clinical rigor.
 
-Assess: texture, pores, fine lines, wrinkles, radiance, elasticity, hydration level, pigmentation, dark spots, uneven tone, redness, acne/blemishes, under-eye area, nasolabial folds, forehead lines, jaw definition.
+DEEP ASSESSMENT — evaluate each of these and reflect them in the JSON:
+- Texture & smoothness, pore size & congestion (T-zone vs cheeks)
+- Fine lines & wrinkles (forehead, glabella, crow's feet, nasolabial, perioral)
+- Hydration level & trans-epidermal water loss signs (flaking, tightness, dullness)
+- Radiance/glow vs dullness (sign of glycation or poor circulation)
+- Pigmentation: melasma, sun spots, PIH (post-acne marks), overall evenness
+- Elasticity & firmness, early sagging, jawline definition
+- Redness, sensitivity, inflammation, rosacea signs
+- Under-eye: dark circles, puffiness, fine crepey lines
+- Acne/blemishes: type (comedonal, inflammatory), active vs marks
+- Barrier health & oil balance (oily, dry, combination, dehydrated)
+- Glycation signs (sugar-related dullness/sallowness/stiffness)
 
-Be precise and honest. Use clinical accuracy.
+Be honest and clinically accurate — identify real concerns even if subtle. This drives the supplement recommendation.
+
+═══ GIRL's BioActive+ PRODUCT LINE (recommend ONLY from these 9 real products) ═══
+1. Collagen (⬛) — Concentrated liquid collagen peptides. FOR: dryness, fine lines, loss of plumpness/elasticity, enlarged pores, dehydrated skin.
+2. Gluta (💗) — Dual-form glutathione. FOR: dullness, uneven tone, dark spots, PIH/acne marks, sallow/tired skin, lack of glow.
+3. Asta (❤️) — AstaReal astaxanthin 6mg. FOR: UV damage, photoaging, inflammation/redness, crow's feet, oxidative stress, sensitive skin.
+4. Gold (💛) — Double SOD antioxidant. FOR: deep cellular aging, sagging, loss of firmness, environmental damage, overall anti-aging.
+5. Kera (⬜) — Edible keratin. FOR: hair thinning/loss, weak nails, also supports skin keratin/barrier.
+6. Magnesium (💙) — FOR: poor sleep (skin repairs in deep sleep), stress-related skin issues, cortisol-driven breakouts, dullness from fatigue.
+7. Tribiotic 28 (🟢) — 25 Billion CFU probiotics. FOR: gut-skin axis, hormonal/inflammatory acne, redness, dull congested skin, breakouts from poor gut health.
+8. Immuchew (🟤) — Colostrum immune support. FOR: reactive/sensitive skin, frequent flare-ups, skin that reflects low immunity.
+9. Juvecol (🟠) — Vitamin D3+K2, joints. FOR: overall wellness foundation (minor skin relevance — only recommend if others don't fit).
+
+RECOMMENDATION RULES:
+- Match the woman's SPECIFIC visible skin concerns to the MOST relevant BioActive+ products (usually 3–5 of them).
+- Rank by priority (Essential / Recommended / Optional) based on how directly each addresses her concerns.
+- For EACH recommended product, give a specific reason tied to what YOU SAW in HER photo (not generic).
+- Order them so the #1 product is the single most impactful for her skin right now.
 
 Respond ONLY with valid JSON (no markdown, no backticks):
 {
@@ -5112,8 +5140,9 @@ Respond ONLY with valid JSON (no markdown, no backticks):
   "overall_condition": "Excellent",
   "skin_score": 88,
   "confidence": "High",
+  "skin_type": "Combination / Dehydrated",
   "hydration": "Good",
-  "radiance": "High", 
+  "radiance": "High",
   "texture": "Smooth",
   "pore_size": "Small",
   "fine_lines": "Minimal",
@@ -5123,14 +5152,42 @@ Respond ONLY with valid JSON (no markdown, no backticks):
   "redness": "None",
   "under_eye": "Bright",
   "acne": "Clear",
+  "barrier_health": "Strong",
+  "glycation_signs": "Minimal",
   "strengths": [
     "Excellent skin elasticity and firmness for age",
     "Even skin tone with minimal pigmentation",
     "Good hydration — plump and dewy texture"
   ],
   "concerns": [
-    "Slight dehydration around T-zone",
-    "Early fine lines forming at outer eye corners"
+    "Slight dehydration around T-zone — early barrier stress",
+    "Faint fine lines forming at outer eye corners"
+  ],
+  "bioactive_recommendations": [
+    {
+      "product": "Collagen",
+      "emoji": "⬛",
+      "priority": "Essential",
+      "reason": "Visible early fine lines at eye corners + slightly enlarged pores indicate declining collagen density — liquid collagen will restore plumpness and smooth texture.",
+      "timing": "ก่อนอาหารเช้า",
+      "expected_result": "ผิวเด้ง ชุ่มชื้น รูขุมขนกระชับ ใน 3-4 สัปดาห์"
+    },
+    {
+      "product": "Asta",
+      "emoji": "❤️",
+      "priority": "Essential",
+      "reason": "Outer-eye fine lines + Thailand's high UV exposure call for internal photoprotection — AstaReal 6mg shields against further photoaging.",
+      "timing": "หลังอาหาร",
+      "expected_result": "ผิวทนแดด ลดริ้วรอย สดใสไม่ล้า"
+    },
+    {
+      "product": "Gluta",
+      "emoji": "💗",
+      "priority": "Recommended",
+      "reason": "Slight dullness in the T-zone suggests mild oxidative stress — glutathione will boost radiance and even out tone.",
+      "timing": "ก่อนอาหาร",
+      "expected_result": "ผิวกระจ่างใส ออร่าชมพู ลดหมองคล้ำ"
+    }
   ],
   "nutrition_deficiencies": [
     {
@@ -5144,18 +5201,6 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       "reason": "Skin barrier needs strengthening for hydration retention",
       "foods": ["Salmon", "Sardines", "Walnuts", "Flaxseed"],
       "priority": "High"
-    },
-    {
-      "nutrient": "Collagen Peptides",
-      "reason": "Support skin elasticity and reduce early fine lines",
-      "foods": ["Bone broth", "Collagen supplement", "Egg whites"],
-      "priority": "Medium"
-    },
-    {
-      "nutrient": "Astaxanthin",
-      "reason": "Powerful antioxidant for UV protection and anti-aging",
-      "foods": ["Astaxanthin supplement", "Wild salmon", "Shrimp"],
-      "priority": "Medium"
     }
   ],
   "skincare_routine": [
@@ -5167,12 +5212,6 @@ Respond ONLY with valid JSON (no markdown, no backticks):
     "Drink 2.5L water daily — visible improvement in 2 weeks",
     "Sleep 7.5–8.5h — skin repairs 80% during deep sleep",
     "Reduce refined sugar — accelerates glycation and aging"
-  ],
-  "supplement_stack": [
-    {"name":"Collagen Peptides","dose":"5g/day","timing":"Morning"},
-    {"name":"Astaxanthin","dose":"6mg/day","timing":"With meal"},
-    {"name":"Vitamin C","dose":"500mg/day","timing":"Morning"},
-    {"name":"Glutathione","dose":"250mg/day","timing":"Before bed"}
   ],
   "next_focus": "Focus on strengthening skin barrier and UV protection for the next 30 days",
   "reassess_in_days": 30
@@ -5194,7 +5233,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-allow-browser': 'true'
       },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1800, messages: [{ role: 'user', content }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2600, messages: [{ role: 'user', content }] })
     });
 
     const data = await res.json();
@@ -5331,16 +5370,37 @@ function renderSkinResult(r){
       </div>
     </div>
 
-    <!-- BioActive+ Stack -->
-    <div style="padding:12px;border-bottom:1px solid var(--border);">
-      <div style="font-size:.58rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">💊 BioActive+ Stack แนะนำ</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        ${(r.supplement_stack||[]).map(s=>`
-          <div style="background:var(--bg);border-radius:10px;padding:8px 10px;">
-            <div style="font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;color:var(--text);">${s.name}</div>
-            <div style="font-size:.6rem;color:var(--accent);margin-top:1px;">${s.dose}</div>
-            <div style="font-size:.57rem;color:var(--muted2);">${s.timing}</div>
-          </div>`).join('')}
+    <!-- BioActive+ Recommendations — HERO (the sales driver) -->
+    <div style="padding:14px 13px;border-bottom:1px solid var(--border);background:linear-gradient(145deg,rgba(255,126,179,.05),rgba(212,132,90,.04));">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+        <div style="width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#D4607A,#C9A96E);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">💊</div>
+        <div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--text);">BioActive+ ${currentLang==='en'?'for Your Skin Today':'ที่ผิวเธอต้องการวันนี้'}</div>
+          <div style="font-size:.58rem;color:var(--muted2);">${currentLang==='en'?'AI-matched to your skin analysis':'AI จับคู่จากผลวิเคราะห์ผิวของเธอ'}</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${(r.bioactive_recommendations||[]).map((b,i)=>{
+          const prod=(typeof BIOACTIVE_PRODUCTS!=='undefined')?BIOACTIVE_PRODUCTS.find(p=>p.name===b.product||p.name.toLowerCase()===(b.product||'').toLowerCase()):null;
+          const accent=prod?prod.dotColor:'#D4607A';
+          const prioColor=b.priority==='Essential'?'#C0392B':b.priority==='Recommended'?'#C9A96E':'var(--muted2)';
+          const prioBg=b.priority==='Essential'?'rgba(192,57,43,.1)':b.priority==='Recommended'?'rgba(201,169,110,.13)':'var(--bg)';
+          const prioLabel=currentLang==='en'?b.priority:(b.priority==='Essential'?'จำเป็นมาก':b.priority==='Recommended'?'แนะนำ':'เสริมได้');
+          return `<div style="background:var(--card);border:1px solid ${accent}33;border-left:3px solid ${accent};border-radius:13px;padding:11px 13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+              <div style="display:flex;align-items:center;gap:7px;">
+                <span style="font-size:1.05rem;">${b.emoji||prod?.icon||'💊'}</span>
+                <span style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:${accent};">${i+1}. ${b.product}</span>
+              </div>
+              <span style="font-size:.56rem;font-weight:700;color:${prioColor};background:${prioBg};padding:3px 9px;border-radius:20px;letter-spacing:.2px;">${prioLabel}</span>
+            </div>
+            <div style="font-size:.67rem;color:var(--text);line-height:1.5;margin-bottom:5px;">${b.reason||''}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              ${b.timing?`<span style="font-size:.58rem;color:var(--muted2);">🕐 ${b.timing}</span>`:''}
+              ${b.expected_result?`<span style="font-size:.58rem;color:var(--veg);">✨ ${b.expected_result}</span>`:''}
+            </div>
+          </div>`;
+        }).join('')}
       </div>
     </div>
 
