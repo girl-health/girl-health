@@ -271,64 +271,92 @@ textarea{min-height:42px;}
 .period-sub-btn.active{border-color:#C0392B;background:rgba(192,57,43,.15);color:#C0392B;}
 .period-sym-btn{padding:4px 9px;border-radius:14px;border:1px solid var(--border);background:var(--card2);color:var(--muted2);font-size:.63rem;cursor:pointer;transition:all .2s;}
 .period-sym-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;font-weight:600;}
-/* ── HOME DASHBOARD ── */
-.hd-page{padding:62px 14px 88px;}
-.hd-greeting{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.hd-greeting-txt{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text);font-style:italic;}
-.hd-greeting-sub{font-size:.68rem;color:var(--muted2);margin-top:2px;}
-.hd-score-ring{width:48px;height:48px;position:relative;flex-shrink:0;}
-.hd-score-ring svg{width:48px;height:48px;transform:rotate(-90deg);}
-.hd-score-ring-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.hd-score-num{font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;line-height:1;}
-.hd-score-lbl{font-size:.38rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;}
 
-.hd-focus-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
-.hd-focus-ttl{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
-.hd-metric-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
-.hd-metric-row:last-child{margin-bottom:0;}
-.hd-metric-ico{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
-.hd-metric-body{flex:1;min-width:0;}
-.hd-metric-name{font-size:.7rem;color:var(--text);margin-bottom:3px;}
-.hd-metric-bar{height:6px;border-radius:3px;background:var(--bg);overflow:hidden;}
-.hd-metric-fill{height:100%;border-radius:3px;transition:width .7s ease;}
-.hd-metric-pct{font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;flex-shrink:0;min-width:32px;text-align:right;}
+/* ══════════ HOME · LONGEVITY DASHBOARD ══════════ */
+.hd-page{padding:64px 16px 28px;max-width:480px;margin:0 auto;}
 
-.hd-gap-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
-.hd-gap-ttl{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
-.hd-gap-item{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px;padding:9px 11px;border-radius:12px;}
-.hd-gap-item:last-child{margin-bottom:0;}
-.hd-gap-ico{font-size:.85rem;line-height:1.6;flex-shrink:0;}
-.hd-gap-msg{font-size:.73rem;color:var(--text);line-height:1.5;}
-.hd-gap-msg strong{font-family:'Kanit',sans-serif;display:block;font-size:.75rem;margin-bottom:1px;}
+/* Greeting */
+.hd-top{display:flex;align-items:flex-end;justify-content:space-between;margin:6px 2px 20px;}
+.hd-hello{font-family:'Playfair Display',serif;font-style:italic;font-size:1.32rem;color:var(--text);line-height:1.1;letter-spacing:.2px;}
+.hd-hello-sub{font-family:'Sarabun',sans-serif;font-size:.72rem;color:var(--muted2);margin-top:5px;letter-spacing:.2px;}
+.hd-date-chip{font-family:'Kanit',sans-serif;font-size:.62rem;color:var(--accent);background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.16);padding:5px 11px;border-radius:30px;white-space:nowrap;letter-spacing:.3px;}
 
-.hd-trend-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
-.hd-trend-ttl{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
-.hd-trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
-.hd-trend-box{background:var(--bg);border-radius:12px;padding:10px 8px;text-align:center;}
-.hd-trend-val{font-family:'Kanit',sans-serif;font-size:.95rem;font-weight:700;line-height:1;}
-.hd-trend-name{font-size:.6rem;color:var(--muted2);margin-top:3px;}
-.hd-trend-delta{font-size:.62rem;font-weight:600;margin-top:2px;}
-.hd-trend-up{color:var(--veg);}
-.hd-trend-dn{color:var(--prot);}
-.hd-trend-eq{color:var(--muted2);}
+/* ── HERO · Health Score ── */
+.hd-hero{background:linear-gradient(150deg,#FFFFFF 0%,#FAF8F3 100%);border:1px solid var(--border);border-radius:26px;padding:24px 22px;margin-bottom:24px;box-shadow:0 6px 28px rgba(74,124,89,.07),0 1px 4px rgba(0,0,0,.03);position:relative;overflow:hidden;}
+.hd-hero::after{content:'';position:absolute;top:-40px;right:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(74,124,89,.06),transparent 70%);}
+.hd-hero-row{display:flex;align-items:center;gap:20px;position:relative;}
+.hd-hero-ring{width:104px;height:104px;position:relative;flex-shrink:0;}
+.hd-hero-ring svg{width:104px;height:104px;transform:rotate(-90deg);}
+.hd-hero-ring-c{transition:stroke-dashoffset 1.3s cubic-bezier(.16,1,.3,1);}
+.hd-hero-ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.hd-hero-num{font-family:'Kanit',sans-serif;font-weight:700;font-size:2.15rem;line-height:.9;letter-spacing:-1px;}
+.hd-hero-max{font-family:'Kanit',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:2px;letter-spacing:.5px;}
+.hd-hero-meta{flex:1;min-width:0;}
+.hd-hero-eyebrow{font-family:'Kanit',sans-serif;font-size:.6rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;}
+.hd-hero-label{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;line-height:1.15;margin-bottom:8px;}
+.hd-hero-caption{font-family:'Sarabun',sans-serif;font-size:.7rem;color:var(--muted2);line-height:1.5;}
+.hd-hero-spark{display:flex;gap:4px;margin-top:12px;}
+.hd-spark-bar{flex:1;height:4px;border-radius:2px;background:var(--bg);overflow:hidden;}
+.hd-spark-fill{height:100%;border-radius:2px;transition:width .9s ease;}
 
-.hd-insight-card{background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border:1px solid rgba(74,124,89,.2);border-radius:18px;padding:14px 15px;margin-bottom:10px;}
-.hd-ins-hdr{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
-.hd-ins-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;box-shadow:0 2px 8px rgba(74,124,89,.3);}
-.hd-ins-ttl{font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--accent);}
-.hd-ins-sub{font-size:.6rem;color:var(--muted2);}
-.hd-ins-item{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start;}
-.hd-ins-item:last-child{margin-bottom:0;}
-.hd-ins-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;}
-.hd-ins-txt{font-size:.73rem;color:var(--text);line-height:1.5;}
+/* ── SECTION HEADER ── */
+.hd-sec-head{display:flex;align-items:baseline;justify-content:space-between;margin:0 4px 13px;}
+.hd-sec-title{font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);letter-spacing:.3px;}
+.hd-sec-note{font-family:'Sarabun',sans-serif;font-size:.62rem;color:var(--muted2);}
 
-.hd-quick-log{position:fixed;bottom:0;left:0;right:0;background:rgba(245,240,232,.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 14px 16px;z-index:140;box-shadow:0 -4px 20px rgba(0,0,0,0.06);}
-.hd-ql-label{font-family:'Kanit',sans-serif;font-size:.65rem;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
-.hd-ql-btns{display:flex;gap:7px;}
-.hd-ql-btn{flex:1;padding:10px 4px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--muted2);font-size:.65rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Kanit',sans-serif;}
-.hd-ql-btn .ql-ico{font-size:1.1rem;}
-.hd-ql-btn:hover{border-color:var(--accent);color:var(--accent);}
-.hd-ql-btn.done{border-color:var(--accent);background:rgba(74,124,89,.1);color:var(--accent);}
+/* ── METRIC CARD (Visual hierarchy: number > title > desc) ── */
+.hd-metrics{display:flex;flex-direction:column;gap:11px;margin-bottom:26px;}
+.hd-mcard{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 19px;box-shadow:0 3px 16px rgba(0,0,0,.04);position:relative;overflow:hidden;}
+.hd-mcard-top{display:flex;align-items:flex-start;gap:13px;margin-bottom:13px;}
+.hd-mcard-ico{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.18rem;flex-shrink:0;}
+.hd-mcard-id{flex:1;min-width:0;padding-top:1px;}
+.hd-mcard-name{font-family:'Kanit',sans-serif;font-size:.84rem;font-weight:600;color:var(--text);letter-spacing:.2px;line-height:1;}
+.hd-mcard-desc{font-family:'Sarabun',sans-serif;font-size:.63rem;color:var(--muted2);margin-top:4px;letter-spacing:.2px;}
+.hd-mcard-fig{text-align:right;flex-shrink:0;}
+.hd-mcard-val{font-family:'Kanit',sans-serif;font-weight:700;font-size:1.62rem;line-height:.85;letter-spacing:-.5px;}
+.hd-mcard-unit{font-family:'Kanit',sans-serif;font-size:.66rem;color:var(--muted2);font-weight:500;margin-left:1px;}
+.hd-mcard-target{font-family:'Sarabun',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:4px;letter-spacing:.2px;}
+.hd-mcard-trackrow{display:flex;align-items:center;gap:10px;}
+.hd-mcard-track{flex:1;height:7px;border-radius:4px;background:var(--bg2);overflow:hidden;}
+.hd-mcard-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.16,1,.3,1);}
+.hd-mcard-pct{font-family:'Kanit',sans-serif;font-size:.66rem;font-weight:700;flex-shrink:0;min-width:34px;text-align:right;}
+
+/* ── GAP / INSIGHT BLOCKS ── */
+.hd-block{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 19px;margin-bottom:14px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.hd-gap-row{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border-radius:15px;margin-bottom:8px;}
+.hd-gap-row:last-child{margin-bottom:0;}
+.hd-gap-ic{font-size:.92rem;line-height:1.5;flex-shrink:0;}
+.hd-gap-tx strong{font-family:'Kanit',sans-serif;font-size:.76rem;font-weight:600;display:block;margin-bottom:2px;letter-spacing:.2px;}
+.hd-gap-tx span{font-family:'Sarabun',sans-serif;font-size:.68rem;color:var(--muted2);line-height:1.45;}
+
+/* ── TREND ── */
+.hd-trend-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.hd-tbox{background:var(--bg);border-radius:16px;padding:14px 8px;text-align:center;}
+.hd-tbox-val{font-family:'Kanit',sans-serif;font-weight:700;font-size:1.18rem;line-height:1;letter-spacing:-.5px;}
+.hd-tbox-name{font-family:'Sarabun',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:5px;}
+.hd-tbox-d{font-family:'Kanit',sans-serif;font-size:.62rem;font-weight:600;margin-top:4px;}
+.t-up{color:var(--veg);} .t-dn{color:var(--prot);} .t-eq{color:var(--muted2);}
+
+/* ── AI INSIGHT ── */
+.hd-ai{background:linear-gradient(145deg,rgba(74,124,89,.055),rgba(201,169,110,.045));border:1px solid rgba(74,124,89,.16);border-radius:22px;padding:18px 19px;margin-bottom:14px;}
+.hd-ai-head{display:flex;align-items:center;gap:11px;margin-bottom:13px;}
+.hd-ai-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;box-shadow:0 3px 10px rgba(74,124,89,.3);}
+.hd-ai-ttl{font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--accent);letter-spacing:.2px;}
+.hd-ai-sub{font-family:'Sarabun',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:1px;}
+.hd-ai-refresh{margin-left:auto;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.2);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.62rem;font-weight:600;padding:6px 12px;border-radius:30px;cursor:pointer;transition:all .2s;}
+.hd-ai-refresh:active{transform:scale(.95);}
+.hd-ai-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:9px;}
+.hd-ai-row:last-child{margin-bottom:0;}
+.hd-ai-dot{width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;}
+.hd-ai-tx{font-family:'Sarabun',sans-serif;font-size:.72rem;color:var(--text);line-height:1.5;letter-spacing:.1px;}
+
+/* ── QUICK ACTIONS ── */
+.hd-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:4px;}
+.hd-qbtn{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px 4px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+.hd-qbtn:active{transform:scale(.96);}
+.hd-qbtn-ic{font-size:1.3rem;line-height:1;}
+.hd-qbtn-tx{font-family:'Kanit',sans-serif;font-size:.62rem;font-weight:500;color:var(--muted2);letter-spacing:.2px;}
+
 </style>
 </head>
 <body>
@@ -353,112 +381,96 @@ textarea{min-height:42px;}
 
 <div class="sync-badge" id="syncBadge">☁️ พร้อม</div>
 
-<!-- ── HOME DASHBOARD PAGE ── -->
+<!-- ════════ HOME · LONGEVITY DASHBOARD ════════ -->
 <div class="page active hd-page" id="page-home">
 
-  <!-- Greeting + Score Ring -->
-  <div class="hd-greeting">
+  <!-- Greeting -->
+  <div class="hd-top">
     <div>
-      <div class="hd-greeting-txt" id="hd-greeting-txt">สวัสดีตอนเช้า, GIRL 🌿</div>
-      <div class="hd-greeting-sub" id="hd-greeting-sub">พร้อมดูแลตัวเองให้ดีที่สุดวันนี้</div>
+      <div class="hd-hello" id="hd-hello">Good morning, GIRL</div>
+      <div class="hd-hello-sub" id="hd-hello-sub">พร้อมดูแลตัวเองให้ดีที่สุดวันนี้</div>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;" onclick="goPage('profile')">
-      <div class="hd-score-ring">
-        <svg viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r="20" fill="none" stroke="var(--bg)" stroke-width="4"/>
-          <circle id="hd-ring-circle" cx="24" cy="24" r="20" fill="none" stroke="var(--accent)" stroke-width="4"
-            stroke-dasharray="125.6" stroke-dashoffset="125.6" stroke-linecap="round"
-            style="transition:stroke-dashoffset 1s ease;"/>
+    <div class="hd-date-chip" id="hd-date-chip">—</div>
+  </div>
+
+  <!-- HERO · Health Score -->
+  <div class="hd-hero" onclick="goPage('profile')" style="cursor:pointer;">
+    <div class="hd-hero-row">
+      <div class="hd-hero-ring">
+        <svg viewBox="0 0 104 104">
+          <circle cx="52" cy="52" r="46" fill="none" stroke="var(--bg2)" stroke-width="7"/>
+          <circle id="hd-hero-ring-c" class="hd-hero-ring-c" cx="52" cy="52" r="46" fill="none"
+            stroke="var(--accent)" stroke-width="7" stroke-linecap="round"
+            stroke-dasharray="289" stroke-dashoffset="289"/>
         </svg>
-        <div class="hd-score-ring-val">
-          <div class="hd-score-num" id="hd-score-num" style="color:var(--accent);">—</div>
+        <div class="hd-hero-ring-inner">
+          <div class="hd-hero-num" id="hd-hero-num" style="color:var(--accent);">—</div>
+          <div class="hd-hero-max">/ 100</div>
         </div>
       </div>
-      <div style="font-size:.55rem;color:var(--muted2);letter-spacing:.3px;">Health Score</div>
-    </div>
-  </div>
-
-  <!-- Today's Focus: 3 key metrics -->
-  <div class="hd-focus-card">
-    <div class="hd-focus-ttl">Today's Focus — <span id="hd-date-lbl" style="color:var(--accent);font-weight:700;"></span></div>
-
-    <!-- Water -->
-    <div class="hd-metric-row">
-      <div class="hd-metric-ico" style="background:rgba(107,143,163,.1);">💧</div>
-      <div class="hd-metric-body">
-        <div class="hd-metric-name">น้ำ · <span id="hd-water-val" style="font-family:'Kanit',sans-serif;font-weight:700;">—</span> / 2.5 L</div>
-        <div class="hd-metric-bar"><div class="hd-metric-fill" id="hd-water-bar" style="background:var(--sleep);width:0%"></div></div>
+      <div class="hd-hero-meta">
+        <div class="hd-hero-eyebrow">Health Score · Today</div>
+        <div class="hd-hero-label" id="hd-hero-label">กำลังคำนวณ…</div>
+        <div class="hd-hero-caption" id="hd-hero-caption">วิเคราะห์จากการนอน น้ำ โปรตีน ออกกำลังกาย และ recovery</div>
+        <div class="hd-hero-spark" id="hd-hero-spark"></div>
       </div>
-      <div class="hd-metric-pct" id="hd-water-pct" style="color:var(--sleep);">—%</div>
-    </div>
-
-    <!-- Protein -->
-    <div class="hd-metric-row">
-      <div class="hd-metric-ico" style="background:rgba(239,108,108,.1);">🥩</div>
-      <div class="hd-metric-body">
-        <div class="hd-metric-name">โปรตีน · <span id="hd-prot-val" style="font-family:'Kanit',sans-serif;font-weight:700;">—</span> / 100 g</div>
-        <div class="hd-metric-bar"><div class="hd-metric-fill" id="hd-prot-bar" style="background:var(--prot);width:0%"></div></div>
-      </div>
-      <div class="hd-metric-pct" id="hd-prot-pct" style="color:var(--prot);">—%</div>
-    </div>
-
-    <!-- Sleep -->
-    <div class="hd-metric-row">
-      <div class="hd-metric-ico" style="background:rgba(107,143,163,.1);">🌙</div>
-      <div class="hd-metric-body">
-        <div class="hd-metric-name">การนอน · <span id="hd-sleep-val" style="font-family:'Kanit',sans-serif;font-weight:700;">—</span> / 8 h</div>
-        <div class="hd-metric-bar"><div class="hd-metric-fill" id="hd-sleep-bar" style="background:var(--sleep);width:0%"></div></div>
-      </div>
-      <div class="hd-metric-pct" id="hd-sleep-pct" style="color:var(--sleep);">—%</div>
-    </div>
-
-  </div>
-
-  <!-- What's missing today -->
-  <div class="hd-gap-card">
-    <div class="hd-gap-ttl">⚠️ ขาดอะไร / ควรปรับอะไร</div>
-    <div id="hd-gap-list">
-      <div style="text-align:center;padding:10px 0;color:var(--muted2);font-size:.73rem;">กำลังโหลด...</div>
     </div>
   </div>
 
-  <!-- 7-day trend -->
-  <div class="hd-trend-card">
-    <div class="hd-trend-ttl">📈 สุขภาพ 7 วันที่ผ่านมา</div>
-    <div class="hd-trend-grid" id="hd-trend-grid">
-      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--sleep);">—</div><div class="hd-trend-name">💤 Sleep avg</div><div class="hd-trend-delta hd-trend-eq">—</div></div>
-      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--prot);">—</div><div class="hd-trend-name">🥩 Protein avg</div><div class="hd-trend-delta hd-trend-eq">—</div></div>
-      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--exercise);">—</div><div class="hd-trend-name">🏋️ Exercise</div><div class="hd-trend-delta hd-trend-eq">—</div></div>
+  <!-- TODAY · 6 priority metrics -->
+  <div class="hd-sec-head">
+    <div class="hd-sec-title">Today's Focus</div>
+    <div class="hd-sec-note" id="hd-focus-note">เป้าหมายรายวัน</div>
+  </div>
+  <div class="hd-metrics" id="hd-metrics"><!-- injected by JS --></div>
+
+  <!-- WHAT'S MISSING -->
+  <div class="hd-sec-head">
+    <div class="hd-sec-title">ขาดอะไร · ควรปรับอะไร</div>
+    <div class="hd-sec-note">คำแนะนำวันนี้</div>
+  </div>
+  <div class="hd-block" id="hd-gap-block">
+    <div style="text-align:center;padding:8px 0;color:var(--muted2);font-size:.72rem;font-family:'Sarabun',sans-serif;">กำลังโหลด…</div>
+  </div>
+
+  <!-- 7-DAY TREND -->
+  <div class="hd-sec-head">
+    <div class="hd-sec-title">แนวโน้ม 7 วัน</div>
+    <div class="hd-sec-note">เทียบสัปดาห์ก่อน</div>
+  </div>
+  <div class="hd-block" style="margin-bottom:14px;">
+    <div class="hd-trend-3" id="hd-trend-3">
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--sleep);">—</div><div class="hd-tbox-name">💤 Sleep</div><div class="hd-tbox-d t-eq">—</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--prot);">—</div><div class="hd-tbox-name">🥩 Protein</div><div class="hd-tbox-d t-eq">—</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--exercise);">—</div><div class="hd-tbox-name">🏋️ Exercise</div><div class="hd-tbox-d t-eq">—</div></div>
     </div>
   </div>
 
-  <!-- AI Insight strip -->
-  <div class="hd-insight-card">
-    <div class="hd-ins-hdr">
-      <div class="hd-ins-av">✨</div>
+  <!-- AI INSIGHT -->
+  <div class="hd-ai">
+    <div class="hd-ai-head">
+      <div class="hd-ai-av">✨</div>
       <div>
-        <div class="hd-ins-ttl">AI Health Insight</div>
-        <div class="hd-ins-sub">อัปเดตสำหรับคุณ</div>
+        <div class="hd-ai-ttl">AI Health Insight</div>
+        <div class="hd-ai-sub">อัปเดตสำหรับคุณ</div>
       </div>
-      <button onclick="loadHomeDashboard(true)" style="margin-left:auto;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.25);color:var(--accent);font-size:.65rem;font-family:'Kanit',sans-serif;padding:5px 10px;border-radius:20px;cursor:pointer;font-weight:600;">🔄 รีเฟรช</button>
+      <button class="hd-ai-refresh" onclick="loadHomeDashboard(true)">รีเฟรช</button>
     </div>
-    <div id="hd-insight-list">
-      <div style="color:var(--muted2);font-size:.73rem;">กำลังวิเคราะห์...</div>
+    <div id="hd-ai-list">
+      <div style="color:var(--muted2);font-size:.72rem;font-family:'Sarabun',sans-serif;">กำลังวิเคราะห์…</div>
     </div>
   </div>
 
-  <!-- Spacer for bottom bar -->
-  <div style="height:20px;"></div>
-
-  <!-- Quick Log Bar (fixed bottom) -->
-  <div class="hd-quick-log">
-    <div class="hd-ql-label">Quick Log วันนี้</div>
-    <div class="hd-ql-btns">
-      <button class="hd-ql-btn" id="ql-log" onclick="goPage('log')"><span class="ql-ico">📝</span>บันทึก</button>
-      <button class="hd-ql-btn" id="ql-bio" onclick="goPage('bio')"><span class="ql-ico">💊</span>BioActive</button>
-      <button class="hd-ql-btn" id="ql-body" onclick="goPage('body')"><span class="ql-ico">📐</span>Body</button>
-      <button class="hd-ql-btn" id="ql-insight" onclick="goPage('stats')"><span class="ql-ico">📊</span>สถิติ</button>
-    </div>
+  <!-- QUICK ACTIONS -->
+  <div class="hd-sec-head" style="margin-top:6px;">
+    <div class="hd-sec-title">Quick Log</div>
+    <div class="hd-sec-note">บันทึกวันนี้</div>
+  </div>
+  <div class="hd-quick">
+    <div class="hd-qbtn" onclick="goPage('log')"><div class="hd-qbtn-ic">📝</div><div class="hd-qbtn-tx">บันทึก</div></div>
+    <div class="hd-qbtn" onclick="goPage('bio')"><div class="hd-qbtn-ic">💊</div><div class="hd-qbtn-tx">BioActive</div></div>
+    <div class="hd-qbtn" onclick="goPage('body')"><div class="hd-qbtn-ic">📐</div><div class="hd-qbtn-tx">Body</div></div>
+    <div class="hd-qbtn" onclick="goPage('stats')"><div class="hd-qbtn-ic">📊</div><div class="hd-qbtn-tx">สถิติ</div></div>
   </div>
 
 </div>
@@ -497,111 +509,124 @@ textarea{min-height:42px;}
     </div>
   </div>
 
-  <!-- Daily Wellness Routine -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-      <div style="width:30px;height:30px;border-radius:7px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🌿</div>
-      <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--accent);">กิจวัตรประจำวัน</div>
-      <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--accent);display:none;">Daily Self-Care Routine</div>
+  <!-- Wellness System -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:0 3px 16px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:36px;height:36px;border-radius:12px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;">🌿</div>
+      <div>
+        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);">Wellness System</div>
+        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);display:none;">Wellness System</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:1px;">ระบบดูแลสุขภาพส่วนตัว</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:1px;display:none;">Your personal longevity system</div>
+      </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:7px;">
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
-        <span style="font-size:.95rem;margin-top:1px;">🍳</span>
-        <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ทำอาหารเองทุกวัน</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Fresh home-cooking — daily</div>
-          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">ไม่เติมน้ำตาล · ไม่กินอาหารแปรรูป</div>
-          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">No added sugar · Zero processed food</div>
+    <div style="display:flex;flex-direction:column;gap:11px;">
+
+      <!-- Nutrition -->
+      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #4A7C59;">
+        <div style="width:38px;height:38px;border-radius:11px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🍳</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Nutrition</div>
+          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">ทำอาหารเองทุกวัน · ไม่เติมน้ำตาล · ไม่กินอาหารแปรรูป · รับเฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
+          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Fresh home-cooking daily · No added sugar · Zero processed food · Natural fruit sugars only</div>
         </div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
-        <span style="font-size:.95rem;margin-top:1px;">🏋️</span>
-        <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ออกกำลังกาย · เวท · คาร์ดิโอ · วิ่ง · เทนนิส</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Strength + Cardio + Run + Tennis</div>
-          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">เวทเทรนนิ่ง + ลู่วิ่งความชัน + วิ่งกลางแจ้ง + เทนนิส สม่ำเสมอ</div>
-          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Weight training + treadmill incline + outdoor run + tennis — consistent sessions</div>
+
+      <!-- Training -->
+      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #8B5E52;">
+        <div style="width:38px;height:38px;border-radius:11px;background:rgba(139,94,82,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🏋️</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Training</div>
+          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">เวทเทรนนิ่ง · ลู่วิ่งความชัน · วิ่งกลางแจ้ง · เทนนิส — สม่ำเสมอ</div>
+          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Weight training · Treadmill incline · Outdoor run · Tennis — consistent sessions</div>
         </div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
-        <span style="font-size:.95rem;margin-top:1px;">🧊</span>
-        <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">Recovery · Ice Bath &amp; Sauna</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Recovery · Ice Bath &amp; Sauna</div>
-          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Ice Bath ฟื้นฟูกล้ามเนื้อ · Sauna detox &amp; ผ่อนคลาย</div>
-          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Ice bath for muscle recovery · Sauna for detox &amp; relaxation</div>
+
+      <!-- Recovery -->
+      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #6B8FA3;">
+        <div style="width:38px;height:38px;border-radius:11px;background:rgba(107,143,163,.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">❄️</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Recovery</div>
+          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">Ice Bath ฟื้นฟูกล้ามเนื้อ · Sauna detox &amp; ผ่อนคลาย</div>
+          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Ice bath for muscle recovery · Sauna for detox &amp; relaxation</div>
         </div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
-        <span style="font-size:.95rem;margin-top:1px;">⌚</span>
-        <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">ติดตามสุขภาพด้วย Garmin</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">Garmin health tracking</div>
-          <div class="lang-th" style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Sleep Score · HRV · RHR · Body Battery ทุกวัน</div>
-          <div class="lang-en" style="font-size:.67rem;color:var(--muted2);line-height:1.5;display:none;">Sleep score, HRV, RHR, Body Battery tracked daily</div>
+
+      <!-- Garmin Tracking -->
+      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #7A6B8A;">
+        <div style="width:38px;height:38px;border-radius:11px;background:rgba(122,107,138,.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">⌚</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Garmin Tracking</div>
+          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">Sleep Score · HRV · RHR · Body Battery — ติดตามทุกวัน</div>
+          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Sleep Score · HRV · RHR · Body Battery — tracked daily</div>
         </div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;background:var(--bg);border-radius:9px;">
-        <span style="font-size:.95rem;margin-top:1px;">💊</span>
-        <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;">BioActive+ protocol</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--text);margin-bottom:2px;display:none;">BioActive+ protocol</div>
-          <div style="font-size:.67rem;color:var(--muted2);line-height:1.5;">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3">Magnesium (nightly)</strong> · Tribiotic · Immuchew · Juvecol</div>
+
+      <!-- Supplement Protocol -->
+      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #C9A96E;">
+        <div style="width:38px;height:38px;border-radius:11px;background:rgba(201,169,110,.14);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">💊</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Supplement Protocol</div>
+          <div style="font-size:.66rem;color:var(--muted2);line-height:1.55;">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3;">Magnesium (ทุกคืน)</strong> · Tribiotic · Immuchew · Juvecol</div>
         </div>
       </div>
+
     </div>
   </div>
 
   <!-- Tracking & Goals -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-      <div style="width:30px;height:30px;border-radius:7px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem;">📊</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:0 3px 16px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="width:36px;height:36px;border-radius:12px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:1rem;">📊</div>
       <div>
-        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">เป้าหมายสุขภาพ</div>
-        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);display:none;">Tracking &amp; Goals</div>
+        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);">เป้าหมายสุขภาพ</div>
+        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);display:none;">Daily Goals</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:1px;">เป้าหมายรายวันเพื่อ longevity</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:1px;display:none;">Daily targets for longevity</div>
       </div>
     </div>
     <!-- Longevity note -->
-    <div style="margin-bottom:11px;padding:8px 11px;background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:10px;border-left:3px solid var(--accent);">
-      <div class="lang-th" style="font-size:.67rem;color:var(--accent);line-height:1.6;font-style:italic;">"รับเฉพาะน้ำตาลธรรมชาติ งดน้ำตาลเพิ่ม — ใช้ชีวิตอย่างมีคุณภาพและยั่งยืน"</div>
-      <div class="lang-en" style="font-size:.67rem;color:var(--accent);line-height:1.6;font-style:italic;display:none;">"Natural sugars only. No added sugar. Live with intention — strong, sustainable, and built to last."</div>
+    <div style="margin-bottom:16px;padding:11px 14px;background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:14px;border-left:3px solid var(--accent);">
+      <div class="lang-th" style="font-size:.69rem;color:var(--accent);line-height:1.6;font-style:italic;">"รับเฉพาะน้ำตาลธรรมชาติ งดน้ำตาลเพิ่ม — ใช้ชีวิตอย่างมีคุณภาพและยั่งยืน"</div>
+      <div class="lang-en" style="font-size:.69rem;color:var(--accent);line-height:1.6;font-style:italic;display:none;">"Natural sugars only. No added sugar. Live with intention — strong, sustainable, built to last."</div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
-        <div style="font-size:1.3rem;margin-bottom:3px;">💧</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">2.5L+</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">น้ำดื่มต่อวัน</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Daily water</div>
+    <!-- Goal cards: row1 water+sleep · row2 calories+protein · row3 fiber+fruitsugar -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">💧</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">2.5L+</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">น้ำดื่มต่อวัน</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Daily water</div>
       </div>
-      <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
-        <div style="font-size:1.3rem;margin-bottom:3px;">🌙</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">7.5–8.5h</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">เป้าการนอน</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Sleep target</div>
+      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🌙</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">7.5–8.5h</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">เป้าการนอน</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Sleep target</div>
       </div>
-      <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
-        <div style="font-size:1.3rem;margin-bottom:3px;">🔥</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">1,600–1,850</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">แคลอรี่</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">kcal / day</div>
+      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🔥</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">1,600–1,850</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">แคลอรี่ / วัน</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">kcal / day</div>
       </div>
-      <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
-        <div style="font-size:1.3rem;margin-bottom:3px;">🥩</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">90–110g</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">โปรตีน</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Protein / day</div>
+      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🥩</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">90–110g</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">โปรตีน / วัน</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Protein / day</div>
       </div>
-      <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
-        <div style="font-size:1.3rem;margin-bottom:3px;">🥦</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">25–30g</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">ไฟเบอร์</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Fiber / day</div>
+      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🥦</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">25–30g</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">ไฟเบอร์ / วัน</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Fiber / day</div>
       </div>
-      <div style="background:var(--bg);border-radius:11px;padding:11px;text-align:center;">
-        <div style="font-size:1.3rem;margin-bottom:3px;">🍎</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;">15–25g</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">น้ำตาลผลไม้</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Fruit sugar</div>
+      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🍎</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">15–25g</div>
+        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">น้ำตาลผลไม้</div>
+        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Fruit sugar</div>
       </div>
     </div>
   </div>
@@ -5793,187 +5818,185 @@ async function computeGirlScore(){
   if(pbScore) pbScore.textContent = total;
 }
 
-// ── HOME DASHBOARD ──
-async function loadHomeDashboard(forceInsight=false){
+// ══════════ HOME · LONGEVITY DASHBOARD ══════════
+async function loadHomeDashboard(force){
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
-
-  // Greeting by time
+  const isEN = currentLang === 'en';
   const h = today.getHours();
-  const greet = h < 12 ? 'สวัสดีตอนเช้า, GIRL 🌿' : h < 17 ? 'สวัสดีตอนบ่าย, GIRL ☀️' : 'สวัสดีตอนเย็น, GIRL 🌙';
-  const sub   = h < 12 ? 'เริ่มวันใหม่อย่างมีพลัง' : h < 17 ? 'ดูแลตัวเองให้ดีช่วงบ่าย' : 'ปิดวันด้วยการพักผ่อนที่ดี';
-  const greetEl = document.getElementById('hd-greeting-txt');
-  const subEl   = document.getElementById('hd-greeting-sub');
-  if(greetEl) greetEl.textContent = greet;
-  if(subEl) subEl.textContent = sub;
 
-  // Date label
-  const dateEl = document.getElementById('hd-date-lbl');
-  if(dateEl) dateEl.textContent = today.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'});
+  // Greeting
+  const hello   = h<12 ? (isEN?'Good morning, GIRL':'สวัสดีตอนเช้า, GIRL') : h<17 ? (isEN?'Good afternoon, GIRL':'สวัสดีตอนบ่าย, GIRL') : (isEN?'Good evening, GIRL':'สวัสดีตอนเย็น, GIRL');
+  const helloSub= h<12 ? (isEN?'A fresh start to your day':'เริ่มวันใหม่อย่างมีพลัง') : h<17 ? (isEN?'Keep taking care of yourself':'ดูแลตัวเองให้ดีช่วงบ่าย') : (isEN?'Wind down and recover well':'ปิดวันด้วยการพักผ่อนที่ดี');
+  const setTx = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  setTx('hd-hello', hello); setTx('hd-hello-sub', helloSub);
+  setTx('hd-date-chip', today.toLocaleDateString(isEN?'en-GB':'th-TH',{weekday:'short',day:'numeric',month:'short'}));
 
-  // ── Load today's data from Supabase ──
-  let todayData = null;
-  try {
-    const {data} = await db.from('health_days')
-      .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
-      .eq('date', todayStr).maybeSingle();
-    todayData = data;
-  } catch(e){}
+  // ── Load today ──
+  let td=null;
+  try{ const {data}=await db.from('health_days')
+    .select('date,mac_kcal,mac_p,mac_f,mac_s,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
+    .eq('date',todayStr).maybeSingle(); td=data; }catch(e){}
 
-  // ── Load last 7 days ──
-  let weekData = [];
-  try {
-    const from7 = new Date(today); from7.setDate(today.getDate()-6);
-    const {data} = await db.from('health_days')
+  // ── Load 7 days ──
+  let week=[];
+  try{ const f=new Date(today); f.setDate(today.getDate()-6);
+    const {data}=await db.from('health_days')
       .select('date,mac_p,water,sl_total_h,sl_min,e1_m,e2_m')
-      .gte('date', from7.toISOString().split('T')[0])
-      .lte('date', todayStr).order('date');
-    weekData = data || [];
-  } catch(e){}
+      .gte('date',f.toISOString().split('T')[0]).lte('date',todayStr).order('date');
+    week=data||[]; }catch(e){}
 
-  // ── GIRL Health Score (30-day) ──
-  try {
-    const from30 = new Date(today); from30.setDate(today.getDate()-29);
-    const {data:scoreData} = await db.from('health_days')
-      .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
-      .gte('date', from30.toISOString().split('T')[0])
-      .lte('date', todayStr).order('date');
-    if(scoreData && scoreData.length > 0){
-      const n = scoreData.length;
-      let sleepSum=0, protSum=0, waterSum=0, exSum=0, bioSum=0;
-      scoreData.forEach(d => {
-        const hh = d.sl_total_h || (d.sl_min ? d.sl_min/60 : 0);
-        const sc = d.sl_score || 0;
-        const hScore = hh>=7.5&&hh<=8.5?60:hh>=6.5?40+(hh-6.5)*20:hh>=5?20+(hh-5)*13.3:hh>0?hh*4:0;
-        sleepSum += Math.min(100, hScore + (sc>=80?40:sc>=60?25:sc>0?sc*0.3:0));
-        const p = d.mac_p||0;
-        protSum += p>=90?100:p>=80?70+(p-80)*3:p>=70?50+(p-70)*2:p>=50?30+(p-50):p>0?p*0.4:0;
-        const w = d.water||0;
-        waterSum += w>=2.5?100:w>=2.0?75:w>=1.5?50:w>0?w*20:0;
-        const mins=(d.e1_m||0)+(d.e2_m||0);
-        exSum += mins>=60?100:mins>=45?85:mins>=30?70:mins>=20?50:mins>0?mins*1.5:0;
-        try{ const t=typeof d.bio_taken==='string'?JSON.parse(d.bio_taken||'{}'):(d.bio_taken||{});
-          const cnt=Object.values(t).filter(Boolean).length;
-          bioSum+=cnt>=9?100:cnt>=7?80:cnt>=5?60:cnt>=3?40:cnt>0?20:0; }catch(e){}
+  // ── Health Score (30d) + spark dims ──
+  let dims={sleep:0,prot:0,water:0,ex:0,bio:0};
+  let total=null;
+  try{
+    const f30=new Date(today); f30.setDate(today.getDate()-29);
+    const {data:sd}=await db.from('health_days')
+      .select('date,mac_p,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
+      .gte('date',f30.toISOString().split('T')[0]).lte('date',todayStr).order('date');
+    if(sd&&sd.length){
+      const n=sd.length; let ss=0,ps=0,ws=0,es=0,bs=0;
+      sd.forEach(d=>{
+        const hh=d.sl_total_h||(d.sl_min?d.sl_min/60:0), sc=d.sl_score||0;
+        const hsc=hh>=7.5&&hh<=8.5?60:hh>=6.5?40+(hh-6.5)*20:hh>=5?20+(hh-5)*13.3:hh>0?hh*4:0;
+        ss+=Math.min(100,hsc+(sc>=80?40:sc>=60?25:sc>0?sc*0.3:0));
+        const p=d.mac_p||0; ps+=p>=90?100:p>=80?70+(p-80)*3:p>=70?50+(p-70)*2:p>=50?30+(p-50):p>0?p*0.4:0;
+        const w=d.water||0; ws+=w>=2.5?100:w>=2?75:w>=1.5?50:w>0?w*20:0;
+        const m=(d.e1_m||0)+(d.e2_m||0); es+=m>=60?100:m>=45?85:m>=30?70:m>=20?50:m>0?m*1.5:0;
+        try{const t=typeof d.bio_taken==='string'?JSON.parse(d.bio_taken||'{}'):(d.bio_taken||{});
+          const c=Object.values(t).filter(Boolean).length; bs+=c>=9?100:c>=7?80:c>=5?60:c>=3?40:c>0?20:0;}catch(e){}
       });
-      const total = Math.round(sleepSum/n*0.25 + protSum/n*0.20 + waterSum/n*0.15 + exSum/n*0.20 + bioSum/n*0.10 + 50*0.10);
-      const numEl = document.getElementById('hd-score-num');
-      const ringEl = document.getElementById('hd-ring-circle');
-      if(numEl) numEl.textContent = total;
-      if(ringEl){
-        const circ = 2 * Math.PI * 20;
-        const offset = circ - (total/100)*circ;
-        setTimeout(()=>{ ringEl.style.strokeDashoffset = offset; }, 200);
-        const col = total>=80?'var(--veg)':total>=60?'var(--grain)':'var(--prot)';
-        ringEl.style.stroke = col;
-        if(numEl) numEl.style.color = col;
-      }
+      dims={sleep:ss/n,prot:ps/n,water:ws/n,ex:es/n,bio:bs/n};
+      total=Math.round(dims.sleep*0.25+dims.prot*0.20+dims.water*0.15+dims.ex*0.20+dims.bio*0.10+50*0.10);
     }
-  } catch(e){}
+  }catch(e){}
 
-  // ── TODAY metrics ──
-  const water   = todayData?.water || 0;
-  const protein = todayData?.mac_p || 0;
-  const sleep   = todayData?.sl_total_h || (todayData?.sl_min ? todayData.sl_min/60 : 0);
+  // Render hero
+  const heroCol = total==null?'var(--muted2)':total>=80?'var(--veg)':total>=60?'var(--grain)':'var(--prot)';
+  const heroLbl = total==null?(isEN?'No data yet':'ยังไม่มีข้อมูล')
+    : total>=90?(isEN?'Elite Recovery':'ฟื้นตัวยอดเยี่ยม')
+    : total>=80?(isEN?'Excellent Recovery':'ฟื้นตัวดีเยี่ยม')
+    : total>=70?(isEN?'Great Shape':'สุขภาพดีมาก')
+    : total>=60?(isEN?'Good Progress':'กำลังไปได้ดี')
+    : total>=50?(isEN?'Keep Building':'ค่อยๆ สร้างต่อไป'):(isEN?'Needs Attention':'ต้องดูแลเพิ่ม');
+  const numEl=document.getElementById('hd-hero-num');
+  if(numEl){ numEl.textContent=total==null?'—':total; numEl.style.color=heroCol; }
+  const ringC=document.getElementById('hd-hero-ring-c');
+  if(ringC){ const circ=2*Math.PI*46; ringC.style.stroke=heroCol;
+    setTimeout(()=>{ ringC.style.strokeDashoffset=total==null?circ:circ-(total/100)*circ; },250); }
+  setTx('hd-hero-label', heroLbl);
+  if(total!=null) setTx('hd-hero-caption', isEN?'From sleep, water, protein, exercise & recovery (30-day avg)':'จากการนอน น้ำ โปรตีน ออกกำลังกาย และ recovery (เฉลี่ย 30 วัน)');
 
-  const waterPct  = Math.min(100, Math.round(water/2.5*100));
-  const protPct   = Math.min(100, Math.round(protein/100*100));
-  const sleepPct  = Math.min(100, Math.round(sleep/8*100));
+  // Hero sparkbars = the 5 dimensions
+  const spark=document.getElementById('hd-hero-spark');
+  if(spark){
+    const sd=[['var(--sleep)',dims.sleep],['var(--prot)',dims.prot],['var(--water)',dims.water],['var(--exercise)',dims.ex],['#8B5E52',dims.bio]];
+    spark.innerHTML=sd.map(([c,v])=>`<div class="hd-spark-bar"><div class="hd-spark-fill" style="background:${c};width:0%" data-w="${Math.round(v)}"></div></div>`).join('');
+    setTimeout(()=>{ spark.querySelectorAll('.hd-spark-fill').forEach(el=>el.style.width=el.dataset.w+'%'); },400);
+  }
 
-  const setMetric = (valId, barId, pctId, val, unit, pct, col) => {
-    const ve = document.getElementById(valId); if(ve) ve.textContent = val ? val+unit : '—';
-    const be = document.getElementById(barId);  if(be) setTimeout(()=>{ be.style.width=pct+'%'; be.style.background=col; },300);
-    const pe = document.getElementById(pctId);  if(pe){ pe.textContent=pct+'%'; pe.style.color=col; }
-  };
-  setMetric('hd-water-val','hd-water-bar','hd-water-pct', water?water.toFixed(1):0, 'L', waterPct,
-    waterPct>=100?'var(--veg)':waterPct>=60?'var(--sleep)':'var(--prot)');
-  setMetric('hd-prot-val','hd-prot-bar','hd-prot-pct', protein?Math.round(protein):0, 'g', protPct,
-    protPct>=90?'var(--veg)':protPct>=60?'var(--grain)':'var(--prot)');
-  setMetric('hd-sleep-val','hd-sleep-bar','hd-sleep-pct', sleep?sleep.toFixed(1):0, 'h', sleepPct,
-    sleepPct>=93?'var(--veg)':sleepPct>=70?'var(--sleep)':'var(--prot)');
+  // ── 6 PRIORITY METRICS ──
+  const water=td?.water||0, sleep=td?.sl_total_h||(td?.sl_min?td.sl_min/60:0);
+  const prot=td?.mac_p||0, kcal=td?.mac_kcal||0, fiber=td?.mac_f||0, fsugar=td?.mac_s||0;
+
+  const clamp=(v,t)=>Math.min(100,Math.round(v/t*100));
+  const colFor=(pct,good,mid)=> pct>=good?'var(--veg)':pct>=mid?'var(--grain)':'var(--prot)';
+
+  // priority order: water, sleep, protein, calories, fiber, fruit sugar
+  const M=[
+    {ic:'💧',bg:'rgba(107,143,163,.12)',name:isEN?'Water':'น้ำ',desc:isEN?'Daily hydration':'น้ำดื่มต่อวัน',
+     val:water?water.toFixed(1):'0',unit:'L',target:'/ 2.5 L',pct:clamp(water,2.5),col:colFor(clamp(water,2.5),100,60)},
+    {ic:'🌙',bg:'rgba(107,143,163,.12)',name:isEN?'Sleep':'การนอน',desc:isEN?'Sleep target 7.5–8.5h':'เป้าการนอน 7.5–8.5 ชม.',
+     val:sleep?sleep.toFixed(1):'0',unit:'h',target:'/ 8 h',pct:clamp(sleep,8),col: (sleep>=7.5&&sleep<=8.5)?'var(--veg)':clamp(sleep,8)>=70?'var(--grain)':'var(--prot)'},
+    {ic:'🥩',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc:isEN?'Protein per day':'โปรตีนต่อวัน',
+     val:prot?Math.round(prot):'0',unit:'g',target:'/ 100 g',pct:clamp(prot,100),col:colFor(clamp(prot,100),90,60)},
+    {ic:'🔥',bg:'rgba(201,169,110,.14)',name:isEN?'Calories':'แคลอรี่',desc:isEN?'1,600–1,850 kcal':'1,600–1,850 kcal',
+     val:kcal?Math.round(kcal).toLocaleString():'0',unit:'kcal',target:'/ 1,850',pct:clamp(kcal,1850),
+     col: (kcal>=1600&&kcal<=1850)?'var(--veg)':(kcal>1850||((kcal>=1400)&&kcal<1600))?'var(--grain)':kcal>0?'var(--prot)':'var(--muted2)'},
+    {ic:'🥦',bg:'rgba(74,124,89,.12)',name:isEN?'Fiber':'ไฟเบอร์',desc:isEN?'25–30g per day':'25–30g ต่อวัน',
+     val:fiber?Math.round(fiber):'0',unit:'g',target:'/ 30 g',pct:clamp(fiber,30),col:colFor(clamp(fiber,30),83,50)},
+    {ic:'🍎',bg:'rgba(212,132,90,.12)',name:isEN?'Fruit Sugar':'น้ำตาลผลไม้',desc:isEN?'Natural only · 15–25g':'น้ำตาลธรรมชาติ · 15–25g',
+     val:fsugar?Math.round(fsugar):'0',unit:'g',target:'/ 25 g',pct:clamp(fsugar,25),
+     col: fsugar<=25?'var(--veg)':fsugar<=35?'var(--grain)':'var(--prot)'},
+  ];
+
+  const mWrap=document.getElementById('hd-metrics');
+  if(mWrap){
+    mWrap.innerHTML=M.map((m,i)=>`
+      <div class="hd-mcard">
+        <div class="hd-mcard-top">
+          <div class="hd-mcard-ico" style="background:${m.bg};">${m.ic}</div>
+          <div class="hd-mcard-id">
+            <div class="hd-mcard-name">${m.name}</div>
+            <div class="hd-mcard-desc">${m.desc}</div>
+          </div>
+          <div class="hd-mcard-fig">
+            <div><span class="hd-mcard-val" style="color:${m.col};">${m.val}</span><span class="hd-mcard-unit">${m.unit}</span></div>
+            <div class="hd-mcard-target">${m.target}</div>
+          </div>
+        </div>
+        <div class="hd-mcard-trackrow">
+          <div class="hd-mcard-track">
+            <div class="hd-mcard-fill" style="background:${m.col};width:0%" data-w="${m.pct}"></div>
+          </div>
+          <div class="hd-mcard-pct" style="color:${m.col};">${m.pct}%</div>
+        </div>
+      </div>`).join('');
+    setTimeout(()=>{ mWrap.querySelectorAll('.hd-mcard-fill').forEach((el,i)=>{ setTimeout(()=>el.style.width=el.dataset.w+'%', i*80); }); },300);
+  }
 
   // ── GAP ANALYSIS ──
-  const gapEl = document.getElementById('hd-gap-list');
-  const gaps = [];
-  const remaining = h < 22;
+  const gaps=[]; const rem=h<22;
+  if(water<2.0&&rem) gaps.push(['warn','💧',isEN?`Drink ${(2.5-water).toFixed(1)}L more`:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, isEN?'Target 2.5L — supports kidneys, skin & metabolism':'เป้า 2.5L · ดูแลไต ผิว และ metabolism']);
+  else if(water>=2.5) gaps.push(['good','💧',isEN?'Hydration complete':'น้ำครบเป้าแล้ว!', `${water.toFixed(1)}L ${isEN?'· well done':'· ดีมากค่ะ'}`]);
+  if(sleep>0&&sleep<7) gaps.push(['info','🌙',isEN?`Only ${sleep.toFixed(1)}h sleep`:`นอนน้อยไป ${sleep.toFixed(1)}h`, isEN?'Aim 7.5–8.5h — try lights out before 22:30':'เป้า 7.5–8.5h · คืนนี้ควรนอนก่อน 22:30']);
+  else if(sleep>=7.5&&sleep<=8.5) gaps.push(['good','✅',isEN?'Optimal sleep':'การนอนดีเยี่ยม!', `${sleep.toFixed(1)}h ${isEN?'· in the optimal range':'· อยู่ในช่วงที่ดีที่สุด'}`]);
+  if(prot>0&&prot<70&&rem) gaps.push(['warn','🥩',isEN?`Protein short by ${Math.round(100-prot)}g`:`โปรตีนยังขาด ${Math.round(100-prot)}g`, isEN?'Need 90–100g — add eggs or salmon next meal':'ควรได้ 90–100g · เพิ่มไข่หรือแซลมอนมื้อถัดไป']);
+  else if(prot>=90) gaps.push(['good','💪',isEN?'Protein goal met':'โปรตีนถึงเป้า!', `${Math.round(prot)}g ${isEN?'· muscle recovery on track':'· รักษากล้ามเนื้อได้ดี'}`]);
+  try{ const tk=td?.bio_taken?(typeof td.bio_taken==='string'?JSON.parse(td.bio_taken):td.bio_taken):{};
+    const c=Object.values(tk).filter(Boolean).length;
+    if(c<9) gaps.push(['warn','💊',isEN?`BioActive ${9-c} left`:`BioActive ยังขาด ${9-c} ตัว`, isEN?`${c}/9 today — don't miss magnesium before bed`:`วันนี้ ${c}/9 · อย่าลืม magnesium ก่อนนอน`]);
+    else gaps.push(['good','💊',isEN?'BioActive complete':'BioActive ครบทุกตัว!', isEN?'9/9 · supplemented perfectly':'9/9 · เยี่ยมมากค่ะ']);
+  }catch(e){}
+  if(!gaps.length) gaps.push(['info','🌿',isEN?'No data today yet':'ยังไม่มีข้อมูลวันนี้', isEN?'Tap "บันทึก" to log your health':'กด "บันทึก" เพื่อเพิ่มข้อมูลสุขภาพ']);
 
-  if(water < 2.0 && remaining)  gaps.push({type:'warn', ico:'💧', title:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, msg:'เป้าหมาย 2.5L/วัน · ดูแลไต + ผิว + metabolism'});
-  if(protein < 70 && remaining) gaps.push({type:'warn', ico:'🥩', title:`โปรตีนยังขาด ${Math.round(100-protein)}g`, msg:'ควรได้ 90–100g/วัน · ช่วยรักษากล้ามเนื้อ'});
-  if(sleep < 7)   gaps.push({type:'info',  ico:'🌙', title:`นอนน้อยเกิน ${sleep.toFixed(1)}h`, msg:`เป้า 7.5–8.5h · คืนนี้ควรเข้านอนก่อน 22:30`});
-  if(sleep >= 7.5 && sleep <= 8.5) gaps.push({type:'good', ico:'✅', title:'การนอนดีมาก!', msg:`${sleep.toFixed(1)}h · คุณภาพการนอนอยู่ในระดับ optimal`});
-  if(protein >= 90) gaps.push({type:'good', ico:'💪', title:'โปรตีนถึงเป้าหมาย!', msg:`${Math.round(protein)}g · ยอดเยี่ยม รักษาไว้นะ`});
-  if(water >= 2.5)  gaps.push({type:'good', ico:'💧', title:'น้ำครบเป้าแล้ว!', msg:`${water.toFixed(1)}L · ดีมากค่ะ`});
-
-  // Check bio
-  try{
-    const taken = todayData?.bio_taken ? (typeof todayData.bio_taken==='string'?JSON.parse(todayData.bio_taken):todayData.bio_taken) : {};
-    const cnt = Object.values(taken).filter(Boolean).length;
-    if(cnt < 9) gaps.push({type:'warn', ico:'💊', title:`BioActive ยังขาด ${9-cnt} ตัว`, msg:`วันนี้ทาน ${cnt}/9 · อย่าลืม collagen, asta, magnesium ก่อนนอน`});
-    else gaps.push({type:'good', ico:'💊', title:'BioActive ครบทุกตัว! ✨', msg:'9/9 · supplemented perfectly today'});
-  } catch(e){}
-
-  if(gaps.length === 0) gaps.push({type:'good', ico:'🌟', title:'ข้อมูลวันนี้ยังไม่มี', msg:'กด "บันทึก" เพื่อเพิ่มข้อมูลสุขภาพวันนี้ค่ะ'});
-
-  const typeStyle = {
-    good:  'background:rgba(74,124,89,.07);border:1px solid rgba(74,124,89,.18);',
-    warn:  'background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);',
-    info:  'background:rgba(107,143,163,.07);border:1px solid rgba(107,143,163,.2);',
-  };
-  const titleCol = {good:'var(--veg)', warn:'var(--grain)', info:'var(--sleep)'};
-
-  gapEl.innerHTML = gaps.slice(0,4).map(g=>`
-    <div class="hd-gap-item" style="${typeStyle[g.type]||typeStyle.info}border-radius:12px;">
-      <span class="hd-gap-ico">${g.ico}</span>
-      <div class="hd-gap-msg"><strong style="color:${titleCol[g.type]||'var(--sleep)'};">${g.title}</strong>${g.msg}</div>
+  const gStyle={good:'background:rgba(74,124,89,.06);',warn:'background:rgba(201,169,110,.08);',info:'background:rgba(107,143,163,.07);'};
+  const gCol={good:'var(--veg)',warn:'var(--grain)',info:'var(--sleep)'};
+  const gapEl=document.getElementById('hd-gap-block');
+  if(gapEl) gapEl.innerHTML=gaps.slice(0,4).map(([t,ic,ti,ms])=>`
+    <div class="hd-gap-row" style="${gStyle[t]}">
+      <span class="hd-gap-ic">${ic}</span>
+      <div class="hd-gap-tx"><strong style="color:${gCol[t]};">${ti}</strong><span>${ms}</span></div>
     </div>`).join('');
 
-  // ── 7-DAY TREND ──
-  if(weekData.length >= 2){
-    const prev = weekData.slice(0,-1);
-    const prevSleep = prev.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/prev.length;
-    const prevProt  = prev.reduce((s,d)=>s+(d.mac_p||0),0)/prev.length;
-    const prevEx    = prev.reduce((s,d)=>s+(d.e1_m||0)+(d.e2_m||0),0)/prev.length;
-
-    const curSleep = weekData.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/weekData.length;
-    const curProt  = weekData.reduce((s,d)=>s+(d.mac_p||0),0)/weekData.length;
-    const curEx    = weekData.reduce((s,d)=>s+(d.e1_m||0)+(d.e2_m||0),0)/weekData.length;
-
-    const delta = (cur, prev) => {
-      if(!prev) return {sym:'—', cls:'hd-trend-eq'};
-      const d = ((cur-prev)/prev*100).toFixed(0);
-      return d>0?{sym:`▲ ${Math.abs(d)}%`,cls:'hd-trend-up'}:d<0?{sym:`▼ ${Math.abs(d)}%`,cls:'hd-trend-dn'}:{sym:'—',cls:'hd-trend-eq'};
-    };
-    const dS = delta(curSleep,prevSleep), dP = delta(curProt,prevProt), dE = delta(curEx,prevEx);
-    const trendEl = document.getElementById('hd-trend-grid');
-    if(trendEl) trendEl.innerHTML = `
-      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--sleep);">${curSleep>0?curSleep.toFixed(1)+'h':'—'}</div><div class="hd-trend-name">💤 Sleep avg</div><div class="hd-trend-delta ${dS.cls}">${dS.sym}</div></div>
-      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--prot);">${curProt>0?Math.round(curProt)+'g':'—'}</div><div class="hd-trend-name">🥩 Protein avg</div><div class="hd-trend-delta ${dP.cls}">${dP.sym}</div></div>
-      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--exercise);">${curEx>0?Math.round(curEx)+'m':'—'}</div><div class="hd-trend-name">🏋️ Exercise</div><div class="hd-trend-delta ${dE.cls}">${dE.sym}</div></div>`;
+  // ── TREND ──
+  if(week.length>=2){
+    const prev=week.slice(0,-1);
+    const avg=(arr,fn)=>arr.length?arr.reduce((s,d)=>s+fn(d),0)/arr.length:0;
+    const slFn=d=>d.sl_total_h||(d.sl_min?d.sl_min/60:0), pFn=d=>d.mac_p||0, eFn=d=>(d.e1_m||0)+(d.e2_m||0);
+    const cS=avg(week,slFn),pS=avg(prev,slFn),cP=avg(week,pFn),pP=avg(prev,pFn),cE=avg(week,eFn),pE=avg(prev,eFn);
+    const dl=(c,p)=>{ if(!p) return['—','t-eq']; const d=((c-p)/p*100).toFixed(0); return d>0?[`▲ ${Math.abs(d)}%`,'t-up']:d<0?[`▼ ${Math.abs(d)}%`,'t-dn']:['—','t-eq']; };
+    const [s1,s2]=dl(cS,pS),[p1,p2]=dl(cP,pP),[e1,e2]=dl(cE,pE);
+    const tEl=document.getElementById('hd-trend-3');
+    if(tEl) tEl.innerHTML=`
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--sleep);">${cS>0?cS.toFixed(1)+'h':'—'}</div><div class="hd-tbox-name">💤 Sleep</div><div class="hd-tbox-d ${s2}">${s1}</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--prot);">${cP>0?Math.round(cP)+'g':'—'}</div><div class="hd-tbox-name">🥩 Protein</div><div class="hd-tbox-d ${p2}">${p1}</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--exercise);">${cE>0?Math.round(cE)+'m':'—'}</div><div class="hd-tbox-name">🏋️ Exercise</div><div class="hd-tbox-d ${e2}">${e1}</div></div>`;
   }
 
-  // ── AI INSIGHT (static smart tips based on data) ──
-  const insEl = document.getElementById('hd-insight-list');
-  const insights = [];
-
-  if(sleep > 0 && sleep < 7)   insights.push({col:'var(--sleep)',   dot:'var(--sleep)',   txt:'นอนน้อยกว่าเป้า — พยายามเข้านอนก่อน 22:00 คืนนี้เพื่อให้ได้ 7.5h+'});
-  if(sleep >= 7.5)              insights.push({col:'var(--veg)',     dot:'var(--veg)',     txt:`การนอน ${sleep.toFixed(1)}h ดีเยี่ยม — ร่างกายฟื้นตัวได้ดีมาก ✨`});
-  if(protein > 0 && protein<80) insights.push({col:'var(--prot)',   dot:'var(--prot)',   txt:`โปรตีนยังต่ำ (${Math.round(protein)}g) — ลองเพิ่มไข่ หรือแซลมอนในมื้อถัดไป`});
-  if(protein >= 90)              insights.push({col:'var(--veg)',    dot:'var(--veg)',    txt:`โปรตีน ${Math.round(protein)}g — ถึงเป้าหมายแล้ว! กล้ามเนื้อกำลังฟื้นตัว 💪`});
-  if(water > 0 && water < 2.0)  insights.push({col:'var(--dairy)',  dot:'var(--sleep)',  txt:`ดื่มน้ำแค่ ${water.toFixed(1)}L — ต้องการ ${(2.5-water).toFixed(1)}L อีก ดื่มทีละ 200ml ทุกชั่วโมง`});
-
-  // Trend insight
-  if(weekData.length >= 5){
-    const avgSleep7 = weekData.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/weekData.length;
-    if(avgSleep7 >= 7.5) insights.push({col:'var(--accent)', dot:'var(--accent)', txt:`ค่าเฉลี่ยการนอน 7 วัน = ${avgSleep7.toFixed(1)}h — แนวโน้มดีขึ้นต่อเนื่อง 🔥`});
-  }
-
-  if(insights.length === 0) insights.push({col:'var(--muted2)', dot:'var(--muted2)', txt:'บันทึกข้อมูลวันนี้เพื่อรับ insight ส่วนตัว ✨'});
-
-  insEl.innerHTML = insights.slice(0,3).map(i=>`
-    <div class="hd-ins-item">
-      <div class="hd-ins-dot" style="background:${i.dot};"></div>
-      <div class="hd-ins-txt" style="color:${i.col!=='var(--muted2)'?'var(--text)':'var(--muted2)'};">${i.txt}</div>
-    </div>`).join('');
+  // ── AI INSIGHT ──
+  const ins=[];
+  if(sleep>0&&sleep<7) ins.push(['var(--sleep)',isEN?'Sleep is below target — aim for lights out before 22:00 tonight to reach 7.5h+':'นอนน้อยกว่าเป้า — คืนนี้ลองเข้านอนก่อน 22:00 ให้ได้ 7.5h+']);
+  if(sleep>=7.5) ins.push(['var(--veg)',isEN?`Sleep ${sleep.toFixed(1)}h is excellent — your body is recovering beautifully ✨`:`การนอน ${sleep.toFixed(1)}h ดีเยี่ยม — ร่างกายฟื้นตัวได้ดีมาก ✨`]);
+  if(prot>0&&prot<80) ins.push(['var(--prot)',isEN?`Protein is low (${Math.round(prot)}g) — add eggs or salmon to your next meal`:`โปรตีนยังต่ำ (${Math.round(prot)}g) — เพิ่มไข่หรือแซลมอนมื้อถัดไป`]);
+  if(prot>=90) ins.push(['var(--veg)',isEN?`Protein ${Math.round(prot)}g — goal met! Muscle recovery is on track 💪`:`โปรตีน ${Math.round(prot)}g — ถึงเป้าแล้ว! กล้ามเนื้อกำลังฟื้นตัว 💪`]);
+  if(water>0&&water<2.0) ins.push(['var(--sleep)',isEN?`Only ${water.toFixed(1)}L water — sip 200ml each hour to close the gap`:`ดื่มน้ำแค่ ${water.toFixed(1)}L — ดื่มทีละ 200ml ทุกชั่วโมง`]);
+  if(week.length>=5){ const a7=week.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/week.length;
+    if(a7>=7.5) ins.push(['var(--accent)',isEN?`7-day sleep average ${a7.toFixed(1)}h — a steady upward trend 🔥`:`ค่าเฉลี่ยการนอน 7 วัน ${a7.toFixed(1)}h — แนวโน้มดีต่อเนื่อง 🔥`]); }
+  if(!ins.length) ins.push(['var(--muted2)',isEN?'Log today to get your personal insights ✨':'บันทึกข้อมูลวันนี้เพื่อรับ insight ส่วนตัว ✨']);
+  const aiEl=document.getElementById('hd-ai-list');
+  if(aiEl) aiEl.innerHTML=ins.slice(0,3).map(([c,t])=>`
+    <div class="hd-ai-row"><div class="hd-ai-dot" style="background:${c};"></div><div class="hd-ai-tx">${t}</div></div>`).join('');
 }
 
 init();
