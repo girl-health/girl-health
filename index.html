@@ -5932,14 +5932,42 @@ async function loadHomeDashboard(force){
   const hello   = h<12 ? (isEN?'Good morning, GIRL':'สวัสดีตอนเช้า, GIRL') : h<17 ? (isEN?'Good afternoon, GIRL':'สวัสดีตอนบ่าย, GIRL') : (isEN?'Good evening, GIRL':'สวัสดีตอนเย็น, GIRL');
   const helloSub= h<12 ? (isEN?'A fresh start to your day':'เริ่มวันใหม่อย่างมีพลัง') : h<17 ? (isEN?'Keep taking care of yourself':'ดูแลตัวเองให้ดีช่วงบ่าย') : (isEN?'Wind down and recover well':'ปิดวันด้วยการพักผ่อนที่ดี');
   const setTx = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
-  setTx('hd-hello', hello); setTx('hd-hello-sub', helloSub);
-  setTx('hd-date-chip', today.toLocaleDateString(isEN?'en-GB':'th-TH',{weekday:'short',day:'numeric',month:'short'}));
-
-  // ── Load today ──
+  // ── Load today's data — merge with most recent complete day ──
   let td=null;
-  try{ const {data}=await db.from('health_days')
-    .select('date,mac_kcal,mac_p,mac_f,mac_s,water,sl_total_h,sl_min,sl_score,sl_rhr,sl_hrv,sl_bb,e1_m,e2_m,bio_taken')
-    .eq('date',todayStr).maybeSingle(); td=data; }catch(e){}
+  let dataDateStr = todayStr;
+  const SELECT_FIELDS = 'date,mac_kcal,mac_p,mac_f,mac_s,water,sl_total_h,sl_min,sl_score,sl_rhr,sl_hrv,sl_bb,e1_m,e2_m,bio_taken';
+  const hasRealData = r => r && ((r.sl_total_h||r.sl_min||r.sl_score||r.sl_hrv||r.sl_bb||r.sl_rhr||r.mac_kcal||r.mac_p||r.e1_m||r.e2_m||(r.bio_taken&&r.bio_taken!=='{}')) ? true : false);
+  try{
+    // today's row (may be partial — e.g. only water from quick-add)
+    const {data:tdData}=await db.from('health_days').select(SELECT_FIELDS).eq('date',todayStr).maybeSingle();
+    // pull recent days (newest first), then find the most recent one with real health data
+    const {data:recent}=await db.from('health_days').select(SELECT_FIELDS)
+      .lte('date',todayStr).order('date',{ascending:false}).limit(10);
+    const completeRow = (recent||[]).find(r => r.date!==todayStr && hasRealData(r))
+                      || (recent||[]).find(r => hasRealData(r)) || null;
+
+    if(hasRealData(tdData)){
+      // today already has full data — use it directly
+      td=tdData; dataDateStr=todayStr;
+    } else if(tdData && completeRow){
+      // today only has water (or empty) → use latest complete day, keep today's fresh water
+      td={...completeRow, water: (tdData.water||completeRow.water)};
+      dataDateStr=completeRow.date;
+    } else if(completeRow){
+      td=completeRow; dataDateStr=completeRow.date;
+    } else if(tdData){
+      td=tdData; dataDateStr=todayStr;
+    }
+  }catch(e){}
+
+  // Date chip — show data date; flag if it's not actually today
+  const dataDate = new Date(dataDateStr+'T00:00:00');
+  if(dataDateStr===todayStr){
+    setTx('hd-date-chip', today.toLocaleDateString(isEN?'en-GB':'th-TH',{weekday:'short',day:'numeric',month:'short'}));
+  } else {
+    const dStr = dataDate.toLocaleDateString(isEN?'en-GB':'th-TH',{day:'numeric',month:'short'});
+    setTx('hd-date-chip', (isEN?'Latest · ':'ล่าสุด · ')+dStr);
+  }
 
   // ── Load 7 days ──
   let week=[];
