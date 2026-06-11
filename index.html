@@ -916,7 +916,7 @@ textarea{min-height:42px;}
         <div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,rgba(74,124,89,.2),rgba(107,143,163,.2));display:flex;align-items:center;justify-content:center;font-size:.85rem;">✨</div>
         <div>
           <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);">All Day Scan</div>
-          <div style="font-size:.62rem;color:var(--muted2);">ถ่ายรูปแล้วให้ AI คำนวนทุกอย่างให้เลย</div>
+          <div style="font-size:.62rem;color:var(--muted2);"><span class="lang-th">ถ่ายรูปแล้วให้ AI คำนวนทุกอย่างให้เลย</span><span class="lang-en" style="display:none;">Photo scan — AI fills everything automatically</span></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:9px;">
@@ -993,10 +993,10 @@ textarea{min-height:42px;}
     <textarea id="h_note" placeholder="symptoms, how you feel, anything worth noting..."></textarea>
   </div>
   <div class="section s-supp">
-    <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl">BioActive+ วันนี้</div></div>
-    <div style="font-size:.68rem;color:var(--muted2);margin-bottom:10px;">กดได้เลย — ติ๊กเพื่อบันทึกว่ากินแล้ว</div>
+    <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl"><span class="lang-th">BioActive+ วันนี้</span><span class="lang-en" style="display:none;">BioActive+ Today</span></div></div>
+    <div style="font-size:.68rem;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">กดได้เลย — ติ๊กเพื่อบันทึกว่ากินแล้ว</span><span class="lang-en" style="display:none;">Tap to mark as taken</span></div>
     <div id="bio-quick-tap" style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px;"></div>
-    <label class="lbl" style="margin-top:6px">📝 ยา / อื่นๆ</label>
+    <label class="lbl" style="margin-top:6px"><span class="lang-th">📝 ยา / อื่นๆ</span><span class="lang-en" style="display:none;">📝 Medication / Other</span></label>
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
