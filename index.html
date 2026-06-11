@@ -289,7 +289,7 @@ textarea{min-height:42px;}
 .hd-hero-ring svg{width:104px;height:104px;transform:rotate(-90deg);}
 .hd-hero-ring-c{transition:stroke-dashoffset 1.3s cubic-bezier(.16,1,.3,1);}
 .hd-hero-ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.hd-hero-num{font-family:'Kanit',sans-serif;font-weight:700;font-size:2.15rem;line-height:.9;letter-spacing:-1px;}
+.hd-hero-num{font-family:'Kanit',sans-serif;font-weight:800;font-size:2.5rem;line-height:.85;letter-spacing:-1.5px;}
 .hd-hero-max{font-family:'Kanit',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:2px;letter-spacing:.5px;}
 .hd-hero-meta{flex:1;min-width:0;}
 .hd-hero-eyebrow{font-family:'Kanit',sans-serif;font-size:.6rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;}
@@ -6190,26 +6190,42 @@ async function loadHomeDashboard(force){
   }
 
   // ── GAP ANALYSIS ──
-  const gaps=[]; const rem=h<22;
-  if(water<2.0&&rem) gaps.push(['warn','💧',isEN?`Drink ${(2.5-water).toFixed(1)}L more`:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, isEN?'Target 2.5L — supports kidneys, skin & metabolism':'เป้า 2.5L · ดูแลไต ผิว และ metabolism']);
-  else if(water>=2.5) gaps.push(['good','💧',isEN?'Hydration complete':'น้ำครบเป้าแล้ว!', `${water.toFixed(1)}L ${isEN?'· well done':'· ดีมากค่ะ'}`]);
-  if(sleep>0&&sleep<7) gaps.push(['info','🌙',isEN?`Only ${sleep.toFixed(1)}h sleep`:`นอนน้อยไป ${sleep.toFixed(1)}h`, isEN?'Aim 7.5–8.5h — try lights out before 22:30':'เป้า 7.5–8.5h · คืนนี้ควรนอนก่อน 22:30']);
-  else if(sleep>=7.5&&sleep<=8.5) gaps.push(['good','✅',isEN?'Optimal sleep':'การนอนดีเยี่ยม!', `${sleep.toFixed(1)}h ${isEN?'· in the optimal range':'· อยู่ในช่วงที่ดีที่สุด'}`]);
-  if(exMin===0&&rem) gaps.push(['info','🏋️',isEN?'No workout logged yet':'ยังไม่ได้ออกกำลังกาย', isEN?'Aim ≥45 min — strength, cardio or tennis':'เป้า ≥45 นาที · เวท คาร์ดิโอ หรือเทนนิส']);
-  else if(exMin>=45) gaps.push(['good','🔥',isEN?'Workout done':'ออกกำลังกายครบ!', `${Math.round(exMin)} ${isEN?'min · great training today':'นาที · เทรนดีมากวันนี้'}`]);
-  if(prot>0&&prot<70&&rem) gaps.push(['warn','🥩',isEN?`Protein short by ${Math.round(100-prot)}g`:`โปรตีนยังขาด ${Math.round(100-prot)}g`, isEN?'Need 90–100g — add eggs or salmon next meal':'ควรได้ 90–100g · เพิ่มไข่หรือแซลมอนมื้อถัดไป']);
-  else if(prot>=90) gaps.push(['good','💪',isEN?'Protein goal met':'โปรตีนถึงเป้า!', `${Math.round(prot)}g ${isEN?'· muscle recovery on track':'· รักษากล้ามเนื้อได้ดี'}`]);
+  const gapsWarn=[], gapsGood=[]; const rem=h<22;
+  const pushG=(arr,item)=>arr.push(item);
+
+  // Water
+  if(water<2.0&&rem) pushG(gapsWarn,['warn','💧',isEN?`Drink ${(2.5-water).toFixed(1)}L more`:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, isEN?'Target 2.5L — supports kidneys, skin & metabolism':'เป้า 2.5L · ดูแลไต ผิว และ metabolism']);
+  else if(water>=2.0&&water<2.5&&rem) pushG(gapsWarn,['warn','💧',isEN?`Almost there — ${(2.5-water).toFixed(1)}L to go`:`อีกนิดเดียว — ขาด ${(2.5-water).toFixed(1)}L`, isEN?`${water.toFixed(1)}L of 2.5L · keep sipping`:`ตอนนี้ ${water.toFixed(1)}L จาก 2.5L · ดื่มต่ออีกหน่อย`]);
+  else if(water>=2.5) pushG(gapsGood,['good','💧',isEN?'Hydration complete':'น้ำครบเป้าแล้ว!', `${water.toFixed(1)}L ${isEN?'· well done':'· ดีมากค่ะ'}`]);
+
+  // Sleep
+  if(sleep>0&&sleep<7) pushG(gapsWarn,['info','🌙',isEN?`Only ${sleep.toFixed(1)}h sleep`:`นอนน้อยไป ${sleep.toFixed(1)}h`, isEN?'Aim 7.5–8.5h — try lights out before 22:30':'เป้า 7.5–8.5h · คืนนี้ควรนอนก่อน 22:30']);
+  else if(sleep>=7.5&&sleep<=8.5) pushG(gapsGood,['good','✅',isEN?'Optimal sleep':'การนอนดีเยี่ยม!', `${sleep.toFixed(1)}h ${isEN?'· in the optimal range':'· อยู่ในช่วงที่ดีที่สุด'}`]);
+
+  // Exercise
+  if(exMin===0&&rem) pushG(gapsWarn,['info','🏋️',isEN?'No workout logged yet':'ยังไม่ได้ออกกำลังกาย', isEN?'Aim ≥45 min — strength, cardio or tennis':'เป้า ≥45 นาที · เวท คาร์ดิโอ หรือเทนนิส']);
+  else if(exMin>=45) pushG(gapsGood,['good','🔥',isEN?'Workout done':'ออกกำลังกายครบ!', `${Math.round(exMin)} ${isEN?'min · great training today':'นาที · เทรนดีมากวันนี้'}`]);
+
+  // Protein
+  if(prot>0&&prot<70&&rem) pushG(gapsWarn,['warn','🥩',isEN?`Protein short by ${Math.round(100-prot)}g`:`โปรตีนยังขาด ${Math.round(100-prot)}g`, isEN?'Need 90–100g — add eggs or salmon next meal':'ควรได้ 90–100g · เพิ่มไข่หรือแซลมอนมื้อถัดไป']);
+  else if(prot>=90) pushG(gapsGood,['good','💪',isEN?'Protein goal met':'โปรตีนถึงเป้า!', `${Math.round(prot)}g ${isEN?'· muscle recovery on track':'· รักษากล้ามเนื้อได้ดี'}`]);
+
+  // BioActive
   try{ const tk=td?.bio_taken?(typeof td.bio_taken==='string'?JSON.parse(td.bio_taken):td.bio_taken):{};
     const c=Object.values(tk).filter(Boolean).length;
-    if(c<9) gaps.push(['warn','💊',isEN?`BioActive ${9-c} left`:`BioActive ยังขาด ${9-c} ตัว`, isEN?`${c}/9 today — don't miss magnesium before bed`:`วันนี้ ${c}/9 · อย่าลืม magnesium ก่อนนอน`]);
-    else gaps.push(['good','💊',isEN?'BioActive complete':'BioActive ครบทุกตัว!', isEN?'9/9 · supplemented perfectly':'9/9 · เยี่ยมมากค่ะ']);
+    if(c<9) pushG(gapsWarn,['warn','💊',isEN?`BioActive ${9-c} left`:`BioActive ยังขาด ${9-c} ตัว`, isEN?`${c}/9 today — don't miss magnesium before bed`:`วันนี้ ${c}/9 · อย่าลืม magnesium ก่อนนอน`]);
+    else pushG(gapsGood,['good','💊',isEN?'BioActive complete':'BioActive ครบทุกตัว!', isEN?'9/9 · supplemented perfectly':'9/9 · เยี่ยมมากค่ะ']);
   }catch(e){}
-  if(!gaps.length) gaps.push(['info','🌿',isEN?'No data today yet':'ยังไม่มีข้อมูลวันนี้', isEN?'Tap "บันทึก" to log your health':'กด "บันทึก" เพื่อเพิ่มข้อมูลสุขภาพ']);
+
+  // Warnings first, then good. Show all warnings + fill rest with good (max 4).
+  let gaps = [...gapsWarn, ...gapsGood];
+  if(!gaps.length) gaps=[['info','🌿',isEN?'No data today yet':'ยังไม่มีข้อมูลวันนี้', isEN?'Tap Log to add your health data':'กด "บันทึก" เพื่อเพิ่มข้อมูลสุขภาพ']];
+  gaps = gaps.slice(0,4);
 
   const gStyle={good:'background:rgba(74,124,89,.06);',warn:'background:rgba(201,169,110,.08);',info:'background:rgba(107,143,163,.07);'};
   const gCol={good:'var(--veg)',warn:'var(--grain)',info:'var(--sleep)'};
   const gapEl=document.getElementById('hd-gap-block');
-  if(gapEl) gapEl.innerHTML=gaps.slice(0,4).map(([t,ic,ti,ms])=>`
+  if(gapEl) gapEl.innerHTML=gaps.map(([t,ic,ti,ms])=>`
     <div class="hd-gap-row" style="${gStyle[t]}">
       <span class="hd-gap-ic">${ic}</span>
       <div class="hd-gap-tx"><strong style="color:${gCol[t]};">${ti}</strong><span>${ms}</span></div>
@@ -6221,7 +6237,7 @@ async function loadHomeDashboard(force){
     const avg=(arr,fn)=>arr.length?arr.reduce((s,d)=>s+fn(d),0)/arr.length:0;
     const slFn=d=>d.sl_total_h||(d.sl_min?d.sl_min/60:0), pFn=d=>d.mac_p||0, eFn=d=>(d.e1_m||0)+(d.e2_m||0);
     const cS=avg(week,slFn),pS=avg(prev,slFn),cP=avg(week,pFn),pP=avg(prev,pFn),cE=avg(week,eFn),pE=avg(prev,eFn);
-    const dl=(c,p)=>{ if(!p) return['—','t-eq']; const d=((c-p)/p*100).toFixed(0); return d>0?[`▲ ${Math.abs(d)}%`,'t-up']:d<0?[`▼ ${Math.abs(d)}%`,'t-dn']:['—','t-eq']; };
+    const dl=(c,p)=>{ if(!p||!c) return['—','t-eq']; const d=((c-p)/p*100).toFixed(0); return d>0?[`▲ ${Math.abs(d)}%`,'t-up']:d<0?[`▼ ${Math.abs(d)}%`,'t-dn']:[isEN?'steady':'คงที่','t-eq']; };
     const [s1,s2]=dl(cS,pS),[p1,p2]=dl(cP,pP),[e1,e2]=dl(cE,pE);
     const tEl=document.getElementById('hd-trend-3');
     if(tEl) tEl.innerHTML=`
