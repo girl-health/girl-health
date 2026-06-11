@@ -91,6 +91,8 @@ textarea{min-height:42px;}
 .tip-good strong{color:var(--veg);}
 .tip-warn strong{color:var(--sugar);}
 .tip-info strong{color:var(--dairy);}
+.tip-bio{border-left:3px solid #4A7CB0 !important;background:rgba(74,124,176,.06) !important;}
+.tip-bio strong{color:#4A7CB0;}
 .tip-add strong{color:var(--fruit);}
 .tip-miss strong{color:var(--prot);}
 .analyze-btn{width:100%;padding:10px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.25);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.8rem;border-radius:10px;cursor:pointer;margin-top:9px;transition:all .2s;font-weight:600;}
@@ -640,23 +642,23 @@ textarea{min-height:42px;}
   <div class="qstats" style="grid-template-columns:repeat(4,1fr);">
     <div class="qcard"><div class="qval" id="q-kcal" style="color:var(--grain)">—</div><div class="qlbl">🔥 kcal</div></div>
     <div class="qcard"><div class="qval" id="q-prot" style="color:var(--prot)">—</div><div class="qlbl">🥩 protein</div></div>
-    <div class="qcard"><div class="qval" id="q-sleep" style="color:var(--sleep)">—</div><div class="qlbl">🌙 นอน</div></div>
-    <div class="qcard"><div class="qval" id="q-water" style="color:var(--water)">—</div><div class="qlbl">💧 น้ำ</div></div>
+    <div class="qcard"><div class="qval" id="q-sleep" style="color:var(--sleep)">—</div><div class="qlbl"><span class="lang-th">🌙 นอน</span><span class="lang-en" style="display:none;">🌙 sleep</span></div></div>
+    <div class="qcard"><div class="qval" id="q-water" style="color:var(--water)">—</div><div class="qlbl"><span class="lang-th">💧 น้ำ</span><span class="lang-en" style="display:none;">💧 water</span></div></div>
   </div>
   <div class="ai-wrap">
     <div class="ai-hdr"><div class="ai-av">✨</div><div><div class="ai-ttl">คำแนะนำสุขภาพวันนี้</div><div class="ai-sub">AI วิเคราะห์จากข้อมูลที่บันทึก</div></div></div>
-    <div class="ai-content" id="day-advice"><div style="color:var(--muted2);font-size:.76rem">บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨</div></div>
+    <div class="ai-content" id="day-advice"><div style="color:var(--muted2);font-size:.76rem"><span class="lang-th">บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨</span><span class="lang-en" style="display:none;">Log your data then tap "Analyze" ✨</span></div></div>
     <button class="analyze-btn" id="dayAdvBtn" onclick="analyzeDay()">🔍 วิเคราะห์วันนี้</button>
   </div>
   <div class="section s-eat">
-    <div class="sec-hdr"><div class="sec-ico">🍽️</div><div class="sec-ttl">การกิน</div></div>
+    <div class="sec-hdr"><div class="sec-ico">🍽️</div><div class="sec-ttl"><span class="lang-th">การกิน</span><span class="lang-en" style="display:none;">Nutrition</span></div></div>
     <div class="sugar-note">🚫 งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
       <!-- แคลอรี่ - featured -->
       <div style="grid-column:1/-1;background:linear-gradient(135deg,rgba(240,160,64,.08),rgba(240,160,64,.04));border:1px solid rgba(240,160,64,.25);border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;">
         <div style="font-size:1.6rem;">🔥</div>
         <div style="flex:1;">
-          <div style="font-size:.65rem;color:var(--muted2);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase;">แคลอรี่รวม</div>
+          <div style="font-size:.65rem;color:var(--muted2);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase;"><span class="lang-th">แคลอรี่รวม</span><span class="lang-en" style="display:none;">Total Calories</span></div>
           <div style="display:flex;align-items:baseline;gap:6px;">
             <input type="number" id="mac_kcal" placeholder="0" min="0" oninput="updateQ()" style="background:transparent;border:none;color:var(--grain);font-family:Kanit,sans-serif;font-size:1.5rem;font-weight:700;outline:none;width:100px;padding:0;">
             <span style="font-size:.75rem;color:var(--muted2);">kcal</span>
@@ -665,7 +667,7 @@ textarea{min-height:42px;}
       </div>
       <!-- โปรตีน -->
       <div style="background:rgba(239,108,108,.06);border:1px solid rgba(239,108,108,.2);border-radius:12px;padding:11px;">
-        <div style="font-size:.62rem;color:var(--prot);letter-spacing:.5px;margin-bottom:6px;">🥩 โปรตีน</div>
+        <div style="font-size:.62rem;color:var(--prot);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥩 โปรตีน</span><span class="lang-en" style="display:none;">🥩 Protein</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_p" placeholder="0" min="0" oninput="updateQ()" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -673,7 +675,7 @@ textarea{min-height:42px;}
       </div>
       <!-- คาร์บ -->
       <div style="background:rgba(162,155,254,.06);border:1px solid rgba(162,155,254,.2);border-radius:12px;padding:11px;">
-        <div style="font-size:.62rem;color:var(--other);letter-spacing:.5px;margin-bottom:6px;">🍚 คาร์บ</div>
+        <div style="font-size:.62rem;color:var(--other);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🍚 คาร์บ</span><span class="lang-en" style="display:none;">🍚 Carbs</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_carb" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -681,7 +683,7 @@ textarea{min-height:42px;}
       </div>
       <!-- ไขมัน -->
       <div style="background:rgba(116,185,255,.06);border:1px solid rgba(116,185,255,.2);border-radius:12px;padding:11px;">
-        <div style="font-size:.62rem;color:var(--dairy);letter-spacing:.5px;margin-bottom:6px;">🥑 ไขมัน</div>
+        <div style="font-size:.62rem;color:var(--dairy);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥑 ไขมัน</span><span class="lang-en" style="display:none;">🥑 Fat</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_fat" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -689,7 +691,7 @@ textarea{min-height:42px;}
       </div>
       <!-- ไฟเบอร์ -->
       <div style="background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.2);border-radius:12px;padding:11px;">
-        <div style="font-size:.62rem;color:var(--veg);letter-spacing:.5px;margin-bottom:6px;">🥦 ไฟเบอร์</div>
+        <div style="font-size:.62rem;color:var(--veg);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥦 ไฟเบอร์</span><span class="lang-en" style="display:none;">🥦 Fiber</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_f" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -697,7 +699,7 @@ textarea{min-height:42px;}
       </div>
       <!-- น้ำตาลรวม -->
       <div style="background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:11px;">
-        <div style="font-size:.62rem;color:var(--sugar);letter-spacing:.5px;margin-bottom:6px;">🍬 น้ำตาลรวม</div>
+        <div style="font-size:.62rem;color:var(--sugar);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🍬 น้ำตาลรวม</span><span class="lang-en" style="display:none;">🍬 Total Sugar</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_sugar_total" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -705,7 +707,7 @@ textarea{min-height:42px;}
       </div>
       <!-- โซเดียม -->
       <div style="background:rgba(255,126,179,.06);border:1px solid rgba(255,126,179,.2);border-radius:12px;padding:11px;">
-        <div style="font-size:.62rem;color:var(--fruit);letter-spacing:.5px;margin-bottom:6px;">🧂 โซเดียม</div>
+        <div style="font-size:.62rem;color:var(--fruit);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🧂 โซเดียม</span><span class="lang-en" style="display:none;">🧂 Sodium</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_sodium" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:70px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">mg</span>
@@ -713,7 +715,7 @@ textarea{min-height:42px;}
       </div>
       <!-- น้ำตาลจากผลไม้ (เก็บไว้เล็กๆ) -->
       <div style="grid-column:1/-1;background:rgba(62,207,142,.04);border:1px dashed rgba(62,207,142,.15);border-radius:10px;padding:10px;display:flex;align-items:center;gap:10px;">
-        <span style="font-size:.7rem;color:var(--muted2);flex:1;">🍎 น้ำตาลจากผลไม้ธรรมชาติ</span>
+        <span style="font-size:.7rem;color:var(--muted2);flex:1;"><span class="lang-th">🍎 น้ำตาลจากผลไม้ธรรมชาติ</span><span class="lang-en" style="display:none;">🍎 Natural Fruit Sugar</span></span>
         <input type="number" id="mac_s" placeholder="0" min="0" style="background:transparent;border:none;color:var(--veg);font-family:Kanit,sans-serif;font-size:.9rem;font-weight:600;outline:none;width:50px;text-align:right;padding:0;">
         <span style="font-size:.65rem;color:var(--muted2);">g</span>
       </div>
@@ -789,7 +791,7 @@ textarea{min-height:42px;}
     </div>
   </div>
   <div class="section s-sleep">
-    <div class="sec-hdr"><div class="sec-ico">🌙</div><div class="sec-ttl">การนอน</div>
+    <div class="sec-hdr"><div class="sec-ico">🌙</div><div class="sec-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div>
       <label style="margin-left:auto;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;border:1px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.65rem;font-weight:700;letter-spacing:.3px;color:var(--sleep);white-space:nowrap;">
         📸 Scan
         <input type="file" accept="image/*" style="display:none" onchange="analyzeSleepPhoto(this)">
@@ -797,12 +799,12 @@ textarea{min-height:42px;}
     </div>
     <div id="sleep-scan-result" style="display:none;margin-bottom:10px;"></div>
     <div class="row2">
-      <div><label class="lbl">นอนเวลา</label><input type="time" id="sl_s" onchange="calcSleep()"></div>
-      <div><label class="lbl">ตื่นเวลา</label><input type="time" id="sl_e" onchange="calcSleep()"></div>
+      <div><label class="lbl"><span class="lang-th">นอนเวลา</span><span class="lang-en" style="display:none;">Bedtime</span></label><input type="time" id="sl_s" onchange="calcSleep()"></div>
+      <div><label class="lbl"><span class="lang-th">ตื่นเวลา</span><span class="lang-en" style="display:none;">Wake time</span></label><input type="time" id="sl_e" onchange="calcSleep()"></div>
     </div>
     <div class="sleep-dur" id="sl_dur"></div>
     <div class="metric-row" style="margin-top:7px;">
-      <span class="lbl" style="flex:1">⏱️ รวมนอนทั้งหมด</span>
+      <span class="lbl" style="flex:1"><span class="lang-th">⏱️ รวมนอนทั้งหมด</span><span class="lang-en" style="display:none;">⏱️ Total Sleep</span></span>
       <input type="number" id="sl_total_h" min="0" max="24" step="0.5" placeholder="6.5" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:80px;text-align:center;" oninput="updateQ()">
       <span class="lbl" style="margin-left:5px">ชม.</span>
     </div>
@@ -821,7 +823,7 @@ textarea{min-height:42px;}
     </div>
   </div>
   <div class="section s-ex">
-    <div class="sec-hdr"><div class="sec-ico">🏋️</div><div class="sec-ttl">ออกกำลังกาย</div></div>
+    <div class="sec-hdr"><div class="sec-ico">🏋️</div><div class="sec-ttl"><span class="lang-th">ออกกำลังกาย</span><span class="lang-en" style="display:none;">Exercise</span></div></div>
     <div class="ex-block">
       <div class="ex-bl-ttl">💪 Strength</div>
       <div class="ex-g">
@@ -1039,7 +1041,7 @@ textarea{min-height:42px;}
   </div>
   <!-- Monthly summary -->
   <div class="bio-stats-wrap">
-    <div class="bio-stats-ttl">📊 สรุปรายเดือน — วันที่กิน</div>
+    <div class="bio-stats-ttl"><span class="lang-th">📊 สรุปรายเดือน — วันที่กิน</span><span class="lang-en" style="display:none;">📊 Monthly Summary — Days Taken</span></div>
     <div id="bio-month-stats"></div>
   </div>
   <!-- Calendar for selected product -->
@@ -2670,7 +2672,7 @@ const translations = {
     sec_supp: 'อาหารเสริม / ยา',
     ai_title: 'คำแนะนำสุขภาพวันนี้',
     ai_sub: 'AI วิเคราะห์จากข้อมูลที่บันทึก',
-    ai_placeholder: 'บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨',
+    ai_placeholder: '<span class="lang-th">บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨</span><span class="lang-en" style="display:none;">Log your data then tap "Analyze" ✨</span>',
     ai_btn: '🔍 วิเคราะห์วันนี้',
     save_btn: '💾 บันทึก',
     sugar_note: '🚫 งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้',
@@ -2688,7 +2690,7 @@ const translations = {
     lbl_fruit_sugar: '🍎 น้ำตาลจากผลไม้ธรรมชาติ',
     lbl_bedtime: 'นอนเวลา',
     lbl_waketime: 'ตื่นเวลา',
-    lbl_sleep_total: '⏱️ รวมนอนทั้งหมด',
+    lbl_sleep_total: '<span class="lang-th">⏱️ รวมนอนทั้งหมด</span><span class="lang-en" style="display:none;">⏱️ Total Sleep</span>',
     lbl_sleep_score: 'Sleep Score',
     lbl_rhr: 'RHR (bpm)',
     lbl_hrv: 'HRV (ms)',
