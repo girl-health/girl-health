@@ -331,8 +331,10 @@ textarea{min-height:42px;}
 .body-table th{background:var(--card2);color:var(--muted2);padding:8px 7px;text-align:left;font-family:'Kanit',sans-serif;font-weight:500;font-size:.66rem;border-bottom:1px solid var(--border);}
 .body-table td{padding:8px 7px;border-bottom:1px solid var(--border);vertical-align:middle;}
 .body-table tr:hover td{background:var(--card2);}
-.body-tab{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border2);background:var(--card);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.72rem;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;}
-.body-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.body-tabs{display:flex;gap:7px;margin-bottom:14px;padding:4px;background:var(--bg);border-radius:16px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04);}
+.body-tab{flex:1;padding:10px 4px;border-radius:12px;border:none;background:transparent;color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.2px;white-space:nowrap;}
+.body-tab.active{background:var(--accent);color:#fff;box-shadow:0 3px 10px rgba(74,124,89,.25);}
+.body-tab:not(.active):active{background:var(--card2);}
 .organ-zone{transition:opacity .2s;}
 .organ-zone:hover{opacity:.15 !important;}
 .delta-up{color:var(--prot);font-size:.62rem;}
@@ -1399,10 +1401,10 @@ body.ltab-supp .s-supp{display:block;}
 <div class="page" id="page-body">
 
   <!-- TAB ROW -->
-  <div style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;">
-    <button onclick="switchBodyTab('map')"    class="body-tab active" id="btab-map">🫀 Body Map</button>
-    <button onclick="switchBodyTab('skin')"   class="body-tab"        id="btab-skin">✨ Skin Scan</button>
-    <button onclick="switchBodyTab('stats')"  class="body-tab"        id="btab-stats">📐 Stats</button>
+  <div class="body-tabs">
+    <button onclick="switchBodyTab('map')"    class="body-tab active" id="btab-map">🫀 <span class="lang-th">ร่างกาย</span><span class="lang-en" style="display:none;">Body</span></button>
+    <button onclick="switchBodyTab('skin')"   class="body-tab"        id="btab-skin">✨ <span class="lang-th">ผิว</span><span class="lang-en" style="display:none;">Skin</span></button>
+    <button onclick="switchBodyTab('stats')"  class="body-tab"        id="btab-stats">📐 <span class="lang-th">สัดส่วน</span><span class="lang-en" style="display:none;">Stats</span></button>
   </div>
 
   <!-- ───────── TAB: BODY MAP ───────── -->
@@ -1418,7 +1420,7 @@ body.ltab-supp .s-supp{display:block;}
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
 
       <!-- HAIR -->
-      <div onclick="showOrgan('hair')" id="ocard-hair" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('hair')" id="ocard-hair" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <!-- Color stripe + icon -->
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#F5EDD8,#EBD9A0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(201,169,110,.15);">
@@ -1443,7 +1445,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- EYES -->
-      <div onclick="showOrgan('eyes')" id="ocard-eyes" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('eyes')" id="ocard-eyes" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#E8EFF5,#C5D8E8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(107,143,163,.15);">
             <div style="font-size:1.6rem;">👁️</div>
@@ -1465,7 +1467,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- LUNGS -->
-      <div onclick="showOrgan('lungs')" id="ocard-lungs" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('lungs')" id="ocard-lungs" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#EDE8F5,#D5C8E8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(122,107,138,.15);">
             <div style="font-size:1.6rem;">🫁</div>
@@ -1486,7 +1488,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- HEART -->
-      <div onclick="showOrgan('heart')" id="ocard-heart" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('heart')" id="ocard-heart" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#FAEAEA,#F0C0C0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(192,57,43,.12);">
             <div style="font-size:1.6rem;">❤️</div>
@@ -1508,7 +1510,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- KIDNEY -->
-      <div onclick="showOrgan('kidney')" id="ocard-kidney" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('kidney')" id="ocard-kidney" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#E8F2EC,#C0DEC8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(74,124,89,.15);">
             <div style="font-size:1.6rem;">🫘</div>
@@ -1529,7 +1531,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- GUT -->
-      <div onclick="showOrgan('gut')" id="ocard-gut" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('gut')" id="ocard-gut" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#F2EAE5,#DEC0B0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(139,94,82,.15);">
             <div style="font-size:1.6rem;">🦠</div>
@@ -1551,7 +1553,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- MUSCLE -->
-      <div onclick="showOrgan('muscle')" id="ocard-muscle" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('muscle')" id="ocard-muscle" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#EBF2E8,#C4DAB8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(74,124,89,.15);">
             <div style="font-size:1.6rem;">💪</div>
@@ -1573,7 +1575,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
 
       <!-- SKIN -->
-      <div onclick="showOrgan('skin')" id="ocard-skin" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
+      <div onclick="showOrgan('skin')" id="ocard-skin" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#FFF0EA,#F0C8A8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(212,132,90,.15);">
             <div style="font-size:1.6rem;">✨</div>
@@ -1597,7 +1599,7 @@ body.ltab-supp .s-supp{display:block;}
     </div><!-- /organ cards -->
 
     <!-- Organ nutrition detail panel (slides in on tap) -->
-    <div id="organ-panel" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);">
+    <div id="organ-panel" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
         <div id="organ-icon" style="font-size:1.8rem;"></div>
         <div style="flex:1;">
@@ -1632,7 +1634,7 @@ body.ltab-supp .s-supp{display:block;}
   <div id="bpanel-skin" style="display:none;">
 
     <!-- Upload zone -->
-    <div style="background:linear-gradient(135deg,rgba(255,126,179,.06),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.2);border-radius:16px;padding:15px;margin-bottom:12px;">
+    <div style="background:linear-gradient(135deg,rgba(255,126,179,.06),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.2);border-radius:20px;padding:15px;margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
         <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,rgba(255,126,179,.3),rgba(212,132,90,.3));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">✨</div>
         <div>
@@ -1684,7 +1686,7 @@ body.ltab-supp .s-supp{display:block;}
       <!-- OVERVIEW TAB -->
       <div id="spanel-overview">
         <!-- Big score summary -->
-        <div style="background:linear-gradient(135deg,rgba(255,126,179,.07),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.18);border-radius:16px;padding:16px;margin-bottom:10px;">
+        <div style="background:linear-gradient(135deg,rgba(255,126,179,.07),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.18);border-radius:20px;padding:16px;margin-bottom:10px;">
           <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">ค่าเฉลี่ยทั้งหมด</span><span class="lang-en" style="display:none;">OVERALL AVERAGE</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
             <div style="text-align:center;">
@@ -1714,13 +1716,13 @@ body.ltab-supp .s-supp{display:block;}
         </div>
 
         <!-- Metrics average radar -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;margin-bottom:10px;">
           <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">ค่าเฉลี่ยแต่ละ Metric</span><span class="lang-en" style="display:none;">AVERAGE METRICS</span></div>
           <div id="sdash-metrics-wrap" style="display:flex;flex-direction:column;gap:6px;"></div>
         </div>
 
         <!-- Most common needs -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;margin-bottom:10px;">
           <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;"><span class="lang-th">💊 BioActive+ แนะนำตามผิว</span><span class="lang-en" style="display:none;">💊 BioActive+ Skin Recommendations</span></div>
           <div id="sdash-nutrients-wrap"></div>
         </div>
@@ -1728,7 +1730,7 @@ body.ltab-supp .s-supp{display:block;}
 
       <!-- TREND TAB -->
       <div id="spanel-trend" style="display:none;">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:10px;">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
             <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);">📈 Skin Age Trend</div>
             <div style="font-size:.6rem;color:var(--muted2);">เส้นสีชมพู = Skin Age · เส้นสีทอง = Score/10</div>
@@ -1737,7 +1739,7 @@ body.ltab-supp .s-supp{display:block;}
         </div>
 
         <!-- Score trend -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:10px;">
           <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);margin-bottom:4px;">🔄 Progress vs Last Scan</div>
           <div id="sdash-progress-wrap" style="margin-top:8px;"></div>
         </div>
@@ -1751,7 +1753,7 @@ body.ltab-supp .s-supp{display:block;}
           <div id="skin-hist-mo-lbl" style="flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.78rem;color:var(--text);font-weight:600;"></div>
           <button onclick="skinHistoryMonth(1)" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted2);">›</button>
         </div>
-        <div id="skin-history-wrap" style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+        <div id="skin-history-wrap" style="background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
           <div style="text-align:center;padding:20px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล</div>
         </div>
       </div>
@@ -1778,7 +1780,7 @@ body.ltab-supp .s-supp{display:block;}
     </div>
 
   <!-- 2025 vs 2026 Comparison card — fixed data from InBody -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
     <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);margin-bottom:12px;">📊 2025 vs 2026</div>
 
     <!-- Column headers -->
@@ -1846,7 +1848,7 @@ body.ltab-supp .s-supp{display:block;}
   </div>
 
   <!-- Add new snapshot -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
     <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);margin-bottom:11px;">➕ Add Measurement</div>
     <div style="margin-bottom:10px;">
       <label style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:10px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;color:var(--muted2);font-family:'Kanit',sans-serif;font-weight:600;">
@@ -1865,7 +1867,7 @@ body.ltab-supp .s-supp{display:block;}
   </div>
 
   <!-- Next Goals -->
-  <div style="background:linear-gradient(135deg,rgba(74,124,89,.08),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.25);border-radius:16px;padding:15px;margin-bottom:14px;">
+  <div style="background:linear-gradient(135deg,rgba(74,124,89,.08),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.25);border-radius:20px;padding:15px;margin-bottom:14px;">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
       <div style="width:28px;height:28px;border-radius:7px;background:rgba(74,124,89,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;">🎯</div>
       <div>
@@ -1940,7 +1942,7 @@ body.ltab-supp .s-supp{display:block;}
   </div>
 
   <!-- Dynamic comparison table (from saved snapshots) -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
     <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--text);margin-bottom:11px;">📈 My Snapshots</div>
     <div id="body-table-wrap">
       <div style="text-align:center;padding:24px 16px;color:var(--muted);font-size:.78rem;">Add a measurement to track progress</div>
@@ -3420,13 +3422,7 @@ function applyLang() {
     if (labels[i]) el.textContent = labels[i];
   });
 
-  // Body page tabs
-  const bodyTabMap = {
-    'btab-map': isEN?'🫀 Body Map':'🫀 Body Map',
-    'btab-skin': isEN?'✨ Skin Scan':'✨ Skin Scan',
-    'btab-stats': isEN?'📐 Stats':'📐 Stats',
-  };
-  Object.entries(bodyTabMap).forEach(([id,txt])=>{const el=document.getElementById(id);if(el)el.textContent=txt;});
+  // Body page tabs now use .lang-th/.lang-en spans (handled automatically)
 
   // Skin dashboard tabs
   const skinTabMap = {
