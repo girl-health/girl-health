@@ -99,6 +99,38 @@ textarea{min-height:42px;}
 .month-sel{display:flex;gap:7px;margin-bottom:12px;}
 .month-sel select{background:var(--card);border:1px solid var(--border2);color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 10px;border-radius:8px;outline:none;flex:1;}
 .day-table{width:100%;border-collapse:collapse;font-size:.73rem;}
+
+/* ══════════ TABLE · PREMIUM DAILY CARDS ══════════ */
+.tbl-monthbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;background:var(--card);border-radius:18px;padding:10px 14px;border:1px solid var(--border);box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.tbl-mo-arrow{width:34px;height:34px;border-radius:11px;border:1px solid var(--border2);background:var(--bg);color:var(--accent);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;line-height:1;}
+.tbl-mo-arrow:active{transform:scale(.92);background:var(--card2);}
+.tbl-mo-label{flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);cursor:pointer;user-select:none;padding:4px 8px;border-radius:10px;transition:background .15s;}
+.tbl-mo-label:active{background:var(--card2);}
+.tbl-mo-caret{font-size:.62rem;color:var(--muted2);vertical-align:middle;}
+/* Month summary */
+.tbl-sum-card{background:linear-gradient(145deg,rgba(74,124,89,.06),rgba(201,169,110,.045));border:1px solid rgba(74,124,89,.16);border-radius:22px;padding:18px 19px;margin-bottom:14px;}
+.tbl-sum-head{display:flex;align-items:center;gap:11px;margin-bottom:15px;}
+.tbl-sum-ico{width:36px;height:36px;border-radius:12px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.tbl-sum-ttl{font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);}
+.tbl-sum-sub{font-size:.62rem;color:var(--muted2);margin-top:2px;}
+.tbl-sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.tbl-sum-box{background:var(--card);border-radius:14px;padding:12px 5px;text-align:center;}
+.tbl-sum-v{font-family:'Kanit',sans-serif;font-size:1.05rem;font-weight:700;line-height:1;letter-spacing:-.5px;}
+.tbl-sum-l{font-size:.54rem;color:var(--muted2);margin-top:5px;line-height:1.3;}
+/* Daily cards */
+.tbl-day{display:flex;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 12px rgba(0,0,0,.03);}
+.tbl-day-today{border-color:rgba(74,124,89,.35);box-shadow:0 3px 16px rgba(74,124,89,.1);}
+.tbl-day-date{width:48px;flex-shrink:0;text-align:center;position:relative;}
+.tbl-day-num{font-family:'Kanit',sans-serif;font-size:1.45rem;font-weight:800;color:var(--text);line-height:.9;letter-spacing:-1px;}
+.tbl-day-name{font-size:.62rem;color:var(--accent);font-weight:600;margin-top:2px;font-family:'Kanit',sans-serif;}
+.tbl-day-mo{font-size:.55rem;color:var(--muted2);margin-top:1px;}
+.tbl-day-badge{font-size:.5rem;color:#fff;background:var(--accent);border-radius:20px;padding:1px 6px;margin-top:4px;display:inline-block;font-family:'Kanit',sans-serif;font-weight:600;}
+.tbl-day-body{flex:1;min-width:0;}
+.tbl-day-meals{font-family:'Sarabun',sans-serif;font-size:.72rem;color:var(--text);line-height:1.5;margin-bottom:9px;}
+.tbl-day-stats{display:flex;flex-wrap:wrap;gap:5px;}
+.tbl-stat{font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:600;padding:4px 9px;border-radius:20px;white-space:nowrap;}
+.tbl-empty{text-align:center;padding:48px 16px;color:var(--muted2);font-size:.82rem;font-family:'Sarabun',sans-serif;}
+
 .day-table th{background:var(--card2);color:var(--muted2);padding:7px 5px;text-align:left;font-family:'Kanit',sans-serif;font-weight:400;font-size:.67rem;border-bottom:1px solid var(--border);}
 .day-table td{padding:7px 5px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
 .day-table tr:hover td{background:var(--card2);}
@@ -1237,8 +1269,27 @@ body.ltab-supp .s-supp{display:block;}
 
 <!-- PAGE TABLE -->
 <div class="page" id="page-table">
-  <div class="month-sel"><select id="tbl-mo" onchange="renderTable()"></select></div>
-  <div id="tbl-wrap" style="overflow-x:auto;"></div>
+  <!-- Month selector header -->
+  <div class="tbl-monthbar">
+    <button class="tbl-mo-arrow" onclick="chTblMonth(-1)">‹</button>
+    <div class="tbl-mo-label" id="tbl-mo-label" onclick="openMonthPicker()" title="เลือกเดือน">— <span class="tbl-mo-caret">▾</span></div>
+    <button class="tbl-mo-arrow" onclick="chTblMonth(1)">›</button>
+    <select id="tbl-mo" onchange="renderTable()" style="display:none;"></select>
+  </div>
+  <!-- Month picker popup -->
+  <div id="tbl-mp-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);" onclick="closeMonthPicker()"></div>
+  <div id="tbl-mp-popup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;width:min(330px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <button class="tbl-mo-arrow" onclick="mpChYear(-1)">‹</button>
+      <div id="tbl-mp-year" style="font-family:'Kanit',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);"></div>
+      <button class="tbl-mo-arrow" onclick="mpChYear(1)">›</button>
+    </div>
+    <div id="tbl-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
+  </div>
+  <!-- Month summary -->
+  <div id="tbl-summary"></div>
+  <!-- Daily cards -->
+  <div id="tbl-wrap"></div>
 </div>
 
 <!-- PAGE STATS -->
@@ -2545,28 +2596,138 @@ function goPage(name){
 }
 
 // ── TABLE ──
+function chTblMonth(delta){
+  const cur = document.getElementById('tbl-mo').value || curDay.substring(0,7);
+  const [y,m]=cur.split('-').map(Number);
+  let nm=m+delta, ny=y;
+  if(nm>12){nm=1;ny++;} if(nm<1){nm=12;ny--;}
+  const nv=`${ny}-${String(nm).padStart(2,'0')}`;
+  const sel=document.getElementById('tbl-mo');
+  if(![...sel.options].some(o=>o.value===nv)){ const o=document.createElement('option'); o.value=nv; o.textContent=moLabel(nv); sel.appendChild(o); }
+  sel.value=nv;
+  renderTable();
+}
+
+// ── MONTH PICKER (jump to any month/year) ──
+let _mpYear = null;
+function openMonthPicker(){
+  const cur = document.getElementById('tbl-mo').value || curDay.substring(0,7);
+  _mpYear = parseInt(cur.split('-')[0]);
+  renderMonthPicker();
+  document.getElementById('tbl-mp-overlay').style.display='block';
+  document.getElementById('tbl-mp-popup').style.display='block';
+}
+function closeMonthPicker(){
+  document.getElementById('tbl-mp-overlay').style.display='none';
+  document.getElementById('tbl-mp-popup').style.display='none';
+}
+function mpChYear(delta){ _mpYear += delta; renderMonthPicker(); }
+function renderMonthPicker(){
+  const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
+  document.getElementById('tbl-mp-year').textContent = _mpYear;
+  const cur = document.getElementById('tbl-mo').value || curDay.substring(0,7);
+  const [curY,curM]=cur.split('-').map(Number);
+  const nowY=new Date().getFullYear(), nowM=new Date().getMonth()+1;
+  const moNames = isEN
+    ? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    : ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  const grid=document.getElementById('tbl-mp-grid');
+  grid.innerHTML = moNames.map((nm,i)=>{
+    const m=i+1;
+    const isFuture = (_mpYear>nowY) || (_mpYear===nowY && m>nowM);
+    const isSel = (_mpYear===curY && m===curM);
+    const style = isSel
+      ? 'background:var(--accent);color:#fff;border-color:transparent;'
+      : isFuture
+        ? 'background:var(--bg);color:var(--muted);opacity:.45;cursor:not-allowed;'
+        : 'background:var(--bg);color:var(--text);';
+    const onclick = isFuture ? '' : `onclick="pickMonth(${_mpYear},${m})"`;
+    return `<button ${onclick} style="${style}padding:11px 4px;border:1px solid var(--border2);border-radius:12px;font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;">${nm}</button>`;
+  }).join('');
+}
+function pickMonth(y,m){
+  const nv=`${y}-${String(m).padStart(2,'0')}`;
+  const sel=document.getElementById('tbl-mo');
+  if(![...sel.options].some(o=>o.value===nv)){ const o=document.createElement('option'); o.value=nv; o.textContent=moLabel(nv); sel.appendChild(o); }
+  sel.value=nv;
+  closeMonthPicker();
+  renderTable();
+}
+
 async function renderTable(){
+  const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
   const mo=document.getElementById('tbl-mo').value||curDay.substring(0,7);
+  document.getElementById('tbl-mo-label').innerHTML = moLabel(mo) + ' <span class="tbl-mo-caret">▾</span>';
   const rows=await dbLoadMonth(mo);
   const wrap=document.getElementById('tbl-wrap');
-  if(!rows.length){wrap.innerHTML='<div class="empty">ยังไม่มีข้อมูลในเดือนนี้</div>';return;}
-  let h=`<table class="day-table"><thead><tr><th>วัน</th><th>อาหาร</th><th>แมโคร</th><th>นอน</th><th>ออกกำลัง</th><th>น้ำ</th></tr></thead><tbody>`;
-  rows.forEach(d=>{
-    const exM=(d.e1_m||0)+(d.e2_m||0),exK=(d.e1_k||0)+(d.e2_c||0);
-    const slMin = d.sl_min || Math.round((+d.sl_total_h||0)*60);
-    const slH = slMin ? Math.floor(slMin/60)+'h'+(slMin%60?slMin%60+'m':'') : '—';
-    const slDisplay = `<span style="color:var(--sleep);font-family:'Kanit',sans-serif;font-size:.78rem;cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)" title="กดแก้ไข">${slH}</span>${d.sl_score?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.sl_score}pts</span>`:''}`;
-    const meals=[d.m_b,d.m_l,d.m_d].filter(Boolean).join(' / ');
-    const sm=meals.length>50?meals.substring(0,50)+'…':meals;
-    h+=`<tr><td style="white-space:nowrap;color:var(--accent);font-family:'Kanit',sans-serif;font-size:.77rem">${shortDate(d.date)}<br><span style="color:var(--muted2);font-size:.6rem">${DAYS_EN[new Date(d.date).getDay()]}</span></td>
-    <td style="max-width:100px;font-size:.7rem">${sm||'—'}</td>
-    <td><span class="pill pp">P:${d.mac_p||0}g</span><span class="pill pf">F:${d.mac_f||0}g</span><span class="pill ps">S:${d.mac_s||0}g</span><br>
-    <span class="pill" style="background:rgba(240,160,64,.15);color:var(--grain);cursor:pointer;" onclick="inlineEditCell('${d.date}','mac_kcal',${d.mac_kcal||0},this)" title="กดเพื่อแก้ไข">${d.mac_kcal||'—'}${d.mac_kcal?' kcal':''}</span></td>
-    <td>${slDisplay}</td>
-    <td>${exM?`<span class="pill pe">${exM}นาที</span><br><span style="font-size:.62rem;color:var(--muted2)">${exK}kcal</span>`:'<span style="color:var(--muted)">พัก</span>'}</td>
-    <td><span style="color:var(--water);font-size:.78rem">${d.water?d.water+'L':'—'}</span>${d.weight?`<br><span style="font-size:.62rem;color:var(--muted2)">${d.weight}kg</span>`:''}</td></tr>`;
+  const sumEl=document.getElementById('tbl-summary');
+
+  if(!rows.length){
+    sumEl.innerHTML='';
+    wrap.innerHTML=`<div class="tbl-empty">📭 ${isEN?'No entries this month':'ยังไม่มีข้อมูลในเดือนนี้'}</div>`;
+    populateMoSels(rows);
+    return;
+  }
+
+  // ── MONTH SUMMARY ──
+  const n=rows.length;
+  const sum=k=>rows.reduce((a,r)=>a+(+r[k]||0),0);
+  const avg=k=>Math.round(sum(k)/n);
+  const avgSlMin=Math.round(rows.reduce((a,r)=>a+(r.sl_min||(+r.sl_total_h||0)*60),0)/n);
+  const avgSlH=avgSlMin?Math.floor(avgSlMin/60)+'h'+(avgSlMin%60?String(avgSlMin%60).padStart(2,'0')+'m':''):'—';
+  const avgWater=(rows.reduce((a,r)=>a+(+r.water||0),0)/n).toFixed(1);
+  sumEl.innerHTML=`
+    <div class="tbl-sum-card">
+      <div class="tbl-sum-head">
+        <div class="tbl-sum-ico">📊</div>
+        <div>
+          <div class="tbl-sum-ttl">${isEN?'Month Overview':'ภาพรวมเดือนนี้'}</div>
+          <div class="tbl-sum-sub">${n} ${isEN?'days logged':'วันที่บันทึก'}</div>
+        </div>
+      </div>
+      <div class="tbl-sum-grid">
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--grain);">${avg('mac_kcal')||'—'}</div><div class="tbl-sum-l">🔥 ${isEN?'avg kcal':'แคลอรี่'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--prot);">${avg('mac_p')||'—'}g</div><div class="tbl-sum-l">🥩 ${isEN?'avg protein':'โปรตีน'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--sleep);">${avgSlH}</div><div class="tbl-sum-l">🌙 ${isEN?'avg sleep':'นอนเฉลี่ย'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--water);">${avgWater}L</div><div class="tbl-sum-l">💧 ${isEN?'avg water':'น้ำเฉลี่ย'}</div></div>
+      </div>
+    </div>`;
+
+  // ── DAILY CARDS (newest first) ──
+  const sorted=[...rows].sort((a,b)=>b.date.localeCompare(a.date));
+  let h='';
+  sorted.forEach(d=>{
+    const exM=(d.e1_m||0)+(d.e2_m||0);
+    const slMin=d.sl_min||Math.round((+d.sl_total_h||0)*60);
+    const slH=slMin?Math.floor(slMin/60)+'h'+(slMin%60?String(slMin%60).padStart(2,'0')+'m':''):'—';
+    const meals=[d.m_b,d.m_l,d.m_d].filter(Boolean).join(' · ');
+    const sm=meals.length>62?meals.substring(0,62)+'…':(meals||(isEN?'No meals logged':'ยังไม่บันทึกมื้ออาหาร'));
+    const dObj=new Date(d.date+'T00:00:00');
+    const dayNum=dObj.getDate();
+    const dayName=(isEN?['Sun','Mon','Tue','Wed','Thu','Fri','Sat']:['อา','จ','อ','พ','พฤ','ศ','ส'])[dObj.getDay()];
+    const moShort=(isEN?['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']:['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'])[dObj.getMonth()+1];
+    const isToday=d.date===new Date().toISOString().split('T')[0];
+    h+=`
+    <div class="tbl-day ${isToday?'tbl-day-today':''}">
+      <div class="tbl-day-date">
+        <div class="tbl-day-num">${dayNum}</div>
+        <div class="tbl-day-name">${dayName}</div>
+        <div class="tbl-day-mo">${moShort}</div>
+        ${isToday?`<div class="tbl-day-badge">${isEN?'today':'วันนี้'}</div>`:''}
+      </div>
+      <div class="tbl-day-body">
+        <div class="tbl-day-meals">${sm}</div>
+        <div class="tbl-day-stats">
+          <span class="tbl-stat" style="background:rgba(240,160,64,.12);color:var(--grain);cursor:pointer;" onclick="inlineEditCell('${d.date}','mac_kcal',${d.mac_kcal||0},this)">🔥 ${d.mac_kcal||'—'}${d.mac_kcal?'':''}</span>
+          <span class="tbl-stat" style="background:rgba(139,94,82,.1);color:var(--prot);">🥩 ${d.mac_p||0}g</span>
+          <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)">🌙 ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
+          ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);">🏋️ ${exM}m</span>`:''}
+          <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);">💧 ${d.water?d.water+'L':'—'}</span>
+          ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);">⚖️ ${d.weight}kg</span>`:''}
+        </div>
+      </div>
+    </div>`;
   });
-  h+='</tbody></table>';
   wrap.innerHTML=h;
   populateMoSels(rows);
 }
@@ -3233,6 +3394,10 @@ function applyLang() {
   // Re-render Profile score breakdown if active (period label is language-dependent)
   if(document.getElementById('page-profile')?.classList.contains('active')){
     if(typeof computeGirlScore === 'function') computeGirlScore();
+  }
+  // Re-render Table if active (labels are language-dependent)
+  if(document.getElementById('page-table')?.classList.contains('active')){
+    if(typeof renderTable === 'function') renderTable();
   }
 
   // Save lang preference
