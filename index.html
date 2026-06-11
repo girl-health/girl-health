@@ -271,30 +271,6 @@ textarea{min-height:42px;}
 .period-sub-btn.active{border-color:#C0392B;background:rgba(192,57,43,.15);color:#C0392B;}
 .period-sym-btn{padding:4px 9px;border-radius:14px;border:1px solid var(--border);background:var(--card2);color:var(--muted2);font-size:.63rem;cursor:pointer;transition:all .2s;}
 .period-sym-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;font-weight:600;}
-</style>
-</head>
-<body>
-
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-brand">🌿 GIRL</div>
-    <div class="nav-tabs">
-      <div class="ntab active" onclick="goPage('home')" id="ntab-home">🏠 Home</div>
-      <div class="ntab" onclick="goPage('profile')" id="ntab-profile">👤 Profile</div>
-      <div class="ntab" onclick="goPage('log')" id="ntab-log">📝 บันทึกวัน</div>
-      <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
-      <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
-      <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
-      <div class="ntab" onclick="goPage('meals')" id="ntab-meals">🍱 Meals</div>
-      <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 วัตถุดิบ</div>
-      <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
-    </div>
-    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
-  </div>
-</nav>
-
-<div class="sync-badge" id="syncBadge">☁️ พร้อม</div>
-
 /* ── HOME DASHBOARD ── */
 .hd-page{padding:62px 14px 88px;}
 .hd-greeting{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
@@ -356,6 +332,26 @@ textarea{min-height:42px;}
 </style>
 </head>
 <body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">🌿 GIRL</div>
+    <div class="nav-tabs">
+      <div class="ntab active" onclick="goPage('home')" id="ntab-home">🏠 Home</div>
+      <div class="ntab" onclick="goPage('profile')" id="ntab-profile">👤 Profile</div>
+      <div class="ntab" onclick="goPage('log')" id="ntab-log">📝 บันทึกวัน</div>
+      <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
+      <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
+      <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
+      <div class="ntab" onclick="goPage('meals')" id="ntab-meals">🍱 Meals</div>
+      <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 วัตถุดิบ</div>
+      <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
+    </div>
+    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
+  </div>
+</nav>
+
+<div class="sync-badge" id="syncBadge">☁️ พร้อม</div>
 
 <!-- ── HOME DASHBOARD PAGE ── -->
 <div class="page active hd-page" id="page-home">
