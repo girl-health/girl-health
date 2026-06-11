@@ -261,27 +261,44 @@ textarea{min-height:42px;}
 .bio-sum-count{font-family:'Kanit',sans-serif;font-weight:700;font-size:1rem;}
 .bio-sum-name{font-size:.58rem;color:var(--muted2);margin-top:2px;text-align:center;}
 .bio-month-hdr{font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--muted2);margin-bottom:10px;}
-.bio-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all .2s;}
+.bio-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:17px 18px;margin-bottom:13px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:all .25s;}
+.bio-card.taken{box-shadow:0 6px 26px rgba(74,124,89,0.13);}
+.bio-card-top{display:flex;align-items:center;gap:13px;margin-bottom:13px;}
+.bio-dot{width:46px;height:46px;border-radius:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#fff;font-family:'Kanit',sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.12);}
+.bio-name{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;color:var(--text);letter-spacing:.2px;}
+.bio-brand{font-size:.58rem;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.bio-timing{font-size:.64rem;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:5px 11px;color:var(--muted2);margin-left:auto;white-space:nowrap;flex-shrink:0;font-family:'Kanit',sans-serif;}
+.bio-benefits{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.bio-tag{font-size:.64rem;padding:5px 11px;border-radius:20px;font-family:'Kanit',sans-serif;font-weight:500;}
+.bio-note{font-size:.7rem;color:var(--text);line-height:1.6;margin-bottom:13px;padding:11px 13px;background:linear-gradient(135deg,var(--bg),var(--card2));border-radius:14px;border-left:3px solid var(--bc,var(--accent));}
+.bio-tick-btn{width:100%;padding:12px;border-radius:14px;border:1.5px solid var(--border2);background:var(--card2);font-family:'Kanit',sans-serif;font-size:.82rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:600;}
+.bio-tick-btn.done{color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.12);}
+.bio-tick-btn:active{transform:scale(.98);}
+
+/* Brand hero */
+.bio-hero{position:relative;overflow:hidden;background:linear-gradient(150deg,#2C2C2C 0%,#3d3d3d 40%,#1a1a1a 100%);border-radius:26px;padding:24px 22px;margin-bottom:14px;box-shadow:0 10px 36px rgba(0,0,0,.25);}
+.bio-hero-glow{position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.35),transparent 70%);}
+.bio-hero-glow::after{content:'';position:absolute;bottom:-180px;left:-60px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(212,96,122,.22),transparent 70%);}
+.bio-hero-content{position:relative;text-align:center;margin-bottom:18px;}
+.bio-hero-logo{font-size:2rem;margin-bottom:6px;}
+.bio-hero-brand{font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,#F5E6C8,#C9A96E,#E8C896);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px;line-height:1.1;}
+.bio-hero-tagline{font-family:'Sarabun',sans-serif;font-size:.66rem;color:rgba(255,255,255,.6);margin-top:6px;letter-spacing:.3px;line-height:1.5;}
+.bio-hero-progress{position:relative;display:flex;align-items:center;gap:15px;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px 16px;}
+.bio-hero-ring{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .4s;}
+.bio-hero-ring-inner{width:46px;height:46px;border-radius:50%;background:#2C2C2C;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.bio-hero-count{font-family:'Kanit',sans-serif;font-size:1.05rem;font-weight:800;color:#F5E6C8;line-height:.9;}
+.bio-hero-count-lbl{font-size:.5rem;color:rgba(255,255,255,.5);margin-top:2px;}
+.bio-hero-msg{flex:1;font-family:'Sarabun',sans-serif;font-size:.73rem;color:rgba(255,255,255,.88);line-height:1.5;}
+
 .bio-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;}
-.bio-card.taken{box-shadow:0 2px 16px rgba(0,0,0,0.08);}
-.bio-card-top{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
-.bio-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;font-family:'Kanit',sans-serif;}
-.bio-name{font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;}
-.bio-brand{font-size:.62rem;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;}
-.bio-timing{font-size:.68rem;background:rgba(0,0,0,.05);border-radius:20px;padding:3px 9px;color:var(--muted2);margin-left:auto;white-space:nowrap;flex-shrink:0;}
-.bio-benefits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
-.bio-tag{font-size:.65rem;padding:3px 8px;border-radius:20px;background:rgba(0,0,0,.05);color:var(--text);}
-.bio-note{font-size:.7rem;color:var(--muted2);line-height:1.5;margin-bottom:10px;padding:7px 10px;background:var(--bg);border-radius:8px;}
-.bio-tick-btn{width:100%;padding:10px;border-radius:10px;border:1.5px solid var(--border2);background:var(--card2);font-family:'Kanit',sans-serif;font-size:.8rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:600;}
-.bio-tick-btn.done{color:#fff;border-color:transparent;}
 .bio-month-grid{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
 .bio-cal-day{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-family:'Kanit',sans-serif;background:var(--bg);color:var(--muted2);border:1px solid var(--border);}
 .bio-cal-day.on{color:#fff;border-color:transparent;}
 .bio-cal-day.today{outline:2px solid var(--accent);outline-offset:1px;}
 .bio-mo-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.bio-mo-nav button{background:var(--card2);border:1px solid var(--border2);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:.9rem;}
+.bio-mo-nav button{background:var(--card2);border:1px solid var(--border2);color:var(--accent);width:32px;height:32px;border-radius:11px;cursor:pointer;font-size:1rem;}
 .bio-mo-lbl{flex:1;text-align:center;font-family:'Kanit',sans-serif;font-size:.88rem;}
-.bio-stats-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;}
+.bio-stats-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:13px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
 .bio-stats-ttl{font-family:'Kanit',sans-serif;font-size:.82rem;margin-bottom:10px;}
 .bio-stat-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
 .bio-stat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -1376,10 +1393,30 @@ body.ltab-supp .s-supp{display:block;}
 
 <!-- PAGE BIO -->
 <div class="page" id="page-bio">
+
+  <!-- BRAND HERO -->
+  <div class="bio-hero">
+    <div class="bio-hero-glow"></div>
+    <div class="bio-hero-content">
+      <div class="bio-hero-logo">💎</div>
+      <div class="bio-hero-brand">BioActive+</div>
+      <div class="bio-hero-tagline"><span class="lang-th">9 สุดยอดนวัตกรรม เพื่อผิวสวยและสุขภาพจากภายใน</span><span class="lang-en" style="display:none;">9 Premium Innovations for Radiant Skin & Inner Wellness</span></div>
+    </div>
+    <div class="bio-hero-progress">
+      <div class="bio-hero-ring" id="bio-hero-ring">
+        <div class="bio-hero-ring-inner">
+          <div class="bio-hero-count" id="bio-hero-count">0/9</div>
+          <div class="bio-hero-count-lbl"><span class="lang-th">วันนี้</span><span class="lang-en" style="display:none;">today</span></div>
+        </div>
+      </div>
+      <div class="bio-hero-msg" id="bio-hero-msg"></div>
+    </div>
+  </div>
+
   <div class="bio-mo-nav">
     <button onclick="chBioMonth(-1)">‹</button>
     <div class="bio-mo-lbl" id="bio-mo-lbl">—</div>
-    <button class="today-btn" onclick="goBioToday()" style="font-size:.65rem;color:var(--accent);background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.25);border-radius:5px;padding:3px 7px;cursor:pointer;">วันนี้</button>
+    <button class="today-btn" onclick="goBioToday()"><span class="lang-th">วันนี้</span><span class="lang-en" style="display:none;">Today</span></button>
     <button onclick="chBioMonth(1)">›</button>
   </div>
   <!-- Monthly summary -->
@@ -1388,7 +1425,7 @@ body.ltab-supp .s-supp{display:block;}
     <div id="bio-month-stats"></div>
   </div>
   <!-- Calendar for selected product -->
-  <div id="bio-cal-wrap" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;">
+  <div id="bio-cal-wrap" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:12px;">
     <div style="font-family:'Kanit',sans-serif;font-size:.8rem;margin-bottom:8px;" id="bio-cal-title">—</div>
     <div class="bio-month-grid" id="bio-cal-grid"></div>
   </div>
@@ -3631,10 +3668,30 @@ async function renderBio(){
   // Load today
   bioTodayData = await dbLoadBio(curBioDay);
   renderBioCards();
+  updateBioHero();
 
   // Load month stats
   const monthRows = await dbLoadBioMonth(curBioMo);
   renderBioMonthStats(monthRows);
+}
+
+function updateBioHero(){
+  const isEN = currentLang === 'en';
+  const taken = BIOACTIVE_PRODUCTS.filter(p=>bioTodayData[p.id]).length;
+  const total = BIOACTIVE_PRODUCTS.length;
+  const pct = Math.round(taken/total*100);
+  const countEl = document.getElementById('bio-hero-count');
+  const ringEl = document.getElementById('bio-hero-ring');
+  const msgEl = document.getElementById('bio-hero-msg');
+  if(countEl) countEl.textContent = `${taken}/${total}`;
+  if(ringEl) ringEl.style.background = `conic-gradient(#C9A96E ${pct*3.6}deg, rgba(255,255,255,.12) 0deg)`;
+  if(msgEl){
+    let msg;
+    if(taken===0) msg = isEN ? 'Start your ritual — your skin will thank you ✨' : 'เริ่มดูแลตัวเองวันนี้ — ผิวเธอจะขอบคุณ ✨';
+    else if(taken<total) msg = isEN ? `Beautiful start — ${total-taken} more to complete today's glow` : `เริ่มดีแล้ว — อีก ${total-taken} ตัวก็ครบสำหรับวันนี้`;
+    else msg = isEN ? '✨ Perfect! All 9 taken — radiance fully unlocked today' : '✨ ครบทั้ง 9 ตัว! วันนี้ผิวและสุขภาพได้รับการดูแลเต็มที่';
+    msgEl.textContent = msg;
+  }
 }
 
 function renderBioCards(){
@@ -3676,25 +3733,24 @@ function renderBioCards(){
     const displayNote = isEN ? (noteEN[p.id]||p.note) : p.note;
     const displayTiming = isEN ? (timingEN[p.id]||p.timing) : p.timing;
     const displayBenefits = isEN ? (benefitsEN[p.id]||p.benefits) : p.benefits;
-    const tagHtmlFinal = displayBenefits.map(b=>`<span class="bio-tag" style="background:${p.dotColor}18;color:${p.dotColor}">${b}</span>`).join('');
+    const tagHtmlFinal = displayBenefits.map(b=>`<span class="bio-tag" style="background:${p.dotColor}15;color:${p.dotColor};border:1px solid ${p.dotColor}25;">${b}</span>`).join('');
     const tickLabel = done
       ? (isEN ? '✅ Taken!' : '✅ กินแล้ว!')
       : (isEN ? '☐ Not taken yet' : '☐ ยังไม่ได้กิน');
 
-    return `<div class="bio-card${done?' taken':''}" id="biocard-${p.id}" style="--bc:${p.dotColor}">
-      <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:${p.dotColor};border-radius:4px 0 0 4px;"></div>
+    return `<div class="bio-card${done?' taken':''}" id="biocard-${p.id}" style="--bc:${p.dotColor}${done?`;border-color:${p.dotColor}55;background:linear-gradient(160deg,${p.dotColor}0a,var(--card) 55%)`:''}">
       <div class="bio-card-top">
-        <div class="bio-dot" style="background:${p.dotColor}">${p.icon}</div>
-        <div>
+        <div class="bio-dot" style="background:linear-gradient(140deg,${p.dotColor},${p.dotColor}cc)">${p.icon}</div>
+        <div style="flex:1;min-width:0;">
           <div class="bio-name">${p.name}</div>
           <div class="bio-brand">BioActive+ · ${p.form}</div>
         </div>
-        <div class="bio-timing">${displayTiming}</div>
+        <div class="bio-timing">🕐 ${displayTiming}</div>
       </div>
       <div class="bio-benefits">${tagHtmlFinal}</div>
       <div class="bio-note">${displayNote}</div>
       <button class="bio-tick-btn${done?' done':''}" id="biotick-${p.id}"
-        style="${done?`background:${p.dotColor};border-color:${p.dotColor};`:'color:var(--muted2);'}"
+        style="${done?`background:linear-gradient(135deg,${p.dotColor},${p.dotColor}dd);border-color:${p.dotColor};`:'color:var(--muted2);'}"
         onclick="toggleBio('${p.id}')">
         ${tickLabel}
       </button>
@@ -3705,6 +3761,7 @@ function renderBioCards(){
 async function toggleBio(pid){
   bioTodayData[pid] = !bioTodayData[pid];
   renderBioCards();
+  updateBioHero();
   await dbSaveBio(curBioDay, bioTodayData);
   // Refresh stats
   const monthRows = await dbLoadBioMonth(curBioMo);
