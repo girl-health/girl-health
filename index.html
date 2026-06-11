@@ -279,8 +279,9 @@ textarea{min-height:42px;}
   <div class="nav-inner">
     <div class="nav-brand">🌿 GIRL</div>
     <div class="nav-tabs">
+      <div class="ntab active" onclick="goPage('home')" id="ntab-home">🏠 Home</div>
       <div class="ntab" onclick="goPage('profile')" id="ntab-profile">👤 Profile</div>
-      <div class="ntab active" onclick="goPage('log')" id="ntab-log">📝 บันทึกวัน</div>
+      <div class="ntab" onclick="goPage('log')" id="ntab-log">📝 บันทึกวัน</div>
       <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
@@ -293,6 +294,178 @@ textarea{min-height:42px;}
 </nav>
 
 <div class="sync-badge" id="syncBadge">☁️ พร้อม</div>
+
+/* ── HOME DASHBOARD ── */
+.hd-page{padding:62px 14px 88px;}
+.hd-greeting{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.hd-greeting-txt{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text);font-style:italic;}
+.hd-greeting-sub{font-size:.68rem;color:var(--muted2);margin-top:2px;}
+.hd-score-ring{width:48px;height:48px;position:relative;flex-shrink:0;}
+.hd-score-ring svg{width:48px;height:48px;transform:rotate(-90deg);}
+.hd-score-ring-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.hd-score-num{font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;line-height:1;}
+.hd-score-lbl{font-size:.38rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;}
+
+.hd-focus-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
+.hd-focus-ttl{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
+.hd-metric-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.hd-metric-row:last-child{margin-bottom:0;}
+.hd-metric-ico{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.hd-metric-body{flex:1;min-width:0;}
+.hd-metric-name{font-size:.7rem;color:var(--text);margin-bottom:3px;}
+.hd-metric-bar{height:6px;border-radius:3px;background:var(--bg);overflow:hidden;}
+.hd-metric-fill{height:100%;border-radius:3px;transition:width .7s ease;}
+.hd-metric-pct{font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;flex-shrink:0;min-width:32px;text-align:right;}
+
+.hd-gap-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
+.hd-gap-ttl{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
+.hd-gap-item{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px;padding:9px 11px;border-radius:12px;}
+.hd-gap-item:last-child{margin-bottom:0;}
+.hd-gap-ico{font-size:.85rem;line-height:1.6;flex-shrink:0;}
+.hd-gap-msg{font-size:.73rem;color:var(--text);line-height:1.5;}
+.hd-gap-msg strong{font-family:'Kanit',sans-serif;display:block;font-size:.75rem;margin-bottom:1px;}
+
+.hd-trend-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
+.hd-trend-ttl{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
+.hd-trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.hd-trend-box{background:var(--bg);border-radius:12px;padding:10px 8px;text-align:center;}
+.hd-trend-val{font-family:'Kanit',sans-serif;font-size:.95rem;font-weight:700;line-height:1;}
+.hd-trend-name{font-size:.6rem;color:var(--muted2);margin-top:3px;}
+.hd-trend-delta{font-size:.62rem;font-weight:600;margin-top:2px;}
+.hd-trend-up{color:var(--veg);}
+.hd-trend-dn{color:var(--prot);}
+.hd-trend-eq{color:var(--muted2);}
+
+.hd-insight-card{background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border:1px solid rgba(74,124,89,.2);border-radius:18px;padding:14px 15px;margin-bottom:10px;}
+.hd-ins-hdr{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.hd-ins-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;box-shadow:0 2px 8px rgba(74,124,89,.3);}
+.hd-ins-ttl{font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--accent);}
+.hd-ins-sub{font-size:.6rem;color:var(--muted2);}
+.hd-ins-item{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start;}
+.hd-ins-item:last-child{margin-bottom:0;}
+.hd-ins-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.hd-ins-txt{font-size:.73rem;color:var(--text);line-height:1.5;}
+
+.hd-quick-log{position:fixed;bottom:0;left:0;right:0;background:rgba(245,240,232,.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 14px 16px;z-index:140;box-shadow:0 -4px 20px rgba(0,0,0,0.06);}
+.hd-ql-label{font-family:'Kanit',sans-serif;font-size:.65rem;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
+.hd-ql-btns{display:flex;gap:7px;}
+.hd-ql-btn{flex:1;padding:10px 4px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--muted2);font-size:.65rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Kanit',sans-serif;}
+.hd-ql-btn .ql-ico{font-size:1.1rem;}
+.hd-ql-btn:hover{border-color:var(--accent);color:var(--accent);}
+.hd-ql-btn.done{border-color:var(--accent);background:rgba(74,124,89,.1);color:var(--accent);}
+</style>
+</head>
+<body>
+
+<!-- ── HOME DASHBOARD PAGE ── -->
+<div class="page active hd-page" id="page-home">
+
+  <!-- Greeting + Score Ring -->
+  <div class="hd-greeting">
+    <div>
+      <div class="hd-greeting-txt" id="hd-greeting-txt">สวัสดีตอนเช้า, GIRL 🌿</div>
+      <div class="hd-greeting-sub" id="hd-greeting-sub">พร้อมดูแลตัวเองให้ดีที่สุดวันนี้</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;" onclick="goPage('profile')">
+      <div class="hd-score-ring">
+        <svg viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="var(--bg)" stroke-width="4"/>
+          <circle id="hd-ring-circle" cx="24" cy="24" r="20" fill="none" stroke="var(--accent)" stroke-width="4"
+            stroke-dasharray="125.6" stroke-dashoffset="125.6" stroke-linecap="round"
+            style="transition:stroke-dashoffset 1s ease;"/>
+        </svg>
+        <div class="hd-score-ring-val">
+          <div class="hd-score-num" id="hd-score-num" style="color:var(--accent);">—</div>
+        </div>
+      </div>
+      <div style="font-size:.55rem;color:var(--muted2);letter-spacing:.3px;">Health Score</div>
+    </div>
+  </div>
+
+  <!-- Today's Focus: 3 key metrics -->
+  <div class="hd-focus-card">
+    <div class="hd-focus-ttl">Today's Focus — <span id="hd-date-lbl" style="color:var(--accent);font-weight:700;"></span></div>
+
+    <!-- Water -->
+    <div class="hd-metric-row">
+      <div class="hd-metric-ico" style="background:rgba(107,143,163,.1);">💧</div>
+      <div class="hd-metric-body">
+        <div class="hd-metric-name">น้ำ · <span id="hd-water-val" style="font-family:'Kanit',sans-serif;font-weight:700;">—</span> / 2.5 L</div>
+        <div class="hd-metric-bar"><div class="hd-metric-fill" id="hd-water-bar" style="background:var(--sleep);width:0%"></div></div>
+      </div>
+      <div class="hd-metric-pct" id="hd-water-pct" style="color:var(--sleep);">—%</div>
+    </div>
+
+    <!-- Protein -->
+    <div class="hd-metric-row">
+      <div class="hd-metric-ico" style="background:rgba(239,108,108,.1);">🥩</div>
+      <div class="hd-metric-body">
+        <div class="hd-metric-name">โปรตีน · <span id="hd-prot-val" style="font-family:'Kanit',sans-serif;font-weight:700;">—</span> / 100 g</div>
+        <div class="hd-metric-bar"><div class="hd-metric-fill" id="hd-prot-bar" style="background:var(--prot);width:0%"></div></div>
+      </div>
+      <div class="hd-metric-pct" id="hd-prot-pct" style="color:var(--prot);">—%</div>
+    </div>
+
+    <!-- Sleep -->
+    <div class="hd-metric-row">
+      <div class="hd-metric-ico" style="background:rgba(107,143,163,.1);">🌙</div>
+      <div class="hd-metric-body">
+        <div class="hd-metric-name">การนอน · <span id="hd-sleep-val" style="font-family:'Kanit',sans-serif;font-weight:700;">—</span> / 8 h</div>
+        <div class="hd-metric-bar"><div class="hd-metric-fill" id="hd-sleep-bar" style="background:var(--sleep);width:0%"></div></div>
+      </div>
+      <div class="hd-metric-pct" id="hd-sleep-pct" style="color:var(--sleep);">—%</div>
+    </div>
+
+  </div>
+
+  <!-- What's missing today -->
+  <div class="hd-gap-card">
+    <div class="hd-gap-ttl">⚠️ ขาดอะไร / ควรปรับอะไร</div>
+    <div id="hd-gap-list">
+      <div style="text-align:center;padding:10px 0;color:var(--muted2);font-size:.73rem;">กำลังโหลด...</div>
+    </div>
+  </div>
+
+  <!-- 7-day trend -->
+  <div class="hd-trend-card">
+    <div class="hd-trend-ttl">📈 สุขภาพ 7 วันที่ผ่านมา</div>
+    <div class="hd-trend-grid" id="hd-trend-grid">
+      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--sleep);">—</div><div class="hd-trend-name">💤 Sleep avg</div><div class="hd-trend-delta hd-trend-eq">—</div></div>
+      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--prot);">—</div><div class="hd-trend-name">🥩 Protein avg</div><div class="hd-trend-delta hd-trend-eq">—</div></div>
+      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--exercise);">—</div><div class="hd-trend-name">🏋️ Exercise</div><div class="hd-trend-delta hd-trend-eq">—</div></div>
+    </div>
+  </div>
+
+  <!-- AI Insight strip -->
+  <div class="hd-insight-card">
+    <div class="hd-ins-hdr">
+      <div class="hd-ins-av">✨</div>
+      <div>
+        <div class="hd-ins-ttl">AI Health Insight</div>
+        <div class="hd-ins-sub">อัปเดตสำหรับคุณ</div>
+      </div>
+      <button onclick="loadHomeDashboard(true)" style="margin-left:auto;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.25);color:var(--accent);font-size:.65rem;font-family:'Kanit',sans-serif;padding:5px 10px;border-radius:20px;cursor:pointer;font-weight:600;">🔄 รีเฟรช</button>
+    </div>
+    <div id="hd-insight-list">
+      <div style="color:var(--muted2);font-size:.73rem;">กำลังวิเคราะห์...</div>
+    </div>
+  </div>
+
+  <!-- Spacer for bottom bar -->
+  <div style="height:20px;"></div>
+
+  <!-- Quick Log Bar (fixed bottom) -->
+  <div class="hd-quick-log">
+    <div class="hd-ql-label">Quick Log วันนี้</div>
+    <div class="hd-ql-btns">
+      <button class="hd-ql-btn" id="ql-log" onclick="goPage('log')"><span class="ql-ico">📝</span>บันทึก</button>
+      <button class="hd-ql-btn" id="ql-bio" onclick="goPage('bio')"><span class="ql-ico">💊</span>BioActive</button>
+      <button class="hd-ql-btn" id="ql-body" onclick="goPage('body')"><span class="ql-ico">📐</span>Body</button>
+      <button class="hd-ql-btn" id="ql-insight" onclick="goPage('stats')"><span class="ql-ico">📊</span>สถิติ</button>
+    </div>
+  </div>
+
+</div>
 
 <!-- PAGE PROFILE -->
 <div class="page" id="page-profile">
@@ -606,7 +779,7 @@ textarea{min-height:42px;}
 </div>
 
 <!-- PAGE LOG -->
-<div class="page active" id="page-log">
+<div class="page" id="page-log">
   <div class="date-nav">
     <button onclick="chDay(-1)">‹</button>
     <div class="date-lbl" id="dateLbl" onclick="openCalendar()" style="cursor:pointer;user-select:none;" title="Tap to pick a date">—</div>
@@ -2269,7 +2442,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['profile','log','table','stats','body','meals','ing','bio'];
+  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -2277,6 +2450,7 @@ function goPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.getElementById('chatBar').classList.toggle('visible',name==='log');
+  if(name==='home') loadHomeDashboard();
   if(name==='table')renderTable();
   if(name==='stats')renderStats();
   if(name==='ing')renderIng();
@@ -2590,8 +2764,8 @@ async function init(){
     if(savedLang && savedLang !== currentLang){ currentLang = savedLang; applyLang(); }
   } catch(e){}
 
-  // Start on log page
-  goPage('log');
+  // Start on home page
+  goPage('home');
 
   const ok=await setupTables();
   if(ok){
@@ -2600,6 +2774,7 @@ async function init(){
     await migrateBioFromSupps();
     computeGirlScore(); // compute score from real data on startup
     migrateSkinLog();   // migrate localStorage skin data → Supabase (once)
+    loadHomeDashboard(); // load home dashboard after data ready
   }
 }
 
@@ -5622,7 +5797,191 @@ async function computeGirlScore(){
   if(pbScore) pbScore.textContent = total;
 }
 
+// ── HOME DASHBOARD ──
+async function loadHomeDashboard(forceInsight=false){
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+
+  // Greeting by time
+  const h = today.getHours();
+  const greet = h < 12 ? 'สวัสดีตอนเช้า, GIRL 🌿' : h < 17 ? 'สวัสดีตอนบ่าย, GIRL ☀️' : 'สวัสดีตอนเย็น, GIRL 🌙';
+  const sub   = h < 12 ? 'เริ่มวันใหม่อย่างมีพลัง' : h < 17 ? 'ดูแลตัวเองให้ดีช่วงบ่าย' : 'ปิดวันด้วยการพักผ่อนที่ดี';
+  const greetEl = document.getElementById('hd-greeting-txt');
+  const subEl   = document.getElementById('hd-greeting-sub');
+  if(greetEl) greetEl.textContent = greet;
+  if(subEl) subEl.textContent = sub;
+
+  // Date label
+  const dateEl = document.getElementById('hd-date-lbl');
+  if(dateEl) dateEl.textContent = today.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'});
+
+  // ── Load today's data from Supabase ──
+  let todayData = null;
+  try {
+    const {data} = await db.from('health_days')
+      .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
+      .eq('date', todayStr).maybeSingle();
+    todayData = data;
+  } catch(e){}
+
+  // ── Load last 7 days ──
+  let weekData = [];
+  try {
+    const from7 = new Date(today); from7.setDate(today.getDate()-6);
+    const {data} = await db.from('health_days')
+      .select('date,mac_p,water,sl_total_h,sl_min,e1_m,e2_m')
+      .gte('date', from7.toISOString().split('T')[0])
+      .lte('date', todayStr).order('date');
+    weekData = data || [];
+  } catch(e){}
+
+  // ── GIRL Health Score (30-day) ──
+  try {
+    const from30 = new Date(today); from30.setDate(today.getDate()-29);
+    const {data:scoreData} = await db.from('health_days')
+      .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
+      .gte('date', from30.toISOString().split('T')[0])
+      .lte('date', todayStr).order('date');
+    if(scoreData && scoreData.length > 0){
+      const n = scoreData.length;
+      let sleepSum=0, protSum=0, waterSum=0, exSum=0, bioSum=0;
+      scoreData.forEach(d => {
+        const hh = d.sl_total_h || (d.sl_min ? d.sl_min/60 : 0);
+        const sc = d.sl_score || 0;
+        const hScore = hh>=7.5&&hh<=8.5?60:hh>=6.5?40+(hh-6.5)*20:hh>=5?20+(hh-5)*13.3:hh>0?hh*4:0;
+        sleepSum += Math.min(100, hScore + (sc>=80?40:sc>=60?25:sc>0?sc*0.3:0));
+        const p = d.mac_p||0;
+        protSum += p>=90?100:p>=80?70+(p-80)*3:p>=70?50+(p-70)*2:p>=50?30+(p-50):p>0?p*0.4:0;
+        const w = d.water||0;
+        waterSum += w>=2.5?100:w>=2.0?75:w>=1.5?50:w>0?w*20:0;
+        const mins=(d.e1_m||0)+(d.e2_m||0);
+        exSum += mins>=60?100:mins>=45?85:mins>=30?70:mins>=20?50:mins>0?mins*1.5:0;
+        try{ const t=typeof d.bio_taken==='string'?JSON.parse(d.bio_taken||'{}'):(d.bio_taken||{});
+          const cnt=Object.values(t).filter(Boolean).length;
+          bioSum+=cnt>=9?100:cnt>=7?80:cnt>=5?60:cnt>=3?40:cnt>0?20:0; }catch(e){}
+      });
+      const total = Math.round(sleepSum/n*0.25 + protSum/n*0.20 + waterSum/n*0.15 + exSum/n*0.20 + bioSum/n*0.10 + 50*0.10);
+      const numEl = document.getElementById('hd-score-num');
+      const ringEl = document.getElementById('hd-ring-circle');
+      if(numEl) numEl.textContent = total;
+      if(ringEl){
+        const circ = 2 * Math.PI * 20;
+        const offset = circ - (total/100)*circ;
+        setTimeout(()=>{ ringEl.style.strokeDashoffset = offset; }, 200);
+        const col = total>=80?'var(--veg)':total>=60?'var(--grain)':'var(--prot)';
+        ringEl.style.stroke = col;
+        if(numEl) numEl.style.color = col;
+      }
+    }
+  } catch(e){}
+
+  // ── TODAY metrics ──
+  const water   = todayData?.water || 0;
+  const protein = todayData?.mac_p || 0;
+  const sleep   = todayData?.sl_total_h || (todayData?.sl_min ? todayData.sl_min/60 : 0);
+
+  const waterPct  = Math.min(100, Math.round(water/2.5*100));
+  const protPct   = Math.min(100, Math.round(protein/100*100));
+  const sleepPct  = Math.min(100, Math.round(sleep/8*100));
+
+  const setMetric = (valId, barId, pctId, val, unit, pct, col) => {
+    const ve = document.getElementById(valId); if(ve) ve.textContent = val ? val+unit : '—';
+    const be = document.getElementById(barId);  if(be) setTimeout(()=>{ be.style.width=pct+'%'; be.style.background=col; },300);
+    const pe = document.getElementById(pctId);  if(pe){ pe.textContent=pct+'%'; pe.style.color=col; }
+  };
+  setMetric('hd-water-val','hd-water-bar','hd-water-pct', water?water.toFixed(1):0, 'L', waterPct,
+    waterPct>=100?'var(--veg)':waterPct>=60?'var(--sleep)':'var(--prot)');
+  setMetric('hd-prot-val','hd-prot-bar','hd-prot-pct', protein?Math.round(protein):0, 'g', protPct,
+    protPct>=90?'var(--veg)':protPct>=60?'var(--grain)':'var(--prot)');
+  setMetric('hd-sleep-val','hd-sleep-bar','hd-sleep-pct', sleep?sleep.toFixed(1):0, 'h', sleepPct,
+    sleepPct>=93?'var(--veg)':sleepPct>=70?'var(--sleep)':'var(--prot)');
+
+  // ── GAP ANALYSIS ──
+  const gapEl = document.getElementById('hd-gap-list');
+  const gaps = [];
+  const remaining = h < 22;
+
+  if(water < 2.0 && remaining)  gaps.push({type:'warn', ico:'💧', title:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, msg:'เป้าหมาย 2.5L/วัน · ดูแลไต + ผิว + metabolism'});
+  if(protein < 70 && remaining) gaps.push({type:'warn', ico:'🥩', title:`โปรตีนยังขาด ${Math.round(100-protein)}g`, msg:'ควรได้ 90–100g/วัน · ช่วยรักษากล้ามเนื้อ'});
+  if(sleep < 7)   gaps.push({type:'info',  ico:'🌙', title:`นอนน้อยเกิน ${sleep.toFixed(1)}h`, msg:`เป้า 7.5–8.5h · คืนนี้ควรเข้านอนก่อน 22:30`});
+  if(sleep >= 7.5 && sleep <= 8.5) gaps.push({type:'good', ico:'✅', title:'การนอนดีมาก!', msg:`${sleep.toFixed(1)}h · คุณภาพการนอนอยู่ในระดับ optimal`});
+  if(protein >= 90) gaps.push({type:'good', ico:'💪', title:'โปรตีนถึงเป้าหมาย!', msg:`${Math.round(protein)}g · ยอดเยี่ยม รักษาไว้นะ`});
+  if(water >= 2.5)  gaps.push({type:'good', ico:'💧', title:'น้ำครบเป้าแล้ว!', msg:`${water.toFixed(1)}L · ดีมากค่ะ`});
+
+  // Check bio
+  try{
+    const taken = todayData?.bio_taken ? (typeof todayData.bio_taken==='string'?JSON.parse(todayData.bio_taken):todayData.bio_taken) : {};
+    const cnt = Object.values(taken).filter(Boolean).length;
+    if(cnt < 9) gaps.push({type:'warn', ico:'💊', title:`BioActive ยังขาด ${9-cnt} ตัว`, msg:`วันนี้ทาน ${cnt}/9 · อย่าลืม collagen, asta, magnesium ก่อนนอน`});
+    else gaps.push({type:'good', ico:'💊', title:'BioActive ครบทุกตัว! ✨', msg:'9/9 · supplemented perfectly today'});
+  } catch(e){}
+
+  if(gaps.length === 0) gaps.push({type:'good', ico:'🌟', title:'ข้อมูลวันนี้ยังไม่มี', msg:'กด "บันทึก" เพื่อเพิ่มข้อมูลสุขภาพวันนี้ค่ะ'});
+
+  const typeStyle = {
+    good:  'background:rgba(74,124,89,.07);border:1px solid rgba(74,124,89,.18);',
+    warn:  'background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);',
+    info:  'background:rgba(107,143,163,.07);border:1px solid rgba(107,143,163,.2);',
+  };
+  const titleCol = {good:'var(--veg)', warn:'var(--grain)', info:'var(--sleep)'};
+
+  gapEl.innerHTML = gaps.slice(0,4).map(g=>`
+    <div class="hd-gap-item" style="${typeStyle[g.type]||typeStyle.info}border-radius:12px;">
+      <span class="hd-gap-ico">${g.ico}</span>
+      <div class="hd-gap-msg"><strong style="color:${titleCol[g.type]||'var(--sleep)'};">${g.title}</strong>${g.msg}</div>
+    </div>`).join('');
+
+  // ── 7-DAY TREND ──
+  if(weekData.length >= 2){
+    const prev = weekData.slice(0,-1);
+    const prevSleep = prev.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/prev.length;
+    const prevProt  = prev.reduce((s,d)=>s+(d.mac_p||0),0)/prev.length;
+    const prevEx    = prev.reduce((s,d)=>s+(d.e1_m||0)+(d.e2_m||0),0)/prev.length;
+
+    const curSleep = weekData.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/weekData.length;
+    const curProt  = weekData.reduce((s,d)=>s+(d.mac_p||0),0)/weekData.length;
+    const curEx    = weekData.reduce((s,d)=>s+(d.e1_m||0)+(d.e2_m||0),0)/weekData.length;
+
+    const delta = (cur, prev) => {
+      if(!prev) return {sym:'—', cls:'hd-trend-eq'};
+      const d = ((cur-prev)/prev*100).toFixed(0);
+      return d>0?{sym:`▲ ${Math.abs(d)}%`,cls:'hd-trend-up'}:d<0?{sym:`▼ ${Math.abs(d)}%`,cls:'hd-trend-dn'}:{sym:'—',cls:'hd-trend-eq'};
+    };
+    const dS = delta(curSleep,prevSleep), dP = delta(curProt,prevProt), dE = delta(curEx,prevEx);
+    const trendEl = document.getElementById('hd-trend-grid');
+    if(trendEl) trendEl.innerHTML = `
+      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--sleep);">${curSleep>0?curSleep.toFixed(1)+'h':'—'}</div><div class="hd-trend-name">💤 Sleep avg</div><div class="hd-trend-delta ${dS.cls}">${dS.sym}</div></div>
+      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--prot);">${curProt>0?Math.round(curProt)+'g':'—'}</div><div class="hd-trend-name">🥩 Protein avg</div><div class="hd-trend-delta ${dP.cls}">${dP.sym}</div></div>
+      <div class="hd-trend-box"><div class="hd-trend-val" style="color:var(--exercise);">${curEx>0?Math.round(curEx)+'m':'—'}</div><div class="hd-trend-name">🏋️ Exercise</div><div class="hd-trend-delta ${dE.cls}">${dE.sym}</div></div>`;
+  }
+
+  // ── AI INSIGHT (static smart tips based on data) ──
+  const insEl = document.getElementById('hd-insight-list');
+  const insights = [];
+
+  if(sleep > 0 && sleep < 7)   insights.push({col:'var(--sleep)',   dot:'var(--sleep)',   txt:'นอนน้อยกว่าเป้า — พยายามเข้านอนก่อน 22:00 คืนนี้เพื่อให้ได้ 7.5h+'});
+  if(sleep >= 7.5)              insights.push({col:'var(--veg)',     dot:'var(--veg)',     txt:`การนอน ${sleep.toFixed(1)}h ดีเยี่ยม — ร่างกายฟื้นตัวได้ดีมาก ✨`});
+  if(protein > 0 && protein<80) insights.push({col:'var(--prot)',   dot:'var(--prot)',   txt:`โปรตีนยังต่ำ (${Math.round(protein)}g) — ลองเพิ่มไข่ หรือแซลมอนในมื้อถัดไป`});
+  if(protein >= 90)              insights.push({col:'var(--veg)',    dot:'var(--veg)',    txt:`โปรตีน ${Math.round(protein)}g — ถึงเป้าหมายแล้ว! กล้ามเนื้อกำลังฟื้นตัว 💪`});
+  if(water > 0 && water < 2.0)  insights.push({col:'var(--dairy)',  dot:'var(--sleep)',  txt:`ดื่มน้ำแค่ ${water.toFixed(1)}L — ต้องการ ${(2.5-water).toFixed(1)}L อีก ดื่มทีละ 200ml ทุกชั่วโมง`});
+
+  // Trend insight
+  if(weekData.length >= 5){
+    const avgSleep7 = weekData.reduce((s,d)=>s+(d.sl_total_h||(d.sl_min?d.sl_min/60:0)),0)/weekData.length;
+    if(avgSleep7 >= 7.5) insights.push({col:'var(--accent)', dot:'var(--accent)', txt:`ค่าเฉลี่ยการนอน 7 วัน = ${avgSleep7.toFixed(1)}h — แนวโน้มดีขึ้นต่อเนื่อง 🔥`});
+  }
+
+  if(insights.length === 0) insights.push({col:'var(--muted2)', dot:'var(--muted2)', txt:'บันทึกข้อมูลวันนี้เพื่อรับ insight ส่วนตัว ✨'});
+
+  insEl.innerHTML = insights.slice(0,3).map(i=>`
+    <div class="hd-ins-item">
+      <div class="hd-ins-dot" style="background:${i.dot};"></div>
+      <div class="hd-ins-txt" style="color:${i.col!=='var(--muted2)'?'var(--text)':'var(--muted2)'};">${i.txt}</div>
+    </div>`).join('');
+}
+
 init();
+
 </script>
 </body>
 </html>
