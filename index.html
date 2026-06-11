@@ -5926,6 +5926,8 @@ async function loadHomeDashboard(force){
   const hello   = h<12 ? (isEN?'Good morning, GIRL':'สวัสดีตอนเช้า, GIRL') : h<17 ? (isEN?'Good afternoon, GIRL':'สวัสดีตอนบ่าย, GIRL') : (isEN?'Good evening, GIRL':'สวัสดีตอนเย็น, GIRL');
   const helloSub= h<12 ? (isEN?'A fresh start to your day':'เริ่มวันใหม่อย่างมีพลัง') : h<17 ? (isEN?'Keep taking care of yourself':'ดูแลตัวเองให้ดีช่วงบ่าย') : (isEN?'Wind down and recover well':'ปิดวันด้วยการพักผ่อนที่ดี');
   const setTx = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  setTx('hd-hello', hello);
+  setTx('hd-hello-sub', helloSub);
   // ── Load today's data — merge with most recent complete day ──
   let td=null;
   let dataDateStr = todayStr;
