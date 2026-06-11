@@ -387,6 +387,87 @@ textarea{min-height:42px;}
 .hd-water-btn:active{transform:scale(.94);background:rgba(107,143,163,.16);}
 .hd-water-btn:disabled{opacity:.5;cursor:not-allowed;}
 
+
+/* ══════════ PROFILE · PREMIUM ══════════ */
+.pf-page{padding:64px 16px 40px;max-width:480px;margin:0 auto;}
+
+/* Hero */
+.pf-hero{position:relative;overflow:hidden;background:linear-gradient(140deg,#4A7C59 0%,#3d6b4a 45%,#C9A96E 130%);border-radius:26px;padding:22px 20px;margin-bottom:12px;box-shadow:0 8px 30px rgba(74,124,89,.22);}
+.pf-hero-glow{position:absolute;top:-50px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);}
+.pf-hero-top{display:flex;align-items:center;gap:14px;position:relative;}
+.pf-avatar{width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,.32);display:flex;align-items:center;justify-content:center;font-size:1.9rem;flex-shrink:0;}
+.pf-name{font-family:'Playfair Display',serif;font-size:1.18rem;color:#fff;font-weight:700;line-height:1.15;margin-bottom:3px;}
+.pf-sub{font-family:'Kanit',sans-serif;font-size:.72rem;color:rgba(255,255,255,.82);letter-spacing:.4px;}
+.pf-meta{font-family:'Kanit',sans-serif;font-size:.66rem;color:rgba(255,255,255,.6);margin-top:4px;}
+.pf-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px;position:relative;}
+.pf-chip{background:rgba(255,255,255,.13);border-radius:13px;padding:9px 6px;text-align:center;}
+.pf-chip-hl{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.25);}
+.pf-chip-v{font-family:'Kanit',sans-serif;font-size:1rem;color:#fff;font-weight:700;line-height:1;}
+.pf-chip-l{font-size:.55rem;color:rgba(255,255,255,.68);text-transform:uppercase;letter-spacing:.5px;margin-top:3px;}
+
+/* Age banners */
+.pf-age-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:12px;}
+.pf-age-card{border-radius:20px;padding:16px 17px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.pf-age-fitness{background:linear-gradient(140deg,rgba(74,124,89,.12),rgba(201,169,110,.08));border:1px solid rgba(74,124,89,.18);}
+.pf-age-skin{background:linear-gradient(140deg,rgba(255,126,179,.1),rgba(212,132,90,.07));border:1px solid rgba(255,126,179,.18);}
+.pf-age-label{font-family:'Playfair Display',serif;font-style:italic;font-size:.74rem;color:var(--muted2);margin-bottom:6px;}
+.pf-age-big{font-family:'Kanit',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);line-height:.85;letter-spacing:-1px;display:flex;align-items:baseline;gap:4px;}
+.pf-age-unit{font-family:'Sarabun',sans-serif;font-size:.62rem;font-weight:400;color:var(--muted2);letter-spacing:0;}
+.pf-age-diff{font-family:'Kanit',sans-serif;font-size:.7rem;font-weight:700;margin-top:8px;}
+
+/* Generic card */
+.pf-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 19px;margin-bottom:12px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+.pf-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.pf-card-head-l{display:flex;align-items:center;gap:11px;}
+.pf-card-ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.pf-card-ttl{font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);letter-spacing:.2px;}
+.pf-card-sub{font-family:'Sarabun',sans-serif;font-size:.62rem;color:var(--muted2);margin-top:2px;}
+.pf-edit-btn{padding:6px 13px;border-radius:30px;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.66rem;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.pf-edit-btn:active{transform:scale(.95);}
+.pf-input{background:var(--bg);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:9px 11px;outline:none;width:100%;}
+.pf-input:focus{border-color:var(--accent);}
+.pf-save-btn{width:100%;padding:12px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:13px;cursor:pointer;}
+
+/* Body composition grid */
+.pf-body-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.pf-body-box{background:var(--bg);border-radius:14px;padding:13px 8px;text-align:center;}
+.pf-body-v{font-family:'Kanit',sans-serif;font-size:1.32rem;font-weight:700;line-height:1;letter-spacing:-.5px;}
+.pf-body-l{font-size:.57rem;color:var(--muted2);margin-top:5px;line-height:1.3;}
+
+/* Score card */
+.pf-score-card{background:linear-gradient(140deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.18);border-radius:22px;padding:18px 19px;margin-bottom:12px;}
+.pf-score-head{display:flex;align-items:center;gap:13px;margin-bottom:14px;}
+.pf-score-ring{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(74,124,89,.3);flex-shrink:0;}
+.pf-score-num{font-family:'Kanit',sans-serif;font-size:1.42rem;font-weight:800;color:#fff;line-height:.9;letter-spacing:-1px;}
+.pf-score-max{font-size:.46rem;color:rgba(255,255,255,.82);margin-top:1px;}
+.pf-score-meta{flex:1;min-width:0;}
+.pf-score-ttl{font-family:'Playfair Display',serif;font-size:.98rem;color:var(--accent);font-weight:700;}
+.pf-score-period{font-size:.62rem;color:var(--muted2);margin-top:3px;}
+.pf-score-label{font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--accent);font-weight:700;padding:6px 12px;background:rgba(74,124,89,.1);border-radius:30px;white-space:nowrap;flex-shrink:0;}
+.pf-recalc-btn{width:100%;margin-top:12px;padding:9px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.22);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.75rem;border-radius:12px;cursor:pointer;font-weight:600;}
+
+/* Wellness list */
+.pf-well-list{display:flex;flex-direction:column;gap:10px;}
+.pf-well-row{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--bg);border-radius:16px;border-left:3px solid;}
+.pf-well-ico{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0;}
+.pf-well-body{flex:1;min-width:0;}
+.pf-well-name{font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;}
+.pf-well-desc{font-size:.65rem;color:var(--muted2);line-height:1.55;}
+
+/* Goals */
+.pf-quote{padding:11px 14px;background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:14px;border-left:3px solid var(--accent);margin-bottom:14px;}
+.pf-quote div{font-size:.69rem;color:var(--accent);line-height:1.6;font-style:italic;}
+.pf-goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pf-goal{background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;}
+.pf-goal-ic{font-size:1.45rem;margin-bottom:6px;}
+.pf-goal-v{font-family:'Kanit',sans-serif;font-size:1.12rem;color:var(--text);font-weight:700;letter-spacing:-.3px;}
+.pf-goal-l{font-size:.61rem;color:var(--muted2);margin-top:3px;}
+
+/* Medication */
+.pf-med{border-left:3px solid;border-radius:0 13px 13px 0;padding:11px 14px;}
+.pf-med-ttl{font-family:'Kanit',sans-serif;font-size:.74rem;font-weight:600;margin-bottom:4px;}
+.pf-med-desc{font-size:.68rem;color:var(--text);line-height:1.65;}
+
 </style>
 </head>
 <body>
@@ -530,328 +611,209 @@ textarea{min-height:42px;}
 </div>
 
 <!-- PAGE PROFILE -->
-<div class="page" id="page-profile">
-  <!-- Hero card -->
-  <div style="background:linear-gradient(135deg,#4A7C59 0%,#3d6b4a 40%,#C9A96E 100%);border-radius:20px;padding:22px 18px 18px;margin-bottom:14px;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.06);"></div>
-    <div style="position:absolute;bottom:-30px;left:-10px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04);"></div>
-    <div style="display:flex;align-items:center;gap:14px;position:relative;">
-      <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;">🌿</div>
-      <div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;color:#fff;font-weight:700;margin-bottom:2px;">Passaranun Siravitchayangkul</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:rgba(255,255,255,.75);letter-spacing:.5px;">GIRL · Health Journal</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:.67rem;color:rgba(255,255,255,.55);margin-top:3px;">07 May 1994 · Age 32 · Female</div>
+<div class="page pf-page" id="page-profile">
+
+  <!-- HERO -->
+  <div class="pf-hero">
+    <div class="pf-hero-glow"></div>
+    <div class="pf-hero-top">
+      <div class="pf-avatar">🌿</div>
+      <div class="pf-id">
+        <div class="pf-name">Passaranun Siravitchayangkul</div>
+        <div class="pf-sub">GIRL · Personal Longevity OS</div>
+        <div class="pf-meta">07 May 1994 · <span class="lang-th">อายุ 32 · หญิง</span><span class="lang-en" style="display:none;">Age 32 · Female</span></div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;position:relative;">
-      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:8px;text-align:center;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.95rem;color:#fff;font-weight:700;">32</div>
-        <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">Age</div>
-      </div>
-      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:8px;text-align:center;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.95rem;color:#fff;font-weight:700;">♀</div>
-        <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">Female</div>
-      </div>
-      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:8px;text-align:center;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.95rem;color:#fff;font-weight:700;">B</div>
-        <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">Blood Type</div>
-      </div>
-      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.2);">
-        <div style="font-family:'Kanit',sans-serif;font-size:.88rem;color:#fff;font-weight:700;letter-spacing:.5px;">ENFJ</div>
-        <div style="font-size:.58rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;">MBTI</div>
-      </div>
+    <div class="pf-chips">
+      <div class="pf-chip"><div class="pf-chip-v">32</div><div class="pf-chip-l">Age</div></div>
+      <div class="pf-chip"><div class="pf-chip-v">♀</div><div class="pf-chip-l">Female</div></div>
+      <div class="pf-chip"><div class="pf-chip-v">B</div><div class="pf-chip-l">Blood</div></div>
+      <div class="pf-chip pf-chip-hl"><div class="pf-chip-v" style="font-size:.92rem;">ENFJ</div><div class="pf-chip-l">MBTI</div></div>
     </div>
   </div>
 
-  <!-- Wellness System -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:0 3px 16px rgba(0,0,0,0.04);">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-      <div style="width:36px;height:36px;border-radius:12px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;">🌿</div>
-      <div>
-        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);">Wellness System</div>
-        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);display:none;">Wellness System</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:1px;">ระบบดูแลสุขภาพส่วนตัว</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:1px;display:none;">Your personal longevity system</div>
-      </div>
+  <!-- AGE BANNERS · Fitness + Skin -->
+  <div class="pf-age-row">
+    <div class="pf-age-card pf-age-fitness">
+      <div class="pf-age-label"><span class="lang-th">อายุร่างกาย</span><span class="lang-en" style="display:none;">Fitness Age</span></div>
+      <div class="pf-age-big"><span id="pb-fitness-age">25</span><span class="pf-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span></span></div>
+      <div class="pf-age-diff" style="color:var(--veg);">🎉 <span id="pb-age-diff">6.1 yrs younger</span></div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:11px;">
-
-      <!-- Nutrition -->
-      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #4A7C59;">
-        <div style="width:38px;height:38px;border-radius:11px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🍳</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Nutrition</div>
-          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">ทำอาหารเองทุกวัน · ไม่เติมน้ำตาล · ไม่กินอาหารแปรรูป · รับเฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
-          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Fresh home-cooking daily · No added sugar · Zero processed food · Natural fruit sugars only</div>
-        </div>
-      </div>
-
-      <!-- Training -->
-      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #8B5E52;">
-        <div style="width:38px;height:38px;border-radius:11px;background:rgba(139,94,82,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🏋️</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Training</div>
-          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">เวทเทรนนิ่ง · ลู่วิ่งความชัน · วิ่งกลางแจ้ง · เทนนิส — สม่ำเสมอ</div>
-          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Weight training · Treadmill incline · Outdoor run · Tennis — consistent sessions</div>
-        </div>
-      </div>
-
-      <!-- Recovery -->
-      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #6B8FA3;">
-        <div style="width:38px;height:38px;border-radius:11px;background:rgba(107,143,163,.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">❄️</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Recovery</div>
-          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">Ice Bath ฟื้นฟูกล้ามเนื้อ · Sauna detox &amp; ผ่อนคลาย</div>
-          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Ice bath for muscle recovery · Sauna for detox &amp; relaxation</div>
-        </div>
-      </div>
-
-      <!-- Garmin Tracking -->
-      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #7A6B8A;">
-        <div style="width:38px;height:38px;border-radius:11px;background:rgba(122,107,138,.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">⌚</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Garmin Tracking</div>
-          <div class="lang-th" style="font-size:.66rem;color:var(--muted2);line-height:1.55;">Sleep Score · HRV · RHR · Body Battery — ติดตามทุกวัน</div>
-          <div class="lang-en" style="font-size:.66rem;color:var(--muted2);line-height:1.55;display:none;">Sleep Score · HRV · RHR · Body Battery — tracked daily</div>
-        </div>
-      </div>
-
-      <!-- Supplement Protocol -->
-      <div style="display:flex;align-items:flex-start;gap:13px;padding:14px;background:var(--bg);border-radius:17px;border-left:3px solid #C9A96E;">
-        <div style="width:38px;height:38px;border-radius:11px;background:rgba(201,169,110,.14);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">💊</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;">Supplement Protocol</div>
-          <div style="font-size:.66rem;color:var(--muted2);line-height:1.55;">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3;">Magnesium (ทุกคืน)</strong> · Tribiotic · Immuchew · Juvecol</div>
-        </div>
-      </div>
-
+    <div class="pf-age-card pf-age-skin">
+      <div class="pf-age-label"><span class="lang-th">อายุผิว</span><span class="lang-en" style="display:none;">Skin Age</span></div>
+      <div class="pf-age-big" style="color:var(--fruit);"><span id="pb-skin-age">25</span><span class="pf-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span></span></div>
+      <div class="pf-age-diff skin-age-diff" style="color:var(--fruit);">✨ 7 yrs younger</div>
     </div>
   </div>
 
-  <!-- Tracking & Goals -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:0 3px 16px rgba(0,0,0,0.04);">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-      <div style="width:36px;height:36px;border-radius:12px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:1rem;">📊</div>
-      <div>
-        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);">เป้าหมายสุขภาพ</div>
-        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.92rem;font-weight:600;color:var(--text);display:none;">Daily Goals</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:1px;">เป้าหมายรายวันเพื่อ longevity</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:1px;display:none;">Daily targets for longevity</div>
-      </div>
-    </div>
-    <!-- Longevity note -->
-    <div style="margin-bottom:16px;padding:11px 14px;background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:14px;border-left:3px solid var(--accent);">
-      <div class="lang-th" style="font-size:.69rem;color:var(--accent);line-height:1.6;font-style:italic;">"รับเฉพาะน้ำตาลธรรมชาติ งดน้ำตาลเพิ่ม — ใช้ชีวิตอย่างมีคุณภาพและยั่งยืน"</div>
-      <div class="lang-en" style="font-size:.69rem;color:var(--accent);line-height:1.6;font-style:italic;display:none;">"Natural sugars only. No added sugar. Live with intention — strong, sustainable, built to last."</div>
-    </div>
-    <!-- Goal cards: row1 water+sleep · row2 calories+protein · row3 fiber+fruitsugar -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:6px;">💧</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">2.5L+</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">น้ำดื่มต่อวัน</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Daily water</div>
-      </div>
-      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:6px;">🌙</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">7.5–8.5h</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">เป้าการนอน</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Sleep target</div>
-      </div>
-      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:6px;">🔥</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">1,600–1,850</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">แคลอรี่ / วัน</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">kcal / day</div>
-      </div>
-      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:6px;">🥩</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">90–110g</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">โปรตีน / วัน</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Protein / day</div>
-      </div>
-      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:6px;">🥦</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">25–30g</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">ไฟเบอร์ / วัน</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Fiber / day</div>
-      </div>
-      <div style="background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:6px;">🍎</div>
-        <div style="font-family:'Kanit',sans-serif;font-size:1.15rem;color:var(--text);font-weight:700;letter-spacing:-.3px;">15–25g</div>
-        <div class="lang-th" style="font-size:.62rem;color:var(--muted2);margin-top:3px;">น้ำตาลผลไม้</div>
-        <div class="lang-en" style="font-size:.62rem;color:var(--muted2);margin-top:3px;display:none;">Fruit sugar</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Body Stats — editable -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);" id="profile-body-card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:30px;height:30px;border-radius:7px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem;">📐</div>
+  <!-- BODY COMPOSITION -->
+  <div class="pf-card" id="profile-body-card">
+    <div class="pf-card-head">
+      <div class="pf-card-head-l">
+        <div class="pf-card-ico" style="background:rgba(201,169,110,.14);">📐</div>
         <div>
-          <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);">สัดส่วนร่างกาย</div>
-          <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:var(--grain);display:none;">Body Composition</div>
+          <div class="pf-card-ttl"><span class="lang-th">สัดส่วนร่างกาย</span><span class="lang-en" style="display:none;">Body Composition</span></div>
+          <div class="pf-card-sub">📅 <span class="lang-th">อัปเดต:</span><span class="lang-en" style="display:none;">Updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
         </div>
       </div>
-      <button onclick="toggleProfileEdit()" id="profile-edit-btn" style="padding:5px 12px;border-radius:18px;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.65rem;cursor:pointer;">✏️ <span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
+      <button onclick="toggleProfileEdit()" id="profile-edit-btn" class="pf-edit-btn">✏️ <span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
     </div>
     <!-- Display mode -->
     <div id="profile-body-display">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;">
-        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);" id="pb-weight-val">48.7</div>
-          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">⚖️ น้ำหนัก kg</div>
-          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">⚖️ Weight kg</div>
-        </div>
-        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--prot);" id="pb-fat-val">25.3%</div>
-          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🔥 ไขมัน</div>
-          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">🔥 Body Fat</div>
-        </div>
-        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--veg);" id="pb-muscle-val">20.2</div>
-          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">💪 กล้ามเนื้อ kg</div>
-          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">💪 Muscle kg</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;">
-        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);" id="pb-bmi-val">19.0</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">📊 BMI</div>
-        </div>
-        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--veg);" id="pb-visceral-val">4</div>
-          <div class="lang-th" style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🏃 ไขมันช่องท้อง</div>
-          <div class="lang-en" style="font-size:.58rem;color:var(--muted2);margin-top:1px;display:none;">🏃 Visceral Fat</div>
-        </div>
-        <div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--grain);" id="pb-score-val">82</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:1px;">🌿 GIRL Score</div>
-        </div>
-      </div>
-
-      <!-- Fitness Age + Skin Age banners -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-      <div style="background:linear-gradient(135deg,rgba(74,124,89,.1),rgba(201,169,110,.08));border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <div style="font-family:'Playfair Display',serif;font-size:.72rem;color:var(--muted2);margin-bottom:2px;">
-            <span class="lang-th">อายุร่างกาย</span>
-            <span class="lang-en" style="display:none;">Fitness Age</span>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:5px;">
-            <div style="font-family:'Kanit',sans-serif;font-size:1.5rem;font-weight:700;color:var(--accent);" id="pb-fitness-age">25</div>
-            <div style="font-size:.65rem;color:var(--muted2);">
-              <span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:right;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--veg);">🎉 <span id="pb-age-diff">6.1 yrs younger</span></div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">
-            <span class="lang-th">กว่าอายุจริง 32 ปี</span>
-            <span class="lang-en" style="display:none;">vs age 32</span>
-          </div>
-        </div>
-      </div>
-      <div style="background:linear-gradient(135deg,rgba(255,126,179,.08),rgba(212,132,90,.06));border:1px solid rgba(255,126,179,.2);border-radius:11px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <div style="font-family:'Playfair Display',serif;font-size:.72rem;color:var(--muted2);margin-bottom:2px;">
-            <span class="lang-th">อายุผิว</span>
-            <span class="lang-en" style="display:none;">Skin Age</span>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:5px;">
-            <div style="font-family:'Kanit',sans-serif;font-size:1.5rem;font-weight:700;color:var(--fruit);" id="pb-skin-age">25</div>
-            <div style="font-size:.65rem;color:var(--muted2);">
-              <span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:right;">
-          <div class="skin-age-diff" style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--fruit);">✨ 7 yrs younger</div>
-          <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">
-            <span class="lang-th">กว่าอายุจริง 32 ปี</span>
-            <span class="lang-en" style="display:none;">vs age 32</span>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      <div style="padding:7px 11px;background:rgba(74,124,89,.06);border-radius:9px;">
-        <div style="font-size:.63rem;color:var(--muted2);">📅 <span class="lang-th">อัปเดตล่าสุด:</span><span class="lang-en" style="display:none;">Last updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
+      <div class="pf-body-grid">
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-weight-val">48.7</div><div class="pf-body-l">⚖️ <span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> kg</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--prot);" id="pb-fat-val">25.3%</div><div class="pf-body-l">🔥 <span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span></div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-muscle-val">20.2</div><div class="pf-body-l">💪 <span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> kg</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-bmi-val">19.0</div><div class="pf-body-l">📊 BMI</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-visceral-val">4</div><div class="pf-body-l">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral</span></div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--grain);" id="pb-score-val">82</div><div class="pf-body-l">🌿 GIRL Score</div></div>
       </div>
     </div>
     <!-- Edit mode -->
     <div id="profile-body-edit" style="display:none;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-        <div><label class="lbl">⚖️ <span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> (kg)</label><input type="number" id="pb-weight-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">🔥 <span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span> (%)</label><input type="number" id="pb-fat-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">💪 <span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> (kg)</label><input type="number" id="pb-muscle-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">📊 BMI</label><input type="number" id="pb-bmi-in" step="0.1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">🌿 GIRL Health Score</label><input type="number" id="pb-score-in" step="1" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">🎂 Fitness Age</label><input type="number" id="pb-fitpage-in" step="0.1" placeholder="25" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-        <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
+        <div><label class="lbl">⚖️ <span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> (kg)</label><input type="number" id="pb-weight-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl">🔥 <span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span> (%)</label><input type="number" id="pb-fat-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl">💪 <span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> (kg)</label><input type="number" id="pb-muscle-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl">📊 BMI</label><input type="number" id="pb-bmi-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" class="pf-input"></div>
+        <div><label class="lbl">🌿 GIRL Score</label><input type="number" id="pb-score-in" step="1" class="pf-input"></div>
+        <div><label class="lbl">🎂 Fitness Age</label><input type="number" id="pb-fitpage-in" step="0.1" placeholder="25" class="pf-input"></div>
+        <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" class="pf-input"></div>
       </div>
-      <div style="margin-bottom:8px;"><label class="lbl">📅 <span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.85rem;padding:8px 10px;outline:none;width:100%;"></div>
-      <button onclick="saveProfileBody()" style="width:100%;padding:11px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;">💾 <span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
+      <div style="margin-bottom:10px;"><label class="lbl">📅 <span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" class="pf-input"></div>
+      <button onclick="saveProfileBody()" class="pf-save-btn">💾 <span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
     </div>
   </div>
 
-  <!-- GIRL Health Score — computed from real logs -->
-  <div style="background:linear-gradient(135deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.2);border-radius:16px;padding:14px 15px;margin-bottom:12px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(74,124,89,.3);flex-shrink:0;">
-          <div style="text-align:center;"><div style="font-family:'Kanit',sans-serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1;" id="girl-health-score">—</div><div style="font-size:.42rem;color:rgba(255,255,255,.8);">/100</div></div>
-        </div>
+  <!-- GIRL HEALTH SCORE -->
+  <div class="pf-score-card">
+    <div class="pf-score-head">
+      <div class="pf-score-ring">
+        <div class="pf-score-num" id="girl-health-score">—</div>
+        <div class="pf-score-max">/100</div>
+      </div>
+      <div class="pf-score-meta">
+        <div class="pf-score-ttl">GIRL Health Score</div>
+        <div class="pf-score-period" id="score-period-lbl">คำนวณจากบันทึก 30 วันล่าสุด</div>
+      </div>
+      <div class="pf-score-label" id="score-label">—</div>
+    </div>
+    <div id="score-breakdown" style="display:flex;flex-direction:column;gap:6px;margin-top:4px;"></div>
+    <button onclick="computeGirlScore()" class="pf-recalc-btn">🔄 <span class="lang-th">คำนวณใหม่</span><span class="lang-en" style="display:none;">Recalculate</span></button>
+  </div>
+
+  <!-- WELLNESS SYSTEM -->
+  <div class="pf-card">
+    <div class="pf-card-head" style="margin-bottom:15px;">
+      <div class="pf-card-head-l">
+        <div class="pf-card-ico" style="background:rgba(74,124,89,.1);">🌿</div>
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:.88rem;color:var(--accent);font-weight:700;">GIRL Health Score</div>
-          <div style="font-size:.6rem;color:var(--muted2);margin-top:2px;" id="score-period-lbl">คำนวณจากบันทึก 30 วันล่าสุด</div>
+          <div class="pf-card-ttl">Wellness System</div>
+          <div class="pf-card-sub"><span class="lang-th">ระบบดูแลสุขภาพส่วนตัว</span><span class="lang-en" style="display:none;">Your personal longevity system</span></div>
         </div>
       </div>
-      <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--accent);font-weight:700;padding:5px 10px;background:rgba(74,124,89,.1);border-radius:20px;white-space:nowrap;" id="score-label">—</div>
     </div>
-    <!-- Score breakdown bars -->
-    <div id="score-breakdown" style="display:flex;flex-direction:column;gap:5px;"></div>
-    <button onclick="computeGirlScore()" style="width:100%;margin-top:10px;padding:8px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.25);color:var(--accent);font-family:'Kanit',sans-serif;font-size:.75rem;border-radius:10px;cursor:pointer;font-weight:600;">🔄 คำนวณใหม่</button>
+    <div class="pf-well-list">
+      <div class="pf-well-row" style="border-left-color:#4A7C59;">
+        <div class="pf-well-ico" style="background:rgba(74,124,89,.1);">🍳</div>
+        <div class="pf-well-body">
+          <div class="pf-well-name">Nutrition</div>
+          <div class="pf-well-desc lang-th">ทำอาหารเองทุกวัน · ไม่เติมน้ำตาล · ไม่กินอาหารแปรรูป · รับเฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
+          <div class="pf-well-desc lang-en" style="display:none;">Fresh home-cooking daily · No added sugar · Zero processed food · Natural fruit sugars only</div>
+        </div>
+      </div>
+      <div class="pf-well-row" style="border-left-color:#8B5E52;">
+        <div class="pf-well-ico" style="background:rgba(139,94,82,.1);">🏋️</div>
+        <div class="pf-well-body">
+          <div class="pf-well-name">Training</div>
+          <div class="pf-well-desc lang-th">เวทเทรนนิ่ง · ลู่วิ่งความชัน · วิ่งกลางแจ้ง · เทนนิส — สม่ำเสมอ</div>
+          <div class="pf-well-desc lang-en" style="display:none;">Weight training · Treadmill incline · Outdoor run · Tennis — consistent</div>
+        </div>
+      </div>
+      <div class="pf-well-row" style="border-left-color:#6B8FA3;">
+        <div class="pf-well-ico" style="background:rgba(107,143,163,.12);">❄️</div>
+        <div class="pf-well-body">
+          <div class="pf-well-name">Recovery</div>
+          <div class="pf-well-desc lang-th">Ice Bath ฟื้นฟูกล้ามเนื้อ · Sauna detox &amp; ผ่อนคลาย</div>
+          <div class="pf-well-desc lang-en" style="display:none;">Ice bath for muscle recovery · Sauna for detox &amp; relaxation</div>
+        </div>
+      </div>
+      <div class="pf-well-row" style="border-left-color:#7A6B8A;">
+        <div class="pf-well-ico" style="background:rgba(122,107,138,.12);">⌚</div>
+        <div class="pf-well-body">
+          <div class="pf-well-name">Garmin Tracking</div>
+          <div class="pf-well-desc lang-th">Sleep Score · HRV · RHR · Body Battery — ติดตามทุกวัน</div>
+          <div class="pf-well-desc lang-en" style="display:none;">Sleep Score · HRV · RHR · Body Battery — tracked daily</div>
+        </div>
+      </div>
+      <div class="pf-well-row" style="border-left-color:#C9A96E;">
+        <div class="pf-well-ico" style="background:rgba(201,169,110,.14);">💊</div>
+        <div class="pf-well-body">
+          <div class="pf-well-name">Supplement Protocol</div>
+          <div class="pf-well-desc">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3;">Magnesium (<span class="lang-th">ทุกคืน</span><span class="lang-en" style="display:none;">nightly</span>)</strong> · Tribiotic · Immuchew · Juvecol</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Health Conditions + Physician Notes — merged at bottom -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-      <div style="width:30px;height:30px;border-radius:7px;background:rgba(192,57,43,.08);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🩺</div>
-      <div>
-        <div class="lang-th" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:#C0392B;">สุขภาพ &amp; ยา</div>
-        <div class="lang-en" style="font-family:'Kanit',sans-serif;font-size:.87rem;color:#C0392B;display:none;">Health &amp; Medication</div>
-        <div class="lang-th" style="font-size:.6rem;color:var(--muted2);">อยู่ในการดูแลของแพทย์</div>
-        <div class="lang-en" style="font-size:.6rem;color:var(--muted2);display:none;">Under physician supervision</div>
+  <!-- DAILY GOALS -->
+  <div class="pf-card">
+    <div class="pf-card-head" style="margin-bottom:14px;">
+      <div class="pf-card-head-l">
+        <div class="pf-card-ico" style="background:rgba(201,169,110,.12);">📊</div>
+        <div>
+          <div class="pf-card-ttl"><span class="lang-th">เป้าหมายสุขภาพ</span><span class="lang-en" style="display:none;">Daily Goals</span></div>
+          <div class="pf-card-sub"><span class="lang-th">เป้าหมายรายวันเพื่อ longevity</span><span class="lang-en" style="display:none;">Daily targets for longevity</span></div>
+        </div>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:8px;">
-
-      <div style="background:rgba(212,96,122,.05);border-left:3px solid #D4607A;border-radius:0 10px 10px 0;padding:10px 13px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:#D4607A;font-weight:600;margin-bottom:4px;">🌸 <span class="lang-th">ยาคุมกำเนิด · ฮอร์โมน</span><span class="lang-en" style="display:none;">Hormonal Contraceptive</span></div>
-        <div class="lang-th" style="font-size:.68rem;color:var(--text);line-height:1.65;">รับประทานต่อเนื่องมากกว่า 10 ปี เพื่อควบคุมฮอร์โมนและรอบเดือน อยู่ในการดูแลของแพทย์</div>
-        <div class="lang-en" style="font-size:.68rem;color:var(--text);line-height:1.65;display:none;">Hormonal contraceptives for 10+ years to regulate menstrual cycle &amp; hormone balance — under physician supervision.</div>
-      </div>
-
-      <div style="background:rgba(107,143,163,.05);border-left:3px solid #6B8FA3;border-radius:0 10px 10px 0;padding:10px 13px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:#6B8FA3;font-weight:600;margin-bottom:4px;">🌙 <span class="lang-th">ยานอนหลับ · ยาคลายเครียด</span><span class="lang-en" style="display:none;">Sleep Medication</span></div>
-        <div class="lang-th" style="font-size:.68rem;color:var(--text);line-height:1.65;">ยาคลายเครียดก่อนนอนต่อเนื่องกว่า 5 ปี ขนาดยาอยู่ในการดูแลของแพทย์ <strong style="color:#6B8FA3">ต้องทานแมกนีเซียมทุกคืน</strong></div>
-        <div class="lang-en" style="font-size:.68rem;color:var(--text);line-height:1.65;display:none;">Mild muscle relaxant / anxiolytic nightly for 5+ years — dosage managed by physician. <strong style="color:#6B8FA3">Magnesium required every night.</strong></div>
-      </div>
-
-      <div style="background:rgba(74,124,89,.05);border-left:3px solid #4A7C59;border-radius:0 10px 10px 0;padding:10px 13px;">
-        <div style="font-family:'Kanit',sans-serif;font-size:.73rem;color:var(--accent);font-weight:600;margin-bottom:4px;">💊 <span class="lang-th">อาหารเสริมที่จำเป็น</span><span class="lang-en" style="display:none;">Required Supplements</span></div>
-        <div class="lang-th" style="font-size:.68rem;color:var(--text);line-height:1.65;"><strong>แมกนีเซียมทุกคืน</strong> — จำเป็นเพื่อสนับสนุนการทำงานของยานอนหลับ</div>
-        <div class="lang-en" style="font-size:.68rem;color:var(--text);line-height:1.65;display:none;"><strong>Magnesium every night</strong> — essential to support sleep medication efficacy.</div>
-      </div>
-
+    <div class="pf-quote">
+      <div class="lang-th">"รับเฉพาะน้ำตาลธรรมชาติ งดน้ำตาลเพิ่ม — ใช้ชีวิตอย่างมีคุณภาพและยั่งยืน"</div>
+      <div class="lang-en" style="display:none;">"Natural sugars only. No added sugar. Live with intention — strong, sustainable, built to last."</div>
+    </div>
+    <div class="pf-goals-grid">
+      <div class="pf-goal"><div class="pf-goal-ic">💧</div><div class="pf-goal-v">2.5L+</div><div class="pf-goal-l"><span class="lang-th">น้ำดื่มต่อวัน</span><span class="lang-en" style="display:none;">Daily water</span></div></div>
+      <div class="pf-goal"><div class="pf-goal-ic">🌙</div><div class="pf-goal-v">7.5–8.5h</div><div class="pf-goal-l"><span class="lang-th">เป้าการนอน</span><span class="lang-en" style="display:none;">Sleep target</span></div></div>
+      <div class="pf-goal"><div class="pf-goal-ic">🔥</div><div class="pf-goal-v">1,600–1,850</div><div class="pf-goal-l"><span class="lang-th">แคลอรี่ / วัน</span><span class="lang-en" style="display:none;">kcal / day</span></div></div>
+      <div class="pf-goal"><div class="pf-goal-ic">🥩</div><div class="pf-goal-v">90–110g</div><div class="pf-goal-l"><span class="lang-th">โปรตีน / วัน</span><span class="lang-en" style="display:none;">Protein / day</span></div></div>
+      <div class="pf-goal"><div class="pf-goal-ic">🥦</div><div class="pf-goal-v">25–30g</div><div class="pf-goal-l"><span class="lang-th">ไฟเบอร์ / วัน</span><span class="lang-en" style="display:none;">Fiber / day</span></div></div>
+      <div class="pf-goal"><div class="pf-goal-ic">🍎</div><div class="pf-goal-v">15–25g</div><div class="pf-goal-l"><span class="lang-th">น้ำตาลผลไม้</span><span class="lang-en" style="display:none;">Fruit sugar</span></div></div>
     </div>
   </div>
+
+  <!-- HEALTH & MEDICATION -->
+  <div class="pf-card">
+    <div class="pf-card-head" style="margin-bottom:14px;">
+      <div class="pf-card-head-l">
+        <div class="pf-card-ico" style="background:rgba(192,57,43,.08);">🩺</div>
+        <div>
+          <div class="pf-card-ttl" style="color:#C0392B;"><span class="lang-th">สุขภาพ &amp; ยา</span><span class="lang-en" style="display:none;">Health &amp; Medication</span></div>
+          <div class="pf-card-sub"><span class="lang-th">อยู่ในการดูแลของแพทย์</span><span class="lang-en" style="display:none;">Under physician supervision</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px;">
+      <div class="pf-med" style="border-left-color:#D4607A;background:rgba(212,96,122,.05);">
+        <div class="pf-med-ttl" style="color:#D4607A;">🌸 <span class="lang-th">ยาคุมกำเนิด · ฮอร์โมน</span><span class="lang-en" style="display:none;">Hormonal Contraceptive</span></div>
+        <div class="pf-med-desc lang-th">รับประทานต่อเนื่องมากกว่า 10 ปี เพื่อควบคุมฮอร์โมนและรอบเดือน อยู่ในการดูแลของแพทย์</div>
+        <div class="pf-med-desc lang-en" style="display:none;">Hormonal contraceptives for 10+ years to regulate menstrual cycle &amp; hormone balance — under physician supervision.</div>
+      </div>
+      <div class="pf-med" style="border-left-color:#6B8FA3;background:rgba(107,143,163,.05);">
+        <div class="pf-med-ttl" style="color:#6B8FA3;">🌙 <span class="lang-th">ยานอนหลับ · ยาคลายเครียด</span><span class="lang-en" style="display:none;">Sleep Medication</span></div>
+        <div class="pf-med-desc lang-th">ยาคลายเครียดก่อนนอนต่อเนื่องกว่า 5 ปี ขนาดยาอยู่ในการดูแลของแพทย์ <strong style="color:#6B8FA3">ต้องทานแมกนีเซียมทุกคืน</strong></div>
+        <div class="pf-med-desc lang-en" style="display:none;">Mild muscle relaxant / anxiolytic nightly for 5+ years — dosage managed by physician. <strong style="color:#6B8FA3">Magnesium required every night.</strong></div>
+      </div>
+      <div class="pf-med" style="border-left-color:#4A7C59;background:rgba(74,124,89,.05);">
+        <div class="pf-med-ttl" style="color:var(--accent);">💊 <span class="lang-th">อาหารเสริมที่จำเป็น</span><span class="lang-en" style="display:none;">Required Supplements</span></div>
+        <div class="pf-med-desc lang-th"><strong>แมกนีเซียมทุกคืน</strong> — จำเป็นเพื่อสนับสนุนการทำงานของยานอนหลับ</div>
+        <div class="pf-med-desc lang-en" style="display:none;"><strong>Magnesium every night</strong> — essential to support sleep medication efficacy.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
+
 
 <!-- PAGE LOG -->
 <div class="page" id="page-log">
@@ -3220,6 +3182,10 @@ function applyLang() {
   // Re-render Home dashboard if it's the active page (JS-injected content needs language refresh)
   if(document.getElementById('page-home')?.classList.contains('active')){
     if(typeof loadHomeDashboard === 'function') loadHomeDashboard();
+  }
+  // Re-render Profile score breakdown if active (period label is language-dependent)
+  if(document.getElementById('page-profile')?.classList.contains('active')){
+    if(typeof computeGirlScore === 'function') computeGirlScore();
   }
 
   // Save lang preference
@@ -5779,12 +5745,13 @@ async function computeGirlScore(){
   if(error || !data || data.length === 0){
     scoreEl.textContent = '—';
     if(labelEl) labelEl.textContent = 'ยังไม่มีข้อมูล';
-    if(bdEl) bdEl.innerHTML = '<div style="font-size:.7rem;color:var(--muted2);text-align:center;padding:6px 0;">ยังไม่มีข้อมูลใน 30 วันที่ผ่านมา</div>';
+    if(bdEl) bdEl.innerHTML = '<div style="font-size:.7rem;color:var(--muted2);text-align:center;padding:6px 0;">'+((typeof currentLang!=='undefined'&&currentLang==='en')?'No data in the last 30 days':'ยังไม่มีข้อมูลใน 30 วันที่ผ่านมา')+'</div>';
     return;
   }
 
   const n = data.length;
-  if(periodEl) periodEl.textContent = `คำนวณจาก ${n} วัน (${fromStr} – ${toStr})`;
+  const _isEN = (typeof currentLang!=='undefined' && currentLang==='en');
+  if(periodEl) periodEl.textContent = _isEN ? `From ${n} days (${fromStr} – ${toStr})` : `คำนวณจาก ${n} วัน (${fromStr} – ${toStr})`;
 
   // ── SCORING DIMENSIONS (each 0–100, then weighted) ──
   // 1. Sleep quality (25 pts) — target 7.5–8.5h, score ≥75
