@@ -1380,7 +1380,7 @@ textarea{min-height:42px;}
 
         <!-- Most common needs -->
         <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;"><span class="lang-th">🍽️ สารอาหารที่ขาดบ่อยที่สุด</span><span class="lang-en" style="display:none;">🍽️ Most Deficient Nutrients</span></div>
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;"><span class="lang-th">💊 BioActive+ แนะนำตามผิว</span><span class="lang-en" style="display:none;">💊 BioActive+ Skin Recommendations</span></div>
           <div id="sdash-nutrients-wrap"></div>
         </div>
       </div>
@@ -4693,29 +4693,56 @@ async function renderSkinOverview(){
   if(secTitles[0]) secTitles[0].textContent = isEN ? 'AVERAGE METRICS' : 'ค่าเฉลี่ยแต่ละ METRIC';
   if(secTitles[1]) secTitles[1].textContent = isEN ? 'Most Deficient Nutrients' : 'สารอาหารที่ขาดบ่อยที่สุด';
 
-  // Most needed nutrients
-  const nutrientCount = {};
+  // BioActive recommendations based on skin scan deficiencies
+  const nutrientToBio = {
+    'Vitamin C':        {id:'gluta',    icon:'💗', name:'Gluta',       color:'#D4607A', reason_th:'Glutathione + Vitamin C form — ผิวกระจ่างใส ต้านอนุมูลอิสระ', reason_en:'Glutathione + Vit C — brightening & antioxidant'},
+    'Omega-3':          {id:'collagen', icon:'🖤', name:'Collagen',    color:'#2C2C2C', reason_th:'Collagen ช่วย skin barrier + ความชุ่มชื้น', reason_en:'Collagen supports skin barrier & hydration'},
+    'Omega-3 Fatty Acids':{id:'collagen',icon:'🖤',name:'Collagen',   color:'#2C2C2C', reason_th:'Collagen + Omega-3 เสริม skin barrier', reason_en:'Collagen + Omega-3 for skin barrier'},
+    'Collagen':         {id:'collagen', icon:'🖤', name:'Collagen',    color:'#2C2C2C', reason_th:'ดื่มก่อนอาหารเช้า — ผิวเด้ง ชุ่มชื้น ลดริ้วรอย', reason_en:'Before breakfast — elasticity, hydration, anti-aging'},
+    'Collagen Peptides':{id:'collagen', icon:'🖤', name:'Collagen',    color:'#2C2C2C', reason_th:'Marine Collagen ดูดซึมไว — ผิวเด้งใส', reason_en:'Marine collagen fast absorption — firm & bright skin'},
+    'Astaxanthin':      {id:'asta',     icon:'❤️', name:'Asta',        color:'#C0392B', reason_th:'AstaReal 6mg — กันแดดจากภายใน ปกป้อง UV ในไทย', reason_en:'AstaReal 6mg — internal UV protection in Thai climate'},
+    'Glutathione':      {id:'gluta',    icon:'💗', name:'Gluta',       color:'#D4607A', reason_th:'Gluta 2 ฟอร์ม — ผิวกระจ่างใส ลดรอยดำ', reason_en:'Glutathione 2 forms — brightening & dark spot reduction'},
+    'Zinc':             {id:'gold',     icon:'💛', name:'Gold',        color:'#B8860B', reason_th:'Double SOD — ลดอักเสบ ควบคุม sebum', reason_en:'Double SOD — reduces inflammation & sebum regulation'},
+    'Iron':             {id:'immuchew', icon:'🤎', name:'Immuchew',    color:'#8B6914', reason_th:'Colostrum เสริมภูมิ + ลด skin fatigue', reason_en:'Colostrum — immunity boost & reduces skin fatigue'},
+    'Iron & B12':       {id:'immuchew', icon:'🤎', name:'Immuchew',    color:'#8B6914', reason_th:'Colostrum NZ เสริมภูมิ ลด under-eye shadow', reason_en:'Colostrum NZ — immunity & reduces under-eye shadowing'},
+    'Magnesium':        {id:'magnesium',icon:'💙', name:'Magnesium',   color:'#4A7CB0', reason_th:'ก่อนนอน — ผิวฟื้นตัว 80% ระหว่างหลับลึก', reason_en:'Before bed — skin repairs 80% during deep sleep'},
+    'Vitamin D':        {id:'juvecol',  icon:'🟠', name:'Juvecol',     color:'#C0622A', reason_th:'Vit D3+K2 — bone & skin health', reason_en:'Vitamin D3+K2 — supports bone & skin health'},
+  };
+
+  // Always recommend core skin BioActive stack
+  const coreStack = [
+    {id:'collagen', icon:'🖤', name:'Collagen',  color:'#2C2C2C', reason_th:'ดื่มก่อนอาหารเช้า · ผิวเด้ง ชุ่มชื้น ลดริ้วรอย', reason_en:'Before breakfast · Skin elasticity & hydration', priority:1},
+    {id:'gluta',    icon:'💗', name:'Gluta',     color:'#D4607A', reason_th:'ก่อนอาหาร · ผิวกระจ่างใส ลดจุดด่างดำ', reason_en:'Before meal · Brightening & dark spots', priority:2},
+    {id:'asta',     icon:'❤️', name:'Asta',      color:'#C0392B', reason_th:'หลังอาหาร · กันแดดจากภายใน UV สูงในไทย', reason_en:'After meal · Internal UV protection (Thai climate)', priority:3},
+    {id:'magnesium',icon:'💙', name:'Magnesium', color:'#4A7CB0', reason_th:'ก่อนนอน 1 ชม. · ผิวฟื้นตัว 80% ระหว่างนอนหลับ', reason_en:'1hr before bed · Skin repairs 80% during sleep', priority:4},
+  ];
+
+  // Add extra recommendations from deficiencies
+  const extraRecs = new Map();
   log.forEach(e => {
     (e.nutrition_deficiencies||[]).forEach(n => {
       const key = n.nutrient||n.name||'';
-      if(!key) return;
-      nutrientCount[key] = (nutrientCount[key]||0) + 1;
+      const bio = nutrientToBio[key];
+      if(bio && !coreStack.find(c=>c.id===bio.id)){
+        if(!extraRecs.has(bio.id)) extraRecs.set(bio.id, {count:0, ...bio});
+        extraRecs.get(bio.id).count++;
+      }
     });
   });
-  const sortedNutrients = Object.entries(nutrientCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
-  const scanWord = isEN ? 'scans' : 'scans';
+
+  const extras = [...extraRecs.values()].sort((a,b)=>b.count-a.count).slice(0,2);
+  const allRecs = [...coreStack, ...extras];
+
   const nWrap = document.getElementById('sdash-nutrients-wrap');
-  const noDataTxt = isEN ? 'No data yet' : 'ยังไม่มีข้อมูล';
-  nWrap.innerHTML = sortedNutrients.length ? sortedNutrients.map(([name,count])=>{
-    const pct = Math.round(count/log.length*100);
-    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-      <div style="font-size:.67rem;color:var(--text);flex:1;font-weight:600;">${name}</div>
-      <div style="font-size:.6rem;color:var(--muted2);">${count}/${log.length} ${scanWord}</div>
-      <div style="width:60px;background:var(--bg);border-radius:20px;height:8px;overflow:hidden;">
-        <div style="width:${pct}%;height:100%;background:rgba(255,126,179,.6);border-radius:20px;"></div>
+  nWrap.innerHTML = allRecs.map(b => `
+    <div style="display:flex;align-items:center;gap:9px;padding:9px 11px;background:${b.color}0D;border-radius:11px;border-left:3px solid ${b.color};margin-bottom:5px;">
+      <div style="font-size:1rem;flex-shrink:0;">${b.icon}</div>
+      <div style="flex:1;">
+        <div style="font-family:'Kanit',sans-serif;font-size:.75rem;font-weight:700;color:${b.color};">${b.name}</div>
+        <div style="font-size:.62rem;color:var(--muted2);margin-top:1px;">${isEN ? b.reason_en : b.reason_th}</div>
       </div>
-    </div>`;
-  }).join('') : `<div style="font-size:.7rem;color:var(--muted2);">${noDataTxt}</div>`;
+      ${b.priority ? `<div style="font-size:.58rem;padding:2px 7px;border-radius:10px;background:${b.color}18;color:${b.color};font-weight:700;flex-shrink:0;">#${b.priority}</div>` : `<div style="font-size:.58rem;padding:2px 7px;border-radius:10px;background:${b.color}18;color:${b.color};font-weight:700;flex-shrink:0;">${b.count}x</div>`}
+    </div>`).join('');
 }
 
 async function renderSkinTrend(){
