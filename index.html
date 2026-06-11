@@ -3510,11 +3510,27 @@ DINING OUT — use realistic restaurant values:
 Sodium: 600–1500mg per Thai restaurant meal (sauces, seasoning included).
 Sugar: include added sugar from dressings and sauces.`;
 
-  return `You are a clinical nutritionist. Analyse the food ${inputType==='photo'?'shown in this image':'described below'}.
+  return `You are a clinical nutritionist specializing in Thai and Asian cuisine. Analyse the food ${inputType==='photo'?'shown in this image':'described below'}.
+
+IMPORTANT CONTEXT — This person lives in BANGKOK, THAILAND:
+- Drinks/beverages commonly found: matcha latte, black sesame milk, Thai iced tea, butterfly pea tea, coconut water, fresh fruit juices, green smoothies, collagen drinks
+- Green drinks are often: matcha, pandan, moringa, wheatgrass, or vegetable juice — NOT necessarily cucumber/celery juice
+- Dark drinks: could be black sesame, longan, tamarind, or coffee-based
+- Common Thai home-cooked proteins: grilled chicken breast, salmon, eggs, tofu, shrimp
+- Common Thai ingredients: jasmine rice, brown rice, Thai herbs, coconut milk, fish sauce (if dining out)
+- Asian desserts/snacks: mochi, taro, black sesame, red bean, matcha-flavored items
+
+PHOTO ANALYSIS RULES:
+1. Look at COLOR carefully: dark green = likely matcha or pandan, bright green = likely vegetable juice or green tea
+2. Look at TEXTURE: frothy/milky = latte-style, clear = juice/tea
+3. Look for TOPPINGS or GARNISHES that give clues (sesame seeds, matcha powder, tapioca)
+4. If unsure between 2 options, pick the MORE COMMON one in Bangkok context
+5. State your confidence honestly
+
 ${homeContext}
 
 Output ONLY valid JSON. No explanation, no markdown fences:
-{"meal_description":"concise description","ingredients":["item (amount)"],"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"cooking_method":"","confidence":"high|medium|low"}`;
+{"meal_description":"concise accurate description","alternatives":[{"name":"alternative option 1","kcal":100},{"name":"alternative option 2","kcal":120}],"ingredients":["item (amount)"],"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"cooking_method":"","confidence":"high|medium|low","identification_notes":"brief note on visual cues"}`;
 }
 
 async function analyzeFood(input, meal, mode){
@@ -3563,8 +3579,8 @@ async function analyzeFood(input, meal, mode){
         model:'claude-sonnet-4-6',
         max_tokens:1000,
         system: mealMode==='home'
-          ? 'You are a clinical nutritionist calculating nutrition for home-cooked food with ZERO added salt, sauces, or seasonings. Sodium comes ONLY from the natural content of raw ingredients. Hard rule: sodium_mg must be under 300mg per meal. If your number exceeds 300mg you have made an error — recalculate. Output only compact valid JSON, no markdown.'
-          : 'You are a clinical nutritionist. Output only compact valid JSON, no markdown.',
+          ? 'You are a clinical nutritionist specializing in Thai and Asian cuisine, calculating nutrition for home-cooked food in Bangkok, Thailand. ZERO added salt, sauces, or seasonings unless naturally present in ingredients. Sodium comes ONLY from natural content of raw ingredients. Hard rule: sodium_mg must be under 300mg per meal. Identify Thai/Asian foods accurately — matcha, black sesame, pandan, butterfly pea are common drinks. Output only compact valid JSON, no markdown.'
+          : 'You are a clinical nutritionist specializing in Thai and Asian cuisine in Bangkok, Thailand. Identify Thai/Asian foods accurately. Output only compact valid JSON, no markdown.',
         messages:[{role:'user',content:messageContent}]
       })
     });
@@ -3584,88 +3600,266 @@ async function analyzeFood(input, meal, mode){
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const result = JSON.parse(raw);
     const n = result.nutrition || {};
-
-    // Home-cooked = sodium is 0
     if(mealMode === 'home') n.sodium_mg = 0;
 
-    // Fill description
-    if(result.meal_description) document.getElementById(`m_${meal}`).value = result.meal_description;
-
-    // Accumulate macros
-    const addTo=(id,val)=>{ const el=document.getElementById(id); if(el&&val) el.value=Math.round((+el.value||0)+val); };
-    addTo('mac_kcal', n.kcal); addTo('mac_p', n.protein_g); addTo('mac_carb', n.carb_g);
-    addTo('mac_fat', n.fat_g); addTo('mac_f', n.fiber_g); addTo('mac_sugar_total', n.sugar_g);
-    addTo('mac_s', n.fruit_sugar_g); addTo('mac_sodium', n.sodium_mg);
-    updateQ();
-
-    // Auto-add ingredients — do in background, don't block UI
-    const ingAdded = [];
-    try {
-      const cats = result.ing_categories || {};
-      const existing = await dbLoadIng(curIngMo);
-      for(const [catId, items] of Object.entries(cats)){
-        for(const item of (items||[])){
-          const name = (item||'').split('(')[0].trim();
-          if(name.length < 2) continue;
-          const already = (existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
-          if(!already){ await dbAddIng(curIngMo, catId, name, ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1); ingAdded.push(name); }
-        }
-      }
-    } catch(ingErr){ console.warn('Ingredient add error:', ingErr); }
-
-    // Result card
-    const isHome = mealMode === 'home';
-    const confColor = result.confidence==='high'?'var(--veg)':result.confidence==='medium'?'var(--grain)':'var(--prot)';
-    const ingTags = (result.ingredients||[]).map(i=>`<span style="display:inline-block;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:2px 8px;font-size:.64rem;margin:2px;">${i}</span>`).join('');
-    const modeTag = isHome
-      ? `<span style="font-size:.6rem;background:rgba(74,124,89,.1);color:var(--accent);border-radius:10px;padding:2px 8px;">🏠 Home-cooked</span>`
-      : `<span style="font-size:.6rem;background:rgba(224,123,84,.1);color:#E07B54;border-radius:10px;padding:2px 8px;">🍽️ Dining Out</span>`;
-
-    const macroCell = (val, label, color) =>
-      `<div style="text-align:center;background:var(--card);border-radius:9px;padding:7px 4px;">
-        <div style="font-size:.88rem;font-weight:700;color:${color};font-family:'Kanit',sans-serif;">${Math.round(val||0)}${label==='kcal'||label==='sodium'?'':label==='sodium mg'?'':'g'}</div>
-        <div style="font-size:.57rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;margin-top:1px;">${label}</div>
-      </div>`;
-
-    analyzeWrap.innerHTML = `
-      <div style="background:linear-gradient(135deg,rgba(74,124,89,.05),rgba(201,169,110,.03));border:1px solid rgba(74,124,89,.18);border-radius:12px;padding:12px;margin-top:7px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;">
-          <span style="font-size:.75rem;font-weight:700;letter-spacing:.3px;color:var(--text);">${MEAL_LABELS[meal]} · AI Breakdown</span>
-          <div style="display:flex;gap:5px;align-items:center;">
-            ${modeTag}
-            <span style="font-size:.6rem;color:${confColor};background:${confColor}18;padding:2px 8px;border-radius:10px;letter-spacing:.2px;">Accuracy: ${result.confidence}</span>
-          </div>
-        </div>
-        ${result.cooking_method?`<div style="font-size:.64rem;color:var(--muted2);margin-bottom:8px;letter-spacing:.2px;">Method: ${result.cooking_method}</div>`:''}
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:9px;">
-          ${macroCell(n.kcal,'kcal','var(--grain)')}
-          ${macroCell(n.protein_g,'protein','var(--prot)')}
-          ${macroCell(n.carb_g,'carbs','var(--other)')}
-          ${macroCell(n.fat_g,'fat','var(--dairy)')}
-          ${macroCell(n.fiber_g,'fiber','var(--veg)')}
-          ${macroCell(n.sugar_g,'sugar','var(--sugar)')}
-          ${macroCell(n.fruit_sugar_g,'fruit sugar','var(--fruit)')}
-          <div style="text-align:center;background:var(--card);border-radius:9px;padding:7px 4px;">
-            <div style="font-size:.88rem;font-weight:700;color:var(--muted2);font-family:'Kanit',sans-serif;">${Math.round(n.sodium_mg||0)}</div>
-            <div style="font-size:.57rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;margin-top:1px;">sodium mg</div>
-          </div>
-        </div>
-        ${isHome?`<div style="font-size:.61rem;color:var(--accent);background:rgba(74,124,89,.06);border-radius:6px;padding:4px 9px;margin-bottom:8px;letter-spacing:.2px;">🔒 Natural sodium only · Zero added sugar · Olive oil cooking</div>`:''}
-        <div style="margin-bottom:${ingAdded.length?'7px':'0'};">
-          <div style="font-size:.62rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;margin-bottom:5px;">Ingredients detected</div>
-          ${ingTags}
-        </div>
-        ${ingAdded.length?`<div style="font-size:.63rem;color:var(--veg);margin-top:6px;letter-spacing:.2px;">✓ ${ingAdded.length} ingredient${ingAdded.length>1?'s':''} added to your monthly log</div>`:''}
-      </div>`;
-
-    setSyncBadge('','☁️ พร้อม');
-    toast(`✓ ${MEAL_LABELS[meal]} analysed · ${Math.round(n.kcal||0)} kcal`);
+    // ── CONFIRMATION STEP — show options before applying ──
+    showFoodConfirmation(meal, result, n, analyzeWrap);
 
   } catch(err){
     analyzeWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);letter-spacing:.2px;">⚠ Analysis failed — กรอกข้อมูลเองได้เลยค่ะ</div>`;
-    setSyncBadge('','☁️ พร้อม'); // Reset badge so Save still works
+    setSyncBadge('','☁️ พร้อม');
     console.error('analyzeFood error:', err);
   }
+}
+
+// ── FOOD CONFIRMATION STEP ──
+// Store pending result globally so confirm button can access it
+let pendingFoodResult = {};
+
+function showFoodConfirmation(meal, result, n, wrap){
+  const isEN = currentLang === 'en';
+  const isHome = mealMode === 'home';
+  const confColor = result.confidence==='high'?'var(--veg)':result.confidence==='medium'?'var(--grain)':'var(--prot)';
+
+  pendingFoodResult[meal] = { result, n };
+
+  // Build alternatives list — main suggestion + up to 2 alternatives
+  const alts = result.alternatives || [];
+  const allOptions = [
+    { label: result.meal_description, kcal: Math.round(n.kcal||0), main: true },
+    ...alts.map(a => ({ label: a.name||a, kcal: a.kcal||null, main: false }))
+  ];
+
+  const macroCell = (val, label, color) =>
+    `<div style="text-align:center;background:var(--bg);border-radius:9px;padding:7px 4px;">
+      <div style="font-size:.85rem;font-weight:700;color:${color};font-family:'Kanit',sans-serif;">${Math.round(val||0)}</div>
+      <div style="font-size:.56rem;color:var(--muted2);text-transform:uppercase;margin-top:1px;">${label}</div>
+    </div>`;
+
+  wrap.innerHTML = `
+    <div style="background:var(--card);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-top:8px;">
+
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,rgba(74,124,89,.07),rgba(201,169,110,.04));padding:11px 13px;border-bottom:1px solid var(--border);">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--text);">
+            ${isEN ? '🤖 AI Identified' : '🤖 AI วิเคราะห์ได้'}
+          </div>
+          <div style="display:flex;gap:5px;">
+            <span style="font-size:.58rem;color:${confColor};background:${confColor}18;padding:2px 8px;border-radius:10px;">${result.confidence}</span>
+            ${isHome ? `<span style="font-size:.58rem;color:var(--accent);background:rgba(74,124,89,.1);padding:2px 8px;border-radius:10px;">🏠 Home</span>` : ''}
+          </div>
+        </div>
+        ${result.identification_notes ? `<div style="font-size:.61rem;color:#4A7CB0;margin-top:5px;">🔍 ${result.identification_notes}</div>` : ''}
+      </div>
+
+      <!-- Option buttons -->
+      <div style="padding:11px 13px;border-bottom:1px solid var(--border);">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">
+          ${isEN ? '✅ Select the correct item:' : '✅ เลือกอันที่ถูกต้อง:'}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;" id="food-options-${meal}">
+          ${allOptions.map((opt, i) => `
+            <button onclick="selectFoodOption('${meal}', ${i})" id="food-opt-${meal}-${i}"
+              style="text-align:left;padding:10px 13px;border-radius:11px;border:1.5px solid ${i===0?'var(--accent)':'var(--border)'};background:${i===0?'rgba(74,124,89,.06)':'var(--bg)'};cursor:pointer;transition:all .2s;width:100%;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:20px;height:20px;border-radius:50%;border:2px solid ${i===0?'var(--accent)':'var(--border2)'};background:${i===0?'var(--accent)':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  ${i===0?`<div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>`:''}
+                </div>
+                <div style="flex:1;">
+                  <div style="font-family:'Kanit',sans-serif;font-size:.75rem;font-weight:600;color:var(--text);">${opt.label}</div>
+                  ${opt.kcal ? `<div style="font-size:.6rem;color:var(--muted2);">~${opt.kcal} kcal</div>` : ''}
+                </div>
+              </div>
+            </button>`).join('')}
+
+          <!-- Other option -->
+          <div id="food-opt-${meal}-other-wrap" style="display:none;">
+            <input id="food-opt-${meal}-other-input" type="text" placeholder="${isEN?'Type the correct food name...':'พิมพ์ชื่ออาหารที่ถูกต้อง...'}"
+              style="width:100%;padding:10px 13px;border-radius:11px;border:1.5px solid var(--accent);background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;outline:none;box-sizing:border-box;">
+          </div>
+          <button onclick="toggleOtherFood('${meal}')" id="food-opt-${meal}-other-btn"
+            style="text-align:left;padding:10px 13px;border-radius:11px;border:1.5px dashed var(--border2);background:var(--bg);cursor:pointer;width:100%;color:var(--muted2);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:20px;height:20px;border-radius:50%;border:2px dashed var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;">✏️</div>
+              <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--muted2);">${isEN ? 'Other / Edit...' : 'อื่นๆ / แก้ไข...'}</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nutrition preview (editable) -->
+      <div style="padding:11px 13px;border-bottom:1px solid var(--border);">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">
+          ${isEN ? '📊 Nutrition (tap to edit)' : '📊 โภชนาการ (แตะเพื่อแก้ไข)'}
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:6px;">
+          ${[
+            ['kcal', n.kcal||0, 'var(--grain)', 'food-n-kcal-'+meal],
+            ['protein', n.protein_g||0, 'var(--prot)', 'food-n-prot-'+meal],
+            ['carbs', n.carb_g||0, 'var(--other)', 'food-n-carb-'+meal],
+            ['fat', n.fat_g||0, 'var(--dairy)', 'food-n-fat-'+meal],
+            ['fiber', n.fiber_g||0, 'var(--veg)', 'food-n-fib-'+meal],
+            ['sugar', n.sugar_g||0, 'var(--sugar)', 'food-n-sug-'+meal],
+            ['fr.sugar', n.fruit_sugar_g||0, 'var(--fruit)', 'food-n-fsug-'+meal],
+            ['sodium', n.sodium_mg||0, 'var(--muted2)', 'food-n-na-'+meal],
+          ].map(([lbl,val,col,id])=>`
+            <div style="text-align:center;background:var(--bg);border-radius:9px;padding:6px 3px;cursor:pointer;" onclick="editNutrient('${id}','${lbl}')">
+              <input id="${id}" type="number" value="${Math.round(val)}" style="width:100%;text-align:center;background:transparent;border:none;font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:${col};outline:none;cursor:pointer;">
+              <div style="font-size:.54rem;color:var(--muted2);text-transform:uppercase;margin-top:1px;">${lbl}</div>
+            </div>`).join('')}
+        </div>
+        <!-- Ingredients row -->
+        <div style="font-size:.6rem;color:var(--muted2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.3px;">${isEN?'Ingredients':'ส่วนผสม'}</div>
+        <div id="food-ing-${meal}" style="display:flex;flex-wrap:wrap;gap:4px;">
+          ${(result.ingredients||[]).map(i=>`<span style="display:inline-block;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:2px 8px;font-size:.63rem;">${i}</span>`).join('')}
+        </div>
+        <!-- Add ingredient -->
+        <div style="display:flex;gap:6px;margin-top:7px;">
+          <input id="food-add-ing-${meal}" type="text" placeholder="${isEN?'+ Add ingredient...':'+ เพิ่มส่วนผสม...'}"
+            style="flex:1;padding:6px 10px;border-radius:9px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.72rem;outline:none;font-family:'Sarabun',sans-serif;">
+          <button onclick="addIngredientManual('${meal}')" style="padding:6px 12px;border-radius:9px;border:1px solid var(--border2);background:var(--card);font-size:.72rem;cursor:pointer;color:var(--accent);font-weight:600;">+</button>
+        </div>
+      </div>
+
+      <!-- Confirm button -->
+      <div style="padding:11px 13px;display:flex;gap:8px;">
+        <button onclick="confirmFoodResult('${meal}')"
+          style="flex:1;padding:11px;border-radius:12px;background:var(--accent);color:#fff;border:none;font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">
+          ✅ ${isEN ? 'Confirm & Apply' : 'ยืนยัน'}
+        </button>
+        <button onclick="document.getElementById('food-analyze-${meal}').style.display='none'"
+          style="padding:11px 14px;border-radius:12px;background:var(--bg);color:var(--muted2);border:1px solid var(--border);font-family:'Kanit',sans-serif;font-size:.78rem;cursor:pointer;">
+          ${isEN ? 'Cancel' : 'ยกเลิก'}
+        </button>
+      </div>
+
+    </div>`;
+
+  setSyncBadge('','✅ พร้อมยืนยัน');
+}
+
+let foodSelectedOption = {}; // meal → option index or 'other'
+
+function selectFoodOption(meal, idx){
+  const wrap = document.getElementById(`food-options-${meal}`);
+  const allBtns = wrap.querySelectorAll(`[id^="food-opt-${meal}-"]`);
+  allBtns.forEach((btn, i) => {
+    if(btn.id === `food-opt-${meal}-other-btn` || btn.id === `food-opt-${meal}-other-wrap`) return;
+    const isSelected = i === idx;
+    btn.style.borderColor = isSelected ? 'var(--accent)' : 'var(--border)';
+    btn.style.background  = isSelected ? 'rgba(74,124,89,.06)' : 'var(--bg)';
+    const dot = btn.querySelector('div > div:first-child');
+    if(dot){ dot.style.borderColor = isSelected ? 'var(--accent)' : 'var(--border2)'; dot.style.background = isSelected ? 'var(--accent)' : 'transparent'; dot.innerHTML = isSelected ? '<div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>' : ''; }
+  });
+  foodSelectedOption[meal] = idx;
+  // Update description field preview
+  const pending = pendingFoodResult[meal];
+  if(pending){
+    const opts = [pending.result.meal_description, ...(pending.result.alternatives||[]).map(a=>a.name||a)];
+    if(opts[idx]){ document.getElementById(`m_${meal}`).value = opts[idx]; }
+  }
+  // Hide other input
+  const otherWrap = document.getElementById(`food-opt-${meal}-other-wrap`);
+  if(otherWrap) otherWrap.style.display = 'none';
+}
+
+function toggleOtherFood(meal){
+  const wrap = document.getElementById(`food-opt-${meal}-other-wrap`);
+  if(wrap){ wrap.style.display = wrap.style.display==='none' ? 'block' : 'none'; if(wrap.style.display==='block') { document.getElementById(`food-opt-${meal}-other-input`)?.focus(); foodSelectedOption[meal] = 'other'; } }
+}
+
+function editNutrient(id, label){ document.getElementById(id)?.select(); }
+
+function addIngredientManual(meal){
+  const input = document.getElementById(`food-add-ing-${meal}`);
+  const val = input?.value?.trim();
+  if(!val) return;
+  const ingWrap = document.getElementById(`food-ing-${meal}`);
+  if(ingWrap){
+    const span = document.createElement('span');
+    span.style.cssText = 'display:inline-block;background:var(--bg);border:1px solid var(--accent);border-radius:10px;padding:2px 8px;font-size:.63rem;color:var(--accent);';
+    span.textContent = val;
+    ingWrap.appendChild(span);
+  }
+  if(pendingFoodResult[meal]?.result?.ingredients) pendingFoodResult[meal].result.ingredients.push(val);
+  input.value = '';
+}
+
+async function confirmFoodResult(meal){
+  const pending = pendingFoodResult[meal];
+  if(!pending) return;
+
+  const { result } = pending;
+  const isEN = currentLang === 'en';
+
+  // Get confirmed description
+  let confirmedDesc = document.getElementById(`m_${meal}`)?.value || result.meal_description;
+  const selOpt = foodSelectedOption[meal];
+  if(selOpt === 'other'){
+    const otherInput = document.getElementById(`food-opt-${meal}-other-input`);
+    if(otherInput?.value?.trim()) confirmedDesc = otherInput.value.trim();
+  }
+
+  // Read (possibly edited) nutrition values
+  const getN = id => parseFloat(document.getElementById(id)?.value||0)||0;
+  const n = {
+    kcal:          getN('food-n-kcal-'+meal),
+    protein_g:     getN('food-n-prot-'+meal),
+    carb_g:        getN('food-n-carb-'+meal),
+    fat_g:         getN('food-n-fat-'+meal),
+    fiber_g:       getN('food-n-fib-'+meal),
+    sugar_g:       getN('food-n-sug-'+meal),
+    fruit_sugar_g: getN('food-n-fsug-'+meal),
+    sodium_mg:     mealMode==='home' ? 0 : getN('food-n-na-'+meal),
+  };
+
+  // Apply to form
+  if(confirmedDesc) document.getElementById(`m_${meal}`).value = confirmedDesc;
+  const addTo=(id,val)=>{ const el=document.getElementById(id); if(el) el.value=Math.round((+el.value||0)+val); };
+  addTo('mac_kcal', n.kcal); addTo('mac_p', n.protein_g); addTo('mac_carb', n.carb_g);
+  addTo('mac_fat', n.fat_g); addTo('mac_f', n.fiber_g); addTo('mac_sugar_total', n.sugar_g);
+  addTo('mac_s', n.fruit_sugar_g); addTo('mac_sodium', n.sodium_mg);
+  updateQ();
+
+  // Auto-add ingredients in background
+  const ingAdded = [];
+  try {
+    const cats = result.ing_categories || {};
+    const existing = await dbLoadIng(curIngMo);
+    for(const [catId, items] of Object.entries(cats)){
+      for(const item of (items||[])){
+        const name = (item||'').split('(')[0].trim();
+        if(name.length < 2) continue;
+        const already = (existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
+        if(!already){ await dbAddIng(curIngMo, catId, name, ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1); ingAdded.push(name); }
+      }
+    }
+  } catch(e){}
+
+  // Show success card
+  const analyzeWrap = document.getElementById(`food-analyze-${meal}`);
+  const isHome = mealMode === 'home';
+  analyzeWrap.innerHTML = `
+    <div style="background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.03));border:1px solid rgba(74,124,89,.18);border-radius:12px;padding:11px 13px;margin-top:7px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <div style="font-size:1rem;">✅</div>
+        <div style="font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--accent);">${isEN?'Applied!':'บันทึกแล้ว!'}</div>
+        <div style="margin-left:auto;font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:700;color:var(--grain);">${Math.round(n.kcal)} kcal</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px;">
+        ${[['protein',n.protein_g,'var(--prot)'],['carbs',n.carb_g,'var(--other)'],['fat',n.fat_g,'var(--dairy)'],['fiber',n.fiber_g,'var(--veg)']].map(([l,v,c])=>`<div style="text-align:center;background:var(--card);border-radius:8px;padding:5px 3px;"><div style="font-size:.8rem;font-weight:700;color:${c};font-family:'Kanit',sans-serif;">${Math.round(v||0)}</div><div style="font-size:.54rem;color:var(--muted2);">${l}</div></div>`).join('')}
+      </div>
+      <div style="font-size:.63rem;color:var(--text);margin-bottom:${ingAdded.length?'5px':'0'};">${confirmedDesc}</div>
+      ${ingAdded.length?`<div style="font-size:.61rem;color:var(--veg);">✓ ${ingAdded.length} ingredient${ingAdded.length>1?'s':''} added to monthly log</div>`:''}
+      <button onclick="document.getElementById('food-analyze-${meal}').innerHTML='';document.getElementById('food-analyze-${meal}').style.display='none'"
+        style="margin-top:8px;font-size:.65rem;color:var(--muted2);background:none;border:none;cursor:pointer;text-decoration:underline;">${isEN?'Clear':'ล้าง'}</button>
+    </div>`;
+
+  delete pendingFoodResult[meal];
+  delete foodSelectedOption[meal];
+  setSyncBadge('','☁️ พร้อม');
+  toast(`✅ ${MEAL_LABELS[meal]} · ${Math.round(n.kcal)} kcal`);
 }
 
 // ── QUICK MEAL PICKER (inline in Log page) ──
