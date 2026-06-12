@@ -202,6 +202,23 @@ textarea{min-height:42px;}
 .ing-pill-num{font-family:'Kanit',sans-serif;font-size:.8rem;font-weight:600;margin-left:1px;}
 .cat-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .ing-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:17px 18px;margin-bottom:13px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
+
+/* Ingredient diversity donut summary */
+.ing-sum-card{background:linear-gradient(145deg,rgba(74,124,89,.06),rgba(201,169,110,.045));border:1px solid rgba(74,124,89,.16);border-radius:22px;padding:18px 19px;margin-bottom:13px;}
+.ing-sum-head{display:flex;align-items:center;gap:11px;margin-bottom:15px;}
+.ing-sum-ico{width:36px;height:36px;border-radius:12px;background:rgba(74,124,89,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.ing-sum-ttl{font-family:'Kanit',sans-serif;font-size:.9rem;font-weight:600;color:var(--text);}
+.ing-sum-sub{font-size:.66rem;margin-top:2px;font-family:'Kanit',sans-serif;font-weight:600;}
+.ing-sum-body{display:flex;align-items:center;gap:18px;}
+.ing-donut{width:104px;height:104px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;}
+.ing-donut-hole{width:68px;height:68px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ing-donut-num{font-family:'Kanit',sans-serif;font-size:1.5rem;font-weight:800;color:var(--text);line-height:.9;letter-spacing:-1px;}
+.ing-donut-lbl{font-size:.55rem;color:var(--muted2);margin-top:2px;}
+.ing-legend{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+.ing-leg{display:flex;align-items:center;gap:7px;}
+.ing-leg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+.ing-leg-txt{flex:1;font-size:.64rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Sarabun',sans-serif;}
+.ing-leg-num{font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:700;flex-shrink:0;}
 .cat-left{display:flex;align-items:center;gap:7px;}
 .cat-ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;}
 .cat-nm{font-family:'Kanit',sans-serif;font-size:.85rem;}
@@ -1140,7 +1157,7 @@ body.ltab-supp .s-supp{display:block;}
   <div class="section s-sleep">
     <div class="sec-hdr"><div class="sec-ico">🌙</div><div class="sec-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div>
       <label style="margin-left:auto;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;border:1px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.65rem;font-weight:700;letter-spacing:.3px;color:var(--sleep);white-space:nowrap;">
-        📸 Scan
+        📸 <span class="lang-th">สแกน (เลือกได้หลายรูป)</span><span class="lang-en" style="display:none;">Scan (multi)</span>
         <input type="file" accept="image/*" multiple style="display:none" onchange="analyzeSleepPhoto(this)">
       </label>
     </div>
@@ -1400,11 +1417,22 @@ body.ltab-supp .s-supp{display:block;}
 <div class="page" id="page-ing">
   <div class="tbl-monthbar">
     <button class="tbl-mo-arrow" onclick="chIngMonth(-1)">‹</button>
-    <div class="tbl-mo-label" id="ing-mo-lbl" style="cursor:default;">—</div>
+    <div class="tbl-mo-label" id="ing-mo-lbl" onclick="openIngMonthPicker()" title="เลือกเดือน">—</div>
     <button class="tbl-mo-arrow" onclick="chIngMonth(1)">›</button>
   </div>
+  <!-- Month picker popup -->
+  <div id="ing-mp-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);" onclick="closeIngMonthPicker()"></div>
+  <div id="ing-mp-popup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;width:min(330px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <button class="tbl-mo-arrow" onclick="ingMpChYear(-1)">‹</button>
+      <div id="ing-mp-year" style="font-family:'Kanit',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);"></div>
+      <button class="tbl-mo-arrow" onclick="ingMpChYear(1)">›</button>
+    </div>
+    <div id="ing-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
+  </div>
+  <!-- Diversity summary (donut) -->
+  <div id="ing-summary"></div>
   <div class="hist-months" id="ing-hist"></div>
-  <div class="ing-sum" id="ing-sum"></div>
   <div class="ai-wrap" style="margin-bottom:12px">
     <div class="ai-hdr"><div class="ai-av">🔬</div><div><div class="ai-ttl"><span class="lang-th">วิเคราะห์โภชนาการรายเดือน</span><span class="lang-en" style="display:none;">Monthly Nutrition Analysis</span></div><div class="ai-sub"><span class="lang-th">AI ตรวจสอบความหลากหลายของวัตถุดิบ</span><span class="lang-en" style="display:none;">AI checks your ingredient diversity</span></div></div></div>
     <div class="ai-content" id="ing-advice"><div style="color:var(--muted2);font-size:.76rem"><span class="lang-th">เพิ่มวัตถุดิบก่อน แล้วกด "วิเคราะห์" ✨</span><span class="lang-en" style="display:none;">Add ingredients then tap "Analyze" ✨</span></div></div>
@@ -2300,10 +2328,17 @@ function setSQ(v){sq=v;document.querySelectorAll('.sl-star').forEach(s=>s.classL
 function setEQ(v){eq=v;document.querySelectorAll('.ex-star').forEach(s=>s.classList.toggle('on-ex',+s.dataset.i<=v));}
 function calcSleep(){
   const s=document.getElementById('sl_s').value,e=document.getElementById('sl_e').value;
+  const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
   if(!s||!e){document.getElementById('sl_dur').textContent='';document.getElementById('sl_min_h').value=0;updateQ();return;}
   let sm=+s.split(':')[0]*60+ +s.split(':')[1],em=+e.split(':')[0]*60+ +e.split(':')[1];
-  if(em<=sm)em+=1440;const diff=em-sm;
-  document.getElementById('sl_dur').textContent=`นอน ${Math.floor(diff/60)} ชั่วโมง ${diff%60} นาที`;
+  // If both times identical (e.g. 00:00 / 00:00 from a failed scan), treat as no data — don't show 24h
+  if(sm===em){document.getElementById('sl_dur').textContent='';document.getElementById('sl_min_h').value=0;updateQ();return;}
+  if(em<=sm)em+=1440;let diff=em-sm;
+  // Sanity cap: a real night's sleep won't exceed ~16h; longer means bad/missing data
+  if(diff>16*60){document.getElementById('sl_dur').textContent='';document.getElementById('sl_min_h').value=0;updateQ();return;}
+  document.getElementById('sl_dur').textContent = isEN
+    ? `Slept ${Math.floor(diff/60)}h ${diff%60}m`
+    : `นอน ${Math.floor(diff/60)} ชั่วโมง ${diff%60} นาที`;
   document.getElementById('sl_min_h').value=diff;updateQ();
 }
 function updateQ(){
@@ -3083,11 +3118,86 @@ async function renderIng(){
   document.getElementById('ing-mo-lbl').textContent=`${MONTHS_EN[m]} ${y}`;
   const ingData=await dbLoadIng(curIngMo);
   const totalItems = ING_CATS.reduce((a,c)=>a+(ingData[c.id]||[]).length,0);
-  let sumH='';
-  ING_CATS.forEach(c=>{const items=ingData[c.id]||[];const lbl=isEN?c.labelEN:c.label;sumH+=`<div class="ing-pill"><div class="ing-dot" style="background:${c.color}"></div><span class="ing-pill-txt">${lbl}</span><span class="ing-pill-num" style="color:${c.color}">${items.length}</span></div>`;});
-  document.getElementById('ing-sum').innerHTML=sumH;
+
+  // ── DIVERSITY DONUT SUMMARY ──
+  const sumEl = document.getElementById('ing-summary');
+  const catCounts = ING_CATS.map(c=>({c, n:(ingData[c.id]||[]).length}));
+  const usedCats = catCounts.filter(x=>x.n>0).length;
+  // Build conic-gradient segments
+  let acc=0; const segs=[];
+  catCounts.forEach(({c,n})=>{
+    if(n>0 && totalItems>0){
+      const start=acc/totalItems*360;
+      acc+=n;
+      const end=acc/totalItems*360;
+      const col = getComputedStyle(document.documentElement).getPropertyValue(c.color.replace('var(','').replace(')','').trim())||c.color;
+      segs.push(`${c.color} ${start}deg ${end}deg`);
+    }
+  });
+  const gradient = totalItems>0 ? `conic-gradient(${segs.join(',')})` : 'conic-gradient(var(--border2) 0deg 360deg)';
+  // diversity verdict
+  let verdict, vColor;
+  if(usedCats>=6){ verdict=isEN?'Excellent variety 🌈':'หลากหลายเยี่ยม 🌈'; vColor='var(--veg)'; }
+  else if(usedCats>=4){ verdict=isEN?'Good variety':'หลากหลายดี'; vColor='var(--veg)'; }
+  else if(usedCats>=2){ verdict=isEN?'Add more groups':'เพิ่มหมู่อาหาร'; vColor='var(--grain)'; }
+  else { verdict=isEN?'Build it up':'เริ่มเพิ่มกันเลย'; vColor='var(--muted2)'; }
+
+  const legendH = catCounts.map(({c,n})=>{
+    const lbl=isEN?c.labelEN:c.label;
+    const pct=totalItems>0?Math.round(n/totalItems*100):0;
+    return `<div class="ing-leg"><span class="ing-leg-dot" style="background:${c.color}"></span><span class="ing-leg-txt">${lbl}</span><span class="ing-leg-num" style="color:${c.color}">${n}</span></div>`;
+  }).join('');
+
+  sumEl.innerHTML = `
+    <div class="ing-sum-card">
+      <div class="ing-sum-head">
+        <div class="ing-sum-ico">🧺</div>
+        <div><div class="ing-sum-ttl">${isEN?'Ingredient Diversity':'ความหลากหลายวัตถุดิบ'}</div>
+        <div class="ing-sum-sub" style="color:${vColor};">${verdict}</div></div>
+      </div>
+      <div class="ing-sum-body">
+        <div class="ing-donut" style="background:${gradient};">
+          <div class="ing-donut-hole">
+            <div class="ing-donut-num">${totalItems}</div>
+            <div class="ing-donut-lbl">${isEN?'items':'รายการ'}</div>
+          </div>
+        </div>
+        <div class="ing-legend">${legendH}</div>
+      </div>
+    </div>`;
+
   document.getElementById('ing-cats').innerHTML='';
   ING_CATS.forEach(c=>renderIngCat(c,ingData[c.id]||[]));
+}
+
+// ── ING MONTH PICKER ──
+let _ingMpYear=null;
+function openIngMonthPicker(){
+  _ingMpYear=parseInt(curIngMo.split('-')[0]); renderIngMonthPicker();
+  document.getElementById('ing-mp-overlay').style.display='block';
+  document.getElementById('ing-mp-popup').style.display='block';
+}
+function closeIngMonthPicker(){
+  document.getElementById('ing-mp-overlay').style.display='none';
+  document.getElementById('ing-mp-popup').style.display='none';
+}
+function ingMpChYear(d){_ingMpYear+=d;renderIngMonthPicker();}
+function renderIngMonthPicker(){
+  const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
+  document.getElementById('ing-mp-year').textContent=_ingMpYear;
+  const[curY,curM]=curIngMo.split('-').map(Number);
+  const nowY=new Date().getFullYear(),nowM=new Date().getMonth()+1;
+  const moNames=isEN?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']:['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  document.getElementById('ing-mp-grid').innerHTML=moNames.map((nm,i)=>{
+    const mm=i+1, isFuture=(_ingMpYear>nowY)||(_ingMpYear===nowY&&mm>nowM), isSel=(_ingMpYear===curY&&mm===curM);
+    const style=isSel?'background:var(--accent);color:#fff;border-color:transparent;':isFuture?'background:var(--bg);color:var(--muted);opacity:.45;cursor:not-allowed;':'background:var(--bg);color:var(--text);';
+    const onclick=isFuture?'':`onclick="pickIngMonth(${_ingMpYear},${mm})"`;
+    return `<button ${onclick} style="${style}padding:11px 4px;border:1px solid var(--border2);border-radius:12px;font-family:'Kanit',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;">${nm}</button>`;
+  }).join('');
+}
+function pickIngMonth(yy,mm){
+  curIngMo=`${yy}-${String(mm).padStart(2,'0')}`;
+  closeIngMonthPicker(); renderIng();
 }
 
 function renderIngCat(c,items){
@@ -4608,20 +4718,22 @@ async function analyzeSleepPhoto(input){
     content.push({ type:'text', text:`These are ${images.length} Garmin screenshot(s) — they may show different Garmin screens (Sleep, HRV Status, Body Battery, or the daily overview). Carefully extract EVERY metric you can find across ALL images and combine them into one result.
 
 WHERE TO LOOK in Garmin:
-- "Sleep Score" — a number 0-100 on the Sleep screen (e.g. "88", often labeled "Sleep Score" or shown in a colored ring)
-- "total_hours" — total sleep duration like "7h 48m" → convert to decimal hours (7.8)
-- "hrv" — HRV value in milliseconds, on the "HRV Status" screen (e.g. "62 ms", "Balanced 51"). This is a SEPARATE Garmin screen from sleep.
+- "total_hours" — the TOTAL SLEEP duration, usually shown big like "7h 48m" or "7:48" on the Sleep screen → convert to decimal hours (7h 48m = 7.8). THIS IS THE MOST IMPORTANT VALUE.
+- "Sleep Score" — a number 0-100 on the Sleep screen (e.g. "88", often labeled "Sleep Score" or shown in a colored ring 0-100)
+- "bedtime" / "waketime" — the actual clock times you went to bed and woke up (e.g. "23:30" and "07:18"). Garmin shows these at the ends of the sleep timeline bar.
+- "hrv" — HRV value in milliseconds, on the "HRV Status" screen (e.g. "62 ms", "Balanced 51"). SEPARATE screen from sleep.
 - "rhr" — Resting Heart Rate in bpm (e.g. "49")
 - "body_battery" — Body Battery value or the "+xx" charge gained during sleep (e.g. "76")
 - deep_min / light_min / rem_min / awake_min — sleep stage durations in minutes
 
-IMPORTANT:
-- If a value is genuinely NOT visible in ANY image, use 0 (do not guess).
+CRITICAL RULES:
+- If a value is genuinely NOT visible in ANY image, return 0 for numbers or "" (empty string) for bedtime/waketime. DO NOT GUESS or invent values. DO NOT default times to "00:00".
+- NEVER return bedtime="00:00" and waketime="00:00" — if you can't read the clock times, return "" for both. The total_hours alone is enough.
+- total_hours must be a realistic night's sleep (typically 4-10 hours). If you see something like "2h" double-check it's really the total and not a single sleep stage.
 - HRV and Sleep Score are often on DIFFERENT Garmin screens — scan every image for each metric.
-- Convert all sleep stage times to minutes, total sleep to decimal hours.
 
 Respond ONLY with valid JSON, no markdown:
-{"bedtime":"HH:MM","waketime":"HH:MM","total_hours":0.0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0,"notes":"brief summary of what each screen showed"}` });
+{"bedtime":"","waketime":"","total_hours":0.0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0,"notes":"brief summary of what each screen showed"}` });
 
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
       method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
@@ -4633,14 +4745,20 @@ Respond ONLY with valid JSON, no markdown:
     const s = JSON.parse(raw);
     // Auto-fill sleep fields — merge: only overwrite when a value is present (don't wipe existing with 0)
     const setIf = (id,v)=>{ if(v && +v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
-    if(s.bedtime && s.bedtime!=='HH:MM') document.getElementById('sl_s').value = s.bedtime;
-    if(s.waketime && s.waketime!=='HH:MM') document.getElementById('sl_e').value = s.waketime;
-    setIf('sl_total_h', s.total_hours);
+    // Only set times if they're real (not empty, not the invalid 00:00/00:00 pair)
+    const validTimes = s.bedtime && s.waketime && s.bedtime!=='HH:MM' && s.waketime!=='HH:MM' && !(s.bedtime==='00:00'&&s.waketime==='00:00');
+    if(validTimes){ document.getElementById('sl_s').value = s.bedtime; document.getElementById('sl_e').value = s.waketime; }
+    // Sanity-check total_hours (real sleep is 1-16h)
+    let th = +s.total_hours||0;
+    if(th>16 || th<0) th=0;
+    setIf('sl_total_h', th);
     setIf('sl_score', s.sleep_score);
     setIf('sl_rhr', s.rhr);
     setIf('sl_hrv', s.hrv);
     setIf('sl_bb', s.body_battery);
-    calcSleep(); updateQ();
+    // If we have valid bedtimes, let calcSleep compute; otherwise rely on total_hours directly
+    if(validTimes) calcSleep();
+    updateQ();
     // Warn if key Garmin metrics still missing
     const missing = [];
     if(!s.sleep_score) missing.push('Sleep Score');
