@@ -1302,26 +1302,15 @@ body.ltab-supp .s-supp{display:block;}
         <div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,rgba(74,124,89,.2),rgba(107,143,163,.2));display:flex;align-items:center;justify-content:center;font-size:.85rem;">✨</div>
         <div>
           <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--accent);">All Day Scan</div>
-          <div style="font-size:.62rem;color:var(--muted2);"><span class="lang-th">ถ่ายรูปแล้วให้ AI คำนวนทุกอย่างให้เลย</span><span class="lang-en" style="display:none;">Photo scan — AI fills everything automatically</span></div>
+          <div style="font-size:.62rem;color:var(--muted2);"><span class="lang-th">อัปรูปทุกอย่างทีเดียว · AI แยกให้เอง (อาหาร / นอน / ออกกำลังกาย)</span><span class="lang-en" style="display:none;">Upload everything at once — AI sorts food / sleep / exercise</span></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:9px;">
-        <label style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 6px;border-radius:10px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;text-align:center;transition:all .2s;" id="allday-meals-label">
-          <span style="font-size:1.1rem;">🍱</span>
-          <span style="font-size:.6rem;font-weight:700;letter-spacing:.3px;color:var(--muted2);">MEALS</span>
-          <input type="file" accept="image/*" style="display:none" onchange="analyzeAllDay(this,'meals')">
-        </label>
-        <label style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 6px;border-radius:10px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;text-align:center;transition:all .2s;" id="allday-sleep-label">
-          <span style="font-size:1.1rem;">🌙</span>
-          <span style="font-size:.6rem;font-weight:700;letter-spacing:.3px;color:var(--muted2);">SLEEP</span>
-          <input type="file" accept="image/*" style="display:none" onchange="analyzeAllDay(this,'sleep')">
-        </label>
-        <label style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 6px;border-radius:10px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;text-align:center;transition:all .2s;" id="allday-ex-label">
-          <span style="font-size:1.1rem;">🏋️</span>
-          <span style="font-size:.6rem;font-weight:700;letter-spacing:.3px;color:var(--muted2);">EXERCISE</span>
-          <input type="file" accept="image/*" style="display:none" onchange="analyzeAllDay(this,'exercise')">
-        </label>
-      </div>
+      <div id="smartscan-preview" style="display:none;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:9px;"></div>
+      <label id="smartscan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:11px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;transition:all .2s;">
+        <span style="font-size:1.15rem;">✨</span>
+        <span style="font-size:.74rem;font-weight:700;letter-spacing:.3px;color:var(--accent);font-family:'Kanit',sans-serif;"><span class="lang-th">ถ่าย / อัปรูป — ได้หลายรูปพร้อมกัน</span><span class="lang-en" style="display:none;">Add photos — multiple at once</span></span>
+        <input type="file" accept="image/*" multiple style="display:none" onchange="analyzeSmartScan(this)">
+      </label>
       <div id="allday-result" style="display:none;"></div>
     </div>
 
@@ -4802,6 +4791,130 @@ Respond ONLY with valid JSON, no markdown:
 }
 
 // ── ALL DAY SCAN (Meals / Sleep / Exercise from photo) ──
+async function analyzeSmartScan(input){
+  const files = Array.from(input.files||[]).slice(0,6);
+  if(!files.length) return;
+  const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
+  const resWrap = document.getElementById('allday-result');
+  const prev = document.getElementById('smartscan-preview');
+  if(prev){
+    prev.style.display='grid';
+    prev.innerHTML = files.map(f=>{ const u=URL.createObjectURL(f); return `<div style="aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--border2);"><img src="${u}" style="width:100%;height:100%;object-fit:cover;"></div>`; }).join('');
+  }
+  resWrap.style.display='block';
+  resWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:9px;font-size:.72rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div> ${isEN?`AI is reading & sorting ${files.length} photo(s)…`:`AI กำลังอ่านและแยกประเภท ${files.length} รูป…`}</div>`;
+
+  // resize + encode (handles iPhone HEIC + large files)
+  let images;
+  try { images = await Promise.all(files.map(f=>fileToJpegBase64(f))); }
+  catch(e){ console.error('Smart Scan read error:',e); resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${isEN?'Could not read images — try again':'อ่านรูปไม่ได้ ลองใหม่ค่ะ'}</div>`; return; }
+
+  const isHome = (typeof mealMode!=='undefined' && mealMode==='home');
+  const prompt = `You are analyzing ${images.length} photo(s) from a health journal for ONE day. Each photo is ONE of these types: a FOOD/meal photo, a Garmin SLEEP screenshot (sleep score, HRV, RHR, body battery, sleep stages), or a Garmin EXERCISE/activity screenshot (duration, calories, heart rate, distance).
+
+Classify every photo, then combine the data:
+- Combine ALL food photos into ONE "meals" result (SUM the nutrition across every food photo; assign dishes to breakfast/lunch/dinner/snack as best you can). ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Some meals dining out: include restaurant sodium.'}
+- For sleep screenshot(s): extract sleep metrics. HRV (ms) and Sleep Score are often on DIFFERENT Garmin screens — merge values found across photos. Use 0 if a value is genuinely not visible (do NOT guess).
+- For exercise screenshot(s): extract activity metrics.
+
+Set "found": true ONLY for types actually present in the photos. Respond ONLY with valid JSON, no markdown:
+{
+  "detected": ["meals","sleep","exercise"],
+  "meals": {"found": false, "breakfast":"","lunch":"","dinner":"","snack":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high"},
+  "sleep": {"found": false, "bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
+  "exercise": {"found": false, "activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}
+}`;
+
+  try {
+    const content = images.map(img=>({type:'image', source:{type:'base64', media_type:img.type, data:img.data}}));
+    content.push({type:'text', text:prompt});
+    const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1600, messages:[{role:'user', content}]})
+    });
+    const data = await res.json();
+    if(!res.ok || !Array.isArray(data.content)){ console.error('Smart Scan API error:', res.status, data); throw new Error(data?.error?.message||('API '+res.status)); }
+    const raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const r = JSON.parse(raw);
+
+    const filled = [];
+
+    // ---- MEALS ----
+    const m = r.meals||{};
+    if(m.found){
+      if(isHome) m.sodium_mg = 0;
+      const setV=(id,v)=>{ const el=document.getElementById(id); if(el&&v&&v!=='empty') el.value=v; };
+      setV('m_b',m.breakfast); setV('m_l',m.lunch); setV('m_d',m.dinner); setV('m_s',m.snack);
+      const setN=(id,v)=>{ const el=document.getElementById(id); if(el&&v) el.value=Math.round(v); };
+      setN('mac_kcal',m.kcal); setN('mac_p',m.protein_g); setN('mac_carb',m.carb_g);
+      setN('mac_fat',m.fat_g); setN('mac_f',m.fiber_g); setN('mac_sugar_total',m.sugar_g);
+      setN('mac_s',m.fruit_sugar_g); setN('mac_sodium',m.sodium_mg);
+      try{
+        for(const [catId,items] of Object.entries(m.ing||{})){
+          for(const item of (items||[])){
+            const name=(item||'').split('(')[0].trim();
+            if(name.length<2) continue;
+            const existing=await dbLoadIng(curIngMo);
+            const already=(existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
+            if(!already) await dbAddIng(curIngMo,catId,name,ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1);
+          }
+        }
+      }catch(e){}
+      filled.push({icon:'🍱', label:isEN?'Meals':'อาหาร', detail:`${Math.round(m.kcal||0)} kcal`, color:'var(--accent)'});
+    }
+
+    // ---- SLEEP ----
+    const s = r.sleep||{};
+    if(s.found){
+      const setIf=(id,v)=>{ if(v&&+v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
+      if(s.bedtime && s.bedtime!=='HH:MM' && s.bedtime!==''){ const el=document.getElementById('sl_s'); if(el) el.value=s.bedtime; }
+      if(s.waketime && s.waketime!=='HH:MM' && s.waketime!==''){ const el=document.getElementById('sl_e'); if(el) el.value=s.waketime; }
+      setIf('sl_total_h',s.total_hours); setIf('sl_score',s.sleep_score); setIf('sl_rhr',s.rhr); setIf('sl_hrv',s.hrv); setIf('sl_bb',s.body_battery);
+      try{ calcSleep(); }catch(e){}
+      filled.push({icon:'🌙', label:isEN?'Sleep':'การนอน', detail:(s.total_hours||0)+'h'+(s.sleep_score?' · '+s.sleep_score:''), color:'var(--sleep)'});
+    }
+
+    // ---- EXERCISE ----
+    const ex = r.exercise||{};
+    if(ex.found){
+      const isStrength = ex.activity==='strength'||ex.activity==='weights';
+      if(isStrength){
+        if(ex.duration_min){const el=document.getElementById('e1_m'); if(el) el.value=ex.duration_min;}
+        if(ex.calories){const el=document.getElementById('e1_k'); if(el) el.value=ex.calories;}
+        if(ex.avg_hr){const el=document.getElementById('e1_h'); if(el) el.value=ex.avg_hr;}
+      } else {
+        if(ex.duration_min){const el=document.getElementById('e2_m'); if(el) el.value=ex.duration_min;}
+        if(ex.calories){const el=document.getElementById('e2_c'); if(el) el.value=ex.calories;}
+        if(ex.avg_hr){const el=document.getElementById('e2_h'); if(el) el.value=ex.avg_hr;}
+        if(ex.distance_km){const el=document.getElementById('e2_k'); if(el) el.value=ex.distance_km;}
+      }
+      if(ex.notes){ const n=document.getElementById('ex_n'); if(n && !n.value) n.value=ex.notes; }
+      filled.push({icon:'🏋️', label:isEN?'Exercise':'ออกกำลังกาย', detail:(ex.duration_min||0)+'min', color:'var(--exercise)'});
+    }
+
+    try{ updateQ(); }catch(e){}
+
+    if(!filled.length){
+      resWrap.innerHTML = `<div style="padding:9px;background:rgba(201,164,110,.12);border-radius:9px;font-size:.72rem;color:var(--grain);">${isEN?'No food / sleep / exercise detected. Try clearer photos or fill in manually.':'ไม่พบข้อมูลอาหาร/นอน/ออกกำลังกายในรูป ลองถ่ายให้ชัดขึ้น หรือกรอกเองได้ค่ะ'}</div>`;
+      return;
+    }
+
+    resWrap.innerHTML = `<div style="background:rgba(74,124,89,.06);border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px;">
+      <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--accent);margin-bottom:8px;">✨ ${isEN?'Smart Scan — auto-sorted':'Smart Scan — แยกให้อัตโนมัติ'}</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${filled.map(f=>`<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:8px;padding:8px 10px;"><span style="font-size:.72rem;color:${f.color};">${f.icon} ${f.label}</span><span style="font-size:.72rem;font-weight:700;color:${f.color};font-family:'Kanit',sans-serif;">${f.detail}</span></div>`).join('')}
+      </div>
+      <div style="font-size:.64rem;color:var(--accent);margin-top:8px;">✓ ${isEN?'Fields filled — review & save':'ลงข้อมูลในช่องให้แล้ว ตรวจแล้วกดบันทึกได้เลย'}</div>
+    </div>`;
+    toast(`✨ ${isEN?'Scanned':'สแกนแล้ว'} · ${filled.map(f=>f.label).join(' · ')}`);
+
+  } catch(err){
+    console.error('Smart Scan error:', err);
+    resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${isEN?'Could not analyze — please try again':'วิเคราะห์ไม่ได้ ลองใหม่อีกครั้งค่ะ'}</div>`;
+  }
+}
+
 async function analyzeAllDay(input, mode){
   const file = input.files[0];
   if(!file) return;
