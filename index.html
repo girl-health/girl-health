@@ -4,6 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GIRL Health Journal</title>
+  <!-- ===== Bio+ PWA · วางบรรทัดพวกนี้ไว้ใน <head> ของ index.html (ก่อน </head>) ===== -->
+
+<!-- ชื่อแอปบน iPhone ตอนปักหมุด — แก้ชื่อทีหลังได้ตรงนี้ -->
+<meta name="apple-mobile-web-app-title" content="Bio+">
+<meta name="application-name" content="Bio+">
+
+<!-- เปิดแบบเต็มจอ (ไม่มีแถบ browser) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<!-- สีธีม (เขียว Bio+) -->
+<meta name="theme-color" content="#3B6D11">
+
+<!-- ไอคอนสำหรับ iPhone (ต้องชื่อไฟล์ตรงกับที่อัปขึ้น repo) -->
+<link rel="apple-touch-icon" href="/icon-180.png">
+
+<!-- ไอคอน + ชื่อ สำหรับ Android / Chrome -->
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- ===== จบส่วน Bio+ PWA ===== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Kanit:wght@300;500;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 <style>
