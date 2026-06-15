@@ -1529,6 +1529,20 @@ body.ltab-supp .s-supp{display:block;}
 .checkout-modal label{display:block;font-size:.64rem;color:var(--muted2);font-weight:700;margin:10px 0 3px;text-transform:uppercase;letter-spacing:.4px;}
 .checkout-modal input,.checkout-modal textarea{width:100%;border:1px solid var(--border);border-radius:11px;padding:10px;font-family:'Sarabun',sans-serif;font-size:.85rem;background:var(--card);color:var(--text);box-sizing:border-box;}
 .checkout-summary{background:var(--card);border-radius:12px;padding:11px 12px;margin:8px 0;font-size:.74rem;display:flex;flex-direction:column;gap:3px;}
+.scan-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--card),rgba(212,132,90,.07));border:1px solid rgba(212,132,90,.28);border-radius:18px;padding:14px 15px;margin-bottom:20px;cursor:pointer;box-shadow:0 4px 16px rgba(212,132,90,.12);}
+.scan-banner.has{display:block;cursor:default;}
+.scan-banner-row{display:flex;align-items:center;gap:12px;}
+.scan-banner-ico{font-size:1.7rem;flex-shrink:0;}
+.scan-banner-txt{flex:1;min-width:0;}
+.scan-banner-ttl{font-family:'Kanit',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);}
+.scan-banner-sub{font-size:.66rem;color:var(--muted2);margin-top:2px;}
+.scan-banner-cta{background:linear-gradient(135deg,var(--fruit),#bd6029);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.72rem;padding:8px 14px;border-radius:30px;white-space:nowrap;flex-shrink:0;box-shadow:0 3px 10px rgba(212,132,90,.38);cursor:pointer;}
+.scan-rec{margin-top:12px;}
+.scan-rec-label{font-size:.62rem;color:var(--fruit);font-weight:700;margin-bottom:7px;letter-spacing:.2px;}
+.scan-rec-chips{display:flex;gap:7px;flex-wrap:wrap;}
+.scan-rec-chip{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid rgba(212,132,90,.32);border-radius:30px;padding:5px 12px 5px 8px;font-family:'Kanit',sans-serif;font-size:.7rem;font-weight:600;color:var(--text);cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.scan-rec-chip .e{font-size:.92rem;}
+.shop-rec-badge{position:absolute;top:7px;left:7px;z-index:2;background:linear-gradient(135deg,var(--fruit),#bd6029);color:#fff;font-family:'Kanit',sans-serif;font-size:.54rem;font-weight:700;padding:3px 8px;border-radius:30px;box-shadow:0 2px 6px rgba(0,0,0,.22);}
 </style>
 
 <!-- ════════ SHOP · BIOACTIVE+ CITY ════════ -->
@@ -1538,6 +1552,8 @@ body.ltab-supp .s-supp{display:block;}
     <div class="shop-hero-title">BioActive+ City</div>
     <div class="shop-hero-sub"><span class="lang-th">อาหารเสริมเข้มข้น คัดสรรเพื่อ ผิว · ผม · ข้อ · ลำไส้ · การนอน</span><span class="lang-en" style="display:none;">Premium wellness — curated for skin · hair · joints · gut · sleep</span></div>
   </div>
+
+  <div id="shop-scan-banner"></div>
 
   <div id="shop-sections"></div>
 
@@ -3934,15 +3950,17 @@ function shopLang(){
   document.querySelectorAll('#page-shop .lang-en').forEach(e=>e.style.display = en?'':'none');
 }
 
-function shopCardHTML(p){
+function shopCardHTML(p, isRec){
   const price = SHOP_PRICES[p.id]||0;
   const qty = shopCart[p.id]||0;
   const tag = (p.benefits||[])[0]||'';
   const foot = qty>0
     ? `<div class="shop-stepper" onclick="event.stopPropagation()"><button onclick="changeQty('${p.id}',-1)">−</button><span>${qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`
     : `<button class="shop-add-btn" style="background:linear-gradient(135deg,${p.color},${p.color}cc);" onclick="event.stopPropagation();addToCart('${p.id}')">+ <span class="lang-th">ใส่ตะกร้า</span><span class="lang-en" style="display:none;">Add</span></button>`;
+  const badge = isRec ? `<div class="shop-rec-badge">✨ <span class="lang-th">AI แนะนำ</span><span class="lang-en" style="display:none;">AI pick</span></div>` : '';
   return `<div class="shop-card" onclick="openProductDetail('${p.id}')">
     <div class="shop-card-top" style="background:linear-gradient(160deg,${p.color}26,${p.color}08);">
+      ${badge}
       ${bottleHTML(p)}
       <img src="${shopImg(p.id)}" class="shop-prod-img" loading="lazy" onload="this.style.opacity=1" alt="${p.name}">
     </div>
@@ -3954,19 +3972,67 @@ function shopCardHTML(p){
   </div>`;
 }
 
+// ── Skin Scan link / personalization ──
+function latestSkinScan(){ try{ const a=JSON.parse(localStorage.getItem(SKIN_LOG_KEY)||'[]'); return a.length?a[a.length-1]:null; }catch(e){ return null; } }
+function recommendedProductIds(scan){
+  if(!scan || !Array.isArray(scan.bioactive_recommendations)) return [];
+  const ids=[];
+  scan.bioactive_recommendations.forEach(r=>{
+    const nm=((r&&r.product)||'').toString().toLowerCase().trim(); if(!nm) return;
+    const p=BIOACTIVE_PRODUCTS.find(x=> x.id===nm || x.name.toLowerCase().includes(nm) || nm.includes(x.id));
+    if(p && !ids.includes(p.id)) ids.push(p.id);
+  });
+  return ids;
+}
+function goSkinScan(){ goPage('body'); setTimeout(()=>{ try{ switchBodyTab('skin'); }catch(e){} try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){} }, 80); }
+function renderScanBanner(){
+  const el=document.getElementById('shop-scan-banner'); if(!el) return;
+  const scan=latestSkinScan();
+  const recIds=recommendedProductIds(scan);
+  if(scan && recIds.length){
+    const chips=recIds.map(id=>{ const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); return p?`<div class="scan-rec-chip" onclick="openProductDetail('${id}')"><span class="e">${p.icon}</span>${p.name}</div>`:''; }).join('');
+    el.innerHTML=`<div class="scan-banner has">
+      <div class="scan-banner-row">
+        <div class="scan-banner-ico">✨</div>
+        <div class="scan-banner-txt">
+          <div class="scan-banner-ttl"><span class="lang-th">AI แนะนำสำหรับผิวคุณ</span><span class="lang-en" style="display:none;">Recommended for your skin</span></div>
+          <div class="scan-banner-sub">Skin Age ${scan.skin_age||'—'} · Score ${scan.skin_score||'—'}/100</div>
+        </div>
+        <div class="scan-banner-cta" onclick="goSkinScan()"><span class="lang-th">สแกนใหม่</span><span class="lang-en" style="display:none;">Re-scan</span> →</div>
+      </div>
+      <div class="scan-rec">
+        <div class="scan-rec-label"><span class="lang-th">คัดมาเพื่อผิวคุณโดยเฉพาะ</span><span class="lang-en" style="display:none;">Picked just for your skin</span></div>
+        <div class="scan-rec-chips">${chips}</div>
+      </div>
+    </div>`;
+  } else {
+    el.innerHTML=`<div class="scan-banner" onclick="goSkinScan()">
+      <div class="scan-banner-ico">✨</div>
+      <div class="scan-banner-txt">
+        <div class="scan-banner-ttl"><span class="lang-th">สแกนผิวด้วย AI · ฟรี</span><span class="lang-en" style="display:none;">Free AI Skin Scan</span></div>
+        <div class="scan-banner-sub"><span class="lang-th">รู้อายุผิว แล้วรับคำแนะนำ BioActive เฉพาะคุณ</span><span class="lang-en" style="display:none;">Find your skin age + your personal BioActive picks</span></div>
+      </div>
+      <div class="scan-banner-cta"><span class="lang-th">สแกนเลย</span><span class="lang-en" style="display:none;">Scan</span> →</div>
+    </div>`;
+  }
+}
+
 function renderShop(){
   const wrap = document.getElementById('shop-sections'); if(!wrap) return;
+  const recIds = recommendedProductIds(latestSkinScan());
   wrap.innerHTML = SHOP_SECTIONS.map(sec=>{
-    const cards = sec.ids.map(id=>{ const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); return p?shopCardHTML(p):''; }).join('');
+    const cards = sec.ids.map(id=>{ const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); return p?shopCardHTML(p, recIds.includes(id)):''; }).join('');
     return `<div class="shelf-section">
       <div class="shelf-header"><span class="shelf-emoji">${sec.emoji}</span><span class="lang-th">${sec.th}</span><span class="lang-en" style="display:none;">${sec.en}</span></div>
       <div class="shelf-scroll">${cards}</div>
       <div class="shelf-base"></div>
     </div>`;
   }).join('');
+  renderScanBanner();
   shopLang();
   updateCartUI();
 }
+
 
 function addToCart(id){ shopCart[id]=(shopCart[id]||0)+1; saveCart(); renderShop(); toast('เพิ่มลงตะกร้าแล้ว 🛒'); }
 function changeQty(id,d){ shopCart[id]=(shopCart[id]||0)+d; if(shopCart[id]<=0) delete shopCart[id]; saveCart(); renderShop(); renderCart(); }
