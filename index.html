@@ -658,6 +658,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('meals')" id="ntab-meals">🍱 Meals</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 วัตถุดิบ</div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
+      <div class="ntab" onclick="goPage('shop')" id="ntab-shop">🛍️ ช้อป</div>
     </div>
     <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
   </div>
@@ -1448,6 +1449,95 @@ body.ltab-supp .s-supp{display:block;}
 </div>
 
 <!-- PAGE BODY COMPOSITION -->
+<style>
+.shop-hero{text-align:center;padding:6px 4px 18px;}
+.shop-hero-eyebrow{font-size:.6rem;letter-spacing:2.5px;color:var(--grain);font-weight:700;text-transform:uppercase;margin-bottom:6px;}
+.shop-hero-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--accent);font-weight:800;line-height:1.05;}
+.shop-hero-sub{font-size:.72rem;color:var(--muted2);margin-top:8px;font-family:'Sarabun',sans-serif;}
+.shop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.shop-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.05);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s;}
+.shop-card:active{transform:scale(.985);}
+.shop-card-top{height:106px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.shop-card-bottle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.1rem;background:rgba(255,255,255,.5);backdrop-filter:blur(4px);box-shadow:0 5px 16px rgba(0,0,0,.13);}
+.shop-card-body{padding:11px 12px 13px;display:flex;flex-direction:column;flex:1;}
+.shop-card-name{font-family:'Kanit',sans-serif;font-size:.94rem;font-weight:700;color:var(--text);line-height:1.15;}
+.shop-card-label{font-size:.6rem;color:var(--muted2);margin:1px 0 8px;}
+.shop-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.shop-chip{font-size:.55rem;padding:2px 7px;border-radius:20px;background:var(--bg);color:var(--muted2);border:1px solid var(--border);}
+.shop-card-foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;}
+.shop-price{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.02rem;color:var(--accent);line-height:1.15;}
+.shop-price small{font-size:.55rem;color:var(--muted2);font-weight:400;}
+.shop-add-btn{border:none;border-radius:11px;padding:8px 12px;font-family:'Kanit',sans-serif;font-size:.7rem;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.15);}
+.shop-stepper{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:11px;padding:4px 6px;}
+.shop-stepper button{width:24px;height:24px;border-radius:7px;border:none;background:var(--card);color:var(--accent);font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);line-height:1;}
+.shop-stepper span{font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;min-width:14px;text-align:center;}
+.shop-foot-note{text-align:center;font-size:.6rem;color:var(--muted2);margin-top:18px;line-height:1.5;}
+.cart-fab{position:fixed;right:16px;bottom:22px;z-index:140;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;border:none;border-radius:50px;padding:13px 17px;font-size:1.15rem;cursor:pointer;box-shadow:0 6px 22px rgba(74,124,89,.45);align-items:center;gap:7px;}
+.cart-fab-count{background:#fff;color:var(--accent);font-family:'Kanit',sans-serif;font-weight:800;font-size:.7rem;border-radius:50%;min-width:21px;height:21px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;}
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);}
+.cart-overlay.visible{display:block;}
+.cart-drawer{position:fixed;left:0;right:0;bottom:0;z-index:999;background:var(--bg);border-radius:24px 24px 0 0;max-height:86vh;display:flex;flex-direction:column;transform:translateY(110%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.2);}
+.cart-drawer.open{transform:translateY(0);}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 10px;}
+.cart-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--accent);}
+.cart-close{font-size:1.1rem;color:var(--muted2);cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;}
+.cart-items{overflow-y:auto;padding:0 18px;flex:1;}
+.cart-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border);}
+.cart-row-emoji{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.cart-row-info{flex:1;min-width:0;}
+.cart-row-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);}
+.cart-row-price{font-size:.68rem;color:var(--muted2);}
+.cart-empty{text-align:center;padding:44px 20px;color:var(--muted2);font-size:.82rem;line-height:1.7;}
+.cart-footer{padding:14px 18px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--border);background:var(--card);}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;font-family:'Kanit',sans-serif;margin-bottom:11px;}
+.cart-total-row span:first-child{color:var(--muted2);font-size:.82rem;}
+.cart-total{font-size:1.35rem;font-weight:800;color:var(--accent);}
+.cart-checkout-btn{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;box-shadow:0 4px 15px rgba(74,124,89,.3);}
+.cart-checkout-btn:disabled{opacity:.4;}
+.checkout-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;pointer-events:none;z-index:1000;background:var(--bg);border-radius:22px;padding:20px;width:min(380px,92vw);max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);transition:opacity .2s,transform .2s;}
+.checkout-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+.checkout-modal h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.25rem;margin:0 0 4px;}
+.checkout-modal label{display:block;font-size:.64rem;color:var(--muted2);font-weight:700;margin:10px 0 3px;text-transform:uppercase;letter-spacing:.4px;}
+.checkout-modal input,.checkout-modal textarea{width:100%;border:1px solid var(--border);border-radius:11px;padding:10px;font-family:'Sarabun',sans-serif;font-size:.85rem;background:var(--card);color:var(--text);box-sizing:border-box;}
+.checkout-summary{background:var(--card);border-radius:12px;padding:11px 12px;margin:8px 0;font-size:.74rem;display:flex;flex-direction:column;gap:3px;}
+</style>
+
+<!-- ════════ SHOP · BIOACTIVE+ ════════ -->
+<div class="page" id="page-shop">
+  <div class="shop-hero">
+    <div class="shop-hero-eyebrow">BIOACTIVE+ COLLECTION</div>
+    <div class="shop-hero-title">BioActive+ Shop</div>
+    <div class="shop-hero-sub">อาหารเสริมเข้มข้น ดูดซึมไว · ผิว · ผม · ข้อ · ลำไส้ · การนอน</div>
+  </div>
+  <div id="shop-grid" class="shop-grid"></div>
+  <div class="shop-foot-note">จัดส่งทั่วไทย · ปรึกษาก่อนสั่งได้ · ราคารวม VAT แล้ว</div>
+
+  <button id="cart-fab" class="cart-fab" onclick="openCart()" style="display:none;">🛍️<span id="cart-fab-count" class="cart-fab-count">0</span></button>
+
+  <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-head"><div class="cart-title">🛍️ ตะกร้าของฉัน</div><div class="cart-close" onclick="closeCart()">✕</div></div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row"><span>รวมทั้งหมด</span><span id="cart-total" class="cart-total">฿0</span></div>
+      <button id="cart-checkout-btn" class="cart-checkout-btn" onclick="openCheckout()">ดำเนินการสั่งซื้อ</button>
+    </div>
+  </div>
+
+  <div id="checkout-overlay" class="cart-overlay" onclick="closeCheckout()"></div>
+  <div id="checkout-modal" class="checkout-modal">
+    <h3>ยืนยันคำสั่งซื้อ</h3>
+    <div style="font-size:.68rem;color:var(--muted2);margin-bottom:8px;">กรอกข้อมูลจัดส่ง แล้วแอดมินจะติดต่อกลับเพื่อยืนยันการชำระเงิน</div>
+    <div id="checkout-summary" class="checkout-summary"></div>
+    <label>ชื่อ-นามสกุล</label><input id="co-name" type="text" placeholder="ชื่อผู้รับ">
+    <label>เบอร์โทร</label><input id="co-phone" type="tel" placeholder="08x-xxx-xxxx">
+    <label>ที่อยู่จัดส่ง</label><textarea id="co-addr" rows="3" placeholder="บ้านเลขที่ ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
+    <label>โน้ตเพิ่มเติม (ไม่บังคับ)</label><input id="co-note" type="text" placeholder="เช่น เวลาที่สะดวกรับของ">
+    <button class="cart-checkout-btn" style="margin-top:14px;" onclick="placeOrder()">ยืนยันสั่งซื้อ</button>
+    <button class="cart-checkout-btn" style="margin-top:8px;background:var(--card);color:var(--muted2);box-shadow:none;border:1px solid var(--border);" onclick="closeCheckout()">ยกเลิก</button>
+  </div>
+</div>
+
 <div class="page" id="page-body">
 
   <!-- TAB ROW -->
@@ -2685,7 +2775,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio'];
+  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio','shop'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -2699,6 +2789,7 @@ function goPage(name){
   if(name==='stats')renderStats();
   if(name==='ing')renderIng();
   if(name==='bio'){curBioDay=curDay;curBioMo=curDay.substring(0,7);renderBio();}
+  if(name==='shop'){ renderShop(); }
   if(name==='body'){ switchBodyTab('map'); }
   if(name==='meals'){renderMealPresets();}
   if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
@@ -3764,6 +3855,105 @@ const BIOACTIVE_PRODUCTS = [
     icon:'🟠'
   },
 ];
+
+// ════════ BIOACTIVE+ SHOP (Phase 2) ════════
+// 👉 แก้ "ราคาจริง" ของแต่ละตัวตรงนี้ (หน่วย: บาท)
+const SHOP_PRICES = {
+  collagen:1290, gluta:1290, asta:1390, gold:1490, kera:1290,
+  magnesium:1190, tribiotic:990, immuchew:890, juvecol:1390
+};
+// (ทางเลือก) ใส่ลิงก์รูปสินค้าจริงได้ที่นี่ เช่น  collagen:'https://...jpg'
+const SHOP_IMAGES = {};
+
+let shopCart = {};
+try { shopCart = JSON.parse(localStorage.getItem('girl_cart')||'{}') || {}; } catch(e){ shopCart = {}; }
+function saveCart(){ try{ localStorage.setItem('girl_cart', JSON.stringify(shopCart)); }catch(e){} }
+function cartCount(){ return Object.values(shopCart).reduce((a,b)=>a+b,0); }
+function cartTotal(){ return Object.entries(shopCart).reduce((t,[id,q])=>t+(SHOP_PRICES[id]||0)*q,0); }
+function fmtB(n){ return '฿'+Number(n||0).toLocaleString('th-TH'); }
+
+function renderShop(){
+  const grid = document.getElementById('shop-grid'); if(!grid) return;
+  grid.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
+    const price = SHOP_PRICES[p.id]||0;
+    const qty = shopCart[p.id]||0;
+    const chips = (p.benefits||[]).slice(0,3).map(b=>`<span class="shop-chip">${b}</span>`).join('');
+    const img = SHOP_IMAGES[p.id];
+    const visual = img
+      ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">`
+      : `<div class="shop-card-bottle" style="color:${p.color};">${p.icon}</div>`;
+    const foot = qty>0
+      ? `<div class="shop-stepper"><button onclick="changeQty('${p.id}',-1)">−</button><span id="qty-${p.id}">${qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`
+      : `<button class="shop-add-btn" style="background:linear-gradient(135deg,${p.color},${p.color}cc);" onclick="addToCart('${p.id}')">+ ใส่ตะกร้า</button>`;
+    return `<div class="shop-card">
+      <div class="shop-card-top" style="background:linear-gradient(160deg, ${p.color}26, ${p.color}0a);">${visual}</div>
+      <div class="shop-card-body">
+        <div class="shop-card-name">${p.name}</div>
+        <div class="shop-card-label">${p.label} · ${p.form||''}</div>
+        <div class="shop-chips">${chips}</div>
+        <div class="shop-card-foot">
+          <div class="shop-price">${fmtB(price)}<br><small>${p.timing||''}</small></div>
+          ${foot}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  updateCartUI();
+}
+function addToCart(id){ shopCart[id]=(shopCart[id]||0)+1; saveCart(); renderShop(); openCart(); toast('เพิ่มลงตะกร้าแล้ว 🛍️'); }
+function changeQty(id,d){ shopCart[id]=(shopCart[id]||0)+d; if(shopCart[id]<=0) delete shopCart[id]; saveCart(); renderShop(); renderCart(); }
+function removeFromCart(id){ delete shopCart[id]; saveCart(); renderShop(); renderCart(); }
+function updateCartUI(){
+  const c = cartCount();
+  const fab = document.getElementById('cart-fab');
+  if(fab){ fab.style.display = c>0 ? 'flex':'none'; const cc=document.getElementById('cart-fab-count'); if(cc) cc.textContent=c; }
+}
+function renderCart(){
+  const wrap=document.getElementById('cart-items'); if(!wrap) return;
+  const ids=Object.keys(shopCart);
+  if(!ids.length){ wrap.innerHTML=`<div class="cart-empty">ตะกร้ายังว่างอยู่ 🛍️<br>เลือกสินค้าที่ชอบได้เลยค่ะ</div>`; }
+  else {
+    wrap.innerHTML = ids.map(id=>{
+      const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); if(!p) return '';
+      const q=shopCart[id], price=SHOP_PRICES[id]||0;
+      return `<div class="cart-row">
+        <div class="cart-row-emoji" style="background:${p.color}1a;">${p.icon}</div>
+        <div class="cart-row-info"><div class="cart-row-name">${p.name}</div><div class="cart-row-price">${fmtB(price)} × ${q} = <b>${fmtB(price*q)}</b></div></div>
+        <div class="shop-stepper"><button onclick="changeQty('${id}',-1)">−</button><span>${q}</span><button onclick="changeQty('${id}',1)">+</button></div>
+      </div>`;
+    }).join('');
+  }
+  const tot=document.getElementById('cart-total'); if(tot) tot.textContent=fmtB(cartTotal());
+  const btn=document.getElementById('cart-checkout-btn'); if(btn) btn.disabled = !ids.length;
+  updateCartUI();
+}
+function openCart(){ renderCart(); document.getElementById('cart-overlay').classList.add('visible'); document.getElementById('cart-drawer').classList.add('open'); }
+function closeCart(){ document.getElementById('cart-overlay').classList.remove('visible'); document.getElementById('cart-drawer').classList.remove('open'); }
+function openCheckout(){
+  if(!cartCount()) return;
+  const sum=document.getElementById('checkout-summary');
+  sum.innerHTML = Object.entries(shopCart).map(([id,q])=>{ const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id)||{}; return `<div style="display:flex;justify-content:space-between;"><span>${p.icon||''} ${p.name||id} ×${q}</span><span>${fmtB((SHOP_PRICES[id]||0)*q)}</span></div>`; }).join('') + `<div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);margin-top:5px;padding-top:5px;font-weight:700;"><span>รวม</span><span style="color:var(--accent);">${fmtB(cartTotal())}</span></div>`;
+  document.getElementById('checkout-overlay').classList.add('visible');
+  document.getElementById('checkout-modal').classList.add('open');
+}
+function closeCheckout(){ document.getElementById('checkout-overlay').classList.remove('visible'); document.getElementById('checkout-modal').classList.remove('open'); }
+function placeOrder(){
+  const name=(document.getElementById('co-name').value||'').trim();
+  const phone=(document.getElementById('co-phone').value||'').trim();
+  const addr=(document.getElementById('co-addr').value||'').trim();
+  const note=(document.getElementById('co-note').value||'').trim();
+  if(!name||!phone||!addr){ toast('กรุณากรอกชื่อ เบอร์ และที่อยู่ค่ะ'); return; }
+  const order={ id:'ORD'+Date.now(), date:new Date().toISOString(), name, phone, addr, note,
+    items:Object.entries(shopCart).map(([id,q])=>({id, name:(BIOACTIVE_PRODUCTS.find(x=>x.id===id)||{}).name||id, qty:q, price:SHOP_PRICES[id]||0})),
+    total:cartTotal(), status:'pending' };
+  try{ const orders=JSON.parse(localStorage.getItem('girl_orders')||'[]'); orders.push(order); localStorage.setItem('girl_orders', JSON.stringify(orders)); }catch(e){}
+  // 🔜 เฟสถัดไป: ส่ง order ขึ้น Supabase + สร้าง PromptPay QR ตรงนี้
+  const summary = order.items.map(it=>`${it.name} ×${it.qty}`).join(', ');
+  shopCart={}; saveCart(); renderShop();
+  closeCheckout(); closeCart();
+  toast('✅ รับคำสั่งซื้อแล้ว! ยอด '+fmtB(order.total));
+  setTimeout(()=>alert('🛍️ คำสั่งซื้อ '+order.id+'\n'+summary+'\nรวม '+fmtB(order.total)+'\n\nชื่อ: '+name+'\nโทร: '+phone+'\n\nบันทึกไว้แล้ว — ขั้นต่อไปจะเชื่อมระบบชำระเงิน PromptPay ตอนนี้แอดมินจะติดต่อกลับเพื่อยืนยันค่ะ'), 350);
+}
 
 let curBioDay = new Date().toISOString().split('T')[0];
 let curBioMo = curBioDay.substring(0,7);
