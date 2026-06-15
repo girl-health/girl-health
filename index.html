@@ -1450,29 +1450,42 @@ body.ltab-supp .s-supp{display:block;}
 
 <!-- PAGE BODY COMPOSITION -->
 <style>
-.shop-hero{text-align:center;padding:6px 4px 18px;}
-.shop-hero-eyebrow{font-size:.6rem;letter-spacing:2.5px;color:var(--grain);font-weight:700;text-transform:uppercase;margin-bottom:6px;}
-.shop-hero-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--accent);font-weight:800;line-height:1.05;}
+/* ===== BioActive+ City ===== */
+.shop-hero{text-align:center;padding:8px 4px 20px;}
+.shop-hero-eyebrow{font-size:.58rem;letter-spacing:2.5px;color:var(--grain);font-weight:700;text-transform:uppercase;margin-bottom:7px;}
+.shop-hero-title{font-family:'Playfair Display',serif;font-size:2.05rem;color:var(--accent);font-weight:800;line-height:1.02;}
 .shop-hero-sub{font-size:.72rem;color:var(--muted2);margin-top:8px;font-family:'Sarabun',sans-serif;}
-.shop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-.shop-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.05);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s;}
-.shop-card:active{transform:scale(.985);}
-.shop-card-top{height:106px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.shop-card-bottle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.1rem;background:rgba(255,255,255,.5);backdrop-filter:blur(4px);box-shadow:0 5px 16px rgba(0,0,0,.13);}
-.shop-card-body{padding:11px 12px 13px;display:flex;flex-direction:column;flex:1;}
-.shop-card-name{font-family:'Kanit',sans-serif;font-size:.94rem;font-weight:700;color:var(--text);line-height:1.15;}
-.shop-card-label{font-size:.6rem;color:var(--muted2);margin:1px 0 8px;}
-.shop-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
-.shop-chip{font-size:.55rem;padding:2px 7px;border-radius:20px;background:var(--bg);color:var(--muted2);border:1px solid var(--border);}
-.shop-card-foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;}
-.shop-price{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.02rem;color:var(--accent);line-height:1.15;}
-.shop-price small{font-size:.55rem;color:var(--muted2);font-weight:400;}
-.shop-add-btn{border:none;border-radius:11px;padding:8px 12px;font-family:'Kanit',sans-serif;font-size:.7rem;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.15);}
-.shop-stepper{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:11px;padding:4px 6px;}
-.shop-stepper button{width:24px;height:24px;border-radius:7px;border:none;background:var(--card);color:var(--accent);font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);line-height:1;}
-.shop-stepper span{font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;min-width:14px;text-align:center;}
-.shop-foot-note{text-align:center;font-size:.6rem;color:var(--muted2);margin-top:18px;line-height:1.5;}
-.cart-fab{position:fixed;right:16px;bottom:22px;z-index:140;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;border:none;border-radius:50px;padding:13px 17px;font-size:1.15rem;cursor:pointer;box-shadow:0 6px 22px rgba(74,124,89,.45);align-items:center;gap:7px;}
+.shelf-section{margin-bottom:24px;}
+.shelf-header{font-family:'Kanit',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);margin:0 2px 11px;display:flex;align-items:center;gap:7px;}
+.shelf-emoji{font-size:1.1rem;}
+.shelf-scroll{display:flex;gap:11px;overflow-x:auto;padding:2px 2px 11px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.shelf-scroll::-webkit-scrollbar{display:none;}
+.shelf-base{height:14px;background:linear-gradient(180deg,#EBE1CE 0%,#D8C9AC 55%,#C2AE89 100%);border-radius:3px 3px 11px 11px;box-shadow:0 9px 16px -7px rgba(120,95,60,.55);margin:-9px 8px 0;}
+.shop-card{flex:0 0 152px;background:var(--card);border:1px solid var(--border);border-radius:17px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.07);cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.shop-card:active{transform:scale(.97);}
+.shop-card-top{height:128px;display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:hidden;padding-bottom:8px;}
+.shop-prod-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s;}
+.shop-card-body{padding:9px 11px 11px;}
+.shop-card-name{font-family:'Kanit',sans-serif;font-size:.86rem;font-weight:700;color:var(--text);line-height:1.1;}
+.shop-card-tag{font-size:.58rem;color:var(--muted2);margin:2px 0 8px;height:1.4em;overflow:hidden;}
+.shop-card-foot{display:flex;align-items:center;justify-content:space-between;gap:5px;}
+.shop-price{font-family:'Kanit',sans-serif;font-weight:800;font-size:.95rem;color:var(--accent);}
+.shop-add-btn{border:none;border-radius:10px;padding:7px 11px;font-family:'Kanit',sans-serif;font-size:.66rem;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px rgba(0,0,0,.16);}
+.shop-stepper{display:flex;align-items:center;gap:7px;background:var(--bg);border-radius:10px;padding:3px 5px;}
+.shop-stepper button{width:23px;height:23px;border-radius:7px;border:none;background:var(--card);color:var(--accent);font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);line-height:1;}
+.shop-stepper span{font-family:'Kanit',sans-serif;font-weight:700;font-size:.78rem;min-width:13px;text-align:center;}
+.shop-foot-note{text-align:center;font-size:.6rem;color:var(--muted2);margin-top:8px;line-height:1.6;}
+/* ===== Premium bottle mockup ===== */
+.bottle{position:relative;width:50px;height:82px;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 7px 9px rgba(0,0,0,.22));}
+.bottle-cap{position:absolute;top:0;left:50%;transform:translateX(-50%);width:25px;height:13px;border-radius:5px 5px 3px 3px;background:linear-gradient(180deg,#444,#1c1c1c);z-index:2;}
+.bottle-body{width:46px;height:70px;border-radius:11px 11px 13px 13px;background-color:var(--c);background-image:linear-gradient(125deg,rgba(255,255,255,.42),rgba(255,255,255,0) 38%,rgba(0,0,0,.28));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.bottle-body::after{content:'';position:absolute;top:4px;left:7px;width:6px;height:88%;border-radius:6px;background:linear-gradient(90deg,rgba(255,255,255,.6),transparent);}
+.bottle-label{background:rgba(255,255,255,.94);border-radius:5px;padding:5px 3px;width:37px;text-align:center;z-index:1;box-shadow:0 1px 4px rgba(0,0,0,.18);}
+.bottle-brand{font-size:.3rem;letter-spacing:.4px;color:#9a8f7e;font-weight:800;}
+.bottle-name{font-family:'Kanit',sans-serif;font-size:.46rem;font-weight:800;color:#2C2C2C;line-height:1.05;margin-top:1px;}
+.bottle-icon{font-size:.62rem;margin-top:1px;}
+/* ===== Cart FAB + drawer ===== */
+.cart-fab{position:fixed;right:16px;bottom:22px;z-index:140;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;border:none;border-radius:50px;padding:13px 18px;font-size:1.2rem;cursor:pointer;box-shadow:0 7px 24px rgba(74,124,89,.48);align-items:center;gap:7px;}
 .cart-fab-count{background:#fff;color:var(--accent);font-family:'Kanit',sans-serif;font-weight:800;font-size:.7rem;border-radius:50%;min-width:21px;height:21px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;}
 .cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);}
 .cart-overlay.visible{display:block;}
@@ -1494,7 +1507,23 @@ body.ltab-supp .s-supp{display:block;}
 .cart-total{font-size:1.35rem;font-weight:800;color:var(--accent);}
 .cart-checkout-btn{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;box-shadow:0 4px 15px rgba(74,124,89,.3);}
 .cart-checkout-btn:disabled{opacity:.4;}
-.checkout-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;pointer-events:none;z-index:1000;background:var(--bg);border-radius:22px;padding:20px;width:min(380px,92vw);max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);transition:opacity .2s,transform .2s;}
+/* ===== Product detail ===== */
+.pd-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.95);opacity:0;pointer-events:none;z-index:1000;background:var(--bg);border-radius:22px;width:min(372px,92vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,.35);transition:opacity .2s,transform .2s;}
+.pd-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+.pd-close{position:absolute;top:11px;right:12px;z-index:3;background:rgba(255,255,255,.85);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;}
+.pd-hero{height:186px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:22px 22px 0 0;}
+.pd-hero .bottle{transform:scale(1.75);}
+.pd-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s;}
+.pd-name{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.18rem;color:var(--text);padding:14px 18px 0;}
+.pd-label{font-size:.64rem;color:var(--muted2);font-weight:400;}
+.pd-form{font-size:.68rem;color:var(--muted2);padding:2px 18px 0;}
+.pd-section-ttl{font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;color:var(--accent);padding:15px 18px 7px;}
+.pd-benefits{padding:0 18px;display:flex;flex-direction:column;gap:6px;}
+.pd-benefit{font-size:.82rem;color:var(--text);display:flex;gap:8px;font-family:'Sarabun',sans-serif;}
+.pd-note{font-size:.73rem;color:var(--muted2);padding:13px 18px 0;line-height:1.6;font-family:'Sarabun',sans-serif;}
+.pd-buy{display:flex;align-items:center;gap:12px;padding:16px 18px calc(18px + env(safe-area-inset-bottom));}
+.pd-price{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent);white-space:nowrap;}
+.checkout-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;pointer-events:none;z-index:1001;background:var(--bg);border-radius:22px;padding:20px;width:min(380px,92vw);max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);transition:opacity .2s,transform .2s;}
 .checkout-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
 .checkout-modal h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.25rem;margin:0 0 4px;}
 .checkout-modal label{display:block;font-size:.64rem;color:var(--muted2);font-weight:700;margin:10px 0 3px;text-transform:uppercase;letter-spacing:.4px;}
@@ -1502,39 +1531,44 @@ body.ltab-supp .s-supp{display:block;}
 .checkout-summary{background:var(--card);border-radius:12px;padding:11px 12px;margin:8px 0;font-size:.74rem;display:flex;flex-direction:column;gap:3px;}
 </style>
 
-<!-- ════════ SHOP · BIOACTIVE+ ════════ -->
+<!-- ════════ SHOP · BIOACTIVE+ CITY ════════ -->
 <div class="page" id="page-shop">
   <div class="shop-hero">
-    <div class="shop-hero-eyebrow">BIOACTIVE+ COLLECTION</div>
-    <div class="shop-hero-title">BioActive+ Shop</div>
-    <div class="shop-hero-sub">อาหารเสริมเข้มข้น ดูดซึมไว · ผิว · ผม · ข้อ · ลำไส้ · การนอน</div>
+    <div class="shop-hero-eyebrow">🛒 <span class="lang-th">ช้อป</span><span class="lang-en" style="display:none;">SHOP</span> · BIOACTIVE+ CITY</div>
+    <div class="shop-hero-title">BioActive+ City</div>
+    <div class="shop-hero-sub"><span class="lang-th">อาหารเสริมเข้มข้น คัดสรรเพื่อ ผิว · ผม · ข้อ · ลำไส้ · การนอน</span><span class="lang-en" style="display:none;">Premium wellness — curated for skin · hair · joints · gut · sleep</span></div>
   </div>
-  <div id="shop-grid" class="shop-grid"></div>
-  <div class="shop-foot-note">จัดส่งทั่วไทย · ปรึกษาก่อนสั่งได้ · ราคารวม VAT แล้ว</div>
 
-  <button id="cart-fab" class="cart-fab" onclick="openCart()" style="display:none;">🛍️<span id="cart-fab-count" class="cart-fab-count">0</span></button>
+  <div id="shop-sections"></div>
+
+  <div class="shop-foot-note"><span class="lang-th">จัดส่งทั่วไทย · ปรึกษาก่อนสั่งได้ · ราคารวม VAT แล้ว</span><span class="lang-en" style="display:none;">Nationwide delivery · Free consult · VAT included</span></div>
+
+  <button id="cart-fab" class="cart-fab" onclick="openCart()" style="display:none;">🛒<span id="cart-fab-count" class="cart-fab-count">0</span></button>
 
   <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
   <div id="cart-drawer" class="cart-drawer">
-    <div class="cart-head"><div class="cart-title">🛍️ ตะกร้าของฉัน</div><div class="cart-close" onclick="closeCart()">✕</div></div>
+    <div class="cart-head"><div class="cart-title">🛒 <span class="lang-th">ตะกร้าของฉัน</span><span class="lang-en" style="display:none;">My Cart</span></div><div class="cart-close" onclick="closeCart()">✕</div></div>
     <div id="cart-items" class="cart-items"></div>
     <div class="cart-footer">
-      <div class="cart-total-row"><span>รวมทั้งหมด</span><span id="cart-total" class="cart-total">฿0</span></div>
-      <button id="cart-checkout-btn" class="cart-checkout-btn" onclick="openCheckout()">ดำเนินการสั่งซื้อ</button>
+      <div class="cart-total-row"><span class="lang-th">รวมทั้งหมด</span><span class="lang-en" style="display:none;">Total</span><span id="cart-total" class="cart-total">฿0</span></div>
+      <button id="cart-checkout-btn" class="cart-checkout-btn" onclick="openCheckout()"><span class="lang-th">ดำเนินการสั่งซื้อ</span><span class="lang-en" style="display:none;">Checkout</span></button>
     </div>
   </div>
 
+  <div id="pd-overlay" class="cart-overlay" onclick="closeProductDetail()"></div>
+  <div id="pd-modal" class="pd-modal"></div>
+
   <div id="checkout-overlay" class="cart-overlay" onclick="closeCheckout()"></div>
   <div id="checkout-modal" class="checkout-modal">
-    <h3>ยืนยันคำสั่งซื้อ</h3>
-    <div style="font-size:.68rem;color:var(--muted2);margin-bottom:8px;">กรอกข้อมูลจัดส่ง แล้วแอดมินจะติดต่อกลับเพื่อยืนยันการชำระเงิน</div>
+    <h3><span class="lang-th">ยืนยันคำสั่งซื้อ</span><span class="lang-en" style="display:none;">Confirm Order</span></h3>
+    <div style="font-size:.68rem;color:var(--muted2);margin-bottom:8px;"><span class="lang-th">กรอกข้อมูลจัดส่ง แล้วแอดมินจะติดต่อกลับเพื่อยืนยันการชำระเงิน</span><span class="lang-en" style="display:none;">Enter shipping info — admin will contact you to confirm payment.</span></div>
     <div id="checkout-summary" class="checkout-summary"></div>
-    <label>ชื่อ-นามสกุล</label><input id="co-name" type="text" placeholder="ชื่อผู้รับ">
-    <label>เบอร์โทร</label><input id="co-phone" type="tel" placeholder="08x-xxx-xxxx">
-    <label>ที่อยู่จัดส่ง</label><textarea id="co-addr" rows="3" placeholder="บ้านเลขที่ ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
-    <label>โน้ตเพิ่มเติม (ไม่บังคับ)</label><input id="co-note" type="text" placeholder="เช่น เวลาที่สะดวกรับของ">
-    <button class="cart-checkout-btn" style="margin-top:14px;" onclick="placeOrder()">ยืนยันสั่งซื้อ</button>
-    <button class="cart-checkout-btn" style="margin-top:8px;background:var(--card);color:var(--muted2);box-shadow:none;border:1px solid var(--border);" onclick="closeCheckout()">ยกเลิก</button>
+    <label><span class="lang-th">ชื่อ-นามสกุล</span><span class="lang-en" style="display:none;">Full name</span></label><input id="co-name" type="text" placeholder="ชื่อผู้รับ">
+    <label><span class="lang-th">เบอร์โทร</span><span class="lang-en" style="display:none;">Phone</span></label><input id="co-phone" type="tel" placeholder="08x-xxx-xxxx">
+    <label><span class="lang-th">ที่อยู่จัดส่ง</span><span class="lang-en" style="display:none;">Address</span></label><textarea id="co-addr" rows="3" placeholder="บ้านเลขที่ ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
+    <label><span class="lang-th">โน้ตเพิ่มเติม (ไม่บังคับ)</span><span class="lang-en" style="display:none;">Note (optional)</span></label><input id="co-note" type="text" placeholder="เช่น เวลาที่สะดวกรับของ">
+    <button class="cart-checkout-btn" style="margin-top:14px;" onclick="placeOrder()"><span class="lang-th">ยืนยันสั่งซื้อ</span><span class="lang-en" style="display:none;">Place order</span></button>
+    <button class="cart-checkout-btn" style="margin-top:8px;background:var(--card);color:var(--muted2);box-shadow:none;border:1px solid var(--border);" onclick="closeCheckout()"><span class="lang-th">ยกเลิก</span><span class="lang-en" style="display:none;">Cancel</span></button>
   </div>
 </div>
 
@@ -3856,14 +3890,22 @@ const BIOACTIVE_PRODUCTS = [
   },
 ];
 
-// ════════ BIOACTIVE+ SHOP (Phase 2) ════════
+// ════════ BIOACTIVE+ SHOP · CITY (Phase 2) ════════
 // 👉 แก้ "ราคาจริง" ของแต่ละตัวตรงนี้ (หน่วย: บาท)
 const SHOP_PRICES = {
   collagen:1290, gluta:1290, asta:1390, gold:1490, kera:1290,
   magnesium:1190, tribiotic:990, immuchew:890, juvecol:1390
 };
-// (ทางเลือก) ใส่ลิงก์รูปสินค้าจริงได้ที่นี่ เช่น  collagen:'https://...jpg'
+// รูปสินค้าจริง: อัปไฟล์ชื่อ <id>.jpg เข้าโฟลเดอร์ img/ ใน repo (เช่น img/collagen.jpg) แล้วรูปจะขึ้นเอง
+// หรือใส่ลิงก์ตรงนี้ก็ได้ เช่น  collagen:'https://...jpg'
 const SHOP_IMAGES = {};
+// จัดโซนเป็นชั้นวาง (อาเซิล) แบบร้านบูทีค
+const SHOP_SECTIONS = [
+  { th:'ผิวสวย ออร่า',        en:'Skin & Glow',         emoji:'✨', ids:['collagen','gluta','asta'] },
+  { th:'ผม เล็บ & ผ่อนคลาย',  en:'Hair & Calm',         emoji:'💆‍♀️', ids:['kera','magnesium'] },
+  { th:'ลำไส้ & ภูมิคุ้มกัน',  en:'Gut & Immunity',      emoji:'🌿', ids:['tribiotic','immuchew'] },
+  { th:'ข้อ กระดูก & ชะลอวัย', en:'Longevity & Joints', emoji:'🦴', ids:['gold','juvecol'] },
+];
 
 let shopCart = {};
 try { shopCart = JSON.parse(localStorage.getItem('girl_cart')||'{}') || {}; } catch(e){ shopCart = {}; }
@@ -3871,36 +3913,53 @@ function saveCart(){ try{ localStorage.setItem('girl_cart', JSON.stringify(shopC
 function cartCount(){ return Object.values(shopCart).reduce((a,b)=>a+b,0); }
 function cartTotal(){ return Object.entries(shopCart).reduce((t,[id,q])=>t+(SHOP_PRICES[id]||0)*q,0); }
 function fmtB(n){ return '฿'+Number(n||0).toLocaleString('th-TH'); }
+function shopImg(id){ return SHOP_IMAGES[id] || ('img/'+id+'.jpg'); }
+
+function bottleHTML(p){
+  return `<div class="bottle" style="--c:${p.color};"><div class="bottle-cap"></div><div class="bottle-body"><div class="bottle-label"><div class="bottle-brand">BIOACTIVE+</div><div class="bottle-name">${p.name}</div><div class="bottle-icon">${p.icon}</div></div></div></div>`;
+}
+// Apply current language to dynamically-rendered shop content
+function shopLang(){
+  const en = (typeof currentLang!=='undefined' && currentLang==='en');
+  document.querySelectorAll('#page-shop .lang-th').forEach(e=>e.style.display = en?'none':'');
+  document.querySelectorAll('#page-shop .lang-en').forEach(e=>e.style.display = en?'':'none');
+}
+
+function shopCardHTML(p){
+  const price = SHOP_PRICES[p.id]||0;
+  const qty = shopCart[p.id]||0;
+  const tag = (p.benefits||[])[0]||'';
+  const foot = qty>0
+    ? `<div class="shop-stepper" onclick="event.stopPropagation()"><button onclick="changeQty('${p.id}',-1)">−</button><span>${qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`
+    : `<button class="shop-add-btn" style="background:linear-gradient(135deg,${p.color},${p.color}cc);" onclick="event.stopPropagation();addToCart('${p.id}')">+ <span class="lang-th">ใส่ตะกร้า</span><span class="lang-en" style="display:none;">Add</span></button>`;
+  return `<div class="shop-card" onclick="openProductDetail('${p.id}')">
+    <div class="shop-card-top" style="background:linear-gradient(160deg,${p.color}26,${p.color}08);">
+      ${bottleHTML(p)}
+      <img src="${shopImg(p.id)}" class="shop-prod-img" loading="lazy" onload="this.style.opacity=1" alt="${p.name}">
+    </div>
+    <div class="shop-card-body">
+      <div class="shop-card-name">${p.name}</div>
+      <div class="shop-card-tag">${tag}</div>
+      <div class="shop-card-foot"><div class="shop-price">${fmtB(price)}</div>${foot}</div>
+    </div>
+  </div>`;
+}
 
 function renderShop(){
-  const grid = document.getElementById('shop-grid'); if(!grid) return;
-  grid.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
-    const price = SHOP_PRICES[p.id]||0;
-    const qty = shopCart[p.id]||0;
-    const chips = (p.benefits||[]).slice(0,3).map(b=>`<span class="shop-chip">${b}</span>`).join('');
-    const img = SHOP_IMAGES[p.id];
-    const visual = img
-      ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">`
-      : `<div class="shop-card-bottle" style="color:${p.color};">${p.icon}</div>`;
-    const foot = qty>0
-      ? `<div class="shop-stepper"><button onclick="changeQty('${p.id}',-1)">−</button><span id="qty-${p.id}">${qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`
-      : `<button class="shop-add-btn" style="background:linear-gradient(135deg,${p.color},${p.color}cc);" onclick="addToCart('${p.id}')">+ ใส่ตะกร้า</button>`;
-    return `<div class="shop-card">
-      <div class="shop-card-top" style="background:linear-gradient(160deg, ${p.color}26, ${p.color}0a);">${visual}</div>
-      <div class="shop-card-body">
-        <div class="shop-card-name">${p.name}</div>
-        <div class="shop-card-label">${p.label} · ${p.form||''}</div>
-        <div class="shop-chips">${chips}</div>
-        <div class="shop-card-foot">
-          <div class="shop-price">${fmtB(price)}<br><small>${p.timing||''}</small></div>
-          ${foot}
-        </div>
-      </div>
+  const wrap = document.getElementById('shop-sections'); if(!wrap) return;
+  wrap.innerHTML = SHOP_SECTIONS.map(sec=>{
+    const cards = sec.ids.map(id=>{ const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); return p?shopCardHTML(p):''; }).join('');
+    return `<div class="shelf-section">
+      <div class="shelf-header"><span class="shelf-emoji">${sec.emoji}</span><span class="lang-th">${sec.th}</span><span class="lang-en" style="display:none;">${sec.en}</span></div>
+      <div class="shelf-scroll">${cards}</div>
+      <div class="shelf-base"></div>
     </div>`;
   }).join('');
+  shopLang();
   updateCartUI();
 }
-function addToCart(id){ shopCart[id]=(shopCart[id]||0)+1; saveCart(); renderShop(); openCart(); toast('เพิ่มลงตะกร้าแล้ว 🛍️'); }
+
+function addToCart(id){ shopCart[id]=(shopCart[id]||0)+1; saveCart(); renderShop(); toast('เพิ่มลงตะกร้าแล้ว 🛒'); }
 function changeQty(id,d){ shopCart[id]=(shopCart[id]||0)+d; if(shopCart[id]<=0) delete shopCart[id]; saveCart(); renderShop(); renderCart(); }
 function removeFromCart(id){ delete shopCart[id]; saveCart(); renderShop(); renderCart(); }
 function updateCartUI(){
@@ -3911,7 +3970,7 @@ function updateCartUI(){
 function renderCart(){
   const wrap=document.getElementById('cart-items'); if(!wrap) return;
   const ids=Object.keys(shopCart);
-  if(!ids.length){ wrap.innerHTML=`<div class="cart-empty">ตะกร้ายังว่างอยู่ 🛍️<br>เลือกสินค้าที่ชอบได้เลยค่ะ</div>`; }
+  if(!ids.length){ wrap.innerHTML=`<div class="cart-empty"><span class="lang-th">ตะกร้ายังว่างอยู่ 🛒<br>เลือกสินค้าที่ชอบได้เลยค่ะ</span><span class="lang-en" style="display:none;">Your cart is empty 🛒<br>Pick something you love</span></div>`; }
   else {
     wrap.innerHTML = ids.map(id=>{
       const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); if(!p) return '';
@@ -3925,16 +3984,44 @@ function renderCart(){
   }
   const tot=document.getElementById('cart-total'); if(tot) tot.textContent=fmtB(cartTotal());
   const btn=document.getElementById('cart-checkout-btn'); if(btn) btn.disabled = !ids.length;
-  updateCartUI();
+  shopLang(); updateCartUI();
 }
 function openCart(){ renderCart(); document.getElementById('cart-overlay').classList.add('visible'); document.getElementById('cart-drawer').classList.add('open'); }
 function closeCart(){ document.getElementById('cart-overlay').classList.remove('visible'); document.getElementById('cart-drawer').classList.remove('open'); }
+
+function openProductDetail(id){
+  const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id); if(!p) return;
+  const price=SHOP_PRICES[id]||0;
+  const benefits=(p.benefits||[]).map(b=>`<div class="pd-benefit"><span style="color:${p.color};font-weight:700;">✓</span> ${b}</div>`).join('');
+  document.getElementById('pd-modal').innerHTML = `
+    <div class="pd-close" onclick="closeProductDetail()">✕</div>
+    <div class="pd-hero" style="background:linear-gradient(160deg,${p.color}26,${p.color}08);">
+      ${bottleHTML(p)}
+      <img src="${shopImg(id)}" class="pd-img" onload="this.style.opacity=1" alt="${p.name}">
+    </div>
+    <div class="pd-name">${p.name} <span class="pd-label">${p.label}</span></div>
+    <div class="pd-form">${[p.form,p.timing].filter(Boolean).join(' · ')}</div>
+    <div class="pd-section-ttl"><span class="lang-th">ช่วยอะไร</span><span class="lang-en" style="display:none;">What it helps</span></div>
+    <div class="pd-benefits">${benefits}</div>
+    <div class="pd-note">${p.note||''}</div>
+    <div class="pd-buy">
+      <div class="pd-price">${fmtB(price)}</div>
+      <button class="cart-checkout-btn" style="flex:1;margin:0;" onclick="addToCart('${id}');closeProductDetail();"><span class="lang-th">ใส่ตะกร้า</span><span class="lang-en" style="display:none;">Add to cart</span></button>
+    </div>`;
+  document.getElementById('pd-overlay').classList.add('visible');
+  document.getElementById('pd-modal').classList.add('open');
+  shopLang();
+}
+function closeProductDetail(){ document.getElementById('pd-overlay').classList.remove('visible'); document.getElementById('pd-modal').classList.remove('open'); }
+
 function openCheckout(){
   if(!cartCount()) return;
   const sum=document.getElementById('checkout-summary');
   sum.innerHTML = Object.entries(shopCart).map(([id,q])=>{ const p=BIOACTIVE_PRODUCTS.find(x=>x.id===id)||{}; return `<div style="display:flex;justify-content:space-between;"><span>${p.icon||''} ${p.name||id} ×${q}</span><span>${fmtB((SHOP_PRICES[id]||0)*q)}</span></div>`; }).join('') + `<div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);margin-top:5px;padding-top:5px;font-weight:700;"><span>รวม</span><span style="color:var(--accent);">${fmtB(cartTotal())}</span></div>`;
+  closeCart();
   document.getElementById('checkout-overlay').classList.add('visible');
   document.getElementById('checkout-modal').classList.add('open');
+  shopLang();
 }
 function closeCheckout(){ document.getElementById('checkout-overlay').classList.remove('visible'); document.getElementById('checkout-modal').classList.remove('open'); }
 function placeOrder(){
@@ -3952,7 +4039,7 @@ function placeOrder(){
   shopCart={}; saveCart(); renderShop();
   closeCheckout(); closeCart();
   toast('✅ รับคำสั่งซื้อแล้ว! ยอด '+fmtB(order.total));
-  setTimeout(()=>alert('🛍️ คำสั่งซื้อ '+order.id+'\n'+summary+'\nรวม '+fmtB(order.total)+'\n\nชื่อ: '+name+'\nโทร: '+phone+'\n\nบันทึกไว้แล้ว — ขั้นต่อไปจะเชื่อมระบบชำระเงิน PromptPay ตอนนี้แอดมินจะติดต่อกลับเพื่อยืนยันค่ะ'), 350);
+  setTimeout(()=>alert('🛒 คำสั่งซื้อ '+order.id+'\n'+summary+'\nรวม '+fmtB(order.total)+'\n\nชื่อ: '+name+'\nโทร: '+phone+'\n\nบันทึกไว้แล้ว — ขั้นต่อไปจะเชื่อมระบบชำระเงิน PromptPay ตอนนี้แอดมินจะติดต่อกลับเพื่อยืนยันค่ะ'), 350);
 }
 
 let curBioDay = new Date().toISOString().split('T')[0];
