@@ -5588,7 +5588,13 @@ RECOMMENDATION RULES:
 - For EACH recommended product, give a specific reason tied to what YOU SAW in HER photo (not generic).
 - Order them so the #1 product is the single most impactful for her skin right now.
 
-Respond ONLY with valid JSON (no markdown, no backticks):
+KEEP IT SHORT so the JSON is always COMPLETE and never cut off — be concise:
+- max 3 "strengths", max 2 "concerns"
+- max 3 "bioactive_recommendations"; each "reason" ≤ 14 words; "expected_result" ≤ 10 words
+- max 2 "nutrition_deficiencies"; max 3 "skincare_routine"; max 3 "lifestyle_tips"
+- "next_focus" ≤ 18 words
+
+Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every array and object properly:
 {
   "skin_age": 25,
   "chronological_age": 32,
@@ -5697,8 +5703,24 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       throw new Error(data?.error?.message || `API ${res.status}`);
     }
     let raw = data.content.map(i => i.text||'').join('').replace(/```json|```/g,'').trim();
-    const _a = raw.indexOf('{'), _b = raw.lastIndexOf('}'); if(_a>=0 && _b>_a) raw = raw.slice(_a,_b+1);
-    const r = JSON.parse(raw);
+    const _a = raw.indexOf('{'); if(_a>0) raw = raw.slice(_a);
+    let r;
+    try {
+      const _b = raw.lastIndexOf('}');
+      r = JSON.parse(_b>0 ? raw.slice(0,_b+1) : raw);
+    } catch(e1){
+      // Best-effort repair of a truncated response: drop trailing partial, then close open brackets
+      try {
+        let s = raw.replace(/,\s*$/,'').replace(/:\s*"[^"]*$/,':""').replace(/,\s*"[^"]*$/,'');
+        const opensC=(s.match(/{/g)||[]).length, closeC=(s.match(/}/g)||[]).length;
+        const opensS=(s.match(/\[/g)||[]).length, closeS=(s.match(/]/g)||[]).length;
+        s = s.replace(/,\s*$/,'');
+        for(let i=0;i<(opensS-closeS);i++) s+=']';
+        for(let i=0;i<(opensC-closeC);i++) s+='}';
+        r = JSON.parse(s);
+        console.warn('Skin scan: recovered from truncated JSON');
+      } catch(e2){ throw e1; }
+    }
 
     // Save to Supabase
     const today = new Date().toISOString().split('T')[0];
