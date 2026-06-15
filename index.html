@@ -5419,25 +5419,30 @@ async function getSkinLog(){
 async function saveSkinEntry(entry){
   // Prepare entry — JSONB fields must be objects/arrays, not strings
   const clean = { ...entry };
-  // These are JSONB in Supabase — pass as-is (arrays/objects)
   ['strengths','concerns','nutrition_deficiencies','skincare_routine','lifestyle_tips','supplement_stack','bioactive_recommendations'].forEach(k => {
     if(typeof clean[k] === 'string'){ try { clean[k] = JSON.parse(clean[k]); } catch(e){ delete clean[k]; } }
   });
+  // Round integer-type fields so decimals never break an INT column
+  ['skin_age','chronological_age','skin_score','reassess_in_days','photos'].forEach(k=>{ if(clean[k]!=null && clean[k]!==''){ clean[k]=Math.round(+clean[k]||0); } });
+  const post = (body)=> fetch(`${SUPA_URL}/rest/v1/skin_scans`, {
+    method:'POST',
+    headers:{ 'apikey':SUPA_KEY, 'Authorization':`Bearer ${SUPA_KEY}`, 'Content-Type':'application/json', 'Prefer':'resolution=merge-duplicates,return=minimal' },
+    body: JSON.stringify(body)
+  });
   try {
-    const res = await fetch(`${SUPA_URL}/rest/v1/skin_scans`, {
-      method: 'POST',
-      headers:{
-        'apikey': SUPA_KEY,
-        'Authorization': `Bearer ${SUPA_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates,return=minimal'
-      },
-      body: JSON.stringify(clean)
-    });
-    if(!res.ok){
-      const err = await res.text().catch(()=>'');
-      console.error('saveSkinEntry error:', res.status, err.substring(0,120));
+    let res = await post(clean);
+    let guard = 0;
+    while(!res.ok && guard++ < 14){
+      const errTxt = await res.text().catch(()=>'');
+      // PostgREST: a column in our payload doesn't exist in the table → strip it and retry
+      const m = errTxt.match(/Could not find the '([^']+)' column/) || errTxt.match(/column "?([a-zA-Z0-9_]+)"? of relation/);
+      if(m && m[1] && (m[1] in clean)){ delete clean[m[1]]; res = await post(clean); continue; }
+      console.error('saveSkinEntry error:', res.status, errTxt.substring(0,160));
+      window.__skinSaveErr = errTxt.replace(/[{}"]/g,'').substring(0,90) || ('HTTP '+res.status);
+      return false;
     }
+    const dropped = Object.keys(entry).filter(k=>!(k in clean));
+    if(res.ok && dropped.length) console.warn('saveSkinEntry: saved without missing columns →', dropped.join(', '));
     return res.ok;
   } catch(e) {
     console.warn('saveSkinEntry fallback:', e?.message);
@@ -5446,6 +5451,7 @@ async function saveSkinEntry(entry){
       log.push(entry); log.sort((a,b)=>a.date.localeCompare(b.date));
       localStorage.setItem(SKIN_LOG_KEY, JSON.stringify(log.slice(-90)));
     } catch(e2){}
+    window.__skinSaveErr = (e&&e.message)||'network';
     return false;
   }
 }
@@ -5594,6 +5600,8 @@ KEEP IT SHORT so the JSON is always COMPLETE and never cut off — be concise:
 - max 2 "nutrition_deficiencies"; max 3 "skincare_routine"; max 3 "lifestyle_tips"
 - "next_focus" ≤ 18 words
 
+LANGUAGE — write ALL free-text in natural, friendly THAI: every item in "strengths" and "concerns", every bioactive "reason"/"timing"/"expected_result", every nutrition "reason" and "foods", every "skincare_routine" and "lifestyle_tips" line, and "next_focus". Keep ONLY the short status words (overall_condition, skin_type, hydration, radiance, texture, pore_size, fine_lines, pigmentation, elasticity, dark_spots, redness, under_eye, acne, barrier_health, glycation_signs, confidence) and "product"/"priority"/"nutrient" as the English keywords shown in the schema.
+
 Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every array and object properly:
 {
   "skin_age": 25,
@@ -5616,28 +5624,28 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
   "barrier_health": "Strong",
   "glycation_signs": "Minimal",
   "strengths": [
-    "Excellent skin elasticity and firmness for age",
-    "Even skin tone with minimal pigmentation",
-    "Good hydration — plump and dewy texture"
+    "ผิวเด้ง ยืดหยุ่นดีมากเมื่อเทียบกับอายุ",
+    "สีผิวสม่ำเสมอ รอยดำน้อย",
+    "ความชุ่มชื้นดี ผิวอิ่มฟู"
   ],
   "concerns": [
-    "Slight dehydration around T-zone — early barrier stress",
-    "Faint fine lines forming at outer eye corners"
+    "โซน T-zone เริ่มขาดน้ำเล็กน้อย เกราะผิวเริ่มอ่อน",
+    "เริ่มมีริ้วรอยจาง ๆ ที่หางตา"
   ],
   "bioactive_recommendations": [
     {
       "product": "Collagen",
       "emoji": "⬛",
       "priority": "Essential",
-      "reason": "Visible early fine lines at eye corners + slightly enlarged pores indicate declining collagen density — liquid collagen will restore plumpness and smooth texture.",
+      "reason": "ริ้วรอยหางตาเริ่มมา รูขุมขนกว้างขึ้น = คอลลาเจนเริ่มลด ควรเติมให้ผิวเด้ง",
       "timing": "ก่อนอาหารเช้า",
-      "expected_result": "ผิวเด้ง ชุ่มชื้น รูขุมขนกระชับ ใน 3-4 สัปดาห์"
+      "expected_result": "ผิวเด้ง รูขุมขนกระชับใน 3-4 สัปดาห์"
     },
     {
       "product": "Asta",
       "emoji": "❤️",
       "priority": "Essential",
-      "reason": "Outer-eye fine lines + Thailand's high UV exposure call for internal photoprotection — AstaReal 6mg shields against further photoaging.",
+      "reason": "ริ้วรอยหางตา + แดดไทยแรง ต้องปกป้องผิวจากภายใน ลดการเสื่อมจากแสง",
       "timing": "หลังอาหาร",
       "expected_result": "ผิวทนแดด ลดริ้วรอย สดใสไม่ล้า"
     },
@@ -5645,7 +5653,7 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
       "product": "Gluta",
       "emoji": "💗",
       "priority": "Recommended",
-      "reason": "Slight dullness in the T-zone suggests mild oxidative stress — glutathione will boost radiance and even out tone.",
+      "reason": "ผิวโซน T-zone เริ่มหมองจากอนุมูลอิสระ กลูต้าช่วยให้กระจ่างใสขึ้น",
       "timing": "ก่อนอาหาร",
       "expected_result": "ผิวกระจ่างใส ออร่าชมพู ลดหมองคล้ำ"
     }
@@ -5653,28 +5661,28 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
   "nutrition_deficiencies": [
     {
       "nutrient": "Vitamin C",
-      "reason": "Slight dullness suggests oxidative stress",
-      "foods": ["Kiwi", "Bell pepper", "Guava", "Strawberries"],
+      "reason": "ผิวเริ่มหมองคล้ำ บ่งชี้ภาวะอนุมูลอิสระ",
+      "foods": ["กีวี", "พริกหวาน", "ฝรั่ง", "สตรอว์เบอร์รี"],
       "priority": "High"
     },
     {
-      "nutrient": "Omega-3 Fatty Acids",
-      "reason": "Skin barrier needs strengthening for hydration retention",
-      "foods": ["Salmon", "Sardines", "Walnuts", "Flaxseed"],
+      "nutrient": "Omega-3",
+      "reason": "เกราะผิวต้องการการเสริมเพื่อกักเก็บความชุ่มชื้น",
+      "foods": ["แซลมอน", "ปลาซาร์ดีน", "วอลนัท", "เมล็ดแฟลกซ์"],
       "priority": "High"
     }
   ],
   "skincare_routine": [
-    "AM: Vitamin C serum → SPF 50+ sunscreen (most important step)",
-    "PM: Retinol 0.025% 3x/week to stimulate collagen",
-    "Weekly: Gentle exfoliation + hydrating mask"
+    "เช้า: วิตามินซีเซรั่ม → กันแดด SPF 50+ (ขั้นสำคัญสุด)",
+    "ก่อนนอน: เรตินอล 0.025% สัปดาห์ละ 3 ครั้ง กระตุ้นคอลลาเจน",
+    "รายสัปดาห์: ผลัดเซลล์ผิวอ่อนโยน + มาส์กเพิ่มความชุ่มชื้น"
   ],
   "lifestyle_tips": [
-    "Drink 2.5L water daily — visible improvement in 2 weeks",
-    "Sleep 7.5–8.5h — skin repairs 80% during deep sleep",
-    "Reduce refined sugar — accelerates glycation and aging"
+    "ดื่มน้ำ 2.5 ลิตร/วัน เห็นผลใน 2 สัปดาห์",
+    "นอน 7.5–8.5 ชม. ผิวซ่อมแซม 80% ตอนหลับลึก",
+    "ลดน้ำตาลขัดสี เพราะเร่งความเสื่อมและริ้วรอย"
   ],
-  "next_focus": "Focus on strengthening skin barrier and UV protection for the next 30 days",
+  "next_focus": "เน้นเสริมเกราะผิวและกันแดดให้เข้มข้นใน 30 วันข้างหน้า",
   "reassess_in_days": 30
 }`;
 
@@ -5725,7 +5733,7 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
     // Save to Supabase
     const today = new Date().toISOString().split('T')[0];
     const entry = { date: today, photos: images.length, ...r };
-    await saveSkinEntry(entry);
+    const skinSaved = await saveSkinEntry(entry);
 
     // Update local cache
     try {
@@ -5756,7 +5764,7 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
     skinPhotoFiles = [];
     document.getElementById('skin-preview-grid').innerHTML = '';
     document.getElementById('skin-scan-label').style.display = 'flex';
-    toast(`✨ Skin Age ${r.skin_age} yrs · Score ${r.skin_score}/100`);
+    toast(skinSaved ? `✨ Skin Age ${r.skin_age} yrs · Score ${r.skin_score}/100 ☁️` : `✨ Skin Age ${r.skin_age} · บันทึกบนเครื่อง · cloud ไม่ได้${window.__skinSaveErr?': '+window.__skinSaveErr:''}`);
 
   } catch(err) {
     console.error('Skin scan error:', err);
