@@ -1700,8 +1700,8 @@ body.ltab-supp .s-supp{display:block;}
       <label id="skin-scan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:13px;border:2px dashed rgba(255,126,179,.35);background:rgba(255,126,179,.03);cursor:pointer;">
         <span style="font-size:1.3rem;">📸</span>
         <div style="text-align:center;">
-          <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;">เลือกรูปหน้า 1–4 รูป</div>
-          <div style="font-size:.6rem;color:var(--muted2);">แสงธรรมชาติ · ไม่มีเมคอัพ · หลายมุม</div>
+          <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;">ถ่าย/เลือกรูปหน้า (สูงสุด 4 รูป)</div>
+          <div style="font-size:.6rem;color:var(--muted2);">ถ่ายซ้ำเพิ่มได้ · แสงธรรมชาติ · ไม่มีเมคอัพ · หลายมุม</div>
         </div>
         <input type="file" accept="image/*" multiple style="display:none" onchange="previewSkinPhotos(this)">
       </label>
@@ -1715,7 +1715,8 @@ body.ltab-supp .s-supp{display:block;}
       <div id="skin-scan-loading" style="display:none;text-align:center;padding:16px;">
         <div style="font-size:1.5rem;margin-bottom:8px;">🔍</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;margin-bottom:4px;">AI กำลังวิเคราะห์ผิวหน้า…</div>
-        <div style="font-size:.65rem;color:var(--muted2);">ใช้เวลาสักครู่ · วิเคราะห์จาก <span id="skin-photo-count">1</span> รูป</div>
+        <div style="font-size:.65rem;color:var(--muted2);">วิเคราะห์ละเอียดจาก <span id="skin-photo-count">1</span> รูป · ใช้เวลาสักครู่</div>
+        <div id="skin-scan-stage" style="font-size:.62rem;color:var(--fruit);margin-top:6px;min-height:1em;"></div>
       </div>
     </div>
 
@@ -5487,20 +5488,39 @@ function fileToJpegBase64(file, maxDim = 1568, quality = 0.85){
   });
 }
 
-function previewSkinPhotos(input){
-  const files = Array.from(input.files).slice(0,4);
-  if(!files.length) return;
-  skinPhotoFiles = files;
+function renderSkinPreview(){
   const grid = document.getElementById('skin-preview-grid');
-  grid.innerHTML = files.map((f,i) => {
-    const url = URL.createObjectURL(f);
-    return `<div style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1.5px solid rgba(255,126,179,.3);">
-      <img src="${url}" style="width:100%;height:100%;object-fit:cover;">
-      <div style="position:absolute;bottom:3px;right:4px;background:rgba(0,0,0,.5);color:#fff;font-size:.55rem;border-radius:4px;padding:1px 4px;">${i+1}</div>
-    </div>`;
-  }).join('');
-  document.getElementById('skin-analyze-btn').style.display = 'block';
-  document.getElementById('skin-analyze-btn').textContent = `✨ วิเคราะห์จาก ${files.length} รูป`;
+  if(grid){
+    grid.innerHTML = skinPhotoFiles.map((f,i) => {
+      const url = URL.createObjectURL(f);
+      return `<div style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1.5px solid rgba(255,126,179,.3);">
+        <img src="${url}" style="width:100%;height:100%;object-fit:cover;">
+        <div onclick="removeSkinPhoto(${i})" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;font-size:.62rem;line-height:1;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">✕</div>
+        <div style="position:absolute;bottom:3px;right:4px;background:rgba(0,0,0,.5);color:#fff;font-size:.55rem;border-radius:4px;padding:1px 4px;">${i+1}</div>
+      </div>`;
+    }).join('');
+  }
+  const btn = document.getElementById('skin-analyze-btn');
+  if(btn){
+    if(skinPhotoFiles.length){
+      btn.style.display = 'block';
+      btn.textContent = `✨ วิเคราะห์จาก ${skinPhotoFiles.length} รูป`;
+    } else {
+      btn.style.display = 'none';
+    }
+  }
+}
+function previewSkinPhotos(input){
+  const incoming = Array.from(input.files||[]);
+  if(!incoming.length) return;
+  // APPEND new photos (take one, then take/select again to add more) — cap at 4
+  skinPhotoFiles = skinPhotoFiles.concat(incoming).slice(0,4);
+  input.value = ''; // reset so the same input can capture/add again
+  renderSkinPreview();
+}
+function removeSkinPhoto(i){
+  skinPhotoFiles.splice(i,1);
+  renderSkinPreview();
 }
 
 async function analyzeSkinAge(){
@@ -5510,12 +5530,21 @@ async function analyzeSkinAge(){
   document.getElementById('skin-photo-count').textContent = skinPhotoFiles.length;
   document.getElementById('skin-result-wrap').style.display = 'none';
 
+  // Rotating progress messages so the wait feels alive (detailed multi-photo analysis takes ~15-20s)
+  const _stageMsgs = ['กำลังดูพื้นผิว & รูขุมขน…','ประเมินริ้วรอย & ความกระชับ…','วัดความชุ่มชื้น & ความกระจ่างใส…','ตรวจจุดด่างดำ & ความสม่ำเสมอ…','สรุปผล & คำแนะนำ BioActive…'];
+  let _stageI = 0;
+  const _stageEl = document.getElementById('skin-scan-stage');
+  if(_stageEl) _stageEl.textContent = _stageMsgs[0];
+  let skinStageTimer = setInterval(()=>{ _stageI=(_stageI+1)%_stageMsgs.length; if(_stageEl) _stageEl.textContent=_stageMsgs[_stageI]; }, 2500);
+  const _clearStage = ()=>{ if(skinStageTimer){ clearInterval(skinStageTimer); skinStageTimer=null; } if(_stageEl) _stageEl.textContent=''; };
+
   // Convert all images: decode + resize + re-encode to JPEG (handles iPhone HEIC + large files)
   let images;
   try {
     images = await Promise.all(skinPhotoFiles.map(f => fileToJpegBase64(f)));
   } catch(e){
     console.error('Skin photo read error:', e);
+    _clearStage();
     document.getElementById('skin-scan-loading').style.display = 'none';
     document.getElementById('skin-analyze-btn').style.display = 'block';
     document.getElementById('skin-scan-label').style.display = 'flex';
@@ -5659,7 +5688,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-allow-browser': 'true'
       },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2600, messages: [{ role: 'user', content }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2000, messages: [{ role: 'user', content }] })
     });
 
     const data = await res.json();
@@ -5667,7 +5696,8 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       console.error('Skin scan API error:', res.status, data);
       throw new Error(data?.error?.message || `API ${res.status}`);
     }
-    const raw = data.content.map(i => i.text||'').join('').replace(/```json|```/g,'').trim();
+    let raw = data.content.map(i => i.text||'').join('').replace(/```json|```/g,'').trim();
+    const _a = raw.indexOf('{'), _b = raw.lastIndexOf('}'); if(_a>=0 && _b>_a) raw = raw.slice(_a,_b+1);
     const r = JSON.parse(raw);
 
     // Save to Supabase
@@ -5689,6 +5719,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       localStorage.setItem('girl_profile_body', JSON.stringify(pb));
     } catch(e){}
 
+    _clearStage();
     document.getElementById('skin-scan-loading').style.display = 'none';
     renderSkinResult(r);
     renderSkinHistory();
@@ -5707,10 +5738,11 @@ Respond ONLY with valid JSON (no markdown, no backticks):
 
   } catch(err) {
     console.error('Skin scan error:', err);
+    _clearStage();
     document.getElementById('skin-scan-loading').style.display = 'none';
     document.getElementById('skin-analyze-btn').style.display = 'block';
     document.getElementById('skin-scan-label').style.display = 'flex';
-    toast('⚠ วิเคราะห์ไม่ได้ — ลองอีกครั้ง');
+    toast('⚠ วิเคราะห์ผิวไม่ได้: '+((err&&err.message)||'').toString().substring(0,70));
   }
 }
 
