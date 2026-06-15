@@ -659,6 +659,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 วัตถุดิบ</div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
       <div class="ntab" onclick="goPage('shop')" id="ntab-shop">🛍️ <span class="lang-th">ช้อป</span><span class="lang-en" style="display:none;">Shop</span></div>
+      <div class="ntab" onclick="goPage('member')" id="ntab-member">🏅 <span class="lang-th">สมาชิก</span><span class="lang-en" style="display:none;">Member</span></div>
     </div>
     <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
   </div>
@@ -1586,6 +1587,72 @@ body.ltab-supp .s-supp{display:block;}
     <button class="cart-checkout-btn" style="margin-top:14px;" onclick="placeOrder()"><span class="lang-th">ยืนยันสั่งซื้อ</span><span class="lang-en" style="display:none;">Place order</span></button>
     <button class="cart-checkout-btn" style="margin-top:8px;background:var(--card);color:var(--muted2);box-shadow:none;border:1px solid var(--border);" onclick="closeCheckout()"><span class="lang-th">ยกเลิก</span><span class="lang-en" style="display:none;">Cancel</span></button>
   </div>
+</div>
+
+<style>
+/* ===== Glow Membership ===== */
+.mb-hero{text-align:center;padding:8px 4px 16px;}
+.mb-eyebrow{font-size:.58rem;letter-spacing:2.5px;color:var(--grain);font-weight:700;text-transform:uppercase;margin-bottom:7px;}
+.mb-title{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--accent);font-weight:800;line-height:1.05;}
+.mb-card{position:relative;border-radius:22px;padding:20px 20px 18px;color:#fff;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.22);margin-bottom:16px;}
+.mb-card::after{content:'BioActive+';position:absolute;right:-10px;bottom:-14px;font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:800;color:rgba(255,255,255,.1);letter-spacing:-1px;}
+.mb-card-top{display:flex;align-items:center;justify-content:space-between;}
+.mb-card-brand{font-family:'Playfair Display',serif;font-weight:800;font-size:1.05rem;letter-spacing:.3px;}
+.mb-card-tier{font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;background:rgba(255,255,255,.22);padding:5px 12px;border-radius:30px;backdrop-filter:blur(4px);}
+.mb-flex-badge{display:inline-block;margin-top:16px;background:rgba(255,255,255,.95);color:#222;font-family:'Kanit',sans-serif;font-weight:800;font-size:.78rem;padding:5px 14px;border-radius:30px;box-shadow:0 3px 10px rgba(0,0,0,.18);}
+.mb-card-name{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.5rem;margin-top:10px;text-shadow:0 1px 6px rgba(0,0,0,.18);}
+.mb-card-stats{display:flex;gap:18px;margin-top:16px;position:relative;z-index:1;}
+.mb-card-stats > div{display:flex;flex-direction:column;}
+.mb-card-stats b{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.3rem;line-height:1;}
+.mb-card-stats span{font-size:.6rem;opacity:.85;margin-top:3px;}
+.mb-card-since{font-size:.62rem;opacity:.8;margin-top:14px;position:relative;z-index:1;}
+.mb-progress{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:14px;}
+.mb-progress-top{display:flex;justify-content:space-between;font-family:'Kanit',sans-serif;font-size:.74rem;color:var(--text);margin-bottom:8px;}
+.mb-progress-bar{height:9px;background:var(--bg2);border-radius:30px;overflow:hidden;}
+.mb-progress-fill{height:100%;border-radius:30px;background:linear-gradient(90deg,var(--accent),#6fa67c);transition:width .5s;}
+.mb-progress-note{font-size:.66rem;color:var(--muted2);margin-top:8px;}
+.mb-share-btn{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;box-shadow:0 4px 15px rgba(74,124,89,.3);margin-bottom:18px;}
+.mb-sec-ttl{font-family:'Kanit',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin:4px 2px 10px;}
+.mb-perk{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:11px 13px;margin-bottom:8px;font-size:.78rem;color:var(--text);font-family:'Sarabun',sans-serif;}
+.mb-perk .i{color:var(--accent);font-size:.95rem;flex-shrink:0;}
+.mb-points-box{background:linear-gradient(135deg,rgba(201,169,110,.14),rgba(201,169,110,.05));border:1px solid rgba(201,169,110,.35);border-radius:16px;padding:14px 16px;margin-bottom:16px;}
+.mb-points-num{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.7rem;color:var(--grain);}
+.mb-points-sub{font-size:.66rem;color:var(--muted2);margin-top:2px;}
+.mb-tier-ladder{display:flex;gap:6px;margin:14px 0 6px;}
+.mb-tier-step{flex:1;text-align:center;font-size:.56rem;color:var(--muted2);padding:7px 2px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-family:'Kanit',sans-serif;}
+.mb-tier-step.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+.mb-name-edit{display:flex;gap:8px;margin:6px 0 4px;}
+.mb-name-edit input{flex:1;border:1px solid var(--border);border-radius:11px;padding:9px 11px;font-family:'Sarabun',sans-serif;font-size:.82rem;background:var(--card);color:var(--text);}
+.mb-name-edit button{border:none;border-radius:11px;padding:0 16px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.74rem;cursor:pointer;}
+</style>
+
+<!-- ════════ MEMBER · GLOW MEMBERSHIP ════════ -->
+<div class="page" id="page-member">
+  <div class="mb-hero">
+    <div class="mb-eyebrow">GLOW MEMBERSHIP</div>
+    <div class="mb-title"><span class="lang-th">บัตรสมาชิก BioActive+</span><span class="lang-en" style="display:none;">BioActive+ Membership</span></div>
+  </div>
+
+  <div id="mb-card-wrap"></div>
+
+  <button class="mb-share-btn" onclick="shareMemberCard()">📸 <span class="lang-th">แชร์การ์ดสมาชิก</span><span class="lang-en" style="display:none;">Share my card</span></button>
+
+  <div id="mb-progress"></div>
+
+  <div class="mb-points-box">
+    <div class="mb-points-num" id="mb-points">0 <span style="font-size:.8rem;font-weight:600;">แต้ม</span></div>
+    <div class="mb-points-sub"><span class="lang-th">ทุก ฿10 ที่ซื้อในแอป = 1 แต้ม · 200 แต้ม = ส่วนลด ฿100</span><span class="lang-en" style="display:none;">Every ฿10 in-app = 1 point · 200 pts = ฿100 off</span></div>
+  </div>
+
+  <div class="mb-sec-ttl"><span class="lang-th">สิทธิ์ระดับของคุณ</span><span class="lang-en" style="display:none;">Your tier perks</span></div>
+  <div id="mb-benefits"></div>
+
+  <div class="mb-sec-ttl" style="margin-top:14px;"><span class="lang-th">ชื่อบนการ์ด</span><span class="lang-en" style="display:none;">Name on card</span></div>
+  <div class="mb-name-edit">
+    <input id="mb-name-input" type="text" placeholder="ชื่อของคุณ" maxlength="22">
+    <button onclick="setMemberName()"><span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
+  </div>
+  <div style="font-size:.6rem;color:var(--muted2);text-align:center;margin-top:14px;"><span class="lang-th">ได้แต้มเฉพาะการสั่งซื้อในแอปนี้เท่านั้น 🛍️</span><span class="lang-en" style="display:none;">Points earned on in-app orders only 🛍️</span></div>
 </div>
 
 <div class="page" id="page-body">
@@ -2825,7 +2892,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio','shop'];
+  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio','shop','member'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -2840,6 +2907,7 @@ function goPage(name){
   if(name==='ing')renderIng();
   if(name==='bio'){curBioDay=curDay;curBioMo=curDay.substring(0,7);renderBio();}
   if(name==='shop'){ renderShop(); }
+  if(name==='member'){ renderMember(); }
   if(name==='body'){ switchBodyTab('map'); }
   if(name==='meals'){renderMealPresets();}
   if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
@@ -4116,6 +4184,138 @@ function placeOrder(){
   toast('✅ รับคำสั่งซื้อแล้ว! ยอด '+fmtB(order.total));
   setTimeout(()=>alert('🛒 คำสั่งซื้อ '+order.id+'\n'+summary+'\nรวม '+fmtB(order.total)+'\n\nชื่อ: '+name+'\nโทร: '+phone+'\n\nบันทึกไว้แล้ว — ขั้นต่อไปจะเชื่อมระบบชำระเงิน PromptPay ตอนนี้แอดมินจะติดต่อกลับเพื่อยืนยันค่ะ'), 350);
 }
+
+// ════════ GLOW MEMBERSHIP ════════
+const TIERS = [
+  { id:'member',  name:'Glow Member',  emoji:'🌱', min:0,     grad:['#8FB97A','#5C7A3A'], perks:['สะสมแต้มทุกการซื้อในแอป','รับข่าวสาร & โปรเฉพาะสมาชิก'] },
+  { id:'silver',  name:'Glow Silver',  emoji:'🥈', min:3000,  grad:['#C6CDD6','#8A95A1'], perks:['ส่วนลดสมาชิก 5%','ส่งฟรีเมื่อซื้อครบ ฿1,500','สะสมแต้มเร็วขึ้น'] },
+  { id:'gold',    name:'Glow Gold',    emoji:'🥇', min:10000, grad:['#E6C97A','#B8860B'], perks:['ส่วนลด 10% ทุกออเดอร์','ส่งฟรีทุกออเดอร์','ของขวัญวันเกิด 🎁','สิทธิ์ร่วมกิจกรรมพิเศษ'] },
+  { id:'diamond', name:'Glow Diamond', emoji:'💎', min:25000, grad:['#8FD3E8','#3E8DB0'], perks:['ส่วนลด 15% ทุกออเดอร์','ส่งฟรี + ของแถมทุกออเดอร์','สิทธิ์ซื้อรุ่นพิเศษก่อนใคร','ที่ปรึกษาสุขภาพส่วนตัว','ป้าย “แฟนพันธุ์แท้” 💎'], flex:'แฟนพันธุ์แท้' },
+];
+
+function memberName(){ try{ return localStorage.getItem('girl_member_name') || 'GIRL'; }catch(e){ return 'GIRL'; } }
+function setMemberName(){
+  const v=(document.getElementById('mb-name-input').value||'').trim();
+  if(!v){ toast('ใส่ชื่อก่อนค่ะ'); return; }
+  try{ localStorage.setItem('girl_member_name', v); }catch(e){}
+  renderMember(); toast('บันทึกชื่อแล้ว ✨');
+}
+function memberStats(){
+  let orders=[]; try{ orders=JSON.parse(localStorage.getItem('girl_orders')||'[]'); }catch(e){}
+  let totalSpent=0, boxesTotal=0, thisMonthBoxes=0, firstDate=null;
+  const ym=new Date().toISOString().substring(0,7);
+  orders.forEach(o=>{
+    totalSpent += (+o.total||0);
+    const q=(o.items||[]).reduce((a,it)=>a+(+it.qty||0),0); boxesTotal+=q;
+    if((o.date||'').substring(0,7)===ym) thisMonthBoxes+=q;
+    if(!firstDate || (o.date||'')<firstDate) firstDate=o.date;
+  });
+  const points=Math.floor(totalSpent/10);
+  let tier=TIERS[0]; for(const t of TIERS){ if(totalSpent>=t.min) tier=t; }
+  const idx=TIERS.indexOf(tier);
+  const next=TIERS[idx+1]||null;
+  const toNext=next? Math.max(0, next.min-totalSpent):0;
+  const progress=next? Math.min(100, Math.max(3, Math.round((totalSpent-tier.min)/(next.min-tier.min)*100))) : 100;
+  let months=0; if(firstDate){ const d=new Date(firstDate), now=new Date(); months=(now.getFullYear()-d.getFullYear())*12+(now.getMonth()-d.getMonth())+1; }
+  const since=firstDate? new Date(firstDate).toLocaleDateString('th-TH',{month:'short',year:'numeric'}) : '—';
+  return {totalSpent,boxesTotal,thisMonthBoxes,points,tier,idx,next,toNext,progress,months,since};
+}
+function memberLang(){
+  const en=(typeof currentLang!=='undefined' && currentLang==='en');
+  document.querySelectorAll('#page-member .lang-th').forEach(e=>e.style.display=en?'none':'');
+  document.querySelectorAll('#page-member .lang-en').forEach(e=>e.style.display=en?'':'none');
+}
+function renderMember(){
+  const s=memberStats(); const t=s.tier; const nm=memberName();
+  const wrap=document.getElementById('mb-card-wrap'); if(!wrap) return;
+  wrap.innerHTML = `<div class="mb-card" style="background:linear-gradient(135deg,${t.grad[0]},${t.grad[1]});">
+    <div class="mb-card-top">
+      <div class="mb-card-brand">BioActive+</div>
+      <div class="mb-card-tier">${t.emoji} ${t.name}</div>
+    </div>
+    ${t.flex?`<div class="mb-flex-badge">💎 ${t.flex}</div>`:''}
+    <div class="mb-card-name">${nm}</div>
+    <div class="mb-card-stats">
+      <div><b>${s.points.toLocaleString('th-TH')}</b><span>แต้มสะสม</span></div>
+      <div><b>${s.boxesTotal}</b><span>กล่องสะสม</span></div>
+      <div><b>${s.months}</b><span>เดือน</span></div>
+    </div>
+    <div class="mb-card-since">สมาชิกตั้งแต่ ${s.since} · เดือนนี้ ${s.thisMonthBoxes} กล่อง</div>
+  </div>`;
+
+  const prog=document.getElementById('mb-progress');
+  if(s.next){
+    prog.innerHTML=`<div class="mb-progress">
+      <div class="mb-progress-top"><span>${t.emoji} ${t.name}</span><span>${s.next.emoji} ${s.next.name}</span></div>
+      <div class="mb-progress-bar"><div class="mb-progress-fill" style="width:${s.progress}%;"></div></div>
+      <div class="mb-progress-note"><span class="lang-th">อีก ${ '฿'+s.toNext.toLocaleString('th-TH') } ถึงระดับ ${s.next.name} 🔥</span><span class="lang-en" style="display:none;">${'฿'+s.toNext.toLocaleString('th-TH')} more to ${s.next.name} 🔥</span></div>
+      <div class="mb-tier-ladder">${TIERS.map((x,i)=>`<div class="mb-tier-step ${i<=s.idx?'on':''}">${x.emoji}<br>${x.name.replace('Glow ','')}</div>`).join('')}</div>
+    </div>`;
+  } else {
+    prog.innerHTML=`<div class="mb-progress" style="text-align:center;">
+      <div style="font-family:'Kanit',sans-serif;font-weight:700;color:var(--accent);font-size:.95rem;">💎 ระดับสูงสุด — แฟนพันธุ์แท้ตัวจริง!</div>
+      <div class="mb-progress-note"><span class="lang-th">ขอบคุณที่ดูแลตัวเองกับเรามาตลอด 💛</span><span class="lang-en" style="display:none;">Thank you for glowing with us 💛</span></div>
+      <div class="mb-tier-ladder">${TIERS.map((x,i)=>`<div class="mb-tier-step ${i<=s.idx?'on':''}">${x.emoji}<br>${x.name.replace('Glow ','')}</div>`).join('')}</div>
+    </div>`;
+  }
+
+  const pts=document.getElementById('mb-points');
+  if(pts) pts.innerHTML=`${s.points.toLocaleString('th-TH')} <span style="font-size:.8rem;font-weight:600;">แต้ม</span>`;
+
+  const ben=document.getElementById('mb-benefits');
+  if(ben) ben.innerHTML = t.perks.map(p=>`<div class="mb-perk"><span class="i">✓</span><span>${p}</span></div>`).join('');
+
+  const ni=document.getElementById('mb-name-input'); if(ni && !ni.value) ni.value = (nm==='GIRL'?'':nm);
+  memberLang();
+}
+
+function drawMemberCard(){
+  const s=memberStats(); const t=s.tier; const nm=memberName();
+  const W=1080,H=1350; const c=document.createElement('canvas'); c.width=W;c.height=H;
+  const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,t.grad[0]); g.addColorStop(1,t.grad[1]);
+  x.fillStyle=g; x.fillRect(0,0,W,H);
+  // watermark
+  x.fillStyle='rgba(255,255,255,.10)'; x.font='800 360px Georgia,serif'; x.textAlign='right'; x.fillText('B+', W+30, H-40);
+  x.textAlign='left'; x.fillStyle='#fff';
+  x.font='800 56px Georgia,serif'; x.fillText('BioActive+', 70, 130);
+  x.font='700 40px sans-serif'; x.fillStyle='rgba(255,255,255,.92)'; x.fillText('GLOW MEMBERSHIP', 70, 188);
+  // tier
+  x.font='800 130px sans-serif'; x.fillStyle='#fff'; x.fillText(t.emoji, 70, 470);
+  x.font='800 92px sans-serif'; x.fillText(t.name, 230, 450);
+  if(t.flex){
+    x.fillStyle='rgba(255,255,255,.95)'; const bw=x.measureText('💎 '+t.flex).width*0.62+80;
+    roundRect(x,70,520,Math.min(bw,560),96,48); x.fill();
+    x.fillStyle='#222'; x.font='800 50px sans-serif'; x.fillText('💎 '+t.flex, 110, 584);
+  }
+  // name
+  x.fillStyle='#fff'; x.font='800 110px sans-serif'; x.fillText(nm, 70, t.flex?760:700);
+  // stats
+  const sy=t.flex?900:840;
+  const stats=[[s.points.toLocaleString('th-TH'),'แต้มสะสม'],[String(s.boxesTotal),'กล่องสะสม'],[String(s.months),'เดือน']];
+  stats.forEach((st,i)=>{ const sx=70+i*330; x.fillStyle='#fff'; x.font='800 92px sans-serif'; x.fillText(st[0],sx,sy);
+    x.fillStyle='rgba(255,255,255,.85)'; x.font='600 38px sans-serif'; x.fillText(st[1],sx,sy+58); });
+  // footer
+  x.fillStyle='rgba(255,255,255,.9)'; x.font='600 40px sans-serif';
+  x.fillText('สมาชิกตั้งแต่ '+s.since, 70, H-90);
+  return c;
+}
+function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function shareMemberCard(){
+  try{
+    const c=drawMemberCard();
+    c.toBlob(async(blob)=>{
+      if(!blob){ toast('สร้างรูปไม่ได้ ลองใหม่ค่ะ'); return; }
+      const file=new File([blob],'bioactive-member.png',{type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file], title:'BioActive+ Member', text:'ฉันเป็นสมาชิก BioActive+ 💎'}); return; }catch(e){ if(e&&e.name==='AbortError') return; }
+      }
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='bioactive-member.png'; document.body.appendChild(a); a.click(); a.remove();
+      toast('บันทึกการ์ดแล้ว — เอาไปแชร์ได้เลย 📸');
+    },'image/png');
+  }catch(e){ console.error('share card error',e); toast('แชร์ไม่ได้ ลองใหม่ค่ะ'); }
+}
+
 
 let curBioDay = new Date().toISOString().split('T')[0];
 let curBioMo = curBioDay.substring(0,7);
