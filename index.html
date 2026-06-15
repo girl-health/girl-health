@@ -814,6 +814,8 @@ body.ltab-supp .s-supp{display:block;}
       <div class="pf-age-label"><span class="lang-th">อายุร่างกาย</span><span class="lang-en" style="display:none;">Fitness Age</span></div>
       <div class="pf-age-big"><span id="pb-fitness-age">25</span><span class="pf-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span></span></div>
       <div class="pf-age-diff" style="color:var(--veg);">🎉 <span id="pb-age-diff">6.1 yrs younger</span></div>
+      <div id="pb-fit-reason" style="font-size:.56rem;color:var(--muted2);margin-top:5px;line-height:1.25;"></div>
+      <button id="pb-fit-recalc" onclick="computeFitnessAge(true)" style="margin-top:7px;border:1px solid var(--border2);background:var(--card);color:var(--accent);border-radius:20px;padding:4px 11px;font-family:'Kanit',sans-serif;font-size:.58rem;font-weight:700;cursor:pointer;">🔄 <span class="lang-th">คำนวณด้วย AI</span><span class="lang-en" style="display:none;">Recalc with AI</span></button>
     </div>
     <div class="pf-age-card pf-age-skin">
       <div class="pf-age-label"><span class="lang-th">อายุผิว</span><span class="lang-en" style="display:none;">Skin Age</span></div>
@@ -854,7 +856,7 @@ body.ltab-supp .s-supp{display:block;}
         <div><label class="lbl">📊 BMI</label><input type="number" id="pb-bmi-in" step="0.1" class="pf-input"></div>
         <div><label class="lbl">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" class="pf-input"></div>
         <div><label class="lbl">🌿 GIRL Score</label><input type="number" id="pb-score-in" step="1" class="pf-input"></div>
-        <div><label class="lbl">🎂 Fitness Age</label><input type="number" id="pb-fitpage-in" step="0.1" placeholder="25" class="pf-input"></div>
+        <div><label class="lbl">🎂 <span class="lang-th">อายุจริง</span><span class="lang-en" style="display:none;">Age</span></label><input type="number" id="pb-age-in" step="1" placeholder="32" class="pf-input"></div>
         <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" class="pf-input"></div>
       </div>
       <div style="margin-bottom:10px;"><label class="lbl">📅 <span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" class="pf-input"></div>
@@ -5810,13 +5812,24 @@ async function loadProfileBody(){
     set('pb-score-val', d.score, '');
     if(d.date){ const el=document.getElementById('pb-date-val'); if(el) el.textContent=d.date; }
 
-    // Fitness age
-    const fa = d.fitnessAge || 25;
+    // Fitness age (AI-computed from real behavior data)
+    const chronoAge = d.age || 32;
     const faEl = document.getElementById('pb-fitness-age');
-    if(faEl) faEl.textContent = fa;
-    const diff = (32 - fa).toFixed(1);
     const diffEl = document.getElementById('pb-age-diff');
-    if(diffEl) diffEl.textContent = diff > 0 ? `${diff} yrs younger` : `${Math.abs(diff)} yrs older`;
+    const reasonEl = document.getElementById('pb-fit-reason');
+    if(typeof d.fitnessAge==='number' && d.fitnessAge>0){
+      if(faEl) faEl.textContent = d.fitnessAge;
+      const diff = (chronoAge - d.fitnessAge);
+      if(diffEl) diffEl.textContent = diff>0 ? `${diff.toFixed(1)} yrs younger` : `${Math.abs(diff).toFixed(1)} yrs older`;
+      if(reasonEl) reasonEl.textContent = d.fitnessAgeReason ? ('🤖 '+d.fitnessAgeReason) : '';
+    } else {
+      if(faEl) faEl.textContent = chronoAge;
+      if(diffEl) diffEl.textContent = '';
+      if(reasonEl) reasonEl.textContent = '';
+    }
+    // auto-recompute from real data once per day
+    const _today = new Date().toISOString().split('T')[0];
+    if(d.fitnessAgeAt !== _today){ setTimeout(()=>{ computeFitnessAge(false); }, 600); }
 
     // Skin age — fetch latest from Supabase skin_scans first, fallback to localStorage
     let sa = d.skinAge || 25;
@@ -5848,6 +5861,90 @@ async function loadProfileBody(){
     }
   } catch(e){ console.error('loadProfileBody:', e); }
 }
+let _fitCalcRunning=false;
+function fitnessAgeFormula(m){
+  let a = m.chronoAge||32;
+  if(m.restingHR) a += (m.restingHR-60)*0.15;
+  if(m.hrv)       a -= (m.hrv-45)*0.06;
+  if(m.exMinPerWeek) a -= Math.max(-5, Math.min(6, (m.exMinPerWeek-150)/150*3));
+  if(m.bodyFatPct) a += (m.bodyFatPct-24)*0.2;
+  if(m.sleepScore) a -= (m.sleepScore-80)*0.04;
+  const base=m.chronoAge||32, lo=base-12, hi=base+15;
+  a = Math.max(18, Math.min(hi, Math.max(lo, a)));
+  return Math.round(a*10)/10;
+}
+async function computeFitnessAge(manual){
+  if(_fitCalcRunning) return; _fitCalcRunning=true;
+  const btn=document.getElementById('pb-fit-recalc');
+  const reasonEl=document.getElementById('pb-fit-reason');
+  if(manual && btn){ btn.disabled=true; btn.style.opacity=.55; }
+  if(manual && reasonEl) reasonEl.textContent='⏳ กำลังคำนวณจากข้อมูลจริง…';
+  try{
+    const pb=JSON.parse(localStorage.getItem(PB_KEY)||'{}');
+    const chronoAge=pb.age||32;
+    // pull last 90 days of real tracked data
+    let rows=[];
+    try{
+      const since=new Date(Date.now()-90*86400000).toISOString().split('T')[0];
+      const res=await fetch(`${SUPA_URL}/rest/v1/health_days?select=date,sl_rhr,sl_hrv,sl_bb,sl_score,sl_total_h,e1_m,e2_m,eq&date=gte.${since}&order=date.desc`,{headers:{apikey:SUPA_KEY,Authorization:`Bearer ${SUPA_KEY}`}});
+      if(res.ok) rows=await res.json();
+    }catch(e){}
+    const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+    const rhrA=rows.map(r=>+r.sl_rhr).filter(v=>v>0);
+    const hrvA=rows.map(r=>+r.sl_hrv).filter(v=>v>0);
+    const bbA =rows.map(r=>+r.sl_bb).filter(v=>v>0);
+    const ssA =rows.map(r=>+r.sl_score).filter(v=>v>0);
+    const shA =rows.map(r=>+r.sl_total_h).filter(v=>v>0);
+    const exMins=rows.reduce((a,r)=>a+(+r.e1_m||0)+(+r.e2_m||0),0);
+    const activeDays=rows.filter(r=>((+r.e1_m||0)+(+r.e2_m||0))>0).length;
+    let spanDays=30;
+    if(rows.length){ const oldest=rows[rows.length-1].date; spanDays=Math.max(7, Math.min(90, Math.round((Date.now()-new Date(oldest).getTime())/86400000)+1)); }
+    const exMinPerWeek=Math.round(exMins/Math.max(1,spanDays/7));
+    const m={
+      chronoAge,
+      restingHR: Math.round(avg(rhrA))||null,
+      hrv: Math.round(avg(hrvA))||null,
+      bodyBattery: Math.round(avg(bbA))||null,
+      sleepScore: Math.round(avg(ssA))||null,
+      sleepHours: shA.length? +avg(shA).toFixed(1):null,
+      exMinPerWeek,
+      activeDaysLogged: activeDays,
+      daysLogged: rows.length,
+      weight: pb.weight||null, bodyFatPct: pb.fat||null, muscleKg: pb.muscle||null, bmi: pb.bmi||null, visceral: pb.visceral||null
+    };
+    let fa=null, reason='';
+    // AI estimate
+    try{
+      const prompt=`You are a sports physiologist. Estimate this woman's FITNESS AGE (like Garmin fitness age — based on VO2max proxies: resting heart rate, HRV, weekly activity volume, body composition, sleep) from her REAL tracked data over ~3 months.
+Data (null = not available): ${JSON.stringify(m)}
+Guidance:
+- Lower resting HR, higher HRV, more weekly active minutes, healthy body fat %, good sleep => younger fitness age.
+- Be realistic and evidence-based; normally within ~15 years of her chronological age (${chronoAge}). If data is sparse, stay closer to chronological age.
+Respond ONLY with valid JSON, no other text: {"fitness_age": <number, one decimal allowed>, "reason": "<THAI, max 16 words, name the biggest driver>"}`;
+      const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})});
+      if(res.ok){
+        const data=await res.json();
+        const txt=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+        const js=txt.slice(txt.indexOf('{'), txt.lastIndexOf('}')+1);
+        const p=JSON.parse(js);
+        const v=parseFloat(p.fitness_age);
+        if(isFinite(v) && v>=16 && v<=90){ fa=Math.round(v*10)/10; reason=(p.reason||'').toString().slice(0,140); }
+      }
+    }catch(e){ console.error('fitness AI:',e); }
+    // offline fallback
+    if(fa==null){ fa=fitnessAgeFormula(m); reason='คำนวณจากชีพจรพัก/ออกกำลัง/องค์ประกอบร่างกาย (ออฟไลน์)'; }
+    // persist + render
+    pb.fitnessAge=fa; pb.fitnessAgeReason=reason; pb.fitnessAgeAt=new Date().toISOString().split('T')[0];
+    localStorage.setItem(PB_KEY, JSON.stringify(pb));
+    const faEl=document.getElementById('pb-fitness-age'); if(faEl) faEl.textContent=fa;
+    const diff=(chronoAge-fa);
+    const diffEl=document.getElementById('pb-age-diff'); if(diffEl) diffEl.textContent = diff>0?`${diff.toFixed(1)} yrs younger`:`${Math.abs(diff).toFixed(1)} yrs older`;
+    if(reasonEl) reasonEl.textContent = reason ? ('🤖 '+reason) : '';
+    if(manual) toast('อัปเดต Fitness Age แล้ว · '+fa+' ปี ✨');
+  }catch(e){ console.error('computeFitnessAge:',e); if(manual) toast('คำนวณไม่ได้ ลองใหม่ค่ะ'); }
+  finally{ _fitCalcRunning=false; const b=document.getElementById('pb-fit-recalc'); if(b){ b.disabled=false; b.style.opacity=1; } }
+}
+
 function toggleProfileEdit(){
   const disp = document.getElementById('profile-body-display');
   const edit = document.getElementById('profile-body-edit');
@@ -5863,7 +5960,7 @@ function toggleProfileEdit(){
       setIn('pb-muscle-in', d.muscle); setIn('pb-bmi-in', d.bmi);
       setIn('pb-visceral-in', d.visceral); setIn('pb-score-in', d.score);
       setIn('pb-date-in', d.rawDate||new Date().toISOString().split('T')[0]);
-      setIn('pb-fitpage-in', d.fitnessAge||25);
+      setIn('pb-age-in', d.age||32);
       setIn('pb-skinage-in', d.skinAge||25);
     } catch(e){}
     disp.style.display='none'; edit.style.display='block'; btn.textContent='✕ ปิด';
@@ -5879,11 +5976,13 @@ function saveProfileBody(){
     bmi: parseFloat(g('pb-bmi-in'))||0,
     visceral: parseInt(g('pb-visceral-in'))||0,
     score: parseInt(g('pb-score-in'))||0,
-    fitnessAge: parseFloat(g('pb-fitpage-in'))||25,
+    age: parseInt(g('pb-age-in'))||32,
     skinAge: parseInt(g('pb-skinage-in'))||25,
     rawDate: dateVal,
     date: dateVal ? new Date(dateVal).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}) : ''
   };
+  const _prev = JSON.parse(localStorage.getItem(PB_KEY)||'{}');
+  d.fitnessAge = _prev.fitnessAge; d.fitnessAgeReason = _prev.fitnessAgeReason; d.fitnessAgeAt = _prev.fitnessAgeAt;
   localStorage.setItem(PB_KEY, JSON.stringify(d));
   loadProfileBody();
   toggleProfileEdit();
