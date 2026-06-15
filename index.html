@@ -4781,7 +4781,10 @@ async function recalcFood(){
 }
 
 async function analyzeSmartScan(input){
-  const files = Array.from(input.files||[]).slice(0,6);
+  const MAX_PHOTOS = 8;
+  const allFiles = Array.from(input.files||[]);
+  const files = allFiles.slice(0, MAX_PHOTOS);
+  const tooMany = allFiles.length > MAX_PHOTOS;
   if(!files.length) return;
   const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
   const resWrap = document.getElementById('allday-result');
@@ -4791,119 +4794,139 @@ async function analyzeSmartScan(input){
     prev.innerHTML = files.map(f=>{ const u=URL.createObjectURL(f); return `<div style="aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--border2);"><img src="${u}" style="width:100%;height:100%;object-fit:cover;"></div>`; }).join('');
   }
   resWrap.style.display='block';
-  resWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:9px;font-size:.72rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div> ${isEN?`AI is reading & sorting ${files.length} photo(s)…`:`AI กำลังอ่านและแยกประเภท ${files.length} รูป…`}</div>`;
-
-  // resize + encode (handles iPhone HEIC + large files)
-  let images;
-  try { images = await Promise.all(files.map(f=>fileToJpegBase64(f))); }
-  catch(e){ console.error('Smart Scan read error:',e); resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${isEN?'Could not read images — try again':'อ่านรูปไม่ได้ ลองใหม่ค่ะ'}</div>`; return; }
+  resWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:9px;font-size:.72rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div> ${isEN?`AI is reading ${files.length} photo(s) one by one…`:`AI กำลังอ่านทีละรูป (${files.length} รูป)…`}</div>`;
 
   const isHome = (typeof mealMode!=='undefined' && mealMode==='home');
-  const prompt = `You are analyzing ${images.length} photo(s) from a health journal for ONE day. Each photo is ONE of these types: a FOOD/meal photo, a Garmin SLEEP screenshot (sleep score, HRV, RHR, body battery, sleep stages), or a Garmin EXERCISE/activity screenshot (duration, calories, heart rate, distance).
 
-Classify every photo, then combine the data:
-- Combine ALL food photos into ONE "meals" result (SUM the nutrition across every food photo; assign dishes to breakfast/lunch/dinner/snack as best you can). ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Some meals dining out: include restaurant sodium.'}
-- For sleep screenshot(s): extract sleep metrics. HRV (ms) and Sleep Score are often on DIFFERENT Garmin screens — merge values found across photos. Use 0 if a value is genuinely not visible (do NOT guess).
-- For exercise screenshot(s): extract activity metrics.
-
-Set "found": true ONLY for types actually present in the photos. Respond ONLY with valid JSON, no markdown:
-{
-  "detected": ["meals","sleep","exercise"],
-  "meals": {"found": false, "breakfast":"","lunch":"","dinner":"","snack":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high"},
-  "sleep": {"found": false, "bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
-  "exercise": {"found": false, "activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}
-}`;
-
-  try {
-    const content = images.map(img=>({type:'image', source:{type:'base64', media_type:img.type, data:img.data}}));
-    content.push({type:'text', text:prompt});
+  // Analyze ONE image — reuses the reliable single-image path
+  async function analyzeOne(file){
+    const img = await fileToJpegBase64(file);
+    const prompt = `This is ONE photo from a daily health journal. Classify it as EXACTLY one type, then extract its data.
+Types: "food" (a meal / drink / dish), "sleep" (a Garmin SLEEP screen — sleep score, stages, bedtime/wake, HRV, RHR, body battery), "exercise" (a Garmin/workout activity screen — duration, calories, heart rate, distance), or "other" (anything else, e.g. scenery, a desk, a person, a supplement label).
+${isHome?'If food: home-cooked, no added salt/sauces/sugar, olive oil only.':'If food: some dining out — include sodium.'}
+Respond ONLY with valid JSON, no markdown, no extra text:
+{"type":"food",
+ "food":{"items":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}},
+ "sleep":{"bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
+ "exercise":{"activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}}
+Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" for anything not clearly visible (do NOT guess).`;
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
-      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1600, messages:[{role:'user', content}]})
+      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1000, messages:[{role:'user', content:[{type:'image', source:{type:'base64', media_type:img.type, data:img.data}},{type:'text', text:prompt}]}]})
     });
     const data = await res.json();
-    if(!res.ok || !Array.isArray(data.content)){ console.error('Smart Scan API error:', res.status, data); throw new Error(data?.error?.message||('API '+res.status)); }
-    const raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
-    const r = JSON.parse(raw);
-
-    const filled = [];
-
-    // ---- MEALS ----
-    const m = r.meals||{};
-    if(m.found){
-      if(isHome) m.sodium_mg = 0;
-      // append detected food to the running list (m_b)
-      const parts=[m.breakfast,m.lunch,m.dinner,m.snack].map(x=>(x||'').trim()).filter(x=>x&&x!=='empty');
-      if(parts.length){ const mb=document.getElementById('m_b'); if(mb){ mb.value = (mb.value.trim()? mb.value.trim()+' · ':'') + parts.join(' · '); if(typeof autoResize==='function') autoResize(mb); } }
-      // ADD macros to existing totals (accumulate, not replace)
-      const addN=(id,v)=>{ const el=document.getElementById(id); if(el&&(+v||0)){ el.value = Math.round((parseFloat(el.value)||0) + (+v||0)); } };
-      addN('mac_kcal',m.kcal); addN('mac_p',m.protein_g); addN('mac_carb',m.carb_g);
-      addN('mac_fat',m.fat_g); addN('mac_f',m.fiber_g); addN('mac_sugar_total',m.sugar_g);
-      addN('mac_s',m.fruit_sugar_g); addN('mac_sodium',m.sodium_mg);
-      try{
-        for(const [catId,items] of Object.entries(m.ing||{})){
-          for(const item of (items||[])){
-            const name=(item||'').split('(')[0].trim();
-            if(name.length<2) continue;
-            const existing=await dbLoadIng(curIngMo);
-            const already=(existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
-            if(!already) await dbAddIng(curIngMo,catId,name,ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1);
-          }
-        }
-      }catch(e){}
-      filled.push({icon:'🍱', label:isEN?'Meals':'อาหาร', detail:`+${Math.round(m.kcal||0)} kcal`, color:'var(--accent)'});
-    }
-
-    // ---- SLEEP ----
-    const s = r.sleep||{};
-    if(s.found){
-      const setIf=(id,v)=>{ if(v&&+v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
-      if(s.bedtime && s.bedtime!=='HH:MM' && s.bedtime!==''){ const el=document.getElementById('sl_s'); if(el) el.value=s.bedtime; }
-      if(s.waketime && s.waketime!=='HH:MM' && s.waketime!==''){ const el=document.getElementById('sl_e'); if(el) el.value=s.waketime; }
-      setIf('sl_total_h',s.total_hours); setIf('sl_score',s.sleep_score); setIf('sl_rhr',s.rhr); setIf('sl_hrv',s.hrv); setIf('sl_bb',s.body_battery);
-      try{ calcSleep(); }catch(e){}
-      filled.push({icon:'🌙', label:isEN?'Sleep':'การนอน', detail:(s.total_hours||0)+'h'+(s.sleep_score?' · '+s.sleep_score:''), color:'var(--sleep)'});
-    }
-
-    // ---- EXERCISE ----
-    const ex = r.exercise||{};
-    if(ex.found){
-      const isStrength = ex.activity==='strength'||ex.activity==='weights';
-      if(isStrength){
-        if(ex.duration_min){const el=document.getElementById('e1_m'); if(el) el.value=ex.duration_min;}
-        if(ex.calories){const el=document.getElementById('e1_k'); if(el) el.value=ex.calories;}
-        if(ex.avg_hr){const el=document.getElementById('e1_h'); if(el) el.value=ex.avg_hr;}
-      } else {
-        if(ex.duration_min){const el=document.getElementById('e2_m'); if(el) el.value=ex.duration_min;}
-        if(ex.calories){const el=document.getElementById('e2_c'); if(el) el.value=ex.calories;}
-        if(ex.avg_hr){const el=document.getElementById('e2_h'); if(el) el.value=ex.avg_hr;}
-        if(ex.distance_km){const el=document.getElementById('e2_k'); if(el) el.value=ex.distance_km;}
-      }
-      if(ex.notes){ const n=document.getElementById('ex_n'); if(n && !n.value) n.value=ex.notes; }
-      filled.push({icon:'🏋️', label:isEN?'Exercise':'ออกกำลังกาย', detail:(ex.duration_min||0)+'min', color:'var(--exercise)'});
-    }
-
-    try{ updateQ(); }catch(e){}
-
-    if(!filled.length){
-      resWrap.innerHTML = `<div style="padding:9px;background:rgba(201,164,110,.12);border-radius:9px;font-size:.72rem;color:var(--grain);">${isEN?'No food / sleep / exercise detected. Try clearer photos or fill in manually.':'ไม่พบข้อมูลอาหาร/นอน/ออกกำลังกายในรูป ลองถ่ายให้ชัดขึ้น หรือกรอกเองได้ค่ะ'}</div>`;
-      return;
-    }
-
-    resWrap.innerHTML = `<div style="background:rgba(74,124,89,.06);border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--accent);margin-bottom:8px;">✨ ${isEN?'Smart Scan — auto-sorted':'Smart Scan — แยกให้อัตโนมัติ'}</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        ${filled.map(f=>`<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:8px;padding:8px 10px;"><span style="font-size:.72rem;color:${f.color};">${f.icon} ${f.label}</span><span style="font-size:.72rem;font-weight:700;color:${f.color};font-family:'Kanit',sans-serif;">${f.detail}</span></div>`).join('')}
-      </div>
-      <div style="font-size:.64rem;color:var(--accent);margin-top:8px;">✓ ${isEN?'Added to today — totals accumulate. Review &amp; save':'บวกเพิ่มให้วันนี้แล้ว · แคลสะสมรวม ตรวจแล้วกดบันทึก'}</div>
-    </div>`;
-    toast(`✨ ${isEN?'Scanned':'สแกนแล้ว'} · ${filled.map(f=>f.label).join(' · ')}`);
-
-  } catch(err){
-    console.error('Smart Scan error:', err);
-    resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${isEN?'Could not analyze — please try again':'วิเคราะห์ไม่ได้ ลองใหม่อีกครั้งค่ะ'}</div>`;
+    if(!res.ok || !Array.isArray(data.content)){ throw new Error((data&&data.error&&data.error.message)||('API '+res.status)); }
+    let raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const a=raw.indexOf('{'), b=raw.lastIndexOf('}'); if(a>=0&&b>a) raw=raw.slice(a,b+1);
+    return JSON.parse(raw);
   }
+
+  // Limited-concurrency runner (max 3 at a time) — reliable, won't overload
+  async function runLimited(items, limit, fn){
+    const out=[]; let idx=0;
+    async function worker(){ while(idx<items.length){ const i=idx++; try{ out[i]={status:'fulfilled', value:await fn(items[i])}; }catch(e){ out[i]={status:'rejected', reason:e}; } } }
+    await Promise.all(Array.from({length:Math.min(limit, items.length)}, worker));
+    return out;
+  }
+
+  const settled = await runLimited(files, 3, analyzeOne);
+  const results = settled.filter(s=>s && s.status==='fulfilled').map(s=>s.value);
+  const failed = settled.filter(s=>s && s.status==='rejected');
+  if(failed.length) console.error('Smart Scan: '+failed.length+' image(s) failed', failed.map(f=>f.reason&&f.reason.message));
+
+  if(!results.length){
+    const why = failed.length ? ((failed[0].reason&&failed[0].reason.message)||'').toString().substring(0,80) : '';
+    resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${isEN?'Could not analyze':'วิเคราะห์ไม่ได้'}${why?': '+why:''}</div>`;
+    return;
+  }
+
+  const foods  = results.filter(r=>r.type==='food' && r.food);
+  const sleeps = results.filter(r=>r.type==='sleep' && r.sleep);
+  const exs    = results.filter(r=>r.type==='exercise' && r.exercise);
+  const filled = [];
+
+  // FOOD — append text + ADD macros (accumulate across all food photos)
+  if(foods.length){
+    const items = foods.map(r=>(r.food.items||'').trim()).filter(Boolean);
+    if(items.length){ const mb=document.getElementById('m_b'); if(mb){ mb.value = (mb.value.trim()? mb.value.trim()+' · ':'') + items.join(' · '); if(typeof autoResize==='function') autoResize(mb); } }
+    const sum=(k)=>foods.reduce((t,r)=>t+(+r.food[k]||0),0);
+    const kcal=sum('kcal'),prot=sum('protein_g'),carb=sum('carb_g'),fat=sum('fat_g'),fib=sum('fiber_g'),sug=sum('sugar_g'),fsug=sum('fruit_sugar_g'),sod=isHome?0:sum('sodium_mg');
+    const addN=(id,v)=>{ const el=document.getElementById(id); if(el&&(+v||0)){ el.value = Math.round((parseFloat(el.value)||0)+(+v||0)); } };
+    addN('mac_kcal',kcal); addN('mac_p',prot); addN('mac_carb',carb); addN('mac_fat',fat); addN('mac_f',fib); addN('mac_sugar_total',sug); addN('mac_s',fsug); addN('mac_sodium',sod);
+    try{
+      const merged={};
+      foods.forEach(r=>{ Object.entries(r.food.ing||{}).forEach(([c,arr])=>{ (merged[c]=merged[c]||[]).push(...(arr||[])); }); });
+      for(const [catId,itemsArr] of Object.entries(merged)){
+        for(const it of itemsArr){
+          const name=(it||'').split('(')[0].trim(); if(name.length<2) continue;
+          const existing=await dbLoadIng(curIngMo);
+          const already=(existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
+          if(!already) await dbAddIng(curIngMo,catId,name,ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1);
+        }
+      }
+    }catch(e){}
+    filled.push({icon:'🍱', label:isEN?`Meals (${foods.length})`:`อาหาร (${foods.length} รูป)`, detail:`+${Math.round(kcal)} kcal`, color:'var(--accent)'});
+  }
+
+  // SLEEP — merge non-zero values across sleep screens
+  if(sleeps.length){
+    const pick=(k)=>{ for(const r of sleeps){ const v=r.sleep[k]; if(v && +v>0) return v; } return 0; };
+    const pickT=(k)=>{ for(const r of sleeps){ const v=r.sleep[k]; if(v && v!=='' && v!=='HH:MM' && v!=='00:00') return v; } return ''; };
+    const bt=pickT('bedtime'), wt=pickT('waketime');
+    if(bt){ const el=document.getElementById('sl_s'); if(el) el.value=bt; }
+    if(wt){ const el=document.getElementById('sl_e'); if(el) el.value=wt; }
+    const setIf=(id,v)=>{ if(v&&+v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
+    let th=+pick('total_hours')||0; if(th>16||th<0) th=0;
+    setIf('sl_total_h',th); setIf('sl_score',pick('sleep_score')); setIf('sl_rhr',pick('rhr')); setIf('sl_hrv',pick('hrv')); setIf('sl_bb',pick('body_battery'));
+    try{ if(bt&&wt) calcSleep(); }catch(e){}
+    const sc=pick('sleep_score'), hrv=pick('hrv');
+    filled.push({icon:'🌙', label:isEN?'Sleep':'การนอน', detail:(th||0)+'h'+(sc?' · '+sc:'')+(hrv?' · HRV '+hrv:''), color:'var(--sleep)'});
+  }
+
+  // EXERCISE — sum across workout screens
+  if(exs.length){
+    const sum=(k)=>exs.reduce((t,r)=>t+(+r.exercise[k]||0),0);
+    const isStrength = exs.some(r=>r.exercise.activity==='strength'||r.exercise.activity==='weights');
+    const dur=sum('duration_min'), cal=sum('calories'), dist=sum('distance_km');
+    const hr=Math.max(0,...exs.map(r=>+r.exercise.avg_hr||0));
+    if(isStrength){
+      const a=document.getElementById('e1_m'); if(a&&dur) a.value=dur;
+      const b=document.getElementById('e1_k'); if(b&&cal) b.value=cal;
+      const c=document.getElementById('e1_h'); if(c&&hr) c.value=hr;
+    } else {
+      const a=document.getElementById('e2_m'); if(a&&dur) a.value=dur;
+      const b=document.getElementById('e2_c'); if(b&&cal) b.value=cal;
+      const c=document.getElementById('e2_h'); if(c&&hr) c.value=hr;
+      const d=document.getElementById('e2_k'); if(d&&dist) d.value=dist;
+    }
+    const notes=exs.map(r=>(r.exercise.notes||'').trim()).filter(Boolean).join(' · ');
+    if(notes){ const n=document.getElementById('ex_n'); if(n && !n.value) n.value=notes; }
+    filled.push({icon:'🏋️', label:isEN?'Exercise':'ออกกำลังกาย', detail:(dur||0)+'min', color:'var(--exercise)'});
+  }
+
+  try{ updateQ(); }catch(e){}
+
+  const otherCount = results.filter(r=>r.type==='other').length;
+  if(!filled.length){
+    resWrap.innerHTML = `<div style="padding:9px;background:rgba(201,164,110,.12);border-radius:9px;font-size:.72rem;color:var(--grain);">${isEN?'No food / sleep / exercise detected. Try clearer photos or fill in manually.':'ไม่พบข้อมูลอาหาร/นอน/ออกกำลังกายในรูป ลองถ่ายให้ชัดขึ้น หรือกรอกเองได้ค่ะ'}</div>`;
+    return;
+  }
+
+  const notes2=[];
+  if(failed.length) notes2.push(isEN?`${failed.length} photo(s) failed`:`${failed.length} รูปอ่านไม่ได้`);
+  if(otherCount) notes2.push(isEN?`${otherCount} skipped (not health)`:`ข้าม ${otherCount} รูป (ไม่ใช่ข้อมูลสุขภาพ)`);
+  if(tooMany) notes2.push(isEN?`max ${MAX_PHOTOS}/scan`:`สูงสุด ${MAX_PHOTOS} รูป/ครั้ง`);
+
+  resWrap.innerHTML = `<div style="background:rgba(74,124,89,.06);border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px;">
+    <div style="font-family:'Kanit',sans-serif;font-size:.75rem;color:var(--accent);margin-bottom:8px;">✨ ${isEN?'Smart Scan — auto-sorted':'Smart Scan — แยกให้อัตโนมัติ'}</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      ${filled.map(f=>`<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:8px;padding:8px 10px;"><span style="font-size:.72rem;color:${f.color};">${f.icon} ${f.label}</span><span style="font-size:.72rem;font-weight:700;color:${f.color};font-family:'Kanit',sans-serif;">${f.detail}</span></div>`).join('')}
+    </div>
+    <div style="font-size:.64rem;color:var(--accent);margin-top:8px;">✓ ${isEN?'Added to today — totals accumulate. Review &amp; save':'บวกเพิ่มให้วันนี้แล้ว · แคลสะสมรวม ตรวจแล้วกดบันทึก'}</div>
+    ${notes2.length?`<div style="font-size:.6rem;color:var(--muted2);margin-top:5px;">${notes2.join(' · ')}</div>`:''}
+  </div>`;
+  toast(`✨ ${isEN?'Scanned':'สแกนแล้ว'} · ${filled.map(f=>f.label).join(' · ')}`);
 }
 
 async function analyzeAllDay(input, mode){
