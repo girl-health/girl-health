@@ -361,12 +361,12 @@ textarea{min-height:42px;}
 .water-btn{flex:1;padding:7px 4px;border-radius:9px;border:1.5px solid var(--border);background:var(--card2);color:var(--muted2);font-size:.68rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .2s;}
 .water-btn.active{border-color:var(--sleep);background:rgba(107,143,163,.12);color:var(--sleep);}
 .water-btn.good{border-color:var(--accent);background:rgba(74,124,89,.1);color:var(--accent);}
-#bad-day-btn.active{border-color:#C0392B;background:rgba(192,57,43,.12);color:#C0392B;}
+#bad-day-btn.active{border-color:#C9A96E;background:rgba(201,169,110,.16);color:#9C7A3C;}
 .cal-cell{width:100%;aspect-ratio:1;border-radius:8px;border:none;background:transparent;cursor:pointer;font-size:.78rem;font-family:'Kanit',sans-serif;color:var(--muted2);transition:all .15s;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;}
 .cal-cell:hover{background:var(--bg);}
 .cal-cell.has-data{color:var(--text);font-weight:600;}
 .cal-cell.has-data::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);position:absolute;bottom:3px;left:50%;transform:translateX(-50%);}
-.cal-cell.bad-day::after{background:#C0392B !important;}
+.cal-cell.bad-day::after{background:#C9A96E !important;}
 .cal-cell.selected{background:var(--accent) !important;color:#fff !important;font-weight:700;}
 .cal-cell.selected::after{display:none;}
 .cal-cell.today-cell{outline:2px solid var(--accent);outline-offset:1px;}
@@ -635,6 +635,8 @@ body.ltab-health .s-sleep,body.ltab-health .s-ex,body.ltab-health .s-body{displa
 body.ltab-health .s-supp{display:none;}
 body.ltab-supp .s-eat,body.ltab-supp .s-sleep,body.ltab-supp .s-ex,body.ltab-supp .s-body{display:none;}
 body.ltab-supp .s-supp{display:block;}
+#log-tabs{display:none!important;}
+#page-log .s-eat,#page-log .s-sleep,#page-log .s-ex,#page-log .s-body,#page-log .s-supp{display:block!important;}
 
 
 </style>
@@ -1116,64 +1118,16 @@ body.ltab-supp .s-supp{display:block;}
       🏠 <strong>Home-cooked mode</strong> · Sodium &amp; sugar calculated from natural ingredients only — no added seasoning
     </div>
 
-    <!-- Breakfast -->
-    <div class="meal-block" id="meal-row-b">
+    <!-- Today's Food (consolidated · accumulates all day) -->
+    <div class="meal-block" id="meal-row-b" style="margin-bottom:0;">
       <div class="meal-hdr">
-        <span class="meal-label">🌅 Breakfast</span>
-        <div style="display:flex;gap:5px;">
-          <button class="meal-btn-secondary" onclick="openMealPicker('b')" style="background:rgba(201,169,110,.12);border-color:rgba(201,169,110,.4);color:var(--grain);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'b','photo')"></label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'b','text')">✦ AI</button>
-        </div>
+        <span class="meal-label">🍽️ <span class="lang-th">รายการอาหารวันนี้</span><span class="lang-en" style="display:none;">Today's Food</span></span>
+        <button class="meal-btn-primary" onclick="recalcFood()">✦ <span class="lang-th">คำนวณแคล</span><span class="lang-en" style="display:none;">Calc</span></button>
       </div>
-      <textarea id="m_b" class="meal-ta" placeholder="e.g. 2 boiled eggs · salmon 150g · oatmeal ½ cup" oninput="autoResize(this)"></textarea>
+      <textarea id="m_b" class="meal-ta" placeholder="เพิ่มได้เรื่อย ๆ ทั้งวัน · เช่น ข้าวกล้อง · อกไก่ 200g · กาแฟดำ · ผลไม้" oninput="autoResize(this)"></textarea>
       <div id="food-img-b" style="display:none;margin-top:6px;"></div>
       <div id="food-analyze-b" style="display:none;"></div>
-    </div>
-
-    <!-- Lunch -->
-    <div class="meal-block" id="meal-row-l">
-      <div class="meal-hdr">
-        <span class="meal-label">☀️ Lunch</span>
-        <div style="display:flex;gap:5px;">
-          <button class="meal-btn-secondary" onclick="openMealPicker('l')" style="background:rgba(74,124,89,.1);border-color:rgba(74,124,89,.35);color:var(--veg);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'l','photo')"></label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'l','text')">✦ AI</button>
-        </div>
-      </div>
-      <textarea id="m_l" class="meal-ta" placeholder="e.g. brown rice · grilled chicken 200g · fresh greens" oninput="autoResize(this)"></textarea>
-      <div id="food-img-l" style="display:none;margin-top:6px;"></div>
-      <div id="food-analyze-l" style="display:none;"></div>
-    </div>
-
-    <!-- Dinner -->
-    <div class="meal-block" id="meal-row-d">
-      <div class="meal-hdr">
-        <span class="meal-label">🌆 Dinner</span>
-        <div style="display:flex;gap:5px;">
-          <button class="meal-btn-secondary" onclick="openMealPicker('d')" style="background:rgba(139,94,82,.1);border-color:rgba(139,94,82,.35);color:var(--prot);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'d','photo')"></label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'d','text')">✦ AI</button>
-        </div>
-      </div>
-      <textarea id="m_d" class="meal-ta" placeholder="e.g. pan-seared salmon 150g · 2 fried eggs · steamed broccoli" oninput="autoResize(this)"></textarea>
-      <div id="food-img-d" style="display:none;margin-top:6px;"></div>
-      <div id="food-analyze-d" style="display:none;"></div>
-    </div>
-
-    <!-- Snacks -->
-    <div class="meal-block" id="meal-row-s" style="margin-bottom:0;">
-      <div class="meal-hdr">
-        <span class="meal-label">🍃 Snacks &amp; Drinks</span>
-        <div style="display:flex;gap:5px;">
-          <button class="meal-btn-secondary" onclick="openMealPicker('s')" style="background:rgba(107,143,163,.1);border-color:rgba(107,143,163,.35);color:var(--sleep);">🍱 เมนู</button>
-          <label class="meal-btn-secondary">📷<input type="file" accept="image/*" multiple style="display:none" onchange="analyzeFood(this,'s','photo')"></label>
-          <button class="meal-btn-primary" onclick="analyzeFood(null,'s','text')">✦ AI</button>
-        </div>
-      </div>
-      <textarea id="m_s" class="meal-ta" placeholder="e.g. watermelon 200g · black coffee · dark chocolate 2 squares" oninput="autoResize(this)"></textarea>
-      <div id="food-img-s" style="display:none;margin-top:6px;"></div>
-      <div id="food-analyze-s" style="display:none;"></div>
+      <div style="font-size:.6rem;color:var(--muted2);margin-top:7px;line-height:1.55;">✨ <span class="lang-th">ใช้ Smart Scan ด้านล่างถ่ายรูปอาหารได้ — แคลจะ <b style="color:var(--accent);">บวกเพิ่ม</b> ให้อัตโนมัติ (ใส่ได้หลายครั้งต่อวัน)</span><span class="lang-en" style="display:none;">Use Smart Scan below — calories <b style="color:var(--accent);">add up</b> automatically (log as many times as you like)</span></div>
     </div>
   </div>
   <div class="section s-sleep">
@@ -1283,15 +1237,11 @@ body.ltab-supp .s-supp{display:block;}
       </div>
     </div>
 
-    <!-- Bad Day + Daily Photo row -->
+    <!-- Cheat Day -->
     <div style="display:flex;gap:8px;margin-bottom:12px;">
       <button id="bad-day-btn" onclick="toggleBadDay()" style="flex:1;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;transition:all .25s;color:var(--muted2);">
-        💀 Bad Day
+        🍰 Cheat Day
       </button>
-      <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-radius:12px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);transition:all .25s;" id="daily-photo-label">
-        📸 Day's Meals
-        <input type="file" accept="image/*" style="display:none" id="daily-photo-input" onchange="analyzeDailyPhoto(this)">
-      </label>
     </div>
     <div id="daily-photo-preview" style="display:none;margin-bottom:10px;"></div>
     <div id="daily-photo-result" style="display:none;margin-bottom:10px;"></div>
@@ -2398,7 +2348,7 @@ async function renderCalendar(){
   (data||[]).forEach(r=>{
     calDaysWithData[r.date]={
       hasData:true,
-      isBadDay: r.mood===1 && (r.h_note||'').includes('Bad day')
+      isBadDay: (r.h_note||'').includes('Cheat day')
     };
   });
   // Build grid
@@ -2503,10 +2453,10 @@ async function loadDay(){
   try{ setPeriodUI(d.period_data ? JSON.parse(d.period_data) : null); }catch{ setPeriodUI(null); }
   document.getElementById('day-advice').innerHTML='<div style="color:var(--muted2);font-size:.76rem">กด "วิเคราะห์" ✨</div>';
   // Bad day state
-  isBadDay = (d.mood===1 && (d.h_note||'').includes('Bad day'));
+  isBadDay = (d.h_note||'').includes('Cheat day');
   const btn=document.getElementById('bad-day-btn');
   btn.classList.toggle('active',isBadDay);
-  btn.textContent=isBadDay?'💀 Bad Day — logged':'💀 Bad Day';
+  btn.textContent=isBadDay?'🍰 Cheat Day — logged':'🍰 Cheat Day';
   // Water alert check
   await checkWaterAlert();
   // BioActive quick view
@@ -4033,10 +3983,10 @@ function setDayRating(r){
   if(dayRating){
     document.getElementById(`dr-${dayRating}`).classList.add(`active-${dayRating}`);
     // Sync bad day button
-    isBadDay = (dayRating==='bad');
+    isBadDay = (document.getElementById('h_note')?.value||'').includes('Cheat day');
     const btn=document.getElementById('bad-day-btn');
     btn.classList.toggle('active',isBadDay);
-    btn.textContent=isBadDay?'💀 Bad Day — logged':'💀 Bad Day';
+    btn.textContent=isBadDay?'🍰 Cheat Day — logged':'🍰 Cheat Day';
   }
 }
 function setDayRatingUI(r){
@@ -4110,13 +4060,13 @@ function toggleBadDay(){
   isBadDay = !isBadDay;
   const btn = document.getElementById('bad-day-btn');
   btn.classList.toggle('active', isBadDay);
-  btn.textContent = isBadDay ? '💀 Bad Day — logged' : '💀 Bad Day';
+  btn.textContent = isBadDay ? '🍰 Cheat Day — logged' : '🍰 Cheat Day';
+  const note = document.getElementById('h_note');
   if(isBadDay){
-    // Auto-set mood to 1, note bad day
-    setMQ(1);
-    const note = document.getElementById('h_note');
-    if(!note.value) note.value = 'Bad day — low energy, rest & recovery needed.';
-    toast('💀 Bad Day logged — take it easy today');
+    if(note && !note.value.includes('Cheat day')) note.value = (note.value.trim()? note.value.trim()+' · ':'') + '🍰 Cheat day';
+    toast('🍰 Cheat day logged — enjoy it, back on track tomorrow 🌿');
+  } else {
+    if(note) note.value = note.value.replace(/·?\s*🍰?\s*Cheat day/g,'').replace(/^\s*·\s*/,'').trim();
   }
 }
 
@@ -4718,15 +4668,14 @@ async function analyzeSleepPhoto(input){
   const resWrap = document.getElementById('sleep-scan-result');
   resWrap.style.display = 'block';
   resWrap.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px;background:rgba(107,143,163,.07);border:1px solid rgba(107,143,163,.2);border-radius:10px;font-size:.72rem;color:var(--sleep);"><div class="dot-pulse"><span></span><span></span><span></span></div> Reading ${files.length} Garmin screenshot${files.length>1?'s':''}…</div>`;
-  // convert all images
-  const images = await Promise.all(files.map(f => new Promise(res => {
-    const r = new FileReader();
-    r.onload = e => res({ data: e.target.result.split(',')[1], type: f.type||'image/jpeg' });
-    r.readAsDataURL(f);
-  })));
+  // convert all images (resize + JPEG; handles iPhone HEIC + large/multiple screenshots)
+  let images;
+  try { images = await Promise.all(files.map(f => fileToJpegBase64(f, 1568, 0.92))); }
+  catch(e){ console.error('Sleep scan read error:', e); resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ อ่านรูปไม่ได้ ลองใหม่ค่ะ</div>`; return; }
   try {
-    const content = images.map(img => ({ type:'image', source:{ type:'base64', media_type:img.type, data:img.data } }));
-    content.push({ type:'text', text:`These are ${images.length} Garmin screenshot(s) — they may show different Garmin screens (Sleep, HRV Status, Body Battery, or the daily overview). Carefully extract EVERY metric you can find across ALL images and combine them into one result.
+    const content = [];
+    images.forEach((img,i)=>{ content.push({ type:'text', text:`— Garmin screenshot ${i+1} of ${images.length} —` }); content.push({ type:'image', source:{ type:'base64', media_type:img.type, data:img.data } }); });
+    content.push({ type:'text', text:`Above are ${images.length} Garmin screenshot(s) — read EACH numbered screenshot ABOVE one by one (Image 2 often holds HRV / Body Battery / a different screen that Image 1 does not). Extract EVERY metric from EACH image, then combine them into ONE result. They may show different Garmin screens (Sleep, HRV Status, Body Battery, or the daily overview). Carefully extract EVERY metric you can find across ALL images and combine them into one result.
 
 WHERE TO LOOK in Garmin:
 - "total_hours" — the TOTAL SLEEP duration, usually shown big like "7h 48m" or "7:48" on the Sleep screen → convert to decimal hours (7h 48m = 7.8). THIS IS THE MOST IMPORTANT VALUE.
@@ -4750,8 +4699,8 @@ Respond ONLY with valid JSON, no markdown:
       method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
       body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:700, messages:[{role:'user', content}] })
     });
-    if(!res.ok){ throw new Error('HTTP '+res.status); }
     const data = await res.json();
+    if(!res.ok || !Array.isArray(data.content)){ console.error('Sleep scan API error:', res.status, data); throw new Error(data?.error?.message||('API '+res.status)); }
     const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const s = JSON.parse(raw);
     // Auto-fill sleep fields — merge: only overwrite when a value is present (don't wipe existing with 0)
@@ -4791,6 +4740,41 @@ Respond ONLY with valid JSON, no markdown:
 }
 
 // ── ALL DAY SCAN (Meals / Sleep / Exercise from photo) ──
+async function recalcFood(){
+  const mb=document.getElementById('m_b'); const txt=(mb&&mb.value||'').trim();
+  const out=document.getElementById('food-analyze-b');
+  const isEN=(typeof currentLang!=='undefined' && currentLang==='en');
+  if(!txt){ toast(isEN?'Type your food first':'พิมพ์รายการอาหารก่อนค่ะ'); return; }
+  if(out){ out.style.display='block'; out.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:9px;background:var(--bg);border-radius:9px;font-size:.7rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div> ${isEN?'Calculating total…':'กำลังคำนวณแคลรวม…'}</div>`; }
+  const isHome=(typeof mealMode!=='undefined' && mealMode==='home');
+  const prompt=`Calculate the TOTAL nutrition for this whole day of food: "${txt}". ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Some dining out: include restaurant sodium.'} Respond ONLY with valid JSON, no markdown: {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}}`;
+  try{
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    if(!res.ok || !Array.isArray(data.content)){ console.error('recalcFood API error:', res.status, data); throw new Error(data?.error?.message||('API '+res.status)); }
+    const r=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
+    if(isHome) r.sodium_mg=0;
+    const setN=(id,v)=>{ const el=document.getElementById(id); if(el) el.value=Math.round(v||0); };
+    setN('mac_kcal',r.kcal); setN('mac_p',r.protein_g); setN('mac_carb',r.carb_g);
+    setN('mac_fat',r.fat_g); setN('mac_f',r.fiber_g); setN('mac_sugar_total',r.sugar_g);
+    setN('mac_s',r.fruit_sugar_g); setN('mac_sodium',r.sodium_mg);
+    try{
+      for(const [catId,items] of Object.entries(r.ing||{})){
+        for(const item of (items||[])){
+          const name=(item||'').split('(')[0].trim();
+          if(name.length<2) continue;
+          const existing=await dbLoadIng(curIngMo);
+          const already=(existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
+          if(!already) await dbAddIng(curIngMo,catId,name,ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1);
+        }
+      }
+    }catch(e){}
+    try{ updateQ(); }catch(e){}
+    if(out){ out.innerHTML=`<div style="font-size:.66rem;color:var(--accent);padding:6px 0;">✓ ${isEN?'Totals recalculated from your full list':'คำนวณแคลรวมจากรายการทั้งหมดแล้ว'}</div>`; }
+    toast(`✦ ${Math.round(r.kcal||0)} kcal`);
+  }catch(e){ console.error('recalcFood error:',e); if(out) out.innerHTML=`<div style="font-size:.66rem;color:var(--prot);padding:6px 0;">⚠ ${isEN?'Could not calculate — try again':'คำนวณไม่ได้ ลองใหม่ค่ะ'}</div>`; }
+}
+
 async function analyzeSmartScan(input){
   const files = Array.from(input.files||[]).slice(0,6);
   if(!files.length) return;
@@ -4844,12 +4828,14 @@ Set "found": true ONLY for types actually present in the photos. Respond ONLY wi
     const m = r.meals||{};
     if(m.found){
       if(isHome) m.sodium_mg = 0;
-      const setV=(id,v)=>{ const el=document.getElementById(id); if(el&&v&&v!=='empty') el.value=v; };
-      setV('m_b',m.breakfast); setV('m_l',m.lunch); setV('m_d',m.dinner); setV('m_s',m.snack);
-      const setN=(id,v)=>{ const el=document.getElementById(id); if(el&&v) el.value=Math.round(v); };
-      setN('mac_kcal',m.kcal); setN('mac_p',m.protein_g); setN('mac_carb',m.carb_g);
-      setN('mac_fat',m.fat_g); setN('mac_f',m.fiber_g); setN('mac_sugar_total',m.sugar_g);
-      setN('mac_s',m.fruit_sugar_g); setN('mac_sodium',m.sodium_mg);
+      // append detected food to the running list (m_b)
+      const parts=[m.breakfast,m.lunch,m.dinner,m.snack].map(x=>(x||'').trim()).filter(x=>x&&x!=='empty');
+      if(parts.length){ const mb=document.getElementById('m_b'); if(mb){ mb.value = (mb.value.trim()? mb.value.trim()+' · ':'') + parts.join(' · '); if(typeof autoResize==='function') autoResize(mb); } }
+      // ADD macros to existing totals (accumulate, not replace)
+      const addN=(id,v)=>{ const el=document.getElementById(id); if(el&&(+v||0)){ el.value = Math.round((parseFloat(el.value)||0) + (+v||0)); } };
+      addN('mac_kcal',m.kcal); addN('mac_p',m.protein_g); addN('mac_carb',m.carb_g);
+      addN('mac_fat',m.fat_g); addN('mac_f',m.fiber_g); addN('mac_sugar_total',m.sugar_g);
+      addN('mac_s',m.fruit_sugar_g); addN('mac_sodium',m.sodium_mg);
       try{
         for(const [catId,items] of Object.entries(m.ing||{})){
           for(const item of (items||[])){
@@ -4861,7 +4847,7 @@ Set "found": true ONLY for types actually present in the photos. Respond ONLY wi
           }
         }
       }catch(e){}
-      filled.push({icon:'🍱', label:isEN?'Meals':'อาหาร', detail:`${Math.round(m.kcal||0)} kcal`, color:'var(--accent)'});
+      filled.push({icon:'🍱', label:isEN?'Meals':'อาหาร', detail:`+${Math.round(m.kcal||0)} kcal`, color:'var(--accent)'});
     }
 
     // ---- SLEEP ----
@@ -4905,7 +4891,7 @@ Set "found": true ONLY for types actually present in the photos. Respond ONLY wi
       <div style="display:flex;flex-direction:column;gap:6px;">
         ${filled.map(f=>`<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:8px;padding:8px 10px;"><span style="font-size:.72rem;color:${f.color};">${f.icon} ${f.label}</span><span style="font-size:.72rem;font-weight:700;color:${f.color};font-family:'Kanit',sans-serif;">${f.detail}</span></div>`).join('')}
       </div>
-      <div style="font-size:.64rem;color:var(--accent);margin-top:8px;">✓ ${isEN?'Fields filled — review & save':'ลงข้อมูลในช่องให้แล้ว ตรวจแล้วกดบันทึกได้เลย'}</div>
+      <div style="font-size:.64rem;color:var(--accent);margin-top:8px;">✓ ${isEN?'Added to today — totals accumulate. Review &amp; save':'บวกเพิ่มให้วันนี้แล้ว · แคลสะสมรวม ตรวจแล้วกดบันทึก'}</div>
     </div>`;
     toast(`✨ ${isEN?'Scanned':'สแกนแล้ว'} · ${filled.map(f=>f.label).join(' · ')}`);
 
@@ -4956,9 +4942,9 @@ Identify all dishes. Respond ONLY with valid JSON:
       if(isHome) n.sodium_mg = 0;
       // Fill meal fields if detected
       if(r.meals?.breakfast && r.meals.breakfast !== 'empty') document.getElementById('m_b').value = r.meals.breakfast;
-      if(r.meals?.lunch && r.meals.lunch !== 'empty') document.getElementById('m_l').value = r.meals.lunch;
-      if(r.meals?.dinner && r.meals.dinner !== 'empty') document.getElementById('m_d').value = r.meals.dinner;
-      if(r.meals?.snack && r.meals.snack !== 'empty') document.getElementById('m_s').value = r.meals.snack;
+      { let _e; if(r.meals?.lunch && r.meals.lunch !== 'empty' && (_e=document.getElementById('m_l'))) _e.value = r.meals.lunch; }
+      { let _e; if(r.meals?.dinner && r.meals.dinner !== 'empty' && (_e=document.getElementById('m_d'))) _e.value = r.meals.dinner; }
+      { let _e; if(r.meals?.snack && r.meals.snack !== 'empty' && (_e=document.getElementById('m_s'))) _e.value = r.meals.snack; }
       // Fill nutrition
       const setN = (id,v) => { const el = document.getElementById(id); if(el&&v) el.value = Math.round(v); };
       setN('mac_kcal',n.kcal); setN('mac_p',n.protein_g); setN('mac_carb',n.carb_g);
@@ -6461,9 +6447,9 @@ function applyPlanToLog(){
   const isEN = currentLang === 'en';
   let applied = 0;
   if(todayMealPlan.b){ document.getElementById('m_b').value=todayMealPlan.b; applied++; }
-  if(todayMealPlan.l){ document.getElementById('m_l').value=todayMealPlan.l; applied++; }
-  if(todayMealPlan.d){ document.getElementById('m_d').value=todayMealPlan.d; applied++; }
-  if(todayMealPlan.s){ document.getElementById('m_s').value=todayMealPlan.s; applied++; }
+  { let _e; if(todayMealPlan.l && (_e=document.getElementById('m_l'))){ _e.value=todayMealPlan.l; applied++; } }
+  { let _e; if(todayMealPlan.d && (_e=document.getElementById('m_d'))){ _e.value=todayMealPlan.d; applied++; } }
+  { let _e; if(todayMealPlan.s && (_e=document.getElementById('m_s'))){ _e.value=todayMealPlan.s; applied++; } }
   if(applied){ toast(isEN ? `✓ ${applied} meal(s) applied to today's log` : `✓ ใส่ ${applied} มื้อลงบันทึกวันนี้แล้ว`); goPage('log'); }
   else toast(isEN ? 'No meals selected yet' : 'ยังไม่ได้เลือกเมนู');
 }
