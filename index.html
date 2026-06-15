@@ -2237,8 +2237,9 @@ async function dbSaveDay(date, data){
     const {error} = await db.from('health_days').upsert(clean, {onConflict:'date'});
     if(error){
       console.error('Save error:', error);
-      setSyncBadge('error','❌ บันทึกไม่ได้');
-      toast('❌ Save ไม่ได้: '+(error.message||error.code||'unknown').substring(0,80));
+      const msg = (error.message||error.code||'unknown');
+      setSyncBadge('error','❌ '+msg.substring(0,60));
+      toast('❌ Save: '+msg.substring(0,90));
       return false;
     }
     setSyncBadge('','☁️ บันทึกแล้ว ✅');
@@ -2512,7 +2513,8 @@ async function saveDay(){
     } catch(e){}
     toast('✅ บันทึกแล้ว! ☁️');
   } else {
-    toast('❌ บันทึกไม่ได้ — เช็คการเชื่อมต่อ');
+    // dbSaveDay already showed the specific Supabase error above — don't overwrite it
+    console.error('saveDay: dbSaveDay returned false');
   }
 }
 
