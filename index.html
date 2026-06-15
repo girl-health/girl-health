@@ -1594,7 +1594,7 @@ body.ltab-supp .s-supp{display:block;}
 .mb-hero{text-align:center;padding:8px 4px 16px;}
 .mb-eyebrow{font-size:.58rem;letter-spacing:2.5px;color:var(--grain);font-weight:700;text-transform:uppercase;margin-bottom:7px;}
 .mb-title{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--accent);font-weight:800;line-height:1.05;}
-.mb-card{position:relative;border-radius:22px;padding:20px 20px 18px;color:#fff;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.22);margin-bottom:16px;}
+.mb-card{position:relative;border-radius:22px;padding:22px 22px 20px;color:#fff;overflow:hidden;box-shadow:0 14px 38px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.22);margin-bottom:16px;}
 .mb-card::after{content:'BioActive+';position:absolute;right:-10px;bottom:-14px;font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:800;color:rgba(255,255,255,.1);letter-spacing:-1px;}
 .mb-card-top{display:flex;align-items:center;justify-content:space-between;}
 .mb-card-brand{font-family:'Playfair Display',serif;font-weight:800;font-size:1.05rem;letter-spacing:.3px;}
@@ -1611,7 +1611,19 @@ body.ltab-supp .s-supp{display:block;}
 .mb-progress-bar{height:9px;background:var(--bg2);border-radius:30px;overflow:hidden;}
 .mb-progress-fill{height:100%;border-radius:30px;background:linear-gradient(90deg,var(--accent),#6fa67c);transition:width .5s;}
 .mb-progress-note{font-size:.66rem;color:var(--muted2);margin-top:8px;}
-.mb-share-btn{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;box-shadow:0 4px 15px rgba(74,124,89,.3);margin-bottom:18px;}
+.mb-share-ico{position:absolute;right:16px;bottom:16px;z-index:2;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;}
+.mb-reward{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:9px;}
+.mb-reward.ok{border-color:var(--accent);background:linear-gradient(135deg,rgba(74,124,89,.08),var(--card));cursor:pointer;}
+.mb-reward.locked{opacity:.7;}
+.mb-reward-ico{width:42px;height:42px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.mb-reward-info{flex:1;min-width:0;}
+.mb-reward-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:.84rem;color:var(--text);}
+.mb-reward-pts{font-size:.64rem;color:var(--muted2);margin-top:1px;}
+.mb-reward-status{font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:700;white-space:nowrap;text-align:right;}
+.mb-reward-status.ok{color:var(--accent);}
+.mb-reward-status.lock{color:var(--muted2);}
+.mb-reward-bar{height:5px;background:var(--bg2);border-radius:30px;overflow:hidden;margin-top:6px;}
+.mb-reward-bar > div{height:100%;background:var(--grain);border-radius:30px;}
 .mb-sec-ttl{font-family:'Kanit',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin:4px 2px 10px;}
 .mb-perk{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:11px 13px;margin-bottom:8px;font-size:.78rem;color:var(--text);font-family:'Sarabun',sans-serif;}
 .mb-perk .i{color:var(--accent);font-size:.95rem;flex-shrink:0;}
@@ -1635,8 +1647,6 @@ body.ltab-supp .s-supp{display:block;}
 
   <div id="mb-card-wrap"></div>
 
-  <button class="mb-share-btn" onclick="shareMemberCard()">📸 <span class="lang-th">แชร์การ์ดสมาชิก</span><span class="lang-en" style="display:none;">Share my card</span></button>
-
   <div id="mb-progress"></div>
 
   <div class="mb-points-box">
@@ -1646,6 +1656,9 @@ body.ltab-supp .s-supp{display:block;}
 
   <div class="mb-sec-ttl"><span class="lang-th">สิทธิ์ระดับของคุณ</span><span class="lang-en" style="display:none;">Your tier perks</span></div>
   <div id="mb-benefits"></div>
+
+  <div class="mb-sec-ttl" style="margin-top:18px;"><span class="lang-th">🎁 แลกของรางวัลด้วยแต้ม</span><span class="lang-en" style="display:none;">🎁 Redeem with points</span></div>
+  <div id="mb-rewards"></div>
 
   <div class="mb-sec-ttl" style="margin-top:14px;"><span class="lang-th">ชื่อบนการ์ด</span><span class="lang-en" style="display:none;">Name on card</span></div>
   <div class="mb-name-edit">
@@ -4225,6 +4238,35 @@ function memberLang(){
   document.querySelectorAll('#page-member .lang-th').forEach(e=>e.style.display=en?'none':'');
   document.querySelectorAll('#page-member .lang-en').forEach(e=>e.style.display=en?'':'none');
 }
+const REWARDS = [
+  {pts:200,  icon:'🎟️', th:'ส่วนลด ฿100',                        en:'฿100 off'},
+  {pts:400,  icon:'🚚', th:'ส่งฟรี 1 ครั้ง',                       en:'Free shipping ×1'},
+  {pts:700,  icon:'🧪', th:'ซองทดลอง BioActive+ ฟรี',             en:'Free BioActive+ sample'},
+  {pts:1200, icon:'🎁', th:'รับสินค้าฟรี 1 กล่อง',                 en:'Free product (1 box)'},
+  {pts:2000, icon:'💎', th:'เซ็ตของขวัญพิเศษ + ปรึกษาผิวตัวต่อตัว', en:'Gift set + 1:1 skin consult'},
+];
+function renderRewards(){
+  const el=document.getElementById('mb-rewards'); if(!el) return;
+  const pts=memberStats().points;
+  el.innerHTML = REWARDS.map(r=>{
+    const ok=pts>=r.pts;
+    const prog=Math.min(100, Math.max(2, Math.round(pts/r.pts*100)));
+    const status = ok
+      ? `<div class="mb-reward-status ok">✓ <span class="lang-th">แลกได้แล้ว</span><span class="lang-en" style="display:none;">Ready</span></div>`
+      : `<div class="mb-reward-status lock"><span class="lang-th">อีก ${(r.pts-pts).toLocaleString('th-TH')} แต้ม</span><span class="lang-en" style="display:none;">${(r.pts-pts).toLocaleString('th-TH')} pts</span></div>`;
+    return `<div class="mb-reward ${ok?'ok':'locked'}" ${ok?`onclick="redeemReward()"`:''}>
+      <div class="mb-reward-ico">${r.icon}</div>
+      <div class="mb-reward-info">
+        <div class="mb-reward-name"><span class="lang-th">${r.th}</span><span class="lang-en" style="display:none;">${r.en}</span></div>
+        <div class="mb-reward-pts">${r.pts.toLocaleString('th-TH')} <span class="lang-th">แต้ม</span><span class="lang-en" style="display:none;">pts</span></div>
+        ${ok?'':`<div class="mb-reward-bar"><div style="width:${prog}%"></div></div>`}
+      </div>
+      ${status}
+    </div>`;
+  }).join('');
+}
+function redeemReward(){ toast('🎁 ทักแอดมินทาง LINE เพื่อแลกของรางวัลได้เลยค่ะ'); }
+
 function renderMember(){
   const s=memberStats(); const t=s.tier; const nm=memberName();
   const wrap=document.getElementById('mb-card-wrap'); if(!wrap) return;
@@ -4241,6 +4283,7 @@ function renderMember(){
       <div><b>${s.months}</b><span>เดือน</span></div>
     </div>
     <div class="mb-card-since">สมาชิกตั้งแต่ ${s.since} · เดือนนี้ ${s.thisMonthBoxes} กล่อง</div>
+    <div class="mb-share-ico" onclick="shareMemberCard()" title="แชร์การ์ด">📤</div>
   </div>`;
 
   const prog=document.getElementById('mb-progress');
@@ -4266,6 +4309,7 @@ function renderMember(){
   if(ben) ben.innerHTML = t.perks.map(p=>`<div class="mb-perk"><span class="i">✓</span><span>${p}</span></div>`).join('');
 
   const ni=document.getElementById('mb-name-input'); if(ni && !ni.value) ni.value = (nm==='GIRL'?'':nm);
+  renderRewards();
   memberLang();
 }
 
