@@ -2476,21 +2476,22 @@ async function saveDay(){
     if(em<=sm)em+=1440;sl_min=em-sm;
   }
   // Only include columns that exist in Supabase schema
+  const gi=id=>Math.round(+g(id)||0);
   const data={
     m_b:g('m_b'),m_l:g('m_l'),m_d:g('m_d'),m_s:g('m_s'),
-    mac_p:+g('mac_p')||0,mac_f:+g('mac_f')||0,mac_s:+g('mac_s')||0,
-    mac_kcal:+g('mac_kcal')||0,mac_fat:+g('mac_fat')||0,
-    mac_carb:+g('mac_carb')||0,mac_sugar_total:+g('mac_sugar_total')||0,
-    mac_sodium:+g('mac_sodium')||0,
+    mac_p:gi('mac_p'),mac_f:gi('mac_f'),mac_s:gi('mac_s'),
+    mac_kcal:gi('mac_kcal'),mac_fat:gi('mac_fat'),
+    mac_carb:gi('mac_carb'),mac_sugar_total:gi('mac_sugar_total'),
+    mac_sodium:gi('mac_sodium'),
     sl_s:g('sl_s'),sl_e:g('sl_e'),
-    sl_min:sl_min||(+g('sl_total_h')||0)*60,
-    sl_score:+g('sl_score')||0,sl_rhr:+g('sl_rhr')||0,
-    sl_hrv:+g('sl_hrv')||0,sl_bb:+g('sl_bb')||0,
-    sl_q:sq,sl_total_h:+g('sl_total_h')||0,
-    e1_m:+g('e1_m')||0,e1_h:+g('e1_h')||0,e1_k:+g('e1_k')||0,
-    e2_m:+g('e2_m')||0,e2_k:+g('e2_k')||0,e2_c:+g('e2_c')||0,e2_h:+g('e2_h')||0,
-    ex_n:g('ex_n'),eq,supps:g('supps'),
-    water:+g('water')||0,mood:mq,h_note:g('h_note'),
+    sl_min:Math.round(sl_min||(+g('sl_total_h')||0)*60),
+    sl_score:gi('sl_score'),sl_rhr:gi('sl_rhr'),
+    sl_hrv:gi('sl_hrv'),sl_bb:gi('sl_bb'),
+    sl_q:Math.round(sq)||0,sl_total_h:+g('sl_total_h')||0,
+    e1_m:gi('e1_m'),e1_h:gi('e1_h'),e1_k:gi('e1_k'),
+    e2_m:gi('e2_m'),e2_k:+g('e2_k')||0,e2_c:gi('e2_c'),e2_h:gi('e2_h'),
+    ex_n:g('ex_n'),eq:Math.round(eq)||0,supps:g('supps'),
+    water:+g('water')||0,mood:Math.round(mq)||0,h_note:g('h_note'),
   };
   // Add optional columns safely
   try { data.day_rating = dayRating||''; } catch(e){}
