@@ -3913,7 +3913,7 @@ function saveCart(){ try{ localStorage.setItem('girl_cart', JSON.stringify(shopC
 function cartCount(){ return Object.values(shopCart).reduce((a,b)=>a+b,0); }
 function cartTotal(){ return Object.entries(shopCart).reduce((t,[id,q])=>t+(SHOP_PRICES[id]||0)*q,0); }
 function fmtB(n){ return '฿'+Number(n||0).toLocaleString('th-TH'); }
-function shopImg(id){ return SHOP_IMAGES[id] || ('img/'+id+'.jpg'); }
+function shopImg(id){ return SHOP_IMAGES[id] || (id+'.jpg'); }
 
 function bottleHTML(p){
   return `<div class="bottle" style="--c:${p.color};"><div class="bottle-cap"></div><div class="bottle-body"><div class="bottle-label"><div class="bottle-brand">BIOACTIVE+</div><div class="bottle-name">${p.name}</div><div class="bottle-icon">${p.icon}</div></div></div></div>`;
