@@ -1077,8 +1077,9 @@ body.ltab-supp .s-supp{display:block;}
           <input type="number" id="mac_p" placeholder="0" min="0" oninput="updateQ();updateProtTotalLabel()" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px dashed rgba(139,94,82,.3);">
-          <span style="font-size:.58rem;color:var(--muted2);flex:1;line-height:1.2;"><span class="lang-th">+ โปรตีนเสริม (เวย์/คอลลาเจน)</span><span class="lang-en" style="display:none;">+ Protein supplement</span></span>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px;padding-top:9px;border-top:1px dashed rgba(139,94,82,.3);">
+          <span style="display:flex;color:var(--grain);flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><rect x="8" y="4" width="8" height="3" rx="0.8"/><path d="M8.4 7h7.2l-.7 11.6a2 2 0 0 1-2 1.9h-1.8a2 2 0 0 1-2-1.9z"/><path d="M9.4 12.5h5.2M9.7 15.5h4.6"/></svg></span>
+          <span style="font-size:.58rem;color:var(--muted2);flex:1;line-height:1.2;"><span class="lang-th">โปรตีนเสริม (เวย์/คอลลาเจน)</span><span class="lang-en" style="display:none;">Protein supplement</span></span>
           <input type="number" id="prot_supp" placeholder="0" min="0" oninput="onProtSuppInput()" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:5px 8px;outline:none;width:60px;text-align:center;">
           <span style="font-size:.62rem;color:var(--muted2);">g</span>
         </div>
@@ -8155,6 +8156,7 @@ async function loadHomeDashboard(force){
   const colFor=(pct,good,mid)=> pct>=good?'var(--veg)':pct>=mid?'var(--grain)':'var(--prot)';
 
   // priority order: water, sleep, exercise, protein, calories, fiber, fruit sugar
+  const SHK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-2px;margin:0 2px 0 1px;color:#C9A96E;"><rect x="8" y="4" width="8" height="3" rx="0.8"/><path d="M8.4 7h7.2l-.7 11.6a2 2 0 0 1-2 1.9h-1.8a2 2 0 0 1-2-1.9z"/><path d="M9.4 12.5h5.2M9.7 15.5h4.6"/></svg>';
   const M=[
     {key:'water',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#6B8FA3;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>',bg:'rgba(107,143,163,.12)',name:isEN?'Water':'น้ำ',desc:isEN?'Daily hydration':'น้ำดื่มต่อวัน',
      val:water?water.toFixed(1):'0',unit:'L',target:'/ 2.5 L',pct:clamp(water,2.5),col:colFor(clamp(water,2.5),100,60)},
@@ -8162,7 +8164,7 @@ async function loadHomeDashboard(force){
      val:sleep?sleep.toFixed(1):'0',unit:'h',target:'/ 8 h',pct:clamp(sleep,8),col: (sleep>=7.5&&sleep<=8.5)?'var(--veg)':clamp(sleep,8)>=70?'var(--grain)':'var(--prot)'},
     {key:'ex',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#4A7C59;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>',bg:'rgba(74,124,89,.12)',name:isEN?'Exercise':'ออกกำลังกาย',desc:isEN?'Strength · cardio · ≥45 min':'เวท · คาร์ดิโอ · ≥45 นาที',
      val:exMin?Math.round(exMin):'0',unit:'min',target:'/ 45 min',pct:clamp(exMin,45),col: exMin>=45?'var(--veg)':exMin>=20?'var(--grain)':exMin>0?'var(--prot)':'var(--muted2)'},
-    {key:'prot',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#8B5E52;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc: protSupp>0 ? (isEN?`Food ${protFood} + supp ${protSupp} g`:`อาหาร ${protFood} + เสริม ${protSupp} g`) : (isEN?'Protein per day':'โปรตีนต่อวัน'),
+    {key:'prot',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#8B5E52;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc: protSupp>0 ? (isEN?`Food ${protFood} + ${SHK}supp ${protSupp} g`:`อาหาร ${protFood} + ${SHK}เสริม ${protSupp} g`) : (isEN?'Protein per day':'โปรตีนต่อวัน'),
      val:prot?Math.round(prot):'0',unit:'g',target:'/ 100 g',pct:clamp(prot,100),col:colFor(clamp(prot,100),90,60)},
     {key:'kcal',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C9A96E;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>',bg:'rgba(201,169,110,.14)',name:isEN?'Calories':'แคลอรี่',desc:isEN?'1,600–1,850 kcal':'1,600–1,850 kcal',
      val:kcal?Math.round(kcal).toLocaleString():'0',unit:'kcal',target:'/ 1,850',pct:clamp(kcal,1850),
