@@ -38,6 +38,7 @@
   --accent:#4A7C59;--text:#2C2C2C;--muted:#9B9B9B;--muted2:#B5A898;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:17px;}
 body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;min-height:100vh;overflow-x:hidden;}
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(245,240,232,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 20px rgba(0,0,0,0.06);}
 .nav-inner{display:flex;align-items:center;padding:0 14px;height:52px;gap:4px;}
@@ -139,6 +140,7 @@ textarea{min-height:42px;}
 .tbl-sum-box{background:var(--card);border-radius:14px;padding:12px 5px;text-align:center;}
 .tbl-sum-v{font-family:'Kanit',sans-serif;font-size:1.05rem;font-weight:700;line-height:1;letter-spacing:-.5px;}
 .tbl-sum-l{font-size:.54rem;color:var(--muted2);margin-top:5px;line-height:1.3;}
+.tbl-sum-l svg{width:12px;height:12px;vertical-align:-2px;margin-right:2px;}
 /* Daily cards */
 .tbl-day{display:flex;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 12px rgba(0,0,0,.03);}
 .tbl-day-today{border-color:rgba(74,124,89,.35);box-shadow:0 3px 16px rgba(74,124,89,.1);}
@@ -1057,12 +1059,12 @@ body.ltab-supp .s-supp{display:block;}
   </div>
 
   <div class="section s-eat">
-    <div class="sec-hdr"><div class="sec-ico">🍽️</div><div class="sec-ttl"><span class="lang-th">การกิน</span><span class="lang-en" style="display:none;">Nutrition</span></div></div>
-    <div class="sugar-note">🚫 งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
+    <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#4A7C59;"><path d="M7 3v18M5 3v4.5a2 2 0 0 0 4 0V3"/><path d="M16.5 3c-1.4 0-2.3 2-2.3 5 0 2 1 2.8 2.3 2.8V21"/></svg></div><div class="sec-ttl"><span class="lang-th">การกิน</span><span class="lang-en" style="display:none;">Nutrition</span></div></div>
+    <div class="sugar-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#C0392B;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M6.2 6.2 17.8 17.8"/></svg>งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
       <!-- แคลอรี่ - featured -->
       <div style="grid-column:1/-1;background:linear-gradient(135deg,rgba(240,160,64,.08),rgba(240,160,64,.04));border:1px solid rgba(240,160,64,.25);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;">
-        <div style="font-size:1.6rem;">🔥</div>
+        <div style="display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:var(--grain);"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg></div>
         <div style="flex:1;">
           <div style="font-size:.65rem;color:var(--muted2);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase;"><span class="lang-th">แคลอรี่รวม</span><span class="lang-en" style="display:none;">Total Calories</span></div>
           <div style="display:flex;align-items:baseline;gap:6px;">
@@ -1073,7 +1075,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- โปรตีน -->
       <div style="background:rgba(239,108,108,.06);border:1px solid rgba(239,108,108,.2);border-radius:16px;padding:13px;">
-        <div style="font-size:.62rem;color:var(--prot);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥩 โปรตีน</span><span class="lang-en" style="display:none;">🥩 Protein</span></div>
+        <div style="font-size:.62rem;color:var(--prot);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>โปรตีน</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>Protein</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_p" placeholder="0" min="0" oninput="updateQ();updateProtTotalLabel()" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -1088,7 +1090,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- คาร์บ -->
       <div style="background:rgba(162,155,254,.06);border:1px solid rgba(162,155,254,.2);border-radius:16px;padding:13px;">
-        <div style="font-size:.62rem;color:var(--other);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🍚 คาร์บ</span><span class="lang-en" style="display:none;">🍚 Carbs</span></div>
+        <div style="font-size:.62rem;color:var(--other);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--other);vertical-align:-2px;margin-right:4px;"><path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M7.5 9.3 8.5 8M12 9 12 7.2M16.5 9.3 15.5 8"/></svg>คาร์บ</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--other);vertical-align:-2px;margin-right:4px;"><path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M7.5 9.3 8.5 8M12 9 12 7.2M16.5 9.3 15.5 8"/></svg>Carbs</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_carb" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -1096,7 +1098,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- ไขมัน -->
       <div style="background:rgba(116,185,255,.06);border:1px solid rgba(116,185,255,.2);border-radius:16px;padding:13px;">
-        <div style="font-size:.62rem;color:var(--dairy);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥑 ไขมัน</span><span class="lang-en" style="display:none;">🥑 Fat</span></div>
+        <div style="font-size:.62rem;color:var(--dairy);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--dairy);vertical-align:-2px;margin-right:4px;"><path d="M12 4c3 0 5 3 5 7s-2 9-5 9-5-5-5-9 2-7 5-7z"/><circle cx="12" cy="13.8" r="2.5"/></svg>ไขมัน</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--dairy);vertical-align:-2px;margin-right:4px;"><path d="M12 4c3 0 5 3 5 7s-2 9-5 9-5-5-5-9 2-7 5-7z"/><circle cx="12" cy="13.8" r="2.5"/></svg>Fat</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_fat" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -1104,7 +1106,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- ไฟเบอร์ -->
       <div style="background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.2);border-radius:16px;padding:13px;">
-        <div style="font-size:.62rem;color:var(--veg);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥦 ไฟเบอร์</span><span class="lang-en" style="display:none;">🥦 Fiber</span></div>
+        <div style="font-size:.62rem;color:var(--veg);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M12 21v-6.5"/><path d="M12 14.5c-3 0-5-1.7-5-3.9 0-1 .5-1.8 1.2-2.4C8 5.7 9.8 4.5 12 4.5s4 1.2 4.8 3.2c.7.6 1.2 1.4 1.2 2.4 0 2.2-2 3.9-5 3.9z"/></svg>ไฟเบอร์</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M12 21v-6.5"/><path d="M12 14.5c-3 0-5-1.7-5-3.9 0-1 .5-1.8 1.2-2.4C8 5.7 9.8 4.5 12 4.5s4 1.2 4.8 3.2c.7.6 1.2 1.4 1.2 2.4 0 2.2-2 3.9-5 3.9z"/></svg>Fiber</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_f" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -1112,7 +1114,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- น้ำตาลรวม -->
       <div style="background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:16px;padding:13px;">
-        <div style="font-size:.62rem;color:var(--sugar);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🍬 น้ำตาลรวม</span><span class="lang-en" style="display:none;">🍬 Total Sugar</span></div>
+        <div style="font-size:.62rem;color:var(--sugar);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--sugar);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="3.6"/><path d="m9.3 9.7-3.2-1 .7 3.1 2.5.5M14.7 14.3l3.2 1-.7-3.1-2.5-.5"/></svg>น้ำตาลรวม</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--sugar);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="3.6"/><path d="m9.3 9.7-3.2-1 .7 3.1 2.5.5M14.7 14.3l3.2 1-.7-3.1-2.5-.5"/></svg>Total Sugar</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_sugar_total" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
@@ -1120,7 +1122,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- โซเดียม -->
       <div style="background:rgba(255,126,179,.06);border:1px solid rgba(255,126,179,.2);border-radius:16px;padding:13px;">
-        <div style="font-size:.62rem;color:var(--fruit);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🧂 โซเดียม</span><span class="lang-en" style="display:none;">🧂 Sodium</span></div>
+        <div style="font-size:.62rem;color:var(--fruit);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M8.8 9h6.4l-.6 9.6a1.5 1.5 0 0 1-1.5 1.4h-2.2a1.5 1.5 0 0 1-1.5-1.4z"/><path d="M9.2 9 10 5.4h4L14.8 9"/><path d="M11 12.5h2M11 15h2"/></svg>โซเดียม</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M8.8 9h6.4l-.6 9.6a1.5 1.5 0 0 1-1.5 1.4h-2.2a1.5 1.5 0 0 1-1.5-1.4z"/><path d="M9.2 9 10 5.4h4L14.8 9"/><path d="M11 12.5h2M11 15h2"/></svg>Sodium</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
           <input type="number" id="mac_sodium" placeholder="0" min="0" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:70px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">mg</span>
@@ -1128,7 +1130,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <!-- น้ำตาลจากผลไม้ (เก็บไว้เล็กๆ) -->
       <div style="grid-column:1/-1;background:rgba(62,207,142,.04);border:1px dashed rgba(62,207,142,.15);border-radius:10px;padding:10px;display:flex;align-items:center;gap:10px;">
-        <span style="font-size:.7rem;color:var(--muted2);flex:1;"><span class="lang-th">🍎 น้ำตาลจากผลไม้ธรรมชาติ</span><span class="lang-en" style="display:none;">🍎 Natural Fruit Sugar</span></span>
+        <span style="font-size:.7rem;color:var(--muted2);flex:1;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M12 7.2c-1-1.6-2.8-2.2-4.3-1.4C6 6.7 5.3 8.8 6.1 11.2c.7 2.2 2.3 4.7 4 5.5.7.4 1.1.4 1.8 0 1.7-.8 3.3-3.3 4-5.5.8-2.4.1-4.5-1.6-5.4-1.5-.8-3.3-.2-4.3 1.4"/><path d="M12 6.5c0-1.2.8-2.2 2-2.5"/></svg>น้ำตาลจากผลไม้ธรรมชาติ</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M12 7.2c-1-1.6-2.8-2.2-4.3-1.4C6 6.7 5.3 8.8 6.1 11.2c.7 2.2 2.3 4.7 4 5.5.7.4 1.1.4 1.8 0 1.7-.8 3.3-3.3 4-5.5.8-2.4.1-4.5-1.6-5.4-1.5-.8-3.3-.2-4.3 1.4"/><path d="M12 6.5c0-1.2.8-2.2 2-2.5"/></svg>Natural Fruit Sugar</span></span>
         <input type="number" id="mac_s" placeholder="0" min="0" style="background:transparent;border:none;color:var(--veg);font-family:Kanit,sans-serif;font-size:.9rem;font-weight:600;outline:none;width:50px;text-align:right;padding:0;">
         <span style="font-size:.65rem;color:var(--muted2);">g</span>
       </div>
@@ -1146,7 +1148,7 @@ body.ltab-supp .s-supp{display:block;}
     <!-- Today's Food (consolidated · accumulates all day) -->
     <div class="meal-block" id="meal-row-b" style="margin-bottom:0;">
       <div class="meal-hdr">
-        <span class="meal-label">🍽️ <span class="lang-th">รายการอาหารวันนี้</span><span class="lang-en" style="display:none;">Today's Food</span></span>
+        <span class="meal-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#4A7C59;vertical-align:-2px;margin-right:4px;"><path d="M7 3v18M5 3v4.5a2 2 0 0 0 4 0V3"/><path d="M16.5 3c-1.4 0-2.3 2-2.3 5 0 2 1 2.8 2.3 2.8V21"/></svg><span class="lang-th">รายการอาหารวันนี้</span><span class="lang-en" style="display:none;">Today's Food</span></span>
         <button class="meal-btn-primary" onclick="recalcFood()">✦ <span class="lang-th">คำนวณแคล</span><span class="lang-en" style="display:none;">Calc</span></button>
       </div>
       <textarea id="m_b" class="meal-ta" placeholder="เพิ่มได้เรื่อย ๆ ทั้งวัน · เช่น ข้าวกล้อง · อกไก่ 200g · กาแฟดำ · ผลไม้" oninput="autoResize(this)"></textarea>
@@ -1185,7 +1187,7 @@ body.ltab-supp .s-supp{display:block;}
     </div>
   </div>
   <div class="section s-sleep">
-    <div class="sec-hdr"><div class="sec-ico">🌙</div><div class="sec-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div>
+    <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#6B8FA3;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg></div><div class="sec-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div>
       <label style="margin-left:auto;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;border:1px dashed var(--border2);background:var(--card2);cursor:pointer;font-size:.65rem;font-weight:700;letter-spacing:.3px;color:var(--sleep);white-space:nowrap;">
         📸 <span class="lang-th">สแกน (เลือกได้หลายรูป)</span><span class="lang-en" style="display:none;">Scan (multi)</span>
         <input type="file" accept="image/*" multiple style="display:none" onchange="analyzeSleepPhoto(this)">
@@ -1217,7 +1219,7 @@ body.ltab-supp .s-supp{display:block;}
     </div>
   </div>
   <div class="section s-ex">
-    <div class="sec-hdr"><div class="sec-ico">🏋️</div><div class="sec-ttl"><span class="lang-th">ออกกำลังกาย</span><span class="lang-en" style="display:none;">Exercise</span></div></div>
+    <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#8B5E52;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg></div><div class="sec-ttl"><span class="lang-th">ออกกำลังกาย</span><span class="lang-en" style="display:none;">Exercise</span></div></div>
     <div class="ex-block">
       <div class="ex-bl-ttl">💪 Strength</div>
       <div class="ex-g">
@@ -1257,7 +1259,7 @@ body.ltab-supp .s-supp{display:block;}
     </div>
   </div>
   <div class="section s-body">
-    <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl"><span class="lang-th">ข้อมูลร่างกาย</span><span class="lang-en" style="display:none;">Body Metrics</span></div></div>
+    <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#C9A96E;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></div><div class="sec-ttl"><span class="lang-th">ข้อมูลร่างกาย</span><span class="lang-en" style="display:none;">Body Metrics</span></div></div>
 
     <!-- 🌸 Period Tracker — TOP for easy access -->
     <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:13px;padding:11px 13px;margin-bottom:12px;">
@@ -1404,7 +1406,7 @@ body.ltab-supp .s-supp{display:block;}
   </div>
 
   <div class="section s-supp">
-    <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl"><span class="lang-th">BioActive+ วันนี้</span><span class="lang-en" style="display:none;">BioActive+ Today</span></div></div>
+    <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:var(--accent);"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg></div><div class="sec-ttl"><span class="lang-th">BioActive+ วันนี้</span><span class="lang-en" style="display:none;">BioActive+ Today</span></div></div>
     <div style="font-size:.68rem;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">กดได้เลย — ติ๊กเพื่อบันทึกว่ากินแล้ว</span><span class="lang-en" style="display:none;">Tap to mark as taken</span></div>
     <div id="bio-quick-tap" style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px;"></div>
     <label class="lbl" style="margin-top:6px"><span class="lang-th">📝 ยา / อื่นๆ</span><span class="lang-en" style="display:none;">📝 Medication / Other</span></label>
@@ -3242,7 +3244,7 @@ async function renderTable(){
 
   if(!rows.length){
     sumEl.innerHTML='';
-    wrap.innerHTML=`<div class="tbl-empty">📭 ${isEN?'No entries this month':'ยังไม่มีข้อมูลในเดือนนี้'}</div>`;
+    wrap.innerHTML=`<div class="tbl-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;color:var(--muted2);display:block;margin:0 auto 8px;"><path d="M4 13 6.4 5.4A2 2 0 0 1 8.3 4h7.4a2 2 0 0 1 1.9 1.4L20 13"/><path d="M4 13h4l1 2.4h6L16 13h4v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>${isEN?'No entries this month':'ยังไม่มีข้อมูลในเดือนนี้'}</div>`;
     populateMoSels(rows);
     return;
   }
@@ -3264,10 +3266,10 @@ async function renderTable(){
         </div>
       </div>
       <div class="tbl-sum-grid">
-        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--grain);">${avg('mac_kcal')||'—'}</div><div class="tbl-sum-l">🔥 ${isEN?'avg kcal':'แคลอรี่'}</div></div>
-        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--prot);">${avg('mac_p')||'—'}g</div><div class="tbl-sum-l">🥩 ${isEN?'avg protein':'โปรตีน'}</div></div>
-        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--sleep);">${avgSlH}</div><div class="tbl-sum-l">🌙 ${isEN?'avg sleep':'นอนเฉลี่ย'}</div></div>
-        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--water);">${avgWater}L</div><div class="tbl-sum-l">💧 ${isEN?'avg water':'น้ำเฉลี่ย'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--grain);">${avg('mac_kcal')||'—'}</div><div class="tbl-sum-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color:var(--grain);"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg> ${isEN?'avg kcal':'แคลอรี่'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--prot);">${avg('mac_p')||'—'}g</div><div class="tbl-sum-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color:var(--prot);"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg> ${isEN?'avg protein':'โปรตีน'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--sleep);">${avgSlH}</div><div class="tbl-sum-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color:var(--sleep);"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg> ${isEN?'avg sleep':'นอนเฉลี่ย'}</div></div>
+        <div class="tbl-sum-box"><div class="tbl-sum-v" style="color:var(--water);">${avgWater}L</div><div class="tbl-sum-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color:var(--water);"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg> ${isEN?'avg water':'น้ำเฉลี่ย'}</div></div>
       </div>
     </div>`;
 
@@ -3296,15 +3298,15 @@ async function renderTable(){
       <div class="tbl-day-body">
         <div class="tbl-day-meals">${sm}</div>
         <div class="tbl-day-stats">
-          <span class="tbl-stat" style="background:rgba(240,160,64,.12);color:var(--grain);cursor:pointer;" onclick="inlineEditCell('${d.date}','mac_kcal',${d.mac_kcal||0},this)">🔥 ${d.mac_kcal||'—'}${d.mac_kcal?'':''}</span>
-          <span class="tbl-stat" style="background:rgba(139,94,82,.1);color:var(--prot);">🥩 ${d.mac_p||0}g</span>
-          <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)">🌙 ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
-          ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);">🏋️ ${exM}m</span>`:''}
+          <span class="tbl-stat" style="background:rgba(240,160,64,.12);color:var(--grain);cursor:pointer;" onclick="inlineEditCell('${d.date}','mac_kcal',${d.mac_kcal||0},this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg> ${d.mac_kcal||'—'}${d.mac_kcal?'':''}</span>
+          <span class="tbl-stat" style="background:rgba(139,94,82,.1);color:var(--prot);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg> ${d.mac_p||0}g</span>
+          <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg> ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
+          ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg> ${exM}m</span>`:''}
           ${(function(){ if(typeof getCardioType!=='function') return ''; const ct=getCardioType(d.date); if(!ct) return ''; const lbl=(typeof cardioTypeLabel==='function')?cardioTypeLabel(ct):ct; if(!lbl) return ''; return `<span class="tbl-stat" style="background:rgba(74,124,89,.13);color:var(--accent);display:inline-flex;align-items:center;gap:3px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.4l2-5.4 4 11 2.5-7.4 1.5 2h4.6"/></svg>${lbl}</span>`; })()}
           ${(function(){ if(typeof getHyroxForDate!=='function') return ''; const hx=getHyroxForDate(d.date); if(!hx) return ''; const t=hx.total!=null?hxFmt(hx.total):''; return `<span class="tbl-stat" style="background:rgba(192,57,43,.1);color:#C0392B;display:inline-flex;align-items:center;gap:3px;font-weight:700;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX${t?' '+t:''}</span>`; })()}
-          <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);">💧 ${d.water?d.water+'L':'—'}</span>
+          <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg> ${d.water?d.water+'L':'—'}</span>
           ${(function(){ const it=(typeof rcLoad==='function'?rcLoad():[]).filter(e=>e.date===d.date); if(!it.length) return ''; const c={}; it.forEach(e=>c[e.type]=(c[e.type]||0)+1); return Object.keys(c).map(id=>{ const t=rcType(id); return `<span class="tbl-stat" style="background:${t.color}1a;color:${t.color};display:inline-flex;align-items:center;gap:3px;" title="${(typeof currentLang!=='undefined'&&currentLang==='en')?t.en:t.th}">${rcSvg(id)}${c[id]>1?'×'+c[id]:''}</span>`; }).join(''); })()}
-          ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);">⚖️ ${d.weight}kg</span>`:''}
+          ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><circle cx="12" cy="4.2" r="1.1"/><path d="M12 5.3v13M7 19h10"/><path d="M5 8.5h14"/><path d="M5 8.5 2.7 13.5a3 3 0 0 0 4.6 0z"/><path d="M19 8.5l2.3 5a3 3 0 0 1-4.6 0z"/></svg> ${d.weight}kg</span>`:''}
         </div>
       </div>
     </div>`;
@@ -3379,7 +3381,7 @@ async function renderStats(){
   if(typeof renderRecoverySummary==='function') renderRecoverySummary('stat-recovery', mo, isEN);
   const rows=await dbLoadMonth(mo);
   const wrap=document.getElementById('stat-wrap');
-  if(!rows.length){wrap.innerHTML=`<div class="tbl-empty">📭 ${isEN?'No data this month':'ยังไม่มีข้อมูลเดือนนี้'}</div>`;populateMoSels(rows);return;}
+  if(!rows.length){wrap.innerHTML=`<div class="tbl-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;color:var(--muted2);display:block;margin:0 auto 8px;"><path d="M4 13 6.4 5.4A2 2 0 0 1 8.3 4h7.4a2 2 0 0 1 1.9 1.4L20 13"/><path d="M4 13h4l1 2.4h6L16 13h4v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>${isEN?'No data this month':'ยังไม่มีข้อมูลเดือนนี้'}</div>`;populateMoSels(rows);return;}
 
   const n=rows.length;
   const sorted=[...rows].sort((a,b)=>a.date.localeCompare(b.date));
@@ -8548,7 +8550,7 @@ async function loadHomeDashboard(force){
       dotsEl.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
         const on = !!taken[p.id];
         return `<div class="hd-bio-dot ${on?'taken':'miss'}" style="${on?`background:${p.dotColor}1f;border-color:${p.dotColor};`:''}" title="${p.name}">
-          ${p.icon}${on?`<span class="hd-bio-dot-check">✓</span>`:''}
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;" fill="${on?p.dotColor:'#CFC7B8'}"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg>${on?`<span class="hd-bio-dot-check">✓</span>`:''}
         </div>`;
       }).join('');
     }
