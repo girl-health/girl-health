@@ -669,6 +669,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('table')" id="ntab-table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6h6v.9M8.5 10h7M8.5 13.5h7M8.5 17h4.5"/></svg><span class="ntab-tx">ตาราง</span></div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg><span class="ntab-tx">สถิติ</span></div>
       <div class="ntab" onclick="goPage('body')" id="ntab-body"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg><span class="ntab-tx">Body</span></div>
+      <div class="ntab" onclick="goPage('skin')" id="ntab-skin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg><span class="lang-th">ผิว</span><span class="lang-en" style="display:none;">Skin</span></div>
       <div class="ntab" onclick="goPage('hyrox')" id="ntab-hyrox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M20.4 11.4c.95.3 1.6.9 1.6 1.6 0 1-1.2 1.9-3 2.2"/><path d="M9 7c1.4-1.9 3.8-2.4 5.3-1.4M12.2 10.9C11.3 8.5 12.7 6 14.6 5.5"/></svg><span class="ntab-tx">โภชนาการ</span></div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg><span class="ntab-tx">BioActive+</span></div>
@@ -1928,9 +1929,8 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- TAB ROW -->
   <div class="body-tabs">
-    <button onclick="switchBodyTab('map')"    class="body-tab active" id="btab-map">🫀 <span class="lang-th">ร่างกาย</span><span class="lang-en" style="display:none;">Body</span></button>
-    <button onclick="switchBodyTab('skin')"   class="body-tab"        id="btab-skin">✨ <span class="lang-th">ผิว</span><span class="lang-en" style="display:none;">Skin</span></button>
-    <button onclick="switchBodyTab('stats')"  class="body-tab"        id="btab-stats">📐 <span class="lang-th">สัดส่วน</span><span class="lang-en" style="display:none;">Stats</span></button>
+    <button onclick="switchBodyTab('map')"    class="body-tab active" id="btab-map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="5" r="2.2"/><path d="M12 7.5v6M12 9.2 8 11M12 9.2 16 11M12 13.5 9 20M12 13.5 15 20"/></svg><span class="lang-th">ร่างกาย</span><span class="lang-en" style="display:none;">Body</span></button>
+    <button onclick="switchBodyTab('stats')"  class="body-tab"        id="btab-stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg><span class="lang-th">สัดส่วน</span><span class="lang-en" style="display:none;">Stats</span></button>
   </div>
 
   <!-- ───────── TAB: BODY MAP ───────── -->
@@ -1950,7 +1950,7 @@ body.ltab-supp .s-supp{display:block;}
         <div style="display:flex;align-items:stretch;">
           <!-- Color stripe + icon -->
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#F5EDD8,#EBD9A0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(201,169,110,.15);">
-            <div style="font-size:1.6rem;">💆‍♀️</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#8B6914;"><path d="M8 3c-2 3 2 5 0 8s2 5 0 8M12 3c-2 3 2 5 0 8s2 5 0 8M16 3c-2 3 2 5 0 8s2 5 0 8"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#8B6914;text-align:center;letter-spacing:.3px;line-height:1.3;">HAIR &<br>SCALP</div>
           </div>
           <!-- Content -->
@@ -1974,7 +1974,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('eyes')" id="ocard-eyes" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#E8EFF5,#C5D8E8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(107,143,163,.15);">
-            <div style="font-size:1.6rem;">👁️</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#4A6B80;"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#4A6B80;text-align:center;letter-spacing:.3px;line-height:1.3;">EYE<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -1996,7 +1996,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('lungs')" id="ocard-lungs" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#EDE8F5,#D5C8E8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(122,107,138,.15);">
-            <div style="font-size:1.6rem;">🫁</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#5A4A6E;"><path d="M12 3v9"/><path d="M9 12c0-2-3-2-4.5 0C3 14 3 18 4 19.5c1 1.5 4 1 4.5-1 .5-2 .5-4.5.5-5.5zM15 12c0-2 3-2 4.5 0C21 14 21 18 20 19.5c-1 1.5-4 1-4.5-1-.5-2-.5-4.5-.5-5.5z"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#5A4A6E;text-align:center;letter-spacing:.3px;line-height:1.3;">LUNG<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -2017,7 +2017,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('heart')" id="ocard-heart" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#FAEAEA,#F0C0C0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(192,57,43,.12);">
-            <div style="font-size:1.6rem;">❤️</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#C0392B;"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#8B2A2A;text-align:center;letter-spacing:.3px;line-height:1.3;">HEART<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -2039,7 +2039,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('kidney')" id="ocard-kidney" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#E8F2EC,#C0DEC8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(74,124,89,.15);">
-            <div style="font-size:1.6rem;">🫘</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#2E6040;"><path d="M15 4.5c-4.5 0-7.5 3.3-7.5 7.5s3 7.5 7 7.5c2 0 3.3-1.2 3.3-2.8s-1.2-2.6-2.8-2.6c-1.4 0-2.3-.8-2.3-2s1-2 2.3-2c1.8 0 3 1.2 4.8 1.2 1.8 0 3.2-1.3 3.2-3.2 0-1-.6-1.6-1.5-1.6"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#2E6040;text-align:center;letter-spacing:.3px;line-height:1.3;">KIDNEY<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -2060,7 +2060,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('gut')" id="ocard-gut" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#F2EAE5,#DEC0B0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(139,94,82,.15);">
-            <div style="font-size:1.6rem;">🦠</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#8B5E52;"><path d="M5 5h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/><path d="M5 5v3M17 17v2"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#6A3A28;text-align:center;letter-spacing:.3px;line-height:1.3;">GUT<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -2082,7 +2082,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('muscle')" id="ocard-muscle" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#EBF2E8,#C4DAB8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(74,124,89,.15);">
-            <div style="font-size:1.6rem;">💪</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#4A7C59;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#2E5A28;text-align:center;letter-spacing:.3px;line-height:1.3;">MUSCLE<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -2104,7 +2104,7 @@ body.ltab-supp .s-supp{display:block;}
       <div onclick="showOrgan('skin')" id="ocard-skin" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .15s;" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'">
         <div style="display:flex;align-items:stretch;">
           <div style="width:80px;flex-shrink:0;background:linear-gradient(160deg,#FFF0EA,#F0C8A8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;gap:6px;border-right:1px solid rgba(212,132,90,.15);">
-            <div style="font-size:1.6rem;">✨</div>
+            <div style="font-size:1.6rem;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;color:#D4845A;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:.62rem;color:#7A3E18;text-align:center;letter-spacing:.3px;line-height:1.3;">SKIN<br>HEALTH</div>
           </div>
           <div style="flex:1;padding:14px 14px 12px;">
@@ -2174,7 +2174,7 @@ body.ltab-supp .s-supp{display:block;}
 
       <!-- Upload button -->
       <label id="skin-scan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:13px;border:2px dashed rgba(255,126,179,.35);background:rgba(255,126,179,.03);cursor:pointer;">
-        <span style="font-size:1.3rem;">📸</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--fruit);"><path d="M4 8.5h2.8L8 6.5h8l1.2 2H20a1 1 0 0 1 1 1V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.2"/></svg>
         <div style="text-align:center;">
           <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;">ถ่าย/เลือกรูปหน้า (สูงสุด 4 รูป)</div>
           <div style="font-size:.6rem;color:var(--muted2);">ถ่ายซ้ำเพิ่มได้ · แสงธรรมชาติ · ไม่มีเมคอัพ · หลายมุม</div>
@@ -2184,12 +2184,12 @@ body.ltab-supp .s-supp{display:block;}
 
       <!-- Analyze button (shows after preview) -->
       <button id="skin-analyze-btn" onclick="analyzeSkinAge()" style="display:none;width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,rgba(255,126,179,.8),rgba(212,132,90,.8));color:#fff;border:none;border-radius:12px;font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">
-        ✨ วิเคราะห์ผิวหน้า
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:#fff;vertical-align:-3px;margin-right:6px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg>วิเคราะห์ผิวหน้า
       </button>
 
       <!-- Loading -->
       <div id="skin-scan-loading" style="display:none;text-align:center;padding:16px;">
-        <div style="font-size:1.5rem;margin-bottom:8px;">🔍</div>
+        <div style="margin-bottom:8px;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--fruit);"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.3-4.3"/></svg></div>
         <div style="font-family:'Kanit',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;margin-bottom:4px;">AI กำลังวิเคราะห์ผิวหน้า…</div>
         <div style="font-size:.65rem;color:var(--muted2);">วิเคราะห์ละเอียดจาก <span id="skin-photo-count">1</span> รูป · ใช้เวลาสักครู่</div>
         <div id="skin-scan-stage" style="font-size:.62rem;color:var(--fruit);margin-top:6px;min-height:1em;"></div>
@@ -2204,10 +2204,10 @@ body.ltab-supp .s-supp{display:block;}
 
       <!-- Dashboard sub-tabs -->
       <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;">
-        <button onclick="switchSkinTab('overview')" class="body-tab active" id="stab-overview">📊 Overview</button>
-        <button onclick="switchSkinTab('trend')"    class="body-tab"        id="stab-trend">📈 Trend</button>
-        <button onclick="switchSkinTab('history')"  class="body-tab"        id="stab-history">📅 History</button>
-        <button onclick="switchSkinTab('insights')" class="body-tab"        id="stab-insights">💡 Insights</button>
+        <button onclick="switchSkinTab('overview')" class="body-tab active" id="stab-overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>Overview</button>
+        <button onclick="switchSkinTab('trend')"    class="body-tab"        id="stab-trend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3 17l5-5 4 3 7-8"/><path d="M17 7h4v4"/></svg>Trend</button>
+        <button onclick="switchSkinTab('history')"  class="body-tab"        id="stab-history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg>History</button>
+        <button onclick="switchSkinTab('insights')" class="body-tab"        id="stab-insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.7.6 1.1 1.1 1.3 2.4h5c.2-1.3.6-1.8 1.3-2.4A6 6 0 0 0 12 3z"/></svg>Insights</button>
       </div>
 
       <!-- OVERVIEW TAB -->
@@ -2232,11 +2232,11 @@ body.ltab-supp .s-supp{display:block;}
           <!-- Best / latest -->
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             <div style="background:var(--card);border-radius:12px;padding:10px;">
-              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;">🏆 <span class="lang-th">Best Score</span><span class="lang-en" style="display:none;">Best Score</span></div>
+              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4.6a2.4 2.4 0 0 0 2.4 3M17 6h2.4a2.4 2.4 0 0 1-2.4 3"/><path d="M12 13v3M9 20h6M10.2 20l.4-4h2.8l.4 4"/></svg><span class="lang-th">Best Score</span><span class="lang-en" style="display:none;">Best Score</span></div>
               <div style="font-family:'Kanit',sans-serif;font-size:.88rem;font-weight:700;color:var(--veg);" id="sdash-best"></div>
             </div>
             <div style="background:var(--card);border-radius:12px;padding:10px;">
-              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;">📅 <span class="lang-th">ล่าสุด</span><span class="lang-en" style="display:none;">Latest</span></div>
+              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--muted2);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg><span class="lang-th">ล่าสุด</span><span class="lang-en" style="display:none;">Latest</span></div>
               <div style="font-family:'Kanit',sans-serif;font-size:.88rem;font-weight:700;color:var(--fruit);" id="sdash-latest"></div>
             </div>
           </div>
@@ -2259,7 +2259,7 @@ body.ltab-supp .s-supp{display:block;}
       <div id="spanel-trend" style="display:none;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:10px;">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);">📈 Skin Age Trend</div>
+            <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M3 17l5-5 4 3 7-8"/><path d="M17 7h4v4"/></svg>Skin Age Trend</div>
             <div style="font-size:.6rem;color:var(--muted2);">เส้นสีชมพู = Skin Age · เส้นสีทอง = Score/10</div>
           </div>
           <canvas id="skin-trend-chart" style="width:100%;height:160px;display:block;"></canvas>
@@ -2294,7 +2294,7 @@ body.ltab-supp .s-supp{display:block;}
 
     <!-- Show dashboard button (when no scan yet today) -->
     <div id="skin-dashboard-btn-wrap" style="text-align:center;margin-top:6px;margin-bottom:4px;">
-      <button onclick="showSkinDashboard()" style="padding:8px 20px;border-radius:20px;border:1px solid rgba(255,126,179,.3);background:rgba(255,126,179,.06);color:var(--fruit);font-family:'Kanit',sans-serif;font-size:.72rem;cursor:pointer;">📊 ดู Dashboard ประวัติผิว</button>
+      <button onclick="showSkinDashboard()" style="padding:8px 20px;border-radius:20px;border:1px solid rgba(255,126,179,.3);background:rgba(255,126,179,.06);color:var(--fruit);font-family:'Kanit',sans-serif;font-size:.72rem;cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>ดู Dashboard ประวัติผิว</button>
     </div>
 
   </div><!-- /bpanel-skin -->
@@ -2496,6 +2496,13 @@ body.ltab-supp .s-supp{display:block;}
 </div>
 
 <!-- PAGE HYROX -->
+<div class="page" id="page-skin">
+  <div style="text-align:center;margin-bottom:16px;padding-top:4px;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--text);letter-spacing:.5px;">Skin Studio</div>
+    <div style="font-size:.64rem;color:var(--muted2);letter-spacing:.3px;">สแกนผิว · ติดตามอายุผิว · ประวัติการดูแล</div>
+  </div>
+</div>
+
 <div class="page" id="page-hyrox">
   <div style="background:linear-gradient(135deg,#C0392B,#D4845A);border-radius:22px;padding:20px;color:#fff;box-shadow:0 8px 28px rgba(192,57,43,.28);">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
@@ -3162,7 +3169,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','hyrox','ing','bio','shop','member','orders','recovery'];
+  const allPages = ['home','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders','recovery'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -3176,6 +3183,7 @@ function goPage(name){
   if(name==='table')renderTable();
   if(name==='stats')renderStats();
   if(name==='ing')renderIng();
+  if(name==='skin'){ try{ renderSkinHistory(); }catch(e){} (async()=>{ try{ const log=await getSkinLog(); if(log&&log.length){ const d=document.getElementById('skin-dashboard'); if(d)d.style.display='block'; const w=document.getElementById('skin-dashboard-btn-wrap'); if(w)w.style.display='none'; switchSkinTab('overview'); } }catch(e){} })(); }
   if(name==='bio'){curBioDay=curDay;curBioMo=curDay.substring(0,7);renderBio();}
   if(name==='shop'){ renderShop(); }
   if(name==='member'){ renderMember(); }
@@ -3800,6 +3808,8 @@ type: good (จุดแข็ง), info (ข้อสังเกต), add (แ
 
 // ── INIT ──
 async function init(){
+  // Move skin panel into its own page
+  try{ const sp=document.getElementById('page-skin'), bp=document.getElementById('bpanel-skin'); if(sp&&bp&&bp.parentElement!==sp){ bp.style.display='block'; sp.appendChild(bp); } }catch(e){}
   // Set default body date to today
   const todayStr = new Date().toISOString().split('T')[0];
   const bodyDateEl = document.getElementById('body-date');
@@ -4356,7 +4366,7 @@ function recommendedProductIds(scan){
   });
   return ids;
 }
-function goSkinScan(){ goPage('body'); setTimeout(()=>{ try{ switchBodyTab('skin'); }catch(e){} try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){} }, 80); }
+function goSkinScan(){ goPage('skin'); try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){} }
 function renderScanBanner(){
   const el=document.getElementById('shop-scan-banner'); if(!el) return;
   const scan=latestSkinScan();
@@ -6510,7 +6520,7 @@ async function inlineEditCell(date, field, currentVal, el){
 
 // ── BODY PAGE TABS ──
 async function switchBodyTab(tab){
-  ['map','skin','stats'].forEach(t=>{
+  ['map','stats'].forEach(t=>{
     document.getElementById('bpanel-'+t).style.display = t===tab ? 'block' : 'none';
     document.getElementById('btab-'+t).classList.toggle('active', t===tab);
   });
