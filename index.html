@@ -6425,6 +6425,7 @@ async function renderOrganGrid(){
     skin:'<path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/>'
   };
   const TH={hair:'ผม & หนังศีรษะ',eyes:'ดวงตา',lungs:'ปอด',heart:'หัวใจ',kidney:'ไต',gut:'ลำไส้',muscle:'กล้ามเนื้อ',skin:'ผิว'};
+  const FOOD_TH={'Moringa':'มะรุม','Amla':'มะขามป้อม','Red Lentils':'ถั่วเลนทิลแดง','Pumpkin Seeds':'เมล็ดฟักทอง','Kale':'เคล','Carrots':'แครอท','Spinach':'ผักโขม','Pistachios':'พิสตาชิโอ','Grapes':'องุ่น','Pears':'ลูกแพร์','Pomegranate':'ทับทิม','Turmeric':'ขมิ้น','Walnuts daily':'วอลนัท (ทุกวัน)','Beets':'บีทรูท','Green tea':'ชาเขียว','Celery':'ขึ้นฉ่าย','Red Bell Pepper':'พริกหวานแดง','Cauliflower':'กะหล่ำดอก','Sauerkraut':'กะหล่ำดอง','Kimchi':'กิมจิ','Miso':'มิโซะ','Chickpeas':'ถั่วชิกพี','Tofu':'เต้าหู้','Peas':'ถั่วลันเตา','Red/Orange veg':'ผักแดง/ส้ม','Brazil nuts':'บราซิลนัท','Bone broth':'น้ำซุปกระดูก'};
   let allText='';
   try{
     const today=new Date().toISOString().split('T')[0];
@@ -6437,7 +6438,7 @@ async function renderOrganGrid(){
     const pct=Math.round(Math.min(100,(matched.length/Math.max(data.matchFoods.length,1))*100+20));
     const col=data.color;
     const allIn=(data.missingFoods||[]).length===0;
-    const eatMore=allIn?(isEN?'All covered':'ครบแล้ว'):(data.missingFoods||[]).slice(0,2).map(f=>f.name).join(' · ');
+    const eatMore=allIn?(isEN?'All covered':'ครบแล้ว'):(data.missingFoods||[]).slice(0,2).map(f=>isEN?f.name:(FOOD_TH[f.name]||f.name)).join(' · ');
     const name=isEN?data.title:(TH[id]||data.title);
     const icon='<svg viewBox="0 0 24 24" fill="none" stroke="'+col+'" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;">'+(ICON[id]||'')+'</svg>';
     const bar = pct>=70?col:pct>=45?'#C9A96E':'#C0392B';
