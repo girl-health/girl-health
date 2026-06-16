@@ -7938,29 +7938,70 @@ function hxRenderPage(){
   const hist=document.getElementById('hxp-history'); if(hist) hist.innerHTML=hxHistoryHtml(en,30);
   const ref=document.getElementById('hxp-ref'); if(ref) ref.innerHTML=hxRefHtml(en);
 }
+const HYROX_SYN={
+  ski:['skierg','ski erg','ski-erg','ski'],
+  push:['sled push','sledpush','push'],
+  pull:['sled pull','sledpull','pull'],
+  burpee:['burpee broad jump','burpee broad jumps','burpees','burpee','broad jump'],
+  row:['rowing','row','rower','erg row','row erg'],
+  farmers:["farmers carry","farmer's carry","farmers' carry","farmers","farmer carry","farmer"],
+  lunge:['sandbag lunges','sandbag lunge','walking lunges','lunges','lunge'],
+  wall:['wall balls','wall ball','wallballs','wallball']
+};
+function hxSanitizeSec(v){ if(v==null||v==='') return null; let n=(typeof v==='string')?hxParseT(v):Number(v); if(n==null||isNaN(n)) return null; n=Math.round(n); return (n>=3&&n<=3600)?n:null; }
+function hxMapStations(obj){
+  const out=new Array(8).fill(null); if(!obj||typeof obj!=='object'||Array.isArray(obj)) return out;
+  const entries=Object.entries(obj).map(([k,v])=>[String(k).toLowerCase().trim(),v]);
+  HYROX_STATIONS.forEach((stn,i)=>{ const syn=HYROX_SYN[stn.k]||[stn.en.toLowerCase()];
+    for(const [key,val] of entries){ if(syn.some(s=>key.indexOf(s)>=0||s.indexOf(key)>=0)){ const sec=hxSanitizeSec(val); if(sec!=null){ out[i]=sec; break; } } }
+  });
+  return out;
+}
 async function analyzeHyroxPhoto(input){
   const en=(typeof currentLang!=='undefined'&&currentLang==='en');
-  const files=Array.from(input.files||[]).slice(0,3); if(!files.length) return;
+  const files=Array.from(input.files||[]).slice(0,6); if(!files.length) return;
   const st=document.getElementById('hx-scan-status');
-  if(st){ st.style.display='block'; st.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:10px;background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:10px;font-size:.72rem;color:#C0392B;"><div class="dot-pulse"><span></span><span></span><span></span></div> ${en?'Reading your HYROX result…':'กำลังอ่านผล HYROX…'}</div>`; }
+  if(st){ st.style.display='block'; st.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:10px;background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:10px;font-size:.72rem;color:#C0392B;"><div class="dot-pulse"><span></span><span></span><span></span></div> ${en?`Reading ${files.length} image${files.length>1?'s':''}…`:`กำลังอ่าน ${files.length} รูป…`}</div>`; }
   let images;
   try{ images=await Promise.all(files.map(f=>fileToJpegBase64(f,1568,0.92))); }
-  catch(e){ console.error('hyrox scan read',e); if(st) st.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${en?'Could not read the image':'อ่านรูปไม่ได้ ลองใหม่ค่ะ'}</div>`; input.value=''; return; }
+  catch(e){ console.error('hyrox scan read',e); if(st) st.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${en?'Could not read the image(s)':'อ่านรูปไม่ได้ ลองใหม่ค่ะ'}</div>`; input.value=''; return; }
   try{
     const content=[]; images.forEach((img,i)=>{ content.push({type:'text',text:`— image ${i+1} of ${images.length} —`}); content.push({type:'image',source:{type:'base64',media_type:img.type,data:img.data}}); });
-    content.push({type:'text',text:`These image(s) show a HYROX race or training result — could be the official results card, a gym whiteboard, a fitness watch summary, or an app screenshot. The 8 functional stations IN ORDER are: 1 SkiErg, 2 Sled Push, 3 Sled Pull, 4 Burpee Broad Jump, 5 Rowing, 6 Farmers Carry, 7 Sandbag Lunges, 8 Wall Balls. There are also 8 runs of 1km each (Run 1 before SkiErg, Run 2 before Sled Push, etc.). Times are usually mm:ss. Convert EACH to SECONDS (integer). If a value is not visible, use null (do not guess). Respond ONLY with valid JSON, no markdown:\n{"total_sec":0,"runs_sec":[null,null,null,null,null,null,null,null],"stations_sec":[null,null,null,null,null,null,null,null],"note":"short note of what the image showed"}`});
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content}]})});
+    content.push({type:'text',text:`Above are ${images.length} image(s) of a HYROX race/training result — official results card, gym whiteboard, fitness-watch summary, or app screenshot. Read EVERY numbered image one by one and COMBINE them into ONE result (different images may show different stations or different parts of the workout — e.g. image 1 = stations 1-4, image 2 = stations 5-8, or separate watch screens).
+
+The 8 functional stations (fixed names): SkiErg (1000m), Sled Push (50m), Sled Pull (50m), Burpee Broad Jump (80m), Rowing (1000m), Farmers Carry (200m), Sandbag Lunges (100m), Wall Balls (100 reps). There are also 8 runs of 1km (Run 1 ... Run 8).
+
+CRITICAL — map each time to the CORRECT field by its LABEL, never by guessing position:
+- Return station times in a NAME-KEYED object using the exact names above, so each value lands in the right station even if some are missing or out of order.
+- runs_sec must be ordered Run 1 → Run 8.
+- All times in mm:ss → convert to SECONDS (integer). h:mm:ss for total is allowed.
+- If a value is NOT clearly visible, return null. NEVER guess, NEVER shift a value into a neighbouring field, NEVER reuse one number for two fields.
+- "total_sec" = the overall finish time if shown (it may be larger than the sum of splits because it includes transitions/roxzone — that is fine).
+
+Respond ONLY with valid JSON, no markdown:
+{"total_sec":null,"runs_sec":[null,null,null,null,null,null,null,null],"stations":{"SkiErg":null,"Sled Push":null,"Sled Pull":null,"Burpee Broad Jump":null,"Rowing":null,"Farmers Carry":null,"Sandbag Lunges":null,"Wall Balls":null},"images_read":${images.length},"note":"short note of what each image showed"}`});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:900,messages:[{role:'user',content}]})});
     const data=await res.json(); if(!res.ok||!Array.isArray(data.content)){ console.error('hyrox scan API',res.status,data); throw new Error('API'); }
     const r=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
+    const runs=(Array.isArray(r.runs_sec)?r.runs_sec.slice(0,8):[]).map(hxSanitizeSec); while(runs.length<8) runs.push(null);
+    let stations;
+    if(r.stations && typeof r.stations==='object' && !Array.isArray(r.stations)) stations=hxMapStations(r.stations);
+    else if(Array.isArray(r.stations_sec)) { stations=r.stations_sec.slice(0,8).map(hxSanitizeSec); }
+    else stations=new Array(8).fill(null);
+    while(stations.length<8) stations.push(null);
+    let totalSec=hxSanitizeSec(r.total_sec);
+    if(totalSec==null){ let s=0,a=false; runs.concat(stations).forEach(v=>{ if(v!=null){s+=v;a=true;} }); totalSec=a?s:null; }
     if(st) st.style.display='none';
     hxOpenModal(); hxMode='full'; hxRenderModeChips(); hxRenderModalBody();
     setTimeout(()=>{
-      for(let i=0;i<8;i++){ const rv=r.runs_sec&&r.runs_sec[i]; const sv=r.stations_sec&&r.stations_sec[i]; const re=document.getElementById('hx-run-'+i); if(re&&rv!=null) re.value=hxFmt(rv); const se=document.getElementById('hx-st-'+i); if(se&&sv!=null) se.value=hxFmt(sv); }
-      const tm=document.getElementById('hx-total-manual'); if(tm&&r.total_sec) tm.value=hxFmt(r.total_sec);
+      for(let i=0;i<8;i++){ const re=document.getElementById('hx-run-'+i); if(re&&runs[i]!=null) re.value=hxFmt(runs[i]); const se=document.getElementById('hx-st-'+i); if(se&&stations[i]!=null) se.value=hxFmt(stations[i]); }
+      const tm=document.getElementById('hx-total-manual'); if(tm&&totalSec!=null) tm.value=hxFmt(totalSec);
       const nn=document.getElementById('hx-note'); if(nn&&r.note&&!nn.value) nn.value=r.note;
-      hxCalcTotal(); toast(en?'✓ Scanned — review & save':'✓ สแกนแล้ว — ตรวจดูแล้วกดบันทึก');
+      hxCalcTotal();
+      const filled=runs.filter(v=>v!=null).length+stations.filter(v=>v!=null).length;
+      toast(en?`✓ Scanned ${filled} splits from ${images.length} image${images.length>1?'s':''} — review & save`:`✓ สแกนได้ ${filled} ช่อง จาก ${images.length} รูป — ตรวจแล้วกดบันทึก`);
     },150);
-  }catch(e){ console.error('hyrox scan',e); if(st){ st.style.display='block'; st.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${en?'Could not read the result — try a clearer photo or enter manually':'อ่านผลไม่ได้ — ลองรูปที่ชัดขึ้น หรือกรอกเองค่ะ'}</div>`; } }
+  }catch(e){ console.error('hyrox scan',e); if(st){ st.style.display='block'; st.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${en?'Could not read the result — try clearer photos or enter manually':'อ่านผลไม่ได้ — ลองรูปที่ชัดขึ้น หรือกรอกเองค่ะ'}</div>`; } }
   input.value='';
 }
 
