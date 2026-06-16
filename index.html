@@ -789,6 +789,7 @@ body.ltab-supp .s-supp{display:block;}
     <div style="flex:1;min-width:0;">
       <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);"><span class="lang-th">ฟื้นฟู &amp; ดูแลตัวเอง</span><span class="lang-en" style="display:none;">Recovery &amp; Self-Care</span></div>
       <div style="font-size:.64rem;color:var(--muted2);margin-top:2px;"><b id="hd-rec-count" style="color:var(--accent);">0</b> <span class="lang-th">ครั้งเดือนนี้ · แตะดู ice bath, ออนเซน, นวด, สครับ, เล็บ ฯลฯ</span><span class="lang-en" style="display:none;">this month · ice bath, onsen, massage, scrub, nails &amp; more</span></div>
+      <div id="hd-rec-today" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;"></div>
     </div>
     <div style="color:var(--muted2);font-size:1.2rem;">›</div>
   </div>
@@ -1073,9 +1074,15 @@ body.ltab-supp .s-supp{display:block;}
       <div style="background:rgba(239,108,108,.06);border:1px solid rgba(239,108,108,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--prot);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th">🥩 โปรตีน</span><span class="lang-en" style="display:none;">🥩 Protein</span></div>
         <div style="display:flex;align-items:baseline;gap:4px;">
-          <input type="number" id="mac_p" placeholder="0" min="0" oninput="updateQ()" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
+          <input type="number" id="mac_p" placeholder="0" min="0" oninput="updateQ();updateProtTotalLabel()" style="background:transparent;border:none;color:var(--text);font-family:Kanit,sans-serif;font-size:1.1rem;font-weight:700;outline:none;width:60px;padding:0;">
           <span style="font-size:.65rem;color:var(--muted2);">g</span>
         </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px dashed rgba(139,94,82,.3);">
+          <span style="font-size:.58rem;color:var(--muted2);flex:1;line-height:1.2;"><span class="lang-th">+ โปรตีนเสริม (เวย์/คอลลาเจน)</span><span class="lang-en" style="display:none;">+ Protein supplement</span></span>
+          <input type="number" id="prot_supp" placeholder="0" min="0" oninput="onProtSuppInput()" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:5px 8px;outline:none;width:60px;text-align:center;">
+          <span style="font-size:.62rem;color:var(--muted2);">g</span>
+        </div>
+        <div id="prot_total_lbl" style="font-size:.6rem;color:var(--prot);font-weight:700;margin-top:7px;"></div>
       </div>
       <!-- คาร์บ -->
       <div style="background:rgba(162,155,254,.06);border:1px solid rgba(162,155,254,.2);border-radius:16px;padding:13px;">
@@ -1205,7 +1212,7 @@ body.ltab-supp .s-supp{display:block;}
     </div>
   </div>
   <div class="section s-body">
-    <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl">Body & Wellbeing</div></div>
+    <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl"><span class="lang-th">ข้อมูลร่างกาย</span><span class="lang-en" style="display:none;">Body Metrics</span></div></div>
 
     <!-- 🌸 Period Tracker — TOP for easy access -->
     <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:13px;padding:11px 13px;margin-bottom:12px;">
@@ -2879,6 +2886,8 @@ async function loadDay(){
   const bioData = await dbLoadBio(curDay);
   renderBioQuick(bioData);
   if(typeof renderLogRecovery==='function') renderLogRecovery();
+  const _ps=document.getElementById('prot_supp'); if(_ps) _ps.value=(typeof getProtSupp==='function'?getProtSupp(curDay):0)||'';
+  if(typeof updateProtTotalLabel==='function') updateProtTotalLabel();
 }
 
 async function saveDay(){
@@ -3947,10 +3956,8 @@ function applyLang() {
   const todayBtn = document.querySelector('.today-btn');
   if (todayBtn) todayBtn.textContent = t.today_btn;
   
-  // Section titles
-  const secTitles = document.querySelectorAll('.sec-ttl');
-  const secKeys = ['sec_eat','sec_sleep','sec_ex','sec_body','sec_supp'];
-  secTitles.forEach((el, i) => { if (secKeys[i]) el.textContent = t[secKeys[i]]; });
+  // Section titles now use inline lang-th/lang-en spans (auto-toggled below),
+  // so no index-based assignment is needed.
   
   // AI section
   const aiTitle = document.querySelector('.ai-ttl');
@@ -4785,6 +4792,25 @@ function recDelete(id){
   rcSaveAll(rcLoad().filter(e=>e.id!==id)); recRender();
   if(typeof updateHomeRecovery==='function') updateHomeRecovery();
 }
+const PROTSUPP_KEY='girl_protsupp';
+function loadProtSuppMap(){ try{ return JSON.parse(localStorage.getItem(PROTSUPP_KEY)||'{}'); }catch(e){ return {}; } }
+function getProtSupp(date){ return Math.round(+loadProtSuppMap()[date]||0); }
+function setProtSupp(date,v){ const m=loadProtSuppMap(); if(v>0) m[date]=v; else delete m[date]; try{ localStorage.setItem(PROTSUPP_KEY, JSON.stringify(m)); }catch(e){} }
+function onProtSuppInput(){
+  const el=document.getElementById('prot_supp'); const v=Math.round(+((el&&el.value)||0));
+  if(typeof curDay!=='undefined' && curDay) setProtSupp(curDay, v);
+  updateProtTotalLabel();
+}
+function updateProtTotalLabel(){
+  const lbl=document.getElementById('prot_total_lbl'); if(!lbl) return;
+  const food=Math.round(+((document.getElementById('mac_p')||{}).value||0));
+  const supp=Math.round(+((document.getElementById('prot_supp')||{}).value||0));
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  lbl.textContent = supp>0
+    ? (en?`Total protein ${food+supp} g · food ${food} + supp ${supp}`:`รวมโปรตีน ${food+supp} g · อาหาร ${food} + เสริม ${supp}`)
+    : '';
+}
+
 function recQuickAdd(typeId){
   const date=(typeof curDay!=='undefined' && curDay) ? curDay : new Date().toISOString().split('T')[0];
   const all=rcLoad();
@@ -4832,10 +4858,20 @@ function renderRecoverySummary(containerId, mo, isEN){
 }
 
 function updateHomeRecovery(){
-  const el=document.getElementById('hd-rec-count'); if(!el) return;
+  const all=rcLoad();
   const ym=new Date().toISOString().substring(0,7);
-  const n=rcLoad().filter(e=>(e.date||'').substring(0,7)===ym).length;
-  el.textContent=n;
+  const today=new Date().toISOString().split('T')[0];
+  const el=document.getElementById('hd-rec-count'); if(el) el.textContent=all.filter(e=>(e.date||'').substring(0,7)===ym).length;
+  const tEl=document.getElementById('hd-rec-today'); if(!tEl) return;
+  const todays=all.filter(e=>e.date===today);
+  if(!todays.length){ tEl.innerHTML=''; return; }
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const counts={}; todays.forEach(e=>counts[e.type]=(counts[e.type]||0)+1);
+  const chips=Object.keys(counts).map(id=>{ const t=rcType(id);
+    return `<span style="display:inline-flex;align-items:center;gap:4px;background:${t.color}1a;color:${t.color};border-radius:30px;padding:3px 9px 3px 7px;font-family:'Kanit',sans-serif;font-size:.6rem;font-weight:700;"><span style="display:flex;">${rcSvg(id)}</span>${en?t.en:t.th}${counts[id]>1?' ×'+counts[id]:''}</span>`;
+  }).join('');
+  tEl.innerHTML=`<span style="font-size:.58rem;color:var(--muted2);align-self:center;font-family:'Kanit',sans-serif;">${en?'Today:':'วันนี้ทำ:'}</span>`+chips;
+  tEl.querySelectorAll('span > svg').forEach(s=>{ s.style.width='13px'; s.style.height='13px'; });
 }
 
 
@@ -8110,7 +8146,9 @@ async function loadHomeDashboard(force){
 
   // ── 7 PRIORITY METRICS ──
   const water=td?.water||0, sleep=td?.sl_total_h||(td?.sl_min?td.sl_min/60:0);
-  const prot=td?.mac_p||0, kcal=td?.mac_kcal||0, fiber=td?.mac_f||0, fsugar=td?.mac_s||0;
+  const protFood=td?.mac_p||0;
+  const protSupp=(typeof getProtSupp==='function')?getProtSupp(new Date().toISOString().split('T')[0]):0;
+  const prot=protFood+protSupp, kcal=td?.mac_kcal||0, fiber=td?.mac_f||0, fsugar=td?.mac_s||0;
   const exMin=(td?.e1_m||0)+(td?.e2_m||0);
 
   const clamp=(v,t)=>Math.min(100,Math.round(v/t*100));
@@ -8124,7 +8162,7 @@ async function loadHomeDashboard(force){
      val:sleep?sleep.toFixed(1):'0',unit:'h',target:'/ 8 h',pct:clamp(sleep,8),col: (sleep>=7.5&&sleep<=8.5)?'var(--veg)':clamp(sleep,8)>=70?'var(--grain)':'var(--prot)'},
     {key:'ex',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#4A7C59;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>',bg:'rgba(74,124,89,.12)',name:isEN?'Exercise':'ออกกำลังกาย',desc:isEN?'Strength · cardio · ≥45 min':'เวท · คาร์ดิโอ · ≥45 นาที',
      val:exMin?Math.round(exMin):'0',unit:'min',target:'/ 45 min',pct:clamp(exMin,45),col: exMin>=45?'var(--veg)':exMin>=20?'var(--grain)':exMin>0?'var(--prot)':'var(--muted2)'},
-    {key:'prot',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#8B5E52;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc:isEN?'Protein per day':'โปรตีนต่อวัน',
+    {key:'prot',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#8B5E52;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc: protSupp>0 ? (isEN?`Food ${protFood} + supp ${protSupp} g`:`อาหาร ${protFood} + เสริม ${protSupp} g`) : (isEN?'Protein per day':'โปรตีนต่อวัน'),
      val:prot?Math.round(prot):'0',unit:'g',target:'/ 100 g',pct:clamp(prot,100),col:colFor(clamp(prot,100),90,60)},
     {key:'kcal',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C9A96E;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>',bg:'rgba(201,169,110,.14)',name:isEN?'Calories':'แคลอรี่',desc:isEN?'1,600–1,850 kcal':'1,600–1,850 kcal',
      val:kcal?Math.round(kcal).toLocaleString():'0',unit:'kcal',target:'/ 1,850',pct:clamp(kcal,1850),
