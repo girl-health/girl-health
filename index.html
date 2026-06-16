@@ -1388,11 +1388,11 @@ body.ltab-supp .s-supp{display:block;}
     </div>
     <div id="tbl-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
   </div>
+  <div id="tbl-recovery"></div>
   <!-- Month summary -->
   <div id="tbl-summary"></div>
   <!-- Daily cards -->
   <div id="tbl-wrap"></div>
-  <div id="tbl-recovery"></div>
 </div>
 
 <!-- PAGE STATS -->
@@ -1414,8 +1414,8 @@ body.ltab-supp .s-supp{display:block;}
     </div>
     <div id="stat-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
   </div>
-  <div id="stat-wrap"></div>
   <div id="stat-recovery"></div>
+  <div id="stat-wrap"></div>
 </div>
 
 <!-- PAGE ING -->
@@ -8206,6 +8206,7 @@ async function loadHomeDashboard(force){
       </div>`).join('');
     setTimeout(()=>{ mWrap.querySelectorAll('.hd-mcard-fill').forEach((el,i)=>{ setTimeout(()=>el.style.width=el.dataset.w+'%', i*80); }); },300);
   }
+  if(typeof updateHomeRecovery==='function') updateHomeRecovery();
 
   // ── BIOACTIVE 9 DOTS ──
   try{
