@@ -4002,6 +4002,7 @@ function applyLang() {
   // Re-render dynamic sections that have hardcoded language
   if(document.getElementById('page-bio')?.classList.contains('active')) renderBio();
   if(document.getElementById('page-ing')?.classList.contains('active')) renderIng();
+  if(typeof renderOrganGrid==='function' && document.getElementById('page-body')?.classList.contains('active')) renderOrganGrid();
   if(document.getElementById('page-meals')?.classList.contains('active') && typeof renderMealPresets==='function') renderMealPresets();
   if(document.getElementById('bio-cards')?.children.length) renderBioCards();
   const organPanel = document.getElementById('organ-panel');
