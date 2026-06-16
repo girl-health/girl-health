@@ -522,7 +522,7 @@ textarea{min-height:42px;}
 .hd-bio-dots{display:flex;gap:7px;justify-content:space-between;}
 .hd-bio-dot{flex:1;aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;border:1.5px solid var(--border2);background:var(--bg);transition:all .25s;position:relative;max-width:38px;}
 .hd-bio-dot.taken{border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.12);}
-.hd-bio-dot.miss{opacity:.4;filter:grayscale(.6);}
+.hd-bio-dot.miss{opacity:1;}
 .hd-bio-dot-check{position:absolute;bottom:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:var(--veg);color:#fff;font-size:.55rem;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);}
 
 /* ── RECOVERY · GARMIN ── */
@@ -841,38 +841,38 @@ body.ltab-supp .s-supp{display:block;}
   <div class="pf-card" id="profile-body-card">
     <div class="pf-card-head">
       <div class="pf-card-head-l">
-        <div class="pf-card-ico" style="background:rgba(201,169,110,.14);">📐</div>
+        <div class="pf-card-ico" style="background:rgba(201,169,110,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C9A96E;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg></div>
         <div>
           <div class="pf-card-ttl"><span class="lang-th">สัดส่วนร่างกาย</span><span class="lang-en" style="display:none;">Body Composition</span></div>
-          <div class="pf-card-sub">📅 <span class="lang-th">อัปเดต:</span><span class="lang-en" style="display:none;">Updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
+          <div class="pf-card-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--muted2);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg><span class="lang-th">อัปเดต:</span><span class="lang-en" style="display:none;">Updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
         </div>
       </div>
-      <button onclick="toggleProfileEdit()" id="profile-edit-btn" class="pf-edit-btn">✏️ <span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
+      <button onclick="toggleProfileEdit()" id="profile-edit-btn" class="pf-edit-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg><span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
     </div>
     <!-- Display mode -->
     <div id="profile-body-display">
       <div class="pf-body-grid">
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-weight-val">48.7</div><div class="pf-body-l">⚖️ <span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> kg</div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--prot);" id="pb-fat-val">25.3%</div><div class="pf-body-l">🔥 <span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span></div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-muscle-val">20.2</div><div class="pf-body-l">💪 <span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> kg</div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-bmi-val">19.0</div><div class="pf-body-l">📊 BMI</div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-visceral-val">4</div><div class="pf-body-l">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral</span></div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--grain);" id="pb-score-val">82</div><div class="pf-body-l">🌿 GIRL Score</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-weight-val">48.7</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="4.2" r="1.1"/><path d="M12 5.3v13M7 19h10M5 8.5h14"/><path d="M5 8.5 2.7 13.5a3 3 0 0 0 4.6 0z"/><path d="M19 8.5l2.3 5a3 3 0 0 1-4.6 0z"/></svg><span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> kg</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--prot);" id="pb-fat-val">25.3%</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg><span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span></div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-muscle-val">20.2</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg><span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> kg</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-bmi-val">19.0</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>BMI</div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-visceral-val">4</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M3 12h4l2.2-6 3.6 12 2.2-6H20"/></svg><span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral</span></div></div>
+        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--grain);" id="pb-score-val">82</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>GIRL Score</div></div>
       </div>
     </div>
     <!-- Edit mode -->
     <div id="profile-body-edit" style="display:none;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-        <div><label class="lbl">⚖️ <span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> (kg)</label><input type="number" id="pb-weight-in" step="0.1" class="pf-input"></div>
-        <div><label class="lbl">🔥 <span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span> (%)</label><input type="number" id="pb-fat-in" step="0.1" class="pf-input"></div>
-        <div><label class="lbl">💪 <span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> (kg)</label><input type="number" id="pb-muscle-in" step="0.1" class="pf-input"></div>
-        <div><label class="lbl">📊 BMI</label><input type="number" id="pb-bmi-in" step="0.1" class="pf-input"></div>
-        <div><label class="lbl">🏃 <span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" class="pf-input"></div>
-        <div><label class="lbl">🌿 GIRL Score</label><input type="number" id="pb-score-in" step="1" class="pf-input"></div>
-        <div><label class="lbl">🎂 <span class="lang-th">อายุจริง</span><span class="lang-en" style="display:none;">Age</span></label><input type="number" id="pb-age-in" step="1" placeholder="32" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="4.2" r="1.1"/><path d="M12 5.3v13M7 19h10M5 8.5h14"/><path d="M5 8.5 2.7 13.5a3 3 0 0 0 4.6 0z"/><path d="M19 8.5l2.3 5a3 3 0 0 1-4.6 0z"/></svg><span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> (kg)</label><input type="number" id="pb-weight-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg><span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span> (%)</label><input type="number" id="pb-fat-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg><span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> (kg)</label><input type="number" id="pb-muscle-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>BMI</label><input type="number" id="pb-bmi-in" step="0.1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M3 12h4l2.2-6 3.6 12 2.2-6H20"/></svg><span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>GIRL Score</label><input type="number" id="pb-score-in" step="1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--other);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg><span class="lang-th">อายุจริง</span><span class="lang-en" style="display:none;">Age</span></label><input type="number" id="pb-age-in" step="1" placeholder="32" class="pf-input"></div>
         <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" class="pf-input"></div>
       </div>
-      <div style="margin-bottom:10px;"><label class="lbl">📅 <span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" class="pf-input"></div>
+      <div style="margin-bottom:10px;"><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg><span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" class="pf-input"></div>
       <button onclick="saveProfileBody()" class="pf-save-btn">💾 <span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
     </div>
   </div>
@@ -891,7 +891,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="pf-score-label" id="score-label">—</div>
     </div>
     <div id="score-breakdown" style="display:flex;flex-direction:column;gap:6px;margin-top:4px;"></div>
-    <button onclick="computeGirlScore()" class="pf-recalc-btn">🔄 <span class="lang-th">คำนวณใหม่</span><span class="lang-en" style="display:none;">Recalculate</span></button>
+    <button onclick="computeGirlScore()" class="pf-recalc-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3.5 12a8.5 8.5 0 0 1 14.5-6M20.5 12a8.5 8.5 0 0 1-14.5 6"/><path d="M17.5 3.5V6h-2.5M6.5 20.5V18h2.5"/></svg><span class="lang-th">คำนวณใหม่</span><span class="lang-en" style="display:none;">Recalculate</span></button>
   </div>
 
   <!-- WELLNESS SYSTEM -->
@@ -2291,7 +2291,7 @@ body.ltab-supp .s-supp{display:block;}
   <!-- ───────── TAB: STATS ───────── -->
   <div id="bpanel-stats" style="display:none;">
     <div style="margin-bottom:12px;">
-      <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);margin-bottom:4px;">📐 Body Composition</div>
+      <div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:var(--text);margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg>Body Composition</div>
       <div style="font-size:.7rem;color:var(--muted2);">Weight · Body Fat · Muscle — year over year</div>
     </div>
 
@@ -2317,7 +2317,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <div style="height:1px;background:var(--border);"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
-        <div style="font-size:.65rem;color:var(--muted2);">🔥 Body Fat</div>
+        <div style="font-size:.65rem;color:var(--muted2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--prot);vertical-align:-2px;margin-right:3px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Body Fat</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--prot);text-align:center;">33.7%</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);text-align:center;">25.3%</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--veg);text-align:center;">-8.4% 🔥</div>
@@ -2338,7 +2338,7 @@ body.ltab-supp .s-supp{display:block;}
       </div>
       <div style="height:1px;background:var(--border);"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
-        <div style="font-size:.65rem;color:var(--muted2);">🏃 Visceral</div>
+        <div style="font-size:.65rem;color:var(--muted2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--veg);vertical-align:-2px;margin-right:3px;"><path d="M3 12h4l2.2-6 3.6 12 2.2-6H20"/></svg>Visceral</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--prot);text-align:center;">7</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.85rem;font-weight:700;color:var(--veg);text-align:center;">4</div>
         <div style="font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--veg);text-align:center;">-3 ✓</div>
@@ -2374,9 +2374,9 @@ body.ltab-supp .s-supp{display:block;}
       <div id="inbody-result" style="display:none;margin-top:8px;"></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-      <div><label class="lbl">📅 Date</label><input type="date" id="body-date" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
+      <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg>Date</label><input type="date" id="body-date" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
       <div><label class="lbl">⚖️ Weight (kg)</label><input type="number" id="body-weight" step="0.1" placeholder="48.7" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
-      <div><label class="lbl">🔥 Body Fat (%)</label><input type="number" id="body-fat" step="0.1" placeholder="25.3" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
+      <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Body Fat (%)</label><input type="number" id="body-fat" step="0.1" placeholder="25.3" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
       <div><label class="lbl">💪 Muscle (kg)</label><input type="number" id="body-muscle" step="0.1" placeholder="20.2" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
     </div>
     <button onclick="saveBodySnapshot()" style="width:100%;padding:11px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;letter-spacing:.5px;">💾 Save Measurement</button>
@@ -2411,7 +2411,7 @@ body.ltab-supp .s-supp{display:block;}
       <!-- Body Fat -->
       <div style="background:var(--card);border-radius:12px;padding:11px 13px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-          <div style="font-size:.68rem;color:var(--muted2);">🔥 Body Fat %</div>
+          <div style="font-size:.68rem;color:var(--muted2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--prot);vertical-align:-2px;margin-right:3px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Body Fat %</div>
           <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--grain);font-weight:700;">25.3% → 22.0%</div>
         </div>
         <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
@@ -2426,7 +2426,7 @@ body.ltab-supp .s-supp{display:block;}
       <!-- Visceral Fat -->
       <div style="background:var(--card);border-radius:12px;padding:11px 13px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-          <div style="font-size:.68rem;color:var(--muted2);">🏃 Visceral Fat</div>
+          <div style="font-size:.68rem;color:var(--muted2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--veg);vertical-align:-2px;margin-right:3px;"><path d="M3 12h4l2.2-6 3.6 12 2.2-6H20"/></svg>Visceral Fat</div>
           <div style="font-family:'Kanit',sans-serif;font-size:.72rem;color:var(--veg);font-weight:700;">4 → 3</div>
         </div>
         <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
@@ -3893,7 +3893,7 @@ const translations = {
     lbl_weight: '⚖️ น้ำหนัก (กก.)',
     lbl_water: '💧 น้ำ (ลิตร)',
     lbl_muscle: '💪 กล้ามเนื้อ (กก.)',
-    lbl_fat_pct: '🔥 ไขมัน (%)',
+    lbl_fat_pct: 'ไขมัน (%)',
     lbl_mood: '😊 อารมณ์',
     lbl_note: '📝 โน้ตสุขภาพ',
     lbl_supp_ph: 'Collagen (เช้า), Probiotic (เย็น)...',
@@ -3957,7 +3957,7 @@ const translations = {
     lbl_weight: '⚖️ Weight (kg)',
     lbl_water: '💧 Water (L)',
     lbl_muscle: '💪 Muscle Mass (kg)',
-    lbl_fat_pct: '🔥 Body Fat (%)',
+    lbl_fat_pct: 'Body Fat (%)',
     lbl_mood: '😊 Mood',
     lbl_note: '📝 Health Notes',
     lbl_supp_ph: 'Collagen (morning), Probiotic (evening)...',
@@ -8261,22 +8261,22 @@ async function computeGirlScore(){
   );
 
   const label = total >= 90 ? 'Elite 🏆' :
-                total >= 80 ? 'Excellent 🔥' :
-                total >= 70 ? 'Great 💪' :
-                total >= 60 ? 'Good 🌿' :
-                total >= 50 ? 'Fair ⚡' : 'Needs Work 🌱';
+                total >= 80 ? 'Excellent' :
+                total >= 70 ? 'Great' :
+                total >= 60 ? 'Good' :
+                total >= 50 ? 'Fair' : 'Needs Work';
 
   scoreEl.textContent = total;
-  if(labelEl){ labelEl.textContent = label; }
+  if(labelEl){ labelEl.innerHTML = label + `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:currentColor;vertical-align:-2px;margin-left:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>`; }
 
   // ── BREAKDOWN BARS ──
   const dims = [
-    { name:'💤 Sleep',   score: sleepScore, weight:'25%', color:'var(--sleep)' },
-    { name:'🥩 Protein', score: protScore,  weight:'20%', color:'var(--prot)' },
-    { name:'🏋️ Exercise',score: exScore,    weight:'20%', color:'var(--exercise)' },
-    { name:'💧 Water',   score: waterScore, weight:'15%', color:'var(--water)' },
-    { name:'💊 BioActive',score: bioScore,  weight:'10%', color:'#8B5E52' },
-    { name:'🔥 Calories',score: kcalScore,  weight:'10%', color:'var(--grain)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/><path d="M15 3.5h3l-3 3.2h3"/></svg>Sleep`,   score: sleepScore, weight:'25%', color:'var(--sleep)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>Protein`, score: protScore,  weight:'20%', color:'var(--prot)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--exercise);vertical-align:-2px;margin-right:4px;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise`,score: exScore,    weight:'20%', color:'var(--exercise)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>Water`,   score: waterScore, weight:'15%', color:'var(--water)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#8B5E52;vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive`,score: bioScore,  weight:'10%', color:'#8B5E52' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Calories`,score: kcalScore,  weight:'10%', color:'var(--grain)' },
   ];
 
   if(bdEl){
@@ -8549,8 +8549,9 @@ async function loadHomeDashboard(force){
     if(dotsEl && typeof BIOACTIVE_PRODUCTS!=='undefined'){
       dotsEl.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
         const on = !!taken[p.id];
-        return `<div class="hd-bio-dot ${on?'taken':'miss'}" style="${on?`background:${p.dotColor}1f;border-color:${p.dotColor};`:''}" title="${p.name}">
-          <svg viewBox="0 0 24 24" style="width:18px;height:18px;" fill="${on?p.dotColor:'#CFC7B8'}"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg>${on?`<span class="hd-bio-dot-check">✓</span>`:''}
+        const col=p.dotColor;
+        return `<div class="hd-bio-dot ${on?'taken':'miss'}" style="background:${col}${on?'2e':'16'};border-color:${col}${on?'':'55'};" title="${p.name}">
+          <svg viewBox="0 0 28 16" style="width:23px;height:13px;"><rect x="1.5" y="3" width="25" height="10" rx="5" fill="${col}" opacity="${on?1:0.62}"/><rect x="13" y="3" width="2" height="10" fill="#fff" opacity="${on?0.65:0.45}"/></svg>${on?`<span class="hd-bio-dot-check">✓</span>`:''}
         </div>`;
       }).join('');
     }
