@@ -2398,6 +2398,7 @@ body.ltab-supp .s-supp{display:block;}
 // ── SUPABASE ──
 const SUPA_URL = 'https://moycqmyzpsirrcenkuvy.supabase.co';
 const SUPA_KEY = 'sb_publishable_lbZYBL1Jh_3Z63Hh4J2DDA_tPDotm6W';
+function bioCap(col,w){ w=w||24; const h=Math.round(w*16/28); return `<svg viewBox="0 0 28 16" style="width:${w}px;height:${h}px;vertical-align:middle;"><rect x="1.5" y="3" width="25" height="10" rx="5" fill="${col}"/><rect x="13" y="3" width="2" height="10" fill="#fff" opacity="0.6"/></svg>`; }
 const GIRL_BIRTHDATE='1994-05-07';
 function girlAge(){ try{ const b=new Date(GIRL_BIRTHDATE), n=new Date(); let a=n.getFullYear()-b.getFullYear(); const m=n.getMonth()-b.getMonth(); if(m<0||(m===0&&n.getDate()<b.getDate())) a--; return a; }catch(e){ return 32; } }
 function setHomeAge(){ const el=document.getElementById('hd-age'); if(!el) return; const en=(typeof currentLang!=='undefined'&&currentLang==='en'); el.textContent = en?('Age '+girlAge()+' · born 7 May 1994'):('อายุ '+girlAge()+' ปี · เกิด 7 พ.ค. 1994'); }
@@ -7246,7 +7247,7 @@ async function renderSkinOverview(){
   const nWrap = document.getElementById('sdash-nutrients-wrap');
   nWrap.innerHTML = allRecs.map(b => `
     <div style="display:flex;align-items:center;gap:9px;padding:9px 11px;background:${b.color}0D;border-radius:11px;border-left:3px solid ${b.color};margin-bottom:5px;">
-      <div style="font-size:1rem;flex-shrink:0;">${b.icon}</div>
+      <div style="flex-shrink:0;line-height:0;">${bioCap(b.color,24)}</div>
       <div style="flex:1;">
         <div style="font-family:'Kanit',sans-serif;font-size:.75rem;font-weight:700;color:${b.color};">${b.name}</div>
         <div style="font-size:.62rem;color:var(--muted2);margin-top:1px;">${isEN ? b.reason_en : b.reason_th}</div>
@@ -8100,7 +8101,7 @@ function renderBioQuick(takenObj){
     const bgCol = done ? p.dotColor+'22' : 'var(--card2)';
     const txtCol = done ? p.dotColor : 'var(--muted2)';
     const shadow = done ? `box-shadow:0 2px 10px ${p.dotColor}40;` : '';
-    return `<button onclick="toggleBioQuick('${p.id}')" id="bioq-${p.id}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;border-radius:13px;border:2px solid ${borderCol};background:${bgCol};cursor:pointer;transition:all .18s;position:relative;${shadow}width:100%;"><span style="line-height:1;display:flex;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;" fill="${p.dotColor}"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg></span><span style="font-family:'Kanit',sans-serif;font-size:.6rem;font-weight:600;color:${txtCol};text-align:center;line-height:1.2;">${p.name}</span>${done?`<span style="position:absolute;top:3px;right:5px;font-size:.55rem;color:${p.dotColor};font-weight:700;">✓</span>`:''}</button>`;
+    return `<button onclick="toggleBioQuick('${p.id}')" id="bioq-${p.id}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;border-radius:13px;border:2px solid ${borderCol};background:${bgCol};cursor:pointer;transition:all .18s;position:relative;${shadow}width:100%;"><span style="line-height:1;display:flex;justify-content:center;">${bioCap(p.dotColor,26)}</span><span style="font-family:'Kanit',sans-serif;font-size:.6rem;font-weight:600;color:${txtCol};text-align:center;line-height:1.2;">${p.name}</span>${done?`<span style="position:absolute;top:3px;right:5px;font-size:.55rem;color:${p.dotColor};font-weight:700;">✓</span>`:''}</button>`;
   }).join('');
 }
 
