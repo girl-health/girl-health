@@ -151,6 +151,7 @@ textarea{min-height:42px;}
 .tbl-day-meals{font-family:'Sarabun',sans-serif;font-size:.72rem;color:var(--text);line-height:1.5;margin-bottom:9px;}
 .tbl-day-stats{display:flex;flex-wrap:wrap;gap:5px;}
 .tbl-stat{font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:600;padding:4px 9px;border-radius:20px;white-space:nowrap;}
+.tbl-stat svg{width:13px;height:13px;vertical-align:-2px;}
 .tbl-empty{text-align:center;padding:48px 16px;color:var(--muted2);font-size:.82rem;font-family:'Sarabun',sans-serif;}
 
 .day-table th{background:var(--card2);color:var(--muted2);padding:7px 5px;text-align:left;font-family:'Kanit',sans-serif;font-weight:400;font-size:.67rem;border-bottom:1px solid var(--border);}
@@ -1388,7 +1389,6 @@ body.ltab-supp .s-supp{display:block;}
     </div>
     <div id="tbl-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
   </div>
-  <div id="tbl-recovery"></div>
   <!-- Month summary -->
   <div id="tbl-summary"></div>
   <!-- Daily cards -->
@@ -3195,7 +3195,6 @@ async function renderTable(){
   const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
   const mo=document.getElementById('tbl-mo').value||curDay.substring(0,7);
   document.getElementById('tbl-mo-label').innerHTML = moLabel(mo) + ' <span class="tbl-mo-caret">▾</span>';
-  if(typeof renderRecoverySummary==='function') renderRecoverySummary('tbl-recovery', mo, isEN);
   const rows=await dbLoadMonth(mo);
   const wrap=document.getElementById('tbl-wrap');
   const sumEl=document.getElementById('tbl-summary');
@@ -3261,6 +3260,7 @@ async function renderTable(){
           <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)">🌙 ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
           ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);">🏋️ ${exM}m</span>`:''}
           <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);">💧 ${d.water?d.water+'L':'—'}</span>
+          ${(function(){ const it=(typeof rcLoad==='function'?rcLoad():[]).filter(e=>e.date===d.date); if(!it.length) return ''; const c={}; it.forEach(e=>c[e.type]=(c[e.type]||0)+1); return Object.keys(c).map(id=>{ const t=rcType(id); return `<span class="tbl-stat" style="background:${t.color}1a;color:${t.color};display:inline-flex;align-items:center;gap:3px;" title="${(typeof currentLang!=='undefined'&&currentLang==='en')?t.en:t.th}">${rcSvg(id)}${c[id]>1?'×'+c[id]:''}</span>`; }).join(''); })()}
           ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);">⚖️ ${d.weight}kg</span>`:''}
         </div>
       </div>
