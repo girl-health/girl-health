@@ -226,6 +226,13 @@ textarea{min-height:42px;}
 .ing-pill-txt{font-size:.68rem;color:var(--muted2);}
 .ing-pill-num{font-family:'Kanit',sans-serif;font-size:.8rem;font-weight:600;margin-left:1px;}
 .cat-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.cat-hdr-click{cursor:pointer;margin-bottom:0;}
+.cat-bar{height:5px;background:var(--card2);border-radius:3px;margin-top:6px;overflow:hidden;max-width:260px;}
+.cat-bar>div{height:100%;border-radius:3px;transition:width .5s ease;}
+.cat-chev{width:18px;height:18px;color:var(--muted2);transition:transform .25s;flex-shrink:0;}
+.cat-chev.open{transform:rotate(180deg);}
+.ing-exp{margin-top:12px;animation:ingFade .25s ease;}
+@keyframes ingFade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
 .ing-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:17px 18px;margin-bottom:13px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
 
 /* Ingredient diversity donut summary */
@@ -3597,7 +3604,7 @@ async function renderIng(){
   sumEl.innerHTML = `
     <div class="ing-sum-card">
       <div class="ing-sum-head">
-        <div class="ing-sum-ico">🧺</div>
+        <div class="ing-sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M3.5 9h17l-1.5 9a2 2 0 0 1-2 1.7H7a2 2 0 0 1-2-1.7z"/><path d="M8 9 10.5 4M16 9 13.5 4"/><path d="M9 13v3.5M12 13v3.5M15 13v3.5"/></svg></div>
         <div><div class="ing-sum-ttl">${isEN?'Ingredient Diversity':'ความหลากหลายวัตถุดิบ'}</div>
         <div class="ing-sum-sub" style="color:${vColor};">${verdict}</div></div>
       </div>
@@ -3613,7 +3620,7 @@ async function renderIng(){
     </div>`;
 
   document.getElementById('ing-cats').innerHTML='';
-  ING_CATS.forEach(c=>renderIngCat(c,ingData[c.id]||[]));
+  ING_CATS.forEach(c=>renderIngCat(c,ingData[c.id]||[],totalItems));
 }
 
 // ── ING MONTH PICKER ──
@@ -3657,7 +3664,7 @@ function ingCatSvg(id,col){
   };
   return `<svg viewBox="0 0 24 24" fill="none" stroke="${col}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">${SP[id]||''}</svg>`;
 }
-function renderIngCat(c,items){
+function renderIngCat(c,items,totalItems){
   const isEN = currentLang === 'en';
   const isOpen=ingOpenForm===c.id;
   const eSel=ingSelEmoji[c.id]||c.emojis[0];
@@ -3675,19 +3682,35 @@ function renderIngCat(c,items){
   const emojiLbl = isEN ? 'Pick Emoji:' : 'เลือก Emoji:';
   const freqLbl = isEN ? 'Frequency:' : 'ความถี่:';
   const confirmLbl = isEN ? 'Add' : 'เพิ่ม';
+  const pct = (totalItems&&totalItems>0) ? Math.round(items.length/totalItems*100) : 0;
+  const isExp = !!(window.ingExpanded && window.ingExpanded[c.id]);
   const div=document.createElement('div');
   div.innerHTML=`<div class="ing-card">
-    <div class="cat-hdr"><div class="cat-left"><div class="cat-ico" style="background:${c.color}18">${ingCatSvg(c.id,c.color)}</div><div><div class="cat-nm" style="color:${c.color}">${lbl}</div><div class="cat-cnt">${itemsLbl}</div></div></div><button class="add-btn2" onclick="ingToggle('${c.id}')">${addLbl}</button></div>
-    <div class="chips">${chipsH||`<span style="color:var(--muted);font-size:.72rem">${emptyLbl}</span>`}</div>
-    <div class="add-form${isOpen?' open':''}" id="af-${c.id}">
-      <div class="af-row"><input type="text" id="ai-${c.id}" placeholder="${c.ex.split(',')[0].trim()}" onkeydown="if(event.key==='Enter')ingAdd('${c.id}')"><button class="af-confirm" onclick="ingAdd('${c.id}')">${confirmLbl}</button></div>
-      <div style="font-size:.68rem;color:var(--muted2);margin-bottom:5px">${freqLbl}</div>
-      <div class="freq-btns2">${freqH}</div>
+    <div class="cat-hdr cat-hdr-click" onclick="ingToggleExpand('${c.id}')">
+      <div class="cat-left">
+        <div class="cat-ico" style="background:${c.color}18">${ingCatSvg(c.id,c.color)}</div>
+        <div style="flex:1;min-width:0;">
+          <div class="cat-nm" style="color:${c.color}">${lbl}</div>
+          <div class="cat-cnt">${itemsLbl}${pct?` · ${pct}%`:''}</div>
+          <div class="cat-bar"><div style="width:${pct}%;background:${c.color}"></div></div>
+        </div>
+      </div>
+      <svg class="cat-chev${isExp?' open':''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
+    ${isExp?`<div class="ing-exp">
+      <div class="chips">${chipsH||`<span style="color:var(--muted);font-size:.72rem">${emptyLbl}</span>`}</div>
+      <button class="add-btn2" onclick="ingToggle('${c.id}')">${addLbl}</button>
+      <div class="add-form${isOpen?' open':''}" id="af-${c.id}">
+        <div class="af-row"><input type="text" id="ai-${c.id}" placeholder="${c.ex.split(',')[0].trim()}" onkeydown="if(event.key==='Enter')ingAdd('${c.id}')"><button class="af-confirm" onclick="ingAdd('${c.id}')">${confirmLbl}</button></div>
+        <div style="font-size:.68rem;color:var(--muted2);margin-bottom:5px">${freqLbl}</div>
+        <div class="freq-btns2">${freqH}</div>
+      </div>
+    </div>`:''}
   </div>`;
   document.getElementById('ing-cats').appendChild(div);
 }
 
+function ingToggleExpand(id){ if(!window.ingExpanded)window.ingExpanded={}; window.ingExpanded[id]=!window.ingExpanded[id]; if(!window.ingExpanded[id]&&ingOpenForm===id)ingOpenForm=null; renderIng(); }
 function ingToggle(id){
   ingOpenForm=ingOpenForm===id?null:id;
   if(!ingSelEmoji[id])ingSelEmoji[id]=ING_CATS.find(c=>c.id===id).emojis[0];
