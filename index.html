@@ -656,7 +656,6 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
-      <div class="ntab" onclick="goPage('meals')" id="ntab-meals">🍱 Meals</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 โภชนาการ</div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
       <div class="ntab" onclick="goPage('shop')" id="ntab-shop">🛍️ <span class="lang-th">ช้อป</span><span class="lang-en" style="display:none;">Shop</span></div>
@@ -1153,6 +1152,30 @@ body.ltab-supp .s-supp{display:block;}
       <div id="food-img-b" style="display:none;margin-top:6px;"></div>
       <div id="food-analyze-b" style="display:none;"></div>
       <div style="font-size:.6rem;color:var(--muted2);margin-top:7px;line-height:1.55;">✨ <span class="lang-th">ใช้ Smart Scan ด้านล่างถ่ายรูปอาหารได้ — แคลจะ <b style="color:var(--accent);">บวกเพิ่ม</b> ให้อัตโนมัติ (ใส่ได้หลายครั้งต่อวัน)</span><span class="lang-en" style="display:none;">Use Smart Scan below — calories <b style="color:var(--accent);">add up</b> automatically (log as many times as you like)</span></div>
+    </div>
+
+    <!-- Saved meals quick-pick (merged from Meals page) -->
+    <div style="margin-top:13px;padding-top:13px;border-top:1px dashed var(--border2);">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+        <span style="display:flex;color:var(--veg);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M20.4 11.4c.95.3 1.6.9 1.6 1.6 0 1-1.2 1.9-3 2.2"/><path d="M10 4.5c0 1-1 1.4-1 2.4M13.5 4c0 1-1 1.4-1 2.4"/></svg></span>
+        <span style="font-family:'Kanit',sans-serif;font-weight:600;font-size:.78rem;color:var(--text);flex:1;"><span class="lang-th">เมนูที่บันทึกไว้</span><span class="lang-en" style="display:none;">Saved meals</span></span>
+        <a onclick="toggleDlogMealAdd()" style="font-size:.64rem;color:var(--accent);cursor:pointer;font-weight:700;font-family:'Kanit',sans-serif;">+ <span class="lang-th">เพิ่มเมนู</span><span class="lang-en" style="display:none;">Add</span></a>
+      </div>
+      <div style="font-size:.6rem;color:var(--muted2);margin-bottom:9px;line-height:1.5;"><span class="lang-th">แตะเพื่อเพิ่มลงรายการอาหาร · AI คำนวณแคล/มาโครให้ละเอียดอัตโนมัติ</span><span class="lang-en" style="display:none;">Tap to add to today's food · AI breaks down calories &amp; macros</span></div>
+      <div id="dlog-meal-cats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;"></div>
+      <div id="dlog-meal-chips" style="display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="dlog-meal-add" style="display:none;margin-top:11px;background:var(--bg);border:1px solid var(--border);border-radius:13px;padding:12px;">
+        <div style="display:grid;grid-template-columns:1fr 70px;gap:7px;margin-bottom:7px;">
+          <input id="dlm-name" placeholder="ชื่อเมนู / Meal name" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.78rem;padding:8px 10px;outline:none;width:100%;box-sizing:border-box;">
+          <select id="dlm-cat" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.85rem;padding:8px 6px;outline:none;width:100%;box-sizing:border-box;text-align:center;"><option value="b">🌅</option><option value="l">☀️</option><option value="d">🌆</option><option value="s">🍃</option></select>
+        </div>
+        <textarea id="dlm-desc" placeholder="เช่น ข้าวกล้อง · อกไก่ 200g · ไข่ 2 ฟอง" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.78rem;padding:8px 10px;outline:none;width:100%;box-sizing:border-box;min-height:44px;resize:none;margin-bottom:7px;"></textarea>
+        <div style="display:grid;grid-template-columns:62px 1fr;gap:7px;margin-bottom:9px;">
+          <input id="dlm-emoji" placeholder="🍳" maxlength="2" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-size:1rem;padding:8px;outline:none;width:100%;box-sizing:border-box;text-align:center;">
+          <input id="dlm-kcal" type="number" placeholder="แคลโดยประมาณ (kcal)" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.78rem;padding:8px 10px;outline:none;width:100%;box-sizing:border-box;">
+        </div>
+        <button onclick="addDlogMeal()" style="width:100%;padding:9px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:600;font-size:.76rem;cursor:pointer;">+ <span class="lang-th">บันทึกเมนู</span><span class="lang-en" style="display:none;">Save meal</span></button>
+      </div>
     </div>
   </div>
   <div class="section s-sleep">
@@ -2424,63 +2447,6 @@ body.ltab-supp .s-supp{display:block;}
 </div><!-- /page-body -->
 
 <!-- PAGE MEALS -->
-<div class="page" id="page-meals">
-  <!-- Header -->
-  <div class="meal-page-head">
-    <div class="meal-page-ico">🍱</div>
-    <div>
-      <div class="meal-page-ttl"><span class="lang-th">วางแผนมื้ออาหาร</span><span class="lang-en" style="display:none;">My Meal Planner</span></div>
-      <div class="meal-page-sub"><span class="lang-th">เลือกเมนูจากที่บันทึกไว้ · ใส่แผนวันนี้</span><span class="lang-en" style="display:none;">Pick from your presets · Set today's meals</span></div>
-    </div>
-  </div>
-
-  <!-- Today's planned meals summary -->
-  <div class="meal-plan-card">
-    <div class="meal-plan-ttl">📅 <span class="lang-th">แผนมื้ออาหารวันนี้</span><span class="lang-en" style="display:none;">Today's Meal Plan</span></div>
-    <div style="display:flex;flex-direction:column;gap:9px;">
-      <div class="meal-plan-row"><span class="meal-plan-emoji">🌅</span><div class="meal-plan-txt" id="plan-b">—</div><button onclick="clearPlan('b')" class="meal-plan-x">✕</button></div>
-      <div class="meal-plan-row"><span class="meal-plan-emoji">☀️</span><div class="meal-plan-txt" id="plan-l">—</div><button onclick="clearPlan('l')" class="meal-plan-x">✕</button></div>
-      <div class="meal-plan-row"><span class="meal-plan-emoji">🌆</span><div class="meal-plan-txt" id="plan-d">—</div><button onclick="clearPlan('d')" class="meal-plan-x">✕</button></div>
-      <div class="meal-plan-row"><span class="meal-plan-emoji">🍃</span><div class="meal-plan-txt" id="plan-s">—</div><button onclick="clearPlan('s')" class="meal-plan-x">✕</button></div>
-    </div>
-    <button onclick="applyPlanToLog()" class="meal-apply-btn">✓ <span class="lang-th">ใส่ลงบันทึกวันนี้</span><span class="lang-en" style="display:none;">Apply to Today's Log</span></button>
-  </div>
-
-  <!-- Meal category tabs -->
-  <div class="meal-tabs">
-    <button onclick="filterMeals('all')" class="meal-cat-btn active" id="mcat-all"><span class="lang-th">ทั้งหมด</span><span class="lang-en" style="display:none;">All</span></button>
-    <button onclick="filterMeals('b')" class="meal-cat-btn" id="mcat-b">🌅</button>
-    <button onclick="filterMeals('l')" class="meal-cat-btn" id="mcat-l">☀️</button>
-    <button onclick="filterMeals('d')" class="meal-cat-btn" id="mcat-d">🌆</button>
-    <button onclick="filterMeals('s')" class="meal-cat-btn" id="mcat-s">🍃</button>
-  </div>
-
-  <!-- Meal presets grid -->
-  <div id="meal-presets-wrap"></div>
-
-  <!-- Add custom meal preset -->
-  <div class="meal-add-card">
-    <div style="font-family:'Kanit',sans-serif;font-size:.82rem;color:var(--text);font-weight:600;margin-bottom:11px;">➕ <span class="lang-th">เพิ่มเมนูของฉัน</span><span class="lang-en" style="display:none;">Add My Meal</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px;">
-      <div><label class="lbl"><span class="lang-th">ชื่อเมนู</span><span class="lang-en" style="display:none;">Meal name</span></label><input type="text" id="new-meal-name" placeholder="Salmon Avocado Toast" class="meal-input"></div>
-      <div><label class="lbl"><span class="lang-th">หมวด</span><span class="lang-en" style="display:none;">Category</span></label>
-        <select id="new-meal-cat" class="meal-input">
-          <option value="b">🌅 Breakfast</option>
-          <option value="l">☀️ Lunch</option>
-          <option value="d">🌆 Dinner</option>
-          <option value="s">🍃 Snack</option>
-        </select>
-      </div>
-    </div>
-    <div style="margin-bottom:9px;"><label class="lbl"><span class="lang-th">รายละเอียด</span><span class="lang-en" style="display:none;">Description</span></label><textarea id="new-meal-desc" placeholder="e.g. multigrain bread · avocado · salmon 80g · 2 boiled eggs" class="meal-input" style="min-height:54px;resize:none;" oninput="autoResize(this)"></textarea></div>
-    <div style="display:flex;gap:8px;margin-bottom:10px;">
-      <div style="flex:1"><label class="lbl">Emoji</label><input type="text" id="new-meal-emoji" placeholder="🍳" maxlength="2" class="meal-input" style="font-size:1rem;text-align:center;"></div>
-      <div style="flex:1"><label class="lbl"><span class="lang-th">แคลอรี่</span><span class="lang-en" style="display:none;">Est. kcal</span></label><input type="number" id="new-meal-kcal" placeholder="450" class="meal-input"></div>
-    </div>
-    <button onclick="addMealPreset()" class="meal-save-btn">+ <span class="lang-th">บันทึกเมนู</span><span class="lang-en" style="display:none;">Save Meal</span></button>
-  </div>
-</div>
-
 <!-- MEAL PICKER POPUP -->
 <div id="meal-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;backdrop-filter:blur(4px);" onclick="closeMealPicker()"></div>
 <div id="meal-picker-popup" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--card);border-radius:20px 20px 0 0;padding:16px 14px 32px;max-height:75vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2);">
@@ -2889,6 +2855,7 @@ async function loadDay(){
   if(typeof renderLogRecovery==='function') renderLogRecovery();
   const _ps=document.getElementById('prot_supp'); if(_ps) _ps.value=(typeof getProtSupp==='function'?getProtSupp(curDay):0)||'';
   if(typeof updateProtTotalLabel==='function') updateProtTotalLabel();
+  if(typeof renderDlogMeals==='function') renderDlogMeals();
 }
 
 async function saveDay(){
@@ -3108,7 +3075,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio','shop','member','orders','recovery'];
+  const allPages = ['home','profile','log','table','stats','body','ing','bio','shop','member','orders','recovery'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -3128,7 +3095,6 @@ function goPage(name){
   if(name==='recovery'){ recRender(); }
   if(name==='home' && typeof updateHomeRecovery==='function'){ updateHomeRecovery(); }
   if(name==='body'){ switchBodyTab('map'); }
-  if(name==='meals'){renderMealPresets();}
   if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
 }
 
@@ -3941,7 +3907,7 @@ function applyLang() {
   // Nav tabs
   const tabMap = {
     'ntab-home':'nav_home','ntab-profile':'nav_profile','ntab-log':'nav_log','ntab-table':'nav_table',
-    'ntab-stats':'nav_stats','ntab-body':'nav_body','ntab-meals':'nav_meals',
+    'ntab-stats':'nav_stats','ntab-body':'nav_body',
     'ntab-ing':'nav_ing','ntab-bio':'nav_bio'
   };
   Object.entries(tabMap).forEach(([id,key])=>{
@@ -3971,6 +3937,7 @@ function applyLang() {
   // Sugar note
   const sugarNote = document.querySelector('.sugar-note');
   if (sugarNote) sugarNote.textContent = t.sugar_note;
+  if (typeof renderDlogMeals==='function') renderDlogMeals();
   
   // Toggle .lang-th / .lang-en elements (profile page bilingual)
   const isEN = currentLang === 'en';
@@ -7774,6 +7741,57 @@ function deleteCustomMeal(id){
   renderMealPresets();
 }
 
+
+let dlogMealCat='all';
+function renderDlogMeals(){
+  const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const cats=document.getElementById('dlog-meal-cats'); const wrap=document.getElementById('dlog-meal-chips');
+  if(!wrap) return;
+  const cm={all:{th:'ทั้งหมด',en:'All',e:''},b:{th:'เช้า',en:'AM',e:'🌅'},l:{th:'กลางวัน',en:'Lunch',e:'☀️'},d:{th:'เย็น',en:'Dinner',e:'🌆'},s:{th:'ว่าง',en:'Snack',e:'🍃'}};
+  if(cats){ cats.innerHTML=['all','b','l','d','s'].map(c=>{const on=dlogMealCat===c;const m=cm[c];return `<button onclick="dlogMealCat='${c}';renderDlogMeals()" style="padding:5px 11px;border-radius:18px;border:1px solid ${on?'var(--accent)':'var(--border2)'};background:${on?'var(--accent)':'transparent'};color:${on?'#fff':'var(--muted2)'};font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:600;cursor:pointer;white-space:nowrap;">${m.e} ${isEN?m.en:m.th}</button>`;}).join(''); }
+  const all=(typeof getMealPresets==='function')?getMealPresets():[];
+  const list=dlogMealCat==='all'?all:all.filter(m=>m.cat===dlogMealCat);
+  const cc={b:'var(--grain)',l:'var(--veg)',d:'var(--prot)',s:'var(--dairy)'};
+  const cb={b:'rgba(201,169,110,.08)',l:'rgba(74,124,89,.08)',d:'rgba(139,94,82,.08)',s:'rgba(107,143,163,.08)'};
+  if(!list.length){ wrap.innerHTML=`<div style="font-size:.7rem;color:var(--muted2);padding:8px 2px;">${isEN?'No saved meals in this category':'ยังไม่มีเมนูในหมวดนี้'}</div>`; return; }
+  const isCustom=m=>!(typeof DEFAULT_MEALS!=='undefined'&&DEFAULT_MEALS.find(d=>d.id===m.id));
+  wrap.innerHTML=list.map(m=>`<div onclick="dlogPickMeal('${m.id}')" style="display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--border);border-radius:13px;padding:9px 11px;cursor:pointer;">
+    <div style="width:34px;height:34px;border-radius:9px;background:${cb[m.cat]||'var(--bg)'};display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">${m.emoji||'🍽️'}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-family:'Kanit',sans-serif;font-size:.76rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.name}</div>
+      <div style="font-size:.63rem;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.desc}</div>
+    </div>
+    ${m.kcal?`<div style="font-size:.63rem;font-weight:700;color:${cc[m.cat]||'var(--muted2)'};white-space:nowrap;flex-shrink:0;">${m.kcal} kcal</div>`:''}
+    ${isCustom(m)?`<button onclick="event.stopPropagation();delDlogMeal('${m.id}')" style="background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.7rem;padding:2px 4px;flex-shrink:0;">✕</button>`:''}
+    <span style="color:var(--accent);font-weight:800;font-size:1.05rem;flex-shrink:0;">+</span>
+  </div>`).join('');
+}
+function dlogPickMeal(id){
+  const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const m=(typeof getMealPresets==='function'?getMealPresets():[]).find(x=>x.id===id); if(!m) return;
+  const ta=document.getElementById('m_b'); if(ta){ ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+m.desc; if(typeof autoResize==='function') autoResize(ta); }
+  if(m.kcal){ const k=document.getElementById('mac_kcal'); if(k) k.value=(parseInt(k.value)||0)+(parseInt(m.kcal)||0); if(typeof updateQ==='function') updateQ(); }
+  toast(isEN?`✓ Added ${m.name} (+${m.kcal||0} kcal) · AI breaking down…`:`✓ เพิ่ม ${m.name} (+${m.kcal||0} kcal) · AI กำลังแยกละเอียด…`);
+  if(typeof recalcFood==='function') recalcFood();
+}
+function toggleDlogMealAdd(){ const el=document.getElementById('dlog-meal-add'); if(el) el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none'; }
+function addDlogMeal(){
+  const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const g=i=>document.getElementById(i);
+  const name=(g('dlm-name').value||'').trim(), cat=g('dlm-cat').value, desc=(g('dlm-desc').value||'').trim();
+  const emoji=(g('dlm-emoji').value||'').trim()||'🍽️', kcal=parseInt(g('dlm-kcal').value)||0;
+  if(!name||!desc){ toast(isEN?'Enter name & description':'ใส่ชื่อและรายละเอียดก่อนค่ะ'); return; }
+  let custom=[]; try{custom=JSON.parse(localStorage.getItem(MEAL_PRESETS_KEY)||'[]');}catch(e){}
+  custom.push({id:'c_'+Date.now(),cat,name,emoji,desc,kcal});
+  try{localStorage.setItem(MEAL_PRESETS_KEY,JSON.stringify(custom));}catch(e){}
+  ['dlm-name','dlm-desc','dlm-emoji','dlm-kcal'].forEach(i=>{const e=g(i); if(e)e.value='';});
+  toggleDlogMealAdd(); renderDlogMeals(); toast(isEN?`✓ "${name}" saved`:`✓ บันทึก "${name}" แล้ว`);
+}
+function delDlogMeal(id){
+  let custom=[]; try{custom=JSON.parse(localStorage.getItem(MEAL_PRESETS_KEY)||'[]');}catch(e){}
+  try{localStorage.setItem(MEAL_PRESETS_KEY,JSON.stringify(custom.filter(m=>m.id!==id)));}catch(e){}
+  renderDlogMeals();
+}
 
 function renderBioQuick(takenObj){
   // Old bio-quick (still used by bio page summary)
