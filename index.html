@@ -656,6 +656,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
+      <div class="ntab" onclick="goPage('hyrox')" id="ntab-hyrox">🟥 HYROX</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 โภชนาการ</div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
       <div class="ntab" onclick="goPage('shop')" id="ntab-shop">🛍️ <span class="lang-th">ช้อป</span><span class="lang-en" style="display:none;">Shop</span></div>
@@ -1245,21 +1246,14 @@ body.ltab-supp .s-supp{display:block;}
       <span class="star ex-star" data-i="5" onclick="setEQ(5)">★</span>
     </div>
 
-    <!-- HYROX training log -->
-    <div style="margin-top:14px;padding-top:13px;border-top:1px dashed var(--border2);">
-      <div onclick="toggleHyroxBody()" style="display:flex;align-items:center;gap:9px;cursor:pointer;">
-        <span style="width:34px;height:34px;border-radius:10px;background:rgba(192,57,43,.12);color:#C0392B;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg></span>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.84rem;color:var(--text);letter-spacing:1px;">HYROX</div>
-          <div id="hx-head-sub" style="font-size:.6rem;color:var(--muted2);">—</div>
-        </div>
-        <span id="hx-caret" style="color:var(--muted2);font-size:.85rem;transition:transform .2s;">▾</span>
+    <!-- HYROX → dedicated page -->
+    <div onclick="goPage('hyrox')" style="margin-top:14px;display:flex;align-items:center;gap:11px;background:linear-gradient(135deg,var(--card),rgba(192,57,43,.06));border:1px solid var(--border);border-radius:16px;padding:13px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);">
+      <span style="width:38px;height:38px;border-radius:11px;background:rgba(192,57,43,.12);color:#C0392B;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg></span>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.86rem;color:var(--text);letter-spacing:1px;">HYROX</div>
+        <div id="hx-head-sub" style="font-size:.62rem;color:var(--muted2);margin-top:1px;"><span class="lang-th">ดูสถิติ &amp; บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Stats &amp; log session</span></div>
       </div>
-      <div id="hx-body" style="display:none;margin-top:12px;">
-        <button onclick="hxOpenModal()" style="width:100%;padding:11px;border:none;border-radius:12px;background:linear-gradient(135deg,#C0392B,#D4845A);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;letter-spacing:.3px;box-shadow:0 3px 12px rgba(192,57,43,.25);">＋ <span class="lang-th">บันทึกการซ้อม HYROX</span><span class="lang-en" style="display:none;">Log HYROX session</span></button>
-        <div id="hx-pb" style="margin-top:12px;"></div>
-        <div id="hx-history" style="margin-top:6px;"></div>
-      </div>
+      <span style="color:var(--muted2);font-size:1.2rem;">›</span>
     </div>
   </div>
   <div class="section s-body">
@@ -2488,6 +2482,28 @@ body.ltab-supp .s-supp{display:block;}
   <div id="meal-picker-list"></div>
 </div>
 
+<!-- PAGE HYROX -->
+<div class="page" id="page-hyrox">
+  <div style="background:linear-gradient(135deg,#C0392B,#D4845A);border-radius:22px;padding:20px;color:#fff;box-shadow:0 8px 28px rgba(192,57,43,.28);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <span style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#fff;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg></span>
+      <div style="font-family:'Kanit',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:2px;">HYROX</div>
+    </div>
+    <div style="font-size:.6rem;opacity:.85;text-transform:uppercase;letter-spacing:1px;">🏆 <span class="lang-th">เวลาดีที่สุด</span><span class="lang-en" style="display:none;">Best time</span></div>
+    <div id="hxp-hero-num" style="font-family:'Kanit',sans-serif;font-weight:800;font-size:2.6rem;line-height:1.05;margin-top:2px;">--:--</div>
+    <div id="hxp-hero-sub" style="font-size:.7rem;opacity:.9;margin-top:3px;">—</div>
+  </div>
+  <div style="display:flex;gap:9px;margin-top:14px;">
+    <button onclick="hxOpenModal()" style="flex:1;padding:12px;border:none;border-radius:13px;background:#C0392B;color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;">＋ <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Log session</span></button>
+    <label style="flex:1;padding:12px;border:1px solid #C0392B;border-radius:13px;background:rgba(192,57,43,.06);color:#C0392B;font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;">📷 <span class="lang-th">สแกนผล</span><span class="lang-en" style="display:none;">Scan result</span><input type="file" accept="image/*" multiple style="display:none" onchange="analyzeHyroxPhoto(this)"></label>
+  </div>
+  <div style="font-size:.58rem;color:var(--muted2);text-align:center;margin-top:8px;line-height:1.5;"><span class="lang-th">📷 ถ่ายรูปกระดานผล / หน้าจอนาฬิกา / ใบสรุป — AI อ่านเวลาให้อัตโนมัติ</span><span class="lang-en" style="display:none;">📷 Snap a results board / watch screen / scorecard — AI reads the times for you</span></div>
+  <div id="hx-scan-status" style="display:none;margin-top:11px;"></div>
+  <div id="hxp-pb" style="margin-top:14px;"></div>
+  <div id="hxp-history"></div>
+  <div id="hxp-ref" style="margin-top:16px;"></div>
+</div>
+
 <!-- HYROX MODAL -->
 <div id="hx-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;backdrop-filter:blur(4px);" onclick="hxCloseModal()"></div>
 <div id="hx-modal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;background:var(--card);border-radius:22px;width:min(440px,94vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
@@ -3133,7 +3149,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','ing','bio','shop','member','orders','recovery'];
+  const allPages = ['home','profile','log','table','stats','body','hyrox','ing','bio','shop','member','orders','recovery'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -3143,6 +3159,7 @@ function goPage(name){
   document.getElementById('chatBar').classList.toggle('visible',name==='log');
   if(name==='log'){ if(!document.body.className.match(/ltab-/)) setLogTab(currentLogTab||'eat'); }
   if(name==='home') loadHomeDashboard();
+  if(name==='hyrox'){ if(typeof hxRenderPage==='function') hxRenderPage(); }
   if(name==='table')renderTable();
   if(name==='stats')renderStats();
   if(name==='ing')renderIng();
@@ -7880,36 +7897,73 @@ function hxSave(){
   toast(en?'✓ HYROX session saved':'✓ บันทึกการซ้อม HYROX แล้ว');
 }
 function hxDelete(id){ hxSaveAll(hxLoad().filter(x=>x.id!==id)); hxRenderSummary(); }
-function hxRenderSummary(){
-  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
-  const arr=hxLoad().sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.id>a.id?1:-1));
-  const fulls=arr.filter(s=>s.mode==='full'&&s.total);
-  const bestFull=fulls.length?Math.min(...fulls.map(s=>s.total)):null;
-  const sub=document.getElementById('hx-head-sub');
-  if(sub) sub.textContent=arr.length?(en?`${arr.length} sessions${bestFull?' · best '+hxFmt(bestFull):''}`:`${arr.length} ครั้ง${bestFull?' · ดีสุด '+hxFmt(bestFull):''}`):(en?'No sessions yet — log your first!':'ยังไม่มีบันทึก — เริ่มซ้อมเลย!');
-  const pb=document.getElementById('hx-pb');
-  if(pb){
-    if(!arr.length){ pb.innerHTML=''; }
-    else{ const stBest=HYROX_STATIONS.map((st,i)=>{ const ts=fulls.map(s=>s.stations&&s.stations[i]).filter(v=>v!=null&&v>0); return ts.length?Math.min(...ts):null; });
-      let h=`<div style="background:linear-gradient(135deg,rgba(192,57,43,.06),rgba(212,132,90,.04));border:1px solid rgba(192,57,43,.18);border-radius:14px;padding:13px;">`;
-      h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:${stBest.some(v=>v!=null)?'10px':'0'};"><span style="font-size:.62rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;font-weight:700;">🏆 ${en?'Personal Best':'สถิติส่วนตัว'}</span>${bestFull?`<span style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;font-size:1.25rem;color:#C0392B;">${hxFmt(bestFull)}</span>`:''}</div>`;
-      if(stBest.some(v=>v!=null)) h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">`+HYROX_STATIONS.map((st,i)=>stBest[i]!=null?`<div style="display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:.58rem;background:var(--card);border-radius:8px;padding:5px 8px;"><span style="color:var(--muted2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${hxStName(st,en)}</span><b style="color:#C0392B;white-space:nowrap;">${hxFmt(stBest[i])}</b></div>`:'').join('')+`</div>`;
-      h+=`</div>`; pb.innerHTML=h;
-    }
-  }
-  const hist=document.getElementById('hx-history');
-  if(hist){
-    if(!arr.length){ hist.innerHTML=''; }
-    else hist.innerHTML=`<div style="font-size:.6rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:12px 2px 7px;font-weight:700;">${en?'Recent sessions':'ประวัติล่าสุด'}</div>`+arr.slice(0,8).map(s=>{
-      const dt=new Date(s.date+'T00:00:00'),dstr=isNaN(dt)?s.date:dt.toLocaleDateString(en?'en-GB':'th-TH',{day:'numeric',month:'short'});
-      let detail='';
-      if(s.mode==='full') detail=`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;">`+HYROX_STATIONS.map((st,i)=>(s.stations&&s.stations[i]!=null)?`<span style="font-size:.52rem;color:var(--muted2);background:var(--card2);border-radius:5px;padding:2px 5px;">${en?st.en:st.th}: <b style="color:var(--text);">${hxFmt(s.stations[i])}</b></span>`:'').join('')+`</div>`;
-      else if(s.mode==='single'){ const st=HYROX_STATIONS.find(x=>x.k===s.station); detail=`<div style="font-size:.6rem;color:var(--muted2);margin-top:3px;">${st?hxStName(st,en):''}${s.detail?' · '+s.detail:''}</div>`; }
-      else detail=`<div style="font-size:.6rem;color:var(--muted2);margin-top:3px;">${en?'Run':'วิ่ง'} ${s.runDist||''}</div>`;
-      return `<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px 11px;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:8px;"><div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.7rem;color:var(--text);">${dstr}</div><div style="font-size:.55rem;color:#C0392B;background:rgba(192,57,43,.1);border-radius:20px;padding:2px 8px;font-weight:600;">${hxModeLabel(s.mode)}</div><div style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;font-size:.95rem;color:#C0392B;">${s.total!=null?hxFmt(s.total):'—'}</div><button onclick="hxDelete('${s.id}')" style="background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.65rem;padding:2px 4px;flex-shrink:0;">✕</button></div>${detail}${s.note?`<div style="font-size:.58rem;color:var(--muted2);margin-top:4px;font-style:italic;">“${s.note}”</div>`:''}</div>`;
-    }).join('');
-  }
+function hxStats(){ const arr=hxLoad(); const fulls=arr.filter(s=>s.mode==='full'&&s.total); const bestFull=fulls.length?Math.min(...fulls.map(s=>s.total)):null; return {arr,fulls,bestFull,count:arr.length}; }
+function hxPBHtml(en){
+  const {arr,fulls,bestFull}=hxStats(); if(!arr.length) return '';
+  const stBest=HYROX_STATIONS.map((st,i)=>{ const ts=fulls.map(s=>s.stations&&s.stations[i]).filter(v=>v!=null&&v>0); return ts.length?Math.min(...ts):null; });
+  let h=`<div style="background:linear-gradient(135deg,rgba(192,57,43,.06),rgba(212,132,90,.04));border:1px solid rgba(192,57,43,.18);border-radius:14px;padding:14px;">`;
+  h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:${stBest.some(v=>v!=null)?'11px':'0'};"><span style="font-size:.64rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;font-weight:700;">🏆 ${en?'Personal Best':'สถิติส่วนตัว'}</span>${bestFull?`<span style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;font-size:1.4rem;color:#C0392B;">${hxFmt(bestFull)}</span>`:''}</div>`;
+  if(stBest.some(v=>v!=null)) h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">`+HYROX_STATIONS.map((st,i)=>stBest[i]!=null?`<div style="display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:.6rem;background:var(--card);border-radius:8px;padding:6px 9px;"><span style="color:var(--muted2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${hxStName(st,en)}</span><b style="color:#C0392B;white-space:nowrap;">${hxFmt(stBest[i])}</b></div>`:'').join('')+`</div>`;
+  h+=`</div>`; return h;
 }
+function hxHistoryHtml(en,limit){
+  const {arr}=hxStats(); if(!arr.length) return '';
+  const sorted=arr.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.id>a.id?1:-1)).slice(0,limit||8);
+  return `<div style="font-size:.62rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:14px 2px 8px;font-weight:700;">${en?'History':'ประวัติการซ้อม'}</div>`+sorted.map(s=>{
+    const dt=new Date(s.date+'T00:00:00'),dstr=isNaN(dt)?s.date:dt.toLocaleDateString(en?'en-GB':'th-TH',{day:'numeric',month:'short'});
+    let detail='';
+    if(s.mode==='full') detail=`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;">`+HYROX_STATIONS.map((st,i)=>(s.stations&&s.stations[i]!=null)?`<span style="font-size:.52rem;color:var(--muted2);background:var(--card2);border-radius:5px;padding:2px 5px;">${en?st.en:st.th}: <b style="color:var(--text);">${hxFmt(s.stations[i])}</b></span>`:'').join('')+`</div>`;
+    else if(s.mode==='single'){ const st=HYROX_STATIONS.find(x=>x.k===s.station); detail=`<div style="font-size:.6rem;color:var(--muted2);margin-top:3px;">${st?hxStName(st,en):''}${s.detail?' · '+s.detail:''}</div>`; }
+    else detail=`<div style="font-size:.6rem;color:var(--muted2);margin-top:3px;">${en?'Run':'วิ่ง'} ${s.runDist||''}</div>`;
+    return `<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px 11px;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:8px;"><div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.7rem;color:var(--text);">${dstr}</div><div style="font-size:.55rem;color:#C0392B;background:rgba(192,57,43,.1);border-radius:20px;padding:2px 8px;font-weight:600;">${hxModeLabel(s.mode)}</div><div style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;font-size:.95rem;color:#C0392B;">${s.total!=null?hxFmt(s.total):'—'}</div><button onclick="hxDelete('${s.id}')" style="background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.65rem;padding:2px 4px;flex-shrink:0;">✕</button></div>${detail}${s.note?`<div style="font-size:.58rem;color:var(--muted2);margin-top:4px;font-style:italic;">“${s.note}”</div>`:''}</div>`;
+  }).join('');
+}
+function hxRefHtml(en){
+  return `<div style="font-size:.62rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:0 2px 8px;font-weight:700;">${en?'The 8 stations':'8 สเตชันมาตรฐาน'}</div>`+
+  `<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:6px 13px;">`+
+  HYROX_STATIONS.map((st,i)=>{ const wt=st.w?(st.w.women+' / '+st.w.men):''; return `<div style="display:flex;align-items:center;gap:9px;padding:8px 0;${i<7?'border-bottom:1px solid var(--border);':''}"><span style="width:20px;height:20px;border-radius:6px;background:rgba(192,57,43,.1);color:#C0392B;font-family:'Kanit',sans-serif;font-weight:700;font-size:.62rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</span><span style="flex:1;font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:600;color:var(--text);">${hxStName(st,en)}</span><span style="font-size:.6rem;color:var(--muted2);">${st.meta}${wt?' · '+wt+'kg':''}</span></div>`; }).join('')+
+  `</div><div style="font-size:.55rem;color:var(--muted2);text-align:center;margin-top:7px;">${en?'Each station preceded by a 1km run · weights: Women / Men':'แต่ละสเตชันมีวิ่ง 1km นำหน้า · น้ำหนัก: หญิง / ชาย'}</div>`;
+}
+function hxRenderSummary(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en'); const {arr,bestFull}=hxStats();
+  const sub=document.getElementById('hx-head-sub'); if(sub) sub.textContent=arr.length?(en?`${arr.length} sessions${bestFull?' · best '+hxFmt(bestFull):''}`:`${arr.length} ครั้ง${bestFull?' · ดีสุด '+hxFmt(bestFull):''}`):(en?'Stats & log session':'ดูสถิติ & บันทึกการซ้อม');
+  const pb=document.getElementById('hx-pb'); if(pb) pb.innerHTML=hxPBHtml(en);
+  const hist=document.getElementById('hx-history'); if(hist) hist.innerHTML=hxHistoryHtml(en,8);
+}
+function hxRenderPage(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en'); const {arr,bestFull,count}=hxStats();
+  const hn=document.getElementById('hxp-hero-num'); if(hn) hn.textContent=bestFull?hxFmt(bestFull):'--:--';
+  const hs=document.getElementById('hxp-hero-sub'); if(hs) hs.textContent=arr.length?(en?`${count} session${count>1?'s':''} logged`:`ซ้อมไปแล้ว ${count} ครั้ง`):(en?'Log your first HYROX session':'เริ่มบันทึกการซ้อมครั้งแรก');
+  const pb=document.getElementById('hxp-pb'); if(pb) pb.innerHTML=hxPBHtml(en);
+  const hist=document.getElementById('hxp-history'); if(hist) hist.innerHTML=hxHistoryHtml(en,30);
+  const ref=document.getElementById('hxp-ref'); if(ref) ref.innerHTML=hxRefHtml(en);
+}
+async function analyzeHyroxPhoto(input){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const files=Array.from(input.files||[]).slice(0,3); if(!files.length) return;
+  const st=document.getElementById('hx-scan-status');
+  if(st){ st.style.display='block'; st.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:10px;background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:10px;font-size:.72rem;color:#C0392B;"><div class="dot-pulse"><span></span><span></span><span></span></div> ${en?'Reading your HYROX result…':'กำลังอ่านผล HYROX…'}</div>`; }
+  let images;
+  try{ images=await Promise.all(files.map(f=>fileToJpegBase64(f,1568,0.92))); }
+  catch(e){ console.error('hyrox scan read',e); if(st) st.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${en?'Could not read the image':'อ่านรูปไม่ได้ ลองใหม่ค่ะ'}</div>`; input.value=''; return; }
+  try{
+    const content=[]; images.forEach((img,i)=>{ content.push({type:'text',text:`— image ${i+1} of ${images.length} —`}); content.push({type:'image',source:{type:'base64',media_type:img.type,data:img.data}}); });
+    content.push({type:'text',text:`These image(s) show a HYROX race or training result — could be the official results card, a gym whiteboard, a fitness watch summary, or an app screenshot. The 8 functional stations IN ORDER are: 1 SkiErg, 2 Sled Push, 3 Sled Pull, 4 Burpee Broad Jump, 5 Rowing, 6 Farmers Carry, 7 Sandbag Lunges, 8 Wall Balls. There are also 8 runs of 1km each (Run 1 before SkiErg, Run 2 before Sled Push, etc.). Times are usually mm:ss. Convert EACH to SECONDS (integer). If a value is not visible, use null (do not guess). Respond ONLY with valid JSON, no markdown:\n{"total_sec":0,"runs_sec":[null,null,null,null,null,null,null,null],"stations_sec":[null,null,null,null,null,null,null,null],"note":"short note of what the image showed"}`});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content}]})});
+    const data=await res.json(); if(!res.ok||!Array.isArray(data.content)){ console.error('hyrox scan API',res.status,data); throw new Error('API'); }
+    const r=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
+    if(st) st.style.display='none';
+    hxOpenModal(); hxMode='full'; hxRenderModeChips(); hxRenderModalBody();
+    setTimeout(()=>{
+      for(let i=0;i<8;i++){ const rv=r.runs_sec&&r.runs_sec[i]; const sv=r.stations_sec&&r.stations_sec[i]; const re=document.getElementById('hx-run-'+i); if(re&&rv!=null) re.value=hxFmt(rv); const se=document.getElementById('hx-st-'+i); if(se&&sv!=null) se.value=hxFmt(sv); }
+      const tm=document.getElementById('hx-total-manual'); if(tm&&r.total_sec) tm.value=hxFmt(r.total_sec);
+      const nn=document.getElementById('hx-note'); if(nn&&r.note&&!nn.value) nn.value=r.note;
+      hxCalcTotal(); toast(en?'✓ Scanned — review & save':'✓ สแกนแล้ว — ตรวจดูแล้วกดบันทึก');
+    },150);
+  }catch(e){ console.error('hyrox scan',e); if(st){ st.style.display='block'; st.innerHTML=`<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ ${en?'Could not read the result — try a clearer photo or enter manually':'อ่านผลไม่ได้ — ลองรูปที่ชัดขึ้น หรือกรอกเองค่ะ'}</div>`; } }
+  input.value='';
+}
+
 function getHyroxForDate(date){ const a=hxLoad().filter(s=>s.date===date); if(!a.length) return null; const wt=a.filter(s=>s.total!=null); return wt.length?wt.sort((x,y)=>x.total-y.total)[0]:a[0]; }
 
 const CARDIO_TYPE_KEY='girl_cardiotype';
