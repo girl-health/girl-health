@@ -1244,6 +1244,23 @@ body.ltab-supp .s-supp{display:block;}
       <span class="star ex-star" data-i="3" onclick="setEQ(3)">★</span><span class="star ex-star" data-i="4" onclick="setEQ(4)">★</span>
       <span class="star ex-star" data-i="5" onclick="setEQ(5)">★</span>
     </div>
+
+    <!-- HYROX training log -->
+    <div style="margin-top:14px;padding-top:13px;border-top:1px dashed var(--border2);">
+      <div onclick="toggleHyroxBody()" style="display:flex;align-items:center;gap:9px;cursor:pointer;">
+        <span style="width:34px;height:34px;border-radius:10px;background:rgba(192,57,43,.12);color:#C0392B;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg></span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.84rem;color:var(--text);letter-spacing:1px;">HYROX</div>
+          <div id="hx-head-sub" style="font-size:.6rem;color:var(--muted2);">—</div>
+        </div>
+        <span id="hx-caret" style="color:var(--muted2);font-size:.85rem;transition:transform .2s;">▾</span>
+      </div>
+      <div id="hx-body" style="display:none;margin-top:12px;">
+        <button onclick="hxOpenModal()" style="width:100%;padding:11px;border:none;border-radius:12px;background:linear-gradient(135deg,#C0392B,#D4845A);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;letter-spacing:.3px;box-shadow:0 3px 12px rgba(192,57,43,.25);">＋ <span class="lang-th">บันทึกการซ้อม HYROX</span><span class="lang-en" style="display:none;">Log HYROX session</span></button>
+        <div id="hx-pb" style="margin-top:12px;"></div>
+        <div id="hx-history" style="margin-top:6px;"></div>
+      </div>
+    </div>
   </div>
   <div class="section s-body">
     <div class="sec-hdr"><div class="sec-ico">📊</div><div class="sec-ttl"><span class="lang-th">ข้อมูลร่างกาย</span><span class="lang-en" style="display:none;">Body Metrics</span></div></div>
@@ -2471,6 +2488,36 @@ body.ltab-supp .s-supp{display:block;}
   <div id="meal-picker-list"></div>
 </div>
 
+<!-- HYROX MODAL -->
+<div id="hx-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;backdrop-filter:blur(4px);" onclick="hxCloseModal()"></div>
+<div id="hx-modal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;background:var(--card);border-radius:22px;width:min(440px,94vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+  <div style="position:sticky;top:0;background:var(--card);padding:15px 16px 12px;border-bottom:1px solid var(--border);z-index:2;display:flex;align-items:center;justify-content:space-between;">
+    <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);letter-spacing:.5px;">HYROX · <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Log session</span></div>
+    <button onclick="hxCloseModal()" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);cursor:pointer;flex-shrink:0;">✕</button>
+  </div>
+  <div style="padding:14px 16px 20px;">
+    <label class="lbl"><span class="lang-th">วันที่</span><span class="lang-en" style="display:none;">Date</span></label>
+    <input type="date" id="hx-date" style="width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.82rem;padding:8px 10px;outline:none;">
+    <div style="font-size:.62rem;color:var(--muted2);margin:12px 0 6px;"><span class="lang-th">มาตรฐาน (น้ำหนักอ้างอิง)</span><span class="lang-en" style="display:none;">Standard (ref. weights)</span></div>
+    <div id="hx-std-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+    <div style="font-size:.62rem;color:var(--muted2);margin:12px 0 6px;"><span class="lang-th">รูปแบบการซ้อม</span><span class="lang-en" style="display:none;">Session type</span></div>
+    <div id="hx-mode-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+    <div id="hx-modal-body" style="margin-top:13px;"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;background:linear-gradient(135deg,rgba(192,57,43,.07),rgba(212,132,90,.05));border:1px solid rgba(192,57,43,.2);border-radius:13px;">
+      <div style="flex:1;">
+        <div style="font-size:.58rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;"><span class="lang-th">เวลารวม</span><span class="lang-en" style="display:none;">Total time</span></div>
+        <div id="hx-total" style="font-family:'Kanit',sans-serif;font-weight:800;font-size:1.5rem;color:#C0392B;line-height:1.1;">--:--</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:.55rem;color:var(--muted2);margin-bottom:3px;"><span class="lang-th">แก้เวลารวมเอง</span><span class="lang-en" style="display:none;">Override</span></div>
+        <input type="text" id="hx-total-manual" inputmode="numeric" placeholder="mm:ss" oninput="hxCalcTotal()" style="width:84px;text-align:center;box-sizing:border-box;background:var(--card);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.82rem;padding:6px 8px;outline:none;">
+      </div>
+    </div>
+    <textarea id="hx-note" placeholder="โน้ต / ความรู้สึก / สภาพอากาศ ฯลฯ" style="width:100%;box-sizing:border-box;margin-top:11px;background:var(--bg);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:9px 10px;outline:none;min-height:46px;resize:none;"></textarea>
+    <button onclick="hxSave()" style="width:100%;margin-top:12px;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,#C0392B,#D4845A);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;letter-spacing:.3px;">✓ <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Save session</span></button>
+  </div>
+</div>
+
 <!-- CHAT BAR -->
 <div class="chat-bar visible" id="chatBar">
   <div class="chat-hint" id="chat-hint">
@@ -2866,6 +2913,7 @@ async function loadDay(){
   if(typeof updateProtTotalLabel==='function') updateProtTotalLabel();
   if(typeof renderDlogMeals==='function') renderDlogMeals();
   if(typeof renderCardioTypes==='function') renderCardioTypes();
+  if(typeof hxRenderSummary==='function') hxRenderSummary();
 }
 
 async function saveDay(){
@@ -3236,6 +3284,7 @@ async function renderTable(){
           <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)">🌙 ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
           ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);">🏋️ ${exM}m</span>`:''}
           ${(function(){ if(typeof getCardioType!=='function') return ''; const ct=getCardioType(d.date); if(!ct) return ''; const lbl=(typeof cardioTypeLabel==='function')?cardioTypeLabel(ct):ct; if(!lbl) return ''; return `<span class="tbl-stat" style="background:rgba(74,124,89,.13);color:var(--accent);display:inline-flex;align-items:center;gap:3px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.4l2-5.4 4 11 2.5-7.4 1.5 2h4.6"/></svg>${lbl}</span>`; })()}
+          ${(function(){ if(typeof getHyroxForDate!=='function') return ''; const hx=getHyroxForDate(d.date); if(!hx) return ''; const t=hx.total!=null?hxFmt(hx.total):''; return `<span class="tbl-stat" style="background:rgba(192,57,43,.1);color:#C0392B;display:inline-flex;align-items:center;gap:3px;font-weight:700;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX${t?' '+t:''}</span>`; })()}
           <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);">💧 ${d.water?d.water+'L':'—'}</span>
           ${(function(){ const it=(typeof rcLoad==='function'?rcLoad():[]).filter(e=>e.date===d.date); if(!it.length) return ''; const c={}; it.forEach(e=>c[e.type]=(c[e.type]||0)+1); return Object.keys(c).map(id=>{ const t=rcType(id); return `<span class="tbl-stat" style="background:${t.color}1a;color:${t.color};display:inline-flex;align-items:center;gap:3px;" title="${(typeof currentLang!=='undefined'&&currentLang==='en')?t.en:t.th}">${rcSvg(id)}${c[id]>1?'×'+c[id]:''}</span>`; }).join(''); })()}
           ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);">⚖️ ${d.weight}kg</span>`:''}
@@ -3950,6 +3999,7 @@ function applyLang() {
   if (sugarNote) sugarNote.textContent = t.sugar_note;
   if (typeof renderDlogMeals==='function') renderDlogMeals();
   if (typeof renderCardioTypes==='function') renderCardioTypes();
+  if (typeof hxRenderSummary==='function') hxRenderSummary();
   
   // Toggle .lang-th / .lang-en elements (profile page bilingual)
   const isEN = currentLang === 'en';
@@ -7753,6 +7803,114 @@ function deleteCustomMeal(id){
   renderMealPresets();
 }
 
+
+// ───── HYROX training log ─────
+const HYROX_KEY='girl_hyrox';
+const HYROX_STATIONS=[
+  {k:'ski',th:'SkiErg',en:'SkiErg',meta:'1000m'},
+  {k:'push',th:'Sled Push',en:'Sled Push',meta:'50m',w:{women:'102',men:'152',pro:'202'}},
+  {k:'pull',th:'Sled Pull',en:'Sled Pull',meta:'50m',w:{women:'78',men:'103',pro:'153'}},
+  {k:'burpee',th:'Burpee Broad Jump',en:'Burpee Broad Jump',meta:'80m'},
+  {k:'row',th:'Rowing',en:'Row',meta:'1000m'},
+  {k:'farmers',th:'Farmers Carry',en:'Farmers Carry',meta:'200m',w:{women:'2×16',men:'2×24',pro:'2×32'}},
+  {k:'lunge',th:'Sandbag Lunges',en:'Sandbag Lunges',meta:'100m',w:{women:'20',men:'30',pro:'40'}},
+  {k:'wall',th:'Wall Balls',en:'Wall Balls',meta:'100 reps',w:{women:'4',men:'6',pro:'9'}}
+];
+const HYROX_STDS=[{k:'women',th:'หญิง',en:'Women'},{k:'men',th:'ชาย',en:'Men'},{k:'pro',th:'Pro',en:'Pro'},{k:'doubles',th:'Doubles',en:'Doubles'}];
+const HYROX_MODES=[{k:'full',th:'เต็มรูปแบบ (8 สเตชัน)',en:'Full (8 stations)'},{k:'single',th:'เฉพาะสเตชัน',en:'Single station'},{k:'run',th:'วิ่งอย่างเดียว',en:'Run only'}];
+let hxStd='women', hxMode='full';
+function hxLoad(){ try{ return JSON.parse(localStorage.getItem(HYROX_KEY)||'[]'); }catch(e){ return []; } }
+function hxSaveAll(a){ try{ localStorage.setItem(HYROX_KEY, JSON.stringify(a)); }catch(e){} }
+function hxParseT(s){ if(s==null) return null; s=(''+s).trim(); if(!s) return null; if(s.indexOf(':')<0){ const n=parseFloat(s); return isNaN(n)?null:Math.round(n); } const p=s.split(':').map(x=>parseInt(x)||0); let sec=0; for(const v of p) sec=sec*60+v; return sec; }
+function hxFmt(sec){ if(sec==null||isNaN(sec)) return '--:--'; sec=Math.round(sec); const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60,pad=n=>String(n).padStart(2,'0'); return h>0?`${h}:${pad(m)}:${pad(s)}`:`${m}:${pad(s)}`; }
+function hxStName(st,en){ return en?st.en:st.th; }
+function hxModeLabel(k){ const en=(typeof currentLang!=='undefined'&&currentLang==='en'),m=HYROX_MODES.find(x=>x.k===k); return m?(en?m.en:m.th):k; }
+function toggleHyroxBody(){ const b=document.getElementById('hx-body'),c=document.getElementById('hx-caret'); if(!b) return; const open=(b.style.display==='none'||!b.style.display); b.style.display=open?'block':'none'; if(c) c.style.transform=open?'rotate(180deg)':''; if(open) hxRenderSummary(); }
+function hxOpenModal(){ const ov=document.getElementById('hx-overlay'),md=document.getElementById('hx-modal'); if(!md) return; const d=document.getElementById('hx-date'); if(d) d.value=(typeof curDay!=='undefined'&&curDay)?curDay:new Date().toISOString().split('T')[0]; const n=document.getElementById('hx-note'); if(n)n.value=''; const tm=document.getElementById('hx-total-manual'); if(tm)tm.value=''; hxMode='full'; hxRenderStdChips(); hxRenderModeChips(); hxRenderModalBody(); ov.style.display='block'; md.style.display='block'; }
+function hxCloseModal(){ const ov=document.getElementById('hx-overlay'),md=document.getElementById('hx-modal'); if(ov)ov.style.display='none'; if(md)md.style.display='none'; }
+function hxSetStd(k){ hxStd=k; hxRenderStdChips(); hxRenderModalBody(); }
+function hxSetMode(k){ hxMode=k; hxRenderModeChips(); hxRenderModalBody(); }
+function hxRenderStdChips(){ const en=(typeof currentLang!=='undefined'&&currentLang==='en'),w=document.getElementById('hx-std-chips'); if(!w) return; w.innerHTML=HYROX_STDS.map(s=>{const on=hxStd===s.k; return `<button onclick="hxSetStd('${s.k}')" style="padding:6px 13px;border-radius:18px;border:1px solid ${on?'#C0392B':'var(--border2)'};background:${on?'#C0392B':'var(--card2)'};color:${on?'#fff':'var(--muted2)'};font-family:'Kanit',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;">${en?s.en:s.th}</button>`;}).join(''); }
+function hxRenderModeChips(){ const en=(typeof currentLang!=='undefined'&&currentLang==='en'),w=document.getElementById('hx-mode-chips'); if(!w) return; w.innerHTML=HYROX_MODES.map(m=>{const on=hxMode===m.k; return `<button onclick="hxSetMode('${m.k}')" style="padding:6px 12px;border-radius:18px;border:1px solid ${on?'#C0392B':'var(--border2)'};background:${on?'rgba(192,57,43,.1)':'transparent'};color:${on?'#C0392B':'var(--muted2)'};font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:600;cursor:pointer;">${en?m.en:m.th}</button>`;}).join(''); }
+function hxTimeInput(id){ return `<input type="text" id="${id}" inputmode="numeric" placeholder="mm:ss" oninput="hxCalcTotal()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.82rem;padding:6px 9px;outline:none;text-align:center;">`; }
+function hxRenderModalBody(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en'),wrap=document.getElementById('hx-modal-body'); if(!wrap) return;
+  if(hxMode==='full'){
+    wrap.innerHTML=HYROX_STATIONS.map((st,i)=>{ const wt=st.w?(st.w[hxStd]||st.w.men||''):''; const wtTxt=wt?(st.meta.indexOf('reps')<0?wt+'kg':wt):'';
+      return `<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:9px 10px;background:var(--card2);border:1px solid var(--border);border-radius:12px;">
+        <div style="width:22px;height:22px;border-radius:6px;background:rgba(192,57,43,.1);color:#C0392B;font-family:'Kanit',sans-serif;font-weight:700;font-size:.66rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">${i+1}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;gap:6px;align-items:center;"><span style="font-size:.6rem;color:var(--sleep);width:46px;flex-shrink:0;font-weight:600;">🏃 1km</span>${hxTimeInput('hx-run-'+i)}</div>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:5px;"><span style="font-size:.6rem;color:var(--text);width:46px;flex-shrink:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${hxStName(st,en)}">${hxStName(st,en)}</span>${hxTimeInput('hx-st-'+i)}<span style="font-size:.52rem;color:var(--muted2);white-space:nowrap;flex-shrink:0;text-align:right;">${st.meta}${wtTxt?' · '+wtTxt:''}</span></div>
+        </div></div>`; }).join('');
+  } else if(hxMode==='single'){
+    wrap.innerHTML=`<div style="display:flex;flex-direction:column;gap:9px;">
+      <div><label class="lbl"><span class="lang-th">เลือกสเตชัน</span><span class="lang-en" style="display:none;">Station</span></label><select id="hx-single-st" style="width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.82rem;padding:8px 10px;outline:none;">${HYROX_STATIONS.map(s=>`<option value="${s.k}">${hxStName(s,en)} · ${s.meta}</option>`).join('')}</select></div>
+      <div style="display:flex;gap:6px;align-items:center;"><span style="font-size:.62rem;color:var(--muted2);width:54px;">${en?'Time':'เวลา'}</span>${hxTimeInput('hx-single-time')}</div>
+      <div><label class="lbl"><span class="lang-th">รอบ/เซ็ต หรือ โน้ตน้ำหนัก</span><span class="lang-en" style="display:none;">Rounds/sets or weight</span></label><input type="text" id="hx-single-detail" placeholder="e.g. 3 rounds · 102kg" style="width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:8px 10px;outline:none;"></div></div>`;
+  } else {
+    wrap.innerHTML=`<div style="display:flex;flex-direction:column;gap:9px;">
+      <div style="display:flex;gap:6px;align-items:center;"><span style="font-size:.62rem;color:var(--muted2);width:54px;">${en?'Distance':'ระยะ'}</span><input type="text" id="hx-run-dist" placeholder="${en?'e.g. 5 km':'เช่น 5 km'}" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.82rem;padding:6px 9px;outline:none;"></div>
+      <div style="display:flex;gap:6px;align-items:center;"><span style="font-size:.62rem;color:var(--muted2);width:54px;">${en?'Time':'เวลา'}</span>${hxTimeInput('hx-run-time')}</div></div>`;
+  }
+  hxCalcTotal();
+}
+function hxCalcTotal(){
+  const totalEl=document.getElementById('hx-total'); if(!totalEl) return;
+  const man=hxParseT((document.getElementById('hx-total-manual')||{}).value);
+  let sum=0,any=false;
+  if(hxMode==='full'){ for(let i=0;i<8;i++){ const r=hxParseT((document.getElementById('hx-run-'+i)||{}).value),s=hxParseT((document.getElementById('hx-st-'+i)||{}).value); if(r!=null){sum+=r;any=true;} if(s!=null){sum+=s;any=true;} } }
+  else if(hxMode==='single'){ const t=hxParseT((document.getElementById('hx-single-time')||{}).value); if(t!=null){sum+=t;any=true;} }
+  else { const t=hxParseT((document.getElementById('hx-run-time')||{}).value); if(t!=null){sum+=t;any=true;} }
+  totalEl.textContent=hxFmt((man!=null)?man:(any?sum:null));
+}
+function hxSave(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const date=(document.getElementById('hx-date')||{}).value||(new Date().toISOString().split('T')[0]);
+  const note=((document.getElementById('hx-note')||{}).value||'').trim();
+  const man=hxParseT((document.getElementById('hx-total-manual')||{}).value);
+  let s={id:'hx_'+Date.now(),date,std:hxStd,mode:hxMode,note,total:null};
+  if(hxMode==='full'){ s.runs=[];s.stations=[];let sum=0,any=false; for(let i=0;i<8;i++){ const r=hxParseT((document.getElementById('hx-run-'+i)||{}).value),st=hxParseT((document.getElementById('hx-st-'+i)||{}).value); s.runs.push(r);s.stations.push(st); if(r!=null){sum+=r;any=true;} if(st!=null){sum+=st;any=true;} } s.total=(man!=null)?man:(any?sum:null); }
+  else if(hxMode==='single'){ s.station=(document.getElementById('hx-single-st')||{}).value; s.stationTime=hxParseT((document.getElementById('hx-single-time')||{}).value); s.detail=((document.getElementById('hx-single-detail')||{}).value||'').trim(); s.total=(man!=null)?man:s.stationTime; }
+  else { s.runDist=((document.getElementById('hx-run-dist')||{}).value||'').trim(); s.runTime=hxParseT((document.getElementById('hx-run-time')||{}).value); s.total=(man!=null)?man:s.runTime; }
+  if(s.total==null && !(hxMode==='single'&&s.detail)){ toast(en?'Enter at least one time':'ใส่เวลาอย่างน้อย 1 ช่องค่ะ'); return; }
+  const arr=hxLoad(); arr.push(s); hxSaveAll(arr);
+  try{ if(typeof curDay!=='undefined'&&date===curDay){ const n=document.getElementById('ex_n'); if(n && !n.value.trim()) n.value='HYROX '+(s.total!=null?hxFmt(s.total):''); } }catch(e){}
+  hxCloseModal(); hxRenderSummary();
+  toast(en?'✓ HYROX session saved':'✓ บันทึกการซ้อม HYROX แล้ว');
+}
+function hxDelete(id){ hxSaveAll(hxLoad().filter(x=>x.id!==id)); hxRenderSummary(); }
+function hxRenderSummary(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const arr=hxLoad().sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.id>a.id?1:-1));
+  const fulls=arr.filter(s=>s.mode==='full'&&s.total);
+  const bestFull=fulls.length?Math.min(...fulls.map(s=>s.total)):null;
+  const sub=document.getElementById('hx-head-sub');
+  if(sub) sub.textContent=arr.length?(en?`${arr.length} sessions${bestFull?' · best '+hxFmt(bestFull):''}`:`${arr.length} ครั้ง${bestFull?' · ดีสุด '+hxFmt(bestFull):''}`):(en?'No sessions yet — log your first!':'ยังไม่มีบันทึก — เริ่มซ้อมเลย!');
+  const pb=document.getElementById('hx-pb');
+  if(pb){
+    if(!arr.length){ pb.innerHTML=''; }
+    else{ const stBest=HYROX_STATIONS.map((st,i)=>{ const ts=fulls.map(s=>s.stations&&s.stations[i]).filter(v=>v!=null&&v>0); return ts.length?Math.min(...ts):null; });
+      let h=`<div style="background:linear-gradient(135deg,rgba(192,57,43,.06),rgba(212,132,90,.04));border:1px solid rgba(192,57,43,.18);border-radius:14px;padding:13px;">`;
+      h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:${stBest.some(v=>v!=null)?'10px':'0'};"><span style="font-size:.62rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;font-weight:700;">🏆 ${en?'Personal Best':'สถิติส่วนตัว'}</span>${bestFull?`<span style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;font-size:1.25rem;color:#C0392B;">${hxFmt(bestFull)}</span>`:''}</div>`;
+      if(stBest.some(v=>v!=null)) h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">`+HYROX_STATIONS.map((st,i)=>stBest[i]!=null?`<div style="display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:.58rem;background:var(--card);border-radius:8px;padding:5px 8px;"><span style="color:var(--muted2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${hxStName(st,en)}</span><b style="color:#C0392B;white-space:nowrap;">${hxFmt(stBest[i])}</b></div>`:'').join('')+`</div>`;
+      h+=`</div>`; pb.innerHTML=h;
+    }
+  }
+  const hist=document.getElementById('hx-history');
+  if(hist){
+    if(!arr.length){ hist.innerHTML=''; }
+    else hist.innerHTML=`<div style="font-size:.6rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:12px 2px 7px;font-weight:700;">${en?'Recent sessions':'ประวัติล่าสุด'}</div>`+arr.slice(0,8).map(s=>{
+      const dt=new Date(s.date+'T00:00:00'),dstr=isNaN(dt)?s.date:dt.toLocaleDateString(en?'en-GB':'th-TH',{day:'numeric',month:'short'});
+      let detail='';
+      if(s.mode==='full') detail=`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;">`+HYROX_STATIONS.map((st,i)=>(s.stations&&s.stations[i]!=null)?`<span style="font-size:.52rem;color:var(--muted2);background:var(--card2);border-radius:5px;padding:2px 5px;">${en?st.en:st.th}: <b style="color:var(--text);">${hxFmt(s.stations[i])}</b></span>`:'').join('')+`</div>`;
+      else if(s.mode==='single'){ const st=HYROX_STATIONS.find(x=>x.k===s.station); detail=`<div style="font-size:.6rem;color:var(--muted2);margin-top:3px;">${st?hxStName(st,en):''}${s.detail?' · '+s.detail:''}</div>`; }
+      else detail=`<div style="font-size:.6rem;color:var(--muted2);margin-top:3px;">${en?'Run':'วิ่ง'} ${s.runDist||''}</div>`;
+      return `<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px 11px;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:8px;"><div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.7rem;color:var(--text);">${dstr}</div><div style="font-size:.55rem;color:#C0392B;background:rgba(192,57,43,.1);border-radius:20px;padding:2px 8px;font-weight:600;">${hxModeLabel(s.mode)}</div><div style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;font-size:.95rem;color:#C0392B;">${s.total!=null?hxFmt(s.total):'—'}</div><button onclick="hxDelete('${s.id}')" style="background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.65rem;padding:2px 4px;flex-shrink:0;">✕</button></div>${detail}${s.note?`<div style="font-size:.58rem;color:var(--muted2);margin-top:4px;font-style:italic;">“${s.note}”</div>`:''}</div>`;
+    }).join('');
+  }
+}
+function getHyroxForDate(date){ const a=hxLoad().filter(s=>s.date===date); if(!a.length) return null; const wt=a.filter(s=>s.total!=null); return wt.length?wt.sort((x,y)=>x.total-y.total)[0]:a[0]; }
 
 const CARDIO_TYPE_KEY='girl_cardiotype';
 const CARDIO_TYPES=[
