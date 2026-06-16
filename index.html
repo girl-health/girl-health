@@ -1156,11 +1156,15 @@ body.ltab-supp .s-supp{display:block;}
 
     <!-- Saved meals quick-pick (merged from Meals page) -->
     <div style="margin-top:13px;padding-top:13px;border-top:1px dashed var(--border2);">
-      <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
-        <span style="display:flex;color:var(--veg);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M20.4 11.4c.95.3 1.6.9 1.6 1.6 0 1-1.2 1.9-3 2.2"/><path d="M10 4.5c0 1-1 1.4-1 2.4M13.5 4c0 1-1 1.4-1 2.4"/></svg></span>
-        <span style="font-family:'Kanit',sans-serif;font-weight:600;font-size:.78rem;color:var(--text);flex:1;"><span class="lang-th">เมนูที่บันทึกไว้</span><span class="lang-en" style="display:none;">Saved meals</span></span>
-        <a onclick="toggleDlogMealAdd()" style="font-size:.64rem;color:var(--accent);cursor:pointer;font-weight:700;font-family:'Kanit',sans-serif;">+ <span class="lang-th">เพิ่มเมนู</span><span class="lang-en" style="display:none;">Add</span></a>
+      <div style="display:flex;align-items:center;gap:7px;">
+        <span onclick="toggleDlogMealBody()" style="display:flex;align-items:center;gap:7px;flex:1;cursor:pointer;min-width:0;">
+          <span style="display:flex;color:var(--veg);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M20.4 11.4c.95.3 1.6.9 1.6 1.6 0 1-1.2 1.9-3 2.2"/><path d="M10 4.5c0 1-1 1.4-1 2.4M13.5 4c0 1-1 1.4-1 2.4"/></svg></span>
+          <span style="font-family:'Kanit',sans-serif;font-weight:600;font-size:.78rem;color:var(--text);flex:1;"><span class="lang-th">เมนูที่บันทึกไว้</span><span class="lang-en" style="display:none;">Saved meals</span></span>
+          <span id="dlog-meal-caret" style="color:var(--muted2);font-size:.85rem;transition:transform .2s;">▾</span>
+        </span>
+        <a onclick="event.stopPropagation();toggleDlogMealAdd()" style="font-size:.64rem;color:var(--accent);cursor:pointer;font-weight:700;font-family:'Kanit',sans-serif;margin-left:10px;white-space:nowrap;">+ <span class="lang-th">เพิ่มเมนู</span><span class="lang-en" style="display:none;">Add</span></a>
       </div>
+      <div id="dlog-meal-body" style="display:none;margin-top:10px;">
       <div style="font-size:.6rem;color:var(--muted2);margin-bottom:9px;line-height:1.5;"><span class="lang-th">แตะเพื่อเพิ่มลงรายการอาหาร · AI คำนวณแคล/มาโครให้ละเอียดอัตโนมัติ</span><span class="lang-en" style="display:none;">Tap to add to today's food · AI breaks down calories &amp; macros</span></div>
       <div id="dlog-meal-cats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;"></div>
       <div id="dlog-meal-chips" style="display:flex;flex-direction:column;gap:6px;"></div>
@@ -1175,6 +1179,7 @@ body.ltab-supp .s-supp{display:block;}
           <input id="dlm-kcal" type="number" placeholder="แคลโดยประมาณ (kcal)" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.78rem;padding:8px 10px;outline:none;width:100%;box-sizing:border-box;">
         </div>
         <button onclick="addDlogMeal()" style="width:100%;padding:9px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:600;font-size:.76rem;cursor:pointer;">+ <span class="lang-th">บันทึกเมนู</span><span class="lang-en" style="display:none;">Save meal</span></button>
+      </div>
       </div>
     </div>
   </div>
@@ -7774,7 +7779,16 @@ function dlogPickMeal(id){
   toast(isEN?`✓ Added ${m.name} (+${m.kcal||0} kcal) · AI breaking down…`:`✓ เพิ่ม ${m.name} (+${m.kcal||0} kcal) · AI กำลังแยกละเอียด…`);
   if(typeof recalcFood==='function') recalcFood();
 }
-function toggleDlogMealAdd(){ const el=document.getElementById('dlog-meal-add'); if(el) el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none'; }
+function toggleDlogMealBody(){
+  const b=document.getElementById('dlog-meal-body'), c=document.getElementById('dlog-meal-caret');
+  if(!b) return; const open=(b.style.display==='none'||!b.style.display);
+  b.style.display=open?'block':'none'; if(c) c.style.transform=open?'rotate(180deg)':'';
+}
+function toggleDlogMealAdd(){
+  const b=document.getElementById('dlog-meal-body'), c=document.getElementById('dlog-meal-caret');
+  if(b && (b.style.display==='none'||!b.style.display)){ b.style.display='block'; if(c) c.style.transform='rotate(180deg)'; }
+  const el=document.getElementById('dlog-meal-add'); if(el) el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';
+}
 function addDlogMeal(){
   const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
   const g=i=>document.getElementById(i);
