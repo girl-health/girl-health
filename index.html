@@ -655,7 +655,6 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
-      <div class="ntab" onclick="goPage('recovery')" id="ntab-recovery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:3px;"><path d="M12 19.5c-2 0-6-1.4-6-4.2 0-1.4 1.6-2.1 2.7-1.4M12 19.5c2 0 6-1.4 6-4.2 0-1.4-1.6-2.1-2.7-1.4"/><path d="M12 19.5c-1.7 0-3.2-2.1-3.2-4.7S12 9 12 9s3.2 3.2 3.2 5.8-1.5 4.7-3.2 4.7z"/></svg><span class="lang-th">ฟื้นฟู</span><span class="lang-en" style="display:none;">Recovery</span></div>
       <div class="ntab" onclick="goPage('meals')" id="ntab-meals">🍱 Meals</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 โภชนาการ</div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
@@ -725,7 +724,7 @@ body.ltab-supp .s-supp{display:block;}
   <!-- BIOACTIVE 9 DOTS -->
   <div class="hd-bio-strip" id="hd-bio-strip" onclick="goPage('bio')">
     <div class="hd-bio-strip-head">
-      <div class="hd-bio-strip-ttl">💊 BioActive+ <span id="hd-bio-count" style="color:var(--accent);">—</span></div>
+      <div class="hd-bio-strip-ttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-3px;margin-right:5px;color:var(--accent);"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ <span id="hd-bio-count" style="color:var(--accent);">—</span></div>
       <div class="hd-bio-strip-go"><span class="lang-th">ดูทั้งหมด</span><span class="lang-en" style="display:none;">View all</span> ›</div>
     </div>
     <div class="hd-bio-dots" id="hd-bio-dots"><!-- 9 dots injected by JS --></div>
@@ -738,10 +737,10 @@ body.ltab-supp .s-supp{display:block;}
   </div>
   <div class="hd-block" style="margin-bottom:14px;">
     <div class="hd-recovery" id="hd-recovery">
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-bb" style="color:var(--veg);">—</div><div class="hd-rec-name">🔋 <span class="lang-th">Body Battery</span><span class="lang-en" style="display:none;">Body Battery</span></div></div>
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-hrv" style="color:var(--other);">—</div><div class="hd-rec-name">💗 HRV</div></div>
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-rhr" style="color:var(--prot);">—</div><div class="hd-rec-name">❤️ RHR</div></div>
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-sleep" style="color:var(--sleep);">—</div><div class="hd-rec-name">😴 <span class="lang-th">คะแนนนอน</span><span class="lang-en" style="display:none;">Sleep Score</span></div></div>
+      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-bb" style="color:var(--veg);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--veg);"><rect x="3" y="8.5" width="15" height="7" rx="2"/><path d="M21 11.2v1.6"/><path d="M6.5 10.8v2.4M9.5 10.8v2.4"/></svg><span class="lang-th">Body Battery</span><span class="lang-en" style="display:none;">Body Battery</span></div></div>
+      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-hrv" style="color:var(--other);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--other);"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 1-.3 2-.9 3"/><path d="M9.3 12.6h1.8l1-1.9 1.5 3.1.9-1.7h2"/></svg>HRV</div></div>
+      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-rhr" style="color:var(--prot);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--prot);"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg>RHR</div></div>
+      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-sleep" style="color:var(--sleep);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--sleep);"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg><span class="lang-th">คะแนนนอน</span><span class="lang-en" style="display:none;">Sleep Score</span></div></div>
     </div>
   </div>
 
@@ -752,16 +751,16 @@ body.ltab-supp .s-supp{display:block;}
   </div>
   <div class="hd-block" style="margin-bottom:14px;">
     <div class="hd-trend-3" id="hd-trend-3">
-      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--sleep);">—</div><div class="hd-tbox-name">💤 Sleep</div><div class="hd-tbox-d t-eq">—</div></div>
-      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--prot);">—</div><div class="hd-tbox-name">🥩 Protein</div><div class="hd-tbox-d t-eq">—</div></div>
-      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--exercise);">—</div><div class="hd-tbox-name">🏋️ Exercise</div><div class="hd-tbox-d t-eq">—</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--sleep);">—</div><div class="hd-tbox-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--sleep);"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/><path d="M15 3.5h3l-3 3.2h3"/></svg>Sleep</div><div class="hd-tbox-d t-eq">—</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--prot);">—</div><div class="hd-tbox-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--prot);"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>Protein</div><div class="hd-tbox-d t-eq">—</div></div>
+      <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--exercise);">—</div><div class="hd-tbox-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--exercise);"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise</div><div class="hd-tbox-d t-eq">—</div></div>
     </div>
   </div>
 
   <!-- AI INSIGHT -->
   <div class="hd-ai">
     <div class="hd-ai-head">
-      <div class="hd-ai-av">✨</div>
+      <div class="hd-ai-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#fff;"><path d="M12 3.5l1.7 4.8L18.5 10l-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7z"/><path d="M18.5 14.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div>
       <div>
         <div class="hd-ai-ttl">AI Health Insight</div>
         <div class="hd-ai-sub"><span class="lang-th">อัปเดตสำหรับคุณ</span><span class="lang-en" style="display:none;">Personalized for you</span></div>
@@ -779,10 +778,10 @@ body.ltab-supp .s-supp{display:block;}
     <div class="hd-sec-note"><span class="lang-th">บันทึกวันนี้</span><span class="lang-en" style="display:none;">Log today</span></div>
   </div>
   <div class="hd-quick">
-    <div class="hd-qbtn" onclick="goPage('log')"><div class="hd-qbtn-ic">📝</div><div class="hd-qbtn-tx"><span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Log</span></div></div>
-    <div class="hd-qbtn" onclick="goPage('bio')"><div class="hd-qbtn-ic">💊</div><div class="hd-qbtn-tx">BioActive</div></div>
-    <div class="hd-qbtn" onclick="goPage('body')"><div class="hd-qbtn-ic">📐</div><div class="hd-qbtn-tx">Body</div></div>
-    <div class="hd-qbtn" onclick="goPage('stats')"><div class="hd-qbtn-ic">📊</div><div class="hd-qbtn-tx"><span class="lang-th">สถิติ</span><span class="lang-en" style="display:none;">Stats</span></div></div>
+    <div class="hd-qbtn" onclick="goPage('log')"><div class="hd-qbtn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--accent);"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg></div><div class="hd-qbtn-tx"><span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Log</span></div></div>
+    <div class="hd-qbtn" onclick="goPage('bio')"><div class="hd-qbtn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--accent);"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg></div><div class="hd-qbtn-tx">BioActive</div></div>
+    <div class="hd-qbtn" onclick="goPage('body')"><div class="hd-qbtn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--accent);"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg></div><div class="hd-qbtn-tx">Body</div></div>
+    <div class="hd-qbtn" onclick="goPage('stats')"><div class="hd-qbtn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--accent);"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></div><div class="hd-qbtn-tx"><span class="lang-th">สถิติ</span><span class="lang-en" style="display:none;">Stats</span></div></div>
   </div>
 
   <div onclick="goPage('recovery')" style="margin-top:11px;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,var(--card),rgba(74,124,89,.09));border:1px solid var(--border);border-radius:18px;padding:14px 15px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);">
@@ -1334,6 +1333,24 @@ body.ltab-supp .s-supp{display:block;}
     <label class="lbl" style="margin-top:8px">📝 Notes</label>
     <textarea id="h_note" placeholder="symptoms, how you feel, anything worth noting..."></textarea>
   </div>
+  <style>
+  .logrec-wrap{display:flex;flex-wrap:wrap;gap:8px;}
+  .logrec-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--card2);border-radius:30px;padding:8px 13px 8px 10px;font-family:'Kanit',sans-serif;font-size:.76rem;font-weight:600;color:var(--text);cursor:pointer;position:relative;transition:transform .1s;}
+  .logrec-chip:active{transform:scale(.94);}
+  .logrec-ic{display:flex;}
+  .logrec-ic svg{width:18px;height:18px;}
+  .logrec-badge{min-width:18px;height:18px;padding:0 5px;border-radius:30px;color:#fff;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-left:1px;}
+  </style>
+  <div class="section s-body">
+    <div class="sec-hdr">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;"><path d="M12 19.5c-2 0-6-1.4-6-4.2 0-1.4 1.6-2.1 2.7-1.4M12 19.5c2 0 6-1.4 6-4.2 0-1.4-1.6-2.1-2.7-1.4"/><path d="M12 19.5c-1.7 0-3.2-2.1-3.2-4.7S12 9 12 9s3.2 3.2 3.2 5.8-1.5 4.7-3.2 4.7z"/></svg></div>
+      <div class="sec-ttl"><span class="lang-th">ฟื้นฟู &amp; ดูแลตัวเอง</span><span class="lang-en" style="display:none;">Recovery</span></div>
+      <a onclick="goPage('recovery')" style="margin-left:auto;font-size:.66rem;color:var(--accent);cursor:pointer;font-family:'Kanit',sans-serif;font-weight:600;"><span class="lang-th">ดูทั้งหมด ›</span><span class="lang-en" style="display:none;">View all ›</span></a>
+    </div>
+    <div style="font-size:.64rem;color:var(--muted2);margin:-2px 0 10px;"><span class="lang-th">แตะเพื่อบันทึกกิจกรรมฟื้นฟูของวันนี้ (แตะซ้ำ = เพิ่มอีกครั้ง)</span><span class="lang-en" style="display:none;">Tap to log today's ritual (tap again = +1)</span></div>
+    <div class="logrec-wrap" id="log-rec-chips"></div>
+  </div>
+
   <div class="section s-supp">
     <div class="sec-hdr"><div class="sec-ico">💊</div><div class="sec-ttl"><span class="lang-th">BioActive+ วันนี้</span><span class="lang-en" style="display:none;">BioActive+ Today</span></div></div>
     <div style="font-size:.68rem;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">กดได้เลย — ติ๊กเพื่อบันทึกว่ากินแล้ว</span><span class="lang-en" style="display:none;">Tap to mark as taken</span></div>
@@ -1367,6 +1384,7 @@ body.ltab-supp .s-supp{display:block;}
   <div id="tbl-summary"></div>
   <!-- Daily cards -->
   <div id="tbl-wrap"></div>
+  <div id="tbl-recovery"></div>
 </div>
 
 <!-- PAGE STATS -->
@@ -1389,6 +1407,7 @@ body.ltab-supp .s-supp{display:block;}
     <div id="stat-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
   </div>
   <div id="stat-wrap"></div>
+  <div id="stat-recovery"></div>
 </div>
 
 <!-- PAGE ING -->
@@ -2859,6 +2878,7 @@ async function loadDay(){
   // BioActive quick view
   const bioData = await dbLoadBio(curDay);
   renderBioQuick(bioData);
+  if(typeof renderLogRecovery==='function') renderLogRecovery();
 }
 
 async function saveDay(){
@@ -3165,6 +3185,7 @@ async function renderTable(){
   const isEN = (typeof currentLang!=='undefined' && currentLang==='en');
   const mo=document.getElementById('tbl-mo').value||curDay.substring(0,7);
   document.getElementById('tbl-mo-label').innerHTML = moLabel(mo) + ' <span class="tbl-mo-caret">▾</span>';
+  if(typeof renderRecoverySummary==='function') renderRecoverySummary('tbl-recovery', mo, isEN);
   const rows=await dbLoadMonth(mo);
   const wrap=document.getElementById('tbl-wrap');
   const sumEl=document.getElementById('tbl-summary');
@@ -3302,6 +3323,7 @@ async function renderStats(){
   const isEN=(typeof currentLang!=='undefined'&&currentLang==='en');
   const mo=document.getElementById('stat-mo').value||curDay.substring(0,7);
   document.getElementById('stat-mo-label').innerHTML=moLabel(mo)+' <span class="tbl-mo-caret">▾</span>';
+  if(typeof renderRecoverySummary==='function') renderRecoverySummary('stat-recovery', mo, isEN);
   const rows=await dbLoadMonth(mo);
   const wrap=document.getElementById('stat-wrap');
   if(!rows.length){wrap.innerHTML=`<div class="tbl-empty">📭 ${isEN?'No data this month':'ยังไม่มีข้อมูลเดือนนี้'}</div>`;populateMoSels(rows);return;}
@@ -4763,6 +4785,52 @@ function recDelete(id){
   rcSaveAll(rcLoad().filter(e=>e.id!==id)); recRender();
   if(typeof updateHomeRecovery==='function') updateHomeRecovery();
 }
+function recQuickAdd(typeId){
+  const date=(typeof curDay!=='undefined' && curDay) ? curDay : new Date().toISOString().split('T')[0];
+  const all=rcLoad();
+  all.push({ id:'rc'+Date.now(), type:typeId, date, mins:null, place:'', note:'' });
+  rcSaveAll(all);
+  renderLogRecovery();
+  if(typeof updateHomeRecovery==='function') updateHomeRecovery();
+  const t=rcType(typeId); const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  toast('✨ +'+(en?t.en:t.th));
+}
+function renderLogRecovery(){
+  const el=document.getElementById('log-rec-chips'); if(!el) return;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const date=(typeof curDay!=='undefined' && curDay) ? curDay : new Date().toISOString().split('T')[0];
+  const counts={}; rcLoad().filter(e=>e.date===date).forEach(e=>counts[e.type]=(counts[e.type]||0)+1);
+  el.innerHTML=RECOVERY_TYPES.map(t=>{
+    const c=counts[t.id]||0;
+    return `<button class="logrec-chip" onclick="recQuickAdd('${t.id}')" style="${c?`border-color:${t.color};background:${t.color}14;`:''}">
+      <span class="logrec-ic" style="color:${t.color};">${rcSvg(t.id)}</span>
+      <span>${en?t.en:t.th}</span>
+      ${c?`<span class="logrec-badge" style="background:${t.color};">${c}</span>`:''}
+    </button>`;
+  }).join('');
+}
+function renderRecoverySummary(containerId, mo, isEN){
+  const el=document.getElementById(containerId); if(!el) return;
+  const entries=rcLoad().filter(e=>(e.date||'').substring(0,7)===mo);
+  const counts={}; entries.forEach(e=>counts[e.type]=(counts[e.type]||0)+1);
+  const total=entries.length;
+  const head=`<div class="sec-hdr" style="margin-bottom:11px;"><div class="sec-ico" style="background:rgba(74,124,89,.13);color:var(--accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M12 19.5c-2 0-6-1.4-6-4.2 0-1.4 1.6-2.1 2.7-1.4M12 19.5c2 0 6-1.4 6-4.2 0-1.4-1.6-2.1-2.7-1.4"/><path d="M12 19.5c-1.7 0-3.2-2.1-3.2-4.7S12 9 12 9s3.2 3.2 3.2 5.8-1.5 4.7-3.2 4.7z"/></svg></div><div class="sec-ttl">${isEN?'Recovery & Rituals':'ฟื้นฟู & ดูแลตัวเอง'}</div><div style="margin-left:auto;font-family:'Kanit',sans-serif;font-weight:800;color:var(--accent);">${total} <span style="font-size:.62rem;font-weight:600;color:var(--muted2);">${isEN?'sessions':'ครั้ง'}</span></div></div>`;
+  let body;
+  if(!total){
+    body=`<div style="font-size:.72rem;color:var(--muted2);font-family:'Sarabun',sans-serif;">${isEN?'No recovery rituals logged this month.':'ยังไม่มีบันทึกฟื้นฟูในเดือนนี้'}</div>`;
+  } else {
+    const chips=RECOVERY_TYPES.filter(t=>counts[t.id]).sort((a,b)=>counts[b.id]-counts[a.id]).map(t=>{
+      return `<div style="display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid ${t.color}33;border-radius:30px;padding:6px 11px 6px 8px;font-family:'Kanit',sans-serif;font-size:.72rem;font-weight:600;color:var(--text);">
+        <span style="display:flex;color:${t.color};">${rcSvg(t.id)}</span>${isEN?t.en:t.th}
+        <b style="color:${t.color};margin-left:2px;">${counts[t.id]}</b></div>`;
+    }).join('');
+    body=`<div style="display:flex;flex-wrap:wrap;gap:7px;">${chips}</div>`;
+  }
+  el.innerHTML=`<div class="section" style="margin-top:14px;">${head}${body}<div style="text-align:right;margin-top:10px;"><a onclick="goPage('recovery')" style="font-size:.66rem;color:var(--accent);cursor:pointer;font-family:'Kanit',sans-serif;font-weight:600;">${isEN?'Open Recovery ›':'เปิดหน้า Recovery ›'}</a></div></div>`;
+  // size the inline svgs inside chips
+  el.querySelectorAll('span > svg, b svg').forEach(s=>{ s.style.width='17px'; s.style.height='17px'; });
+}
+
 function updateHomeRecovery(){
   const el=document.getElementById('hd-rec-count'); if(!el) return;
   const ym=new Date().toISOString().substring(0,7);
@@ -8050,20 +8118,20 @@ async function loadHomeDashboard(force){
 
   // priority order: water, sleep, exercise, protein, calories, fiber, fruit sugar
   const M=[
-    {key:'water',ic:'💧',bg:'rgba(107,143,163,.12)',name:isEN?'Water':'น้ำ',desc:isEN?'Daily hydration':'น้ำดื่มต่อวัน',
+    {key:'water',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#6B8FA3;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>',bg:'rgba(107,143,163,.12)',name:isEN?'Water':'น้ำ',desc:isEN?'Daily hydration':'น้ำดื่มต่อวัน',
      val:water?water.toFixed(1):'0',unit:'L',target:'/ 2.5 L',pct:clamp(water,2.5),col:colFor(clamp(water,2.5),100,60)},
-    {key:'sleep',ic:'🌙',bg:'rgba(107,143,163,.12)',name:isEN?'Sleep':'การนอน',desc:isEN?'Sleep target 7.5–8.5h':'เป้าการนอน 7.5–8.5 ชม.',
+    {key:'sleep',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#6B8FA3;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>',bg:'rgba(107,143,163,.12)',name:isEN?'Sleep':'การนอน',desc:isEN?'Sleep target 7.5–8.5h':'เป้าการนอน 7.5–8.5 ชม.',
      val:sleep?sleep.toFixed(1):'0',unit:'h',target:'/ 8 h',pct:clamp(sleep,8),col: (sleep>=7.5&&sleep<=8.5)?'var(--veg)':clamp(sleep,8)>=70?'var(--grain)':'var(--prot)'},
-    {key:'ex',ic:'🏋️',bg:'rgba(74,124,89,.12)',name:isEN?'Exercise':'ออกกำลังกาย',desc:isEN?'Strength · cardio · ≥45 min':'เวท · คาร์ดิโอ · ≥45 นาที',
+    {key:'ex',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#4A7C59;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>',bg:'rgba(74,124,89,.12)',name:isEN?'Exercise':'ออกกำลังกาย',desc:isEN?'Strength · cardio · ≥45 min':'เวท · คาร์ดิโอ · ≥45 นาที',
      val:exMin?Math.round(exMin):'0',unit:'min',target:'/ 45 min',pct:clamp(exMin,45),col: exMin>=45?'var(--veg)':exMin>=20?'var(--grain)':exMin>0?'var(--prot)':'var(--muted2)'},
-    {key:'prot',ic:'🥩',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc:isEN?'Protein per day':'โปรตีนต่อวัน',
+    {key:'prot',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#8B5E52;"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>',bg:'rgba(139,94,82,.12)',name:isEN?'Protein':'โปรตีน',desc:isEN?'Protein per day':'โปรตีนต่อวัน',
      val:prot?Math.round(prot):'0',unit:'g',target:'/ 100 g',pct:clamp(prot,100),col:colFor(clamp(prot,100),90,60)},
-    {key:'kcal',ic:'🔥',bg:'rgba(201,169,110,.14)',name:isEN?'Calories':'แคลอรี่',desc:isEN?'1,600–1,850 kcal':'1,600–1,850 kcal',
+    {key:'kcal',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C9A96E;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>',bg:'rgba(201,169,110,.14)',name:isEN?'Calories':'แคลอรี่',desc:isEN?'1,600–1,850 kcal':'1,600–1,850 kcal',
      val:kcal?Math.round(kcal).toLocaleString():'0',unit:'kcal',target:'/ 1,850',pct:clamp(kcal,1850),
      col: (kcal>=1600&&kcal<=1850)?'var(--veg)':(kcal>1850||((kcal>=1400)&&kcal<1600))?'var(--grain)':kcal>0?'var(--prot)':'var(--muted2)'},
-    {key:'fiber',ic:'🥦',bg:'rgba(74,124,89,.12)',name:isEN?'Fiber':'ไฟเบอร์',desc:isEN?'25–30g per day':'25–30g ต่อวัน',
+    {key:'fiber',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#4A7C59;"><path d="M12 21v-6.5"/><path d="M12 14.5c-3 0-5-1.7-5-3.9 0-1 .5-1.8 1.2-2.4C8 5.7 9.8 4.5 12 4.5s4 1.2 4.8 3.2c.7.6 1.2 1.4 1.2 2.4 0 2.2-2 3.9-5 3.9z"/></svg>',bg:'rgba(74,124,89,.12)',name:isEN?'Fiber':'ไฟเบอร์',desc:isEN?'25–30g per day':'25–30g ต่อวัน',
      val:fiber?Math.round(fiber):'0',unit:'g',target:'/ 30 g',pct:clamp(fiber,30),col:colFor(clamp(fiber,30),83,50)},
-    {key:'fsugar',ic:'🍎',bg:'rgba(212,132,90,.12)',name:isEN?'Fruit Sugar':'น้ำตาลผลไม้',desc:isEN?'Natural only · 15–25g':'น้ำตาลธรรมชาติ · 15–25g',
+    {key:'fsugar',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#D4845A;"><path d="M12 7.2c-1-1.6-2.8-2.2-4.3-1.4C6 6.7 5.3 8.8 6.1 11.2c.7 2.2 2.3 4.7 4 5.5.7.4 1.1.4 1.8 0 1.7-.8 3.3-3.3 4-5.5.8-2.4.1-4.5-1.6-5.4-1.5-.8-3.3-.2-4.3 1.4"/><path d="M12 6.5c0-1.2.8-2.2 2-2.5"/></svg>',bg:'rgba(212,132,90,.12)',name:isEN?'Fruit Sugar':'น้ำตาลผลไม้',desc:isEN?'Natural only · 15–25g':'น้ำตาลธรรมชาติ · 15–25g',
      val:fsugar?Math.round(fsugar):'0',unit:'g',target:'/ 25 g',pct:clamp(fsugar,25),
      col: fsugar<=25?'var(--veg)':fsugar<=35?'var(--grain)':'var(--prot)'},
   ];
@@ -8152,27 +8220,27 @@ async function loadHomeDashboard(force){
   const pushG=(arr,item)=>arr.push(item);
 
   // Water
-  if(water<2.0&&rem) pushG(gapsWarn,['warn','💧',isEN?`Drink ${(2.5-water).toFixed(1)}L more`:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, isEN?'Target 2.5L — supports kidneys, skin & metabolism':'เป้า 2.5L · ดูแลไต ผิว และ metabolism']);
-  else if(water>=2.0&&water<2.5&&rem) pushG(gapsWarn,['warn','💧',isEN?`Almost there — ${(2.5-water).toFixed(1)}L to go`:`อีกนิดเดียว — ขาด ${(2.5-water).toFixed(1)}L`, isEN?`${water.toFixed(1)}L of 2.5L · keep sipping`:`ตอนนี้ ${water.toFixed(1)}L จาก 2.5L · ดื่มต่ออีกหน่อย`]);
-  else if(water>=2.5) pushG(gapsGood,['good','💧',isEN?'Hydration complete':'น้ำครบเป้าแล้ว!', `${water.toFixed(1)}L ${isEN?'· well done':'· ดีมากค่ะ'}`]);
+  if(water<2.0&&rem) pushG(gapsWarn,['warn','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#6B8FA3;\"><path d=\"M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z\"/></svg>',isEN?`Drink ${(2.5-water).toFixed(1)}L more`:`ดื่มน้ำเพิ่มอีก ${(2.5-water).toFixed(1)}L`, isEN?'Target 2.5L — supports kidneys, skin & metabolism':'เป้า 2.5L · ดูแลไต ผิว และ metabolism']);
+  else if(water>=2.0&&water<2.5&&rem) pushG(gapsWarn,['warn','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#6B8FA3;\"><path d=\"M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z\"/></svg>',isEN?`Almost there — ${(2.5-water).toFixed(1)}L to go`:`อีกนิดเดียว — ขาด ${(2.5-water).toFixed(1)}L`, isEN?`${water.toFixed(1)}L of 2.5L · keep sipping`:`ตอนนี้ ${water.toFixed(1)}L จาก 2.5L · ดื่มต่ออีกหน่อย`]);
+  else if(water>=2.5) pushG(gapsGood,['good','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#6B8FA3;\"><path d=\"M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z\"/></svg>',isEN?'Hydration complete':'น้ำครบเป้าแล้ว!', `${water.toFixed(1)}L ${isEN?'· well done':'· ดีมากค่ะ'}`]);
 
   // Sleep
-  if(sleep>0&&sleep<7) pushG(gapsWarn,['info','🌙',isEN?`Only ${sleep.toFixed(1)}h sleep`:`นอนน้อยไป ${sleep.toFixed(1)}h`, isEN?'Aim 7.5–8.5h — try lights out before 22:30':'เป้า 7.5–8.5h · คืนนี้ควรนอนก่อน 22:30']);
-  else if(sleep>=7.5&&sleep<=8.5) pushG(gapsGood,['good','✅',isEN?'Optimal sleep':'การนอนดีเยี่ยม!', `${sleep.toFixed(1)}h ${isEN?'· in the optimal range':'· อยู่ในช่วงที่ดีที่สุด'}`]);
+  if(sleep>0&&sleep<7) pushG(gapsWarn,['info','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#6B8FA3;\"><path d=\"M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z\"/></svg>',isEN?`Only ${sleep.toFixed(1)}h sleep`:`นอนน้อยไป ${sleep.toFixed(1)}h`, isEN?'Aim 7.5–8.5h — try lights out before 22:30':'เป้า 7.5–8.5h · คืนนี้ควรนอนก่อน 22:30']);
+  else if(sleep>=7.5&&sleep<=8.5) pushG(gapsGood,['good','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#4A7C59;\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"m8.5 12 2.4 2.4 4.6-4.8\"/></svg>',isEN?'Optimal sleep':'การนอนดีเยี่ยม!', `${sleep.toFixed(1)}h ${isEN?'· in the optimal range':'· อยู่ในช่วงที่ดีที่สุด'}`]);
 
   // Exercise
-  if(exMin===0&&rem) pushG(gapsWarn,['info','🏋️',isEN?'No workout logged yet':'ยังไม่ได้ออกกำลังกาย', isEN?'Aim ≥45 min — strength, cardio or tennis':'เป้า ≥45 นาที · เวท คาร์ดิโอ หรือเทนนิส']);
-  else if(exMin>=45) pushG(gapsGood,['good','🔥',isEN?'Workout done':'ออกกำลังกายครบ!', `${Math.round(exMin)} ${isEN?'min · great training today':'นาที · เทรนดีมากวันนี้'}`]);
+  if(exMin===0&&rem) pushG(gapsWarn,['info','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#4A7C59;\"><path d=\"M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11\"/></svg>',isEN?'No workout logged yet':'ยังไม่ได้ออกกำลังกาย', isEN?'Aim ≥45 min — strength, cardio or tennis':'เป้า ≥45 นาที · เวท คาร์ดิโอ หรือเทนนิส']);
+  else if(exMin>=45) pushG(gapsGood,['good','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#C9A96E;\"><path d=\"M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z\"/></svg>',isEN?'Workout done':'ออกกำลังกายครบ!', `${Math.round(exMin)} ${isEN?'min · great training today':'นาที · เทรนดีมากวันนี้'}`]);
 
   // Protein
-  if(prot>0&&prot<70&&rem) pushG(gapsWarn,['warn','🥩',isEN?`Protein short by ${Math.round(100-prot)}g`:`โปรตีนยังขาด ${Math.round(100-prot)}g`, isEN?'Need 90–100g — add eggs or salmon next meal':'ควรได้ 90–100g · เพิ่มไข่หรือแซลมอนมื้อถัดไป']);
-  else if(prot>=90) pushG(gapsGood,['good','💪',isEN?'Protein goal met':'โปรตีนถึงเป้า!', `${Math.round(prot)}g ${isEN?'· muscle recovery on track':'· รักษากล้ามเนื้อได้ดี'}`]);
+  if(prot>0&&prot<70&&rem) pushG(gapsWarn,['warn','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#8B5E52;\"><circle cx=\"13.5\" cy=\"9.5\" r=\"4.3\"/><path d=\"m10.3 12.7-4.2 4.2\"/><path d=\"m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z\"/></svg>',isEN?`Protein short by ${Math.round(100-prot)}g`:`โปรตีนยังขาด ${Math.round(100-prot)}g`, isEN?'Need 90–100g — add eggs or salmon next meal':'ควรได้ 90–100g · เพิ่มไข่หรือแซลมอนมื้อถัดไป']);
+  else if(prot>=90) pushG(gapsGood,['good','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#8B5E52;\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"m8.5 12 2.4 2.4 4.6-4.8\"/></svg>',isEN?'Protein goal met':'โปรตีนถึงเป้า!', `${Math.round(prot)}g ${isEN?'· muscle recovery on track':'· รักษากล้ามเนื้อได้ดี'}`]);
 
   // BioActive
   try{ const tk=td?.bio_taken?(typeof td.bio_taken==='string'?JSON.parse(td.bio_taken):td.bio_taken):{};
     const c=Object.values(tk).filter(Boolean).length;
-    if(c<9) pushG(gapsWarn,['warn','💊',isEN?`BioActive ${9-c} left`:`BioActive ยังขาด ${9-c} ตัว`, isEN?`${c}/9 today — don't miss magnesium before bed`:`วันนี้ ${c}/9 · อย่าลืม magnesium ก่อนนอน`]);
-    else pushG(gapsGood,['good','💊',isEN?'BioActive complete':'BioActive ครบทุกตัว!', isEN?'9/9 · supplemented perfectly':'9/9 · เยี่ยมมากค่ะ']);
+    if(c<9) pushG(gapsWarn,['warn','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#4A7C59;\"><path d=\"M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z\"/><path d=\"m7.5 7.5 6 6\"/></svg>',isEN?`BioActive ${9-c} left`:`BioActive ยังขาด ${9-c} ตัว`, isEN?`${c}/9 today — don't miss magnesium before bed`:`วันนี้ ${c}/9 · อย่าลืม magnesium ก่อนนอน`]);
+    else pushG(gapsGood,['good','<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px;vertical-align:-3px;color:#4A7C59;\"><path d=\"M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z\"/><path d=\"m7.5 7.5 6 6\"/></svg>',isEN?'BioActive complete':'BioActive ครบทุกตัว!', isEN?'9/9 · supplemented perfectly':'9/9 · เยี่ยมมากค่ะ']);
   }catch(e){}
 
   // Warnings first, then good. Show all warnings + fill rest with good (max 4).
