@@ -655,6 +655,7 @@ body.ltab-supp .s-supp{display:block;}
       <div class="ntab" onclick="goPage('table')" id="ntab-table">📋 ตาราง</div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats">📊 สถิติ</div>
       <div class="ntab" onclick="goPage('body')" id="ntab-body">📐 Body</div>
+      <div class="ntab" onclick="goPage('recovery')" id="ntab-recovery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:3px;"><path d="M12 19.5c-2 0-6-1.4-6-4.2 0-1.4 1.6-2.1 2.7-1.4M12 19.5c2 0 6-1.4 6-4.2 0-1.4-1.6-2.1-2.7-1.4"/><path d="M12 19.5c-1.7 0-3.2-2.1-3.2-4.7S12 9 12 9s3.2 3.2 3.2 5.8-1.5 4.7-3.2 4.7z"/></svg><span class="lang-th">ฟื้นฟู</span><span class="lang-en" style="display:none;">Recovery</span></div>
       <div class="ntab" onclick="goPage('meals')" id="ntab-meals">🍱 Meals</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing">🥗 โภชนาการ</div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio">💊 BioActive+</div>
@@ -782,6 +783,15 @@ body.ltab-supp .s-supp{display:block;}
     <div class="hd-qbtn" onclick="goPage('bio')"><div class="hd-qbtn-ic">💊</div><div class="hd-qbtn-tx">BioActive</div></div>
     <div class="hd-qbtn" onclick="goPage('body')"><div class="hd-qbtn-ic">📐</div><div class="hd-qbtn-tx">Body</div></div>
     <div class="hd-qbtn" onclick="goPage('stats')"><div class="hd-qbtn-ic">📊</div><div class="hd-qbtn-tx"><span class="lang-th">สถิติ</span><span class="lang-en" style="display:none;">Stats</span></div></div>
+  </div>
+
+  <div onclick="goPage('recovery')" style="margin-top:11px;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,var(--card),rgba(74,124,89,.09));border:1px solid var(--border);border-radius:18px;padding:14px 15px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);">
+    <div style="width:44px;height:44px;border-radius:13px;background:rgba(74,124,89,.13);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 19.5c-2 0-6-1.4-6-4.2 0-1.4 1.6-2.1 2.7-1.4M12 19.5c2 0 6-1.4 6-4.2 0-1.4-1.6-2.1-2.7-1.4"/><path d="M12 19.5c-1.7 0-3.2-2.1-3.2-4.7S12 9 12 9s3.2 3.2 3.2 5.8-1.5 4.7-3.2 4.7z"/></svg></div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);"><span class="lang-th">ฟื้นฟู &amp; ดูแลตัวเอง</span><span class="lang-en" style="display:none;">Recovery &amp; Self-Care</span></div>
+      <div style="font-size:.64rem;color:var(--muted2);margin-top:2px;"><b id="hd-rec-count" style="color:var(--accent);">0</b> <span class="lang-th">ครั้งเดือนนี้ · แตะดู ice bath, ออนเซน, นวด, สครับ, เล็บ ฯลฯ</span><span class="lang-en" style="display:none;">this month · ice bath, onsen, massage, scrub, nails &amp; more</span></div>
+    </div>
+    <div style="color:var(--muted2);font-size:1.2rem;">›</div>
   </div>
 
 </div>
@@ -1725,6 +1735,111 @@ body.ltab-supp .s-supp{display:block;}
   </div>
   <div class="ord-note"><span class="lang-th">สถานะอัปเดตโดยประมาณ · เฟสถัดไปจะซิงก์เลขพัสดุจริงอัตโนมัติ</span><span class="lang-en" style="display:none;">Approximate status · live tracking syncs in next phase</span></div>
   <div id="orders-list"></div>
+</div>
+<style>
+/* ===== Recovery & Rituals ===== */
+.rc-hero{text-align:center;padding:8px 4px 12px;}
+.rc-hero .eyebrow{font-size:.58rem;letter-spacing:2.6px;color:var(--grain);font-weight:700;text-transform:uppercase;margin-bottom:7px;}
+.rc-hero .ttl{font-family:'Playfair Display',serif;font-size:1.95rem;color:var(--accent);font-weight:800;line-height:1.05;}
+.rc-hero .sub{font-size:.66rem;color:var(--muted2);margin-top:5px;font-family:'Sarabun',sans-serif;}
+.rc-monthbar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:9px 8px;margin:6px 0 16px;}
+.rc-monthbar button{border:none;background:var(--bg);width:34px;height:34px;border-radius:50%;font-size:1rem;color:var(--accent);cursor:pointer;}
+.rc-monthbar .m{font-family:'Kanit',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);}
+.rc-summary{background:linear-gradient(150deg,rgba(74,124,89,.10),var(--card) 60%);border:1px solid var(--border);border-radius:20px;padding:18px;margin-bottom:18px;display:flex;align-items:center;gap:18px;}
+.rc-sum-ring{width:78px;height:78px;border-radius:50%;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:conic-gradient(var(--accent) var(--p,0deg), var(--bg2) 0deg);}
+.rc-sum-ring > div{width:62px;height:62px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.rc-sum-ring b{font-family:'Kanit',sans-serif;font-size:1.5rem;font-weight:800;color:var(--accent);line-height:1;}
+.rc-sum-ring span{font-size:.5rem;color:var(--muted2);}
+.rc-sum-txt{flex:1;min-width:0;}
+.rc-sum-h{font-family:'Kanit',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);}
+.rc-sum-sub{font-size:.66rem;color:var(--muted2);margin-top:3px;line-height:1.4;}
+.rc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-bottom:20px;}
+.rc-tile{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;cursor:pointer;position:relative;transition:transform .12s, box-shadow .2s;overflow:hidden;}
+.rc-tile:active{transform:scale(.97);}
+.rc-tile.has{box-shadow:0 5px 18px rgba(74,124,89,.12);}
+.rc-tile-ic{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.rc-tile-ic svg{width:25px;height:25px;}
+.rc-tile-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);line-height:1.15;}
+.rc-tile-cnt{font-size:.62rem;color:var(--muted2);margin-top:3px;}
+.rc-tile-badge{position:absolute;top:11px;right:11px;min-width:22px;height:22px;padding:0 6px;border-radius:30px;color:#fff;font-family:'Kanit',sans-serif;font-weight:800;font-size:.66rem;display:flex;align-items:center;justify-content:center;}
+.rc-tile-plus{position:absolute;bottom:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05rem;font-weight:300;box-shadow:0 3px 8px rgba(74,124,89,.3);}
+.rc-sec-ttl{font-family:'Kanit',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin:4px 2px 11px;}
+.rc-hist{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:11px 13px;margin-bottom:9px;}
+.rc-hist-ic{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rc-hist-ic svg{width:21px;height:21px;}
+.rc-hist-info{flex:1;min-width:0;}
+.rc-hist-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:.8rem;color:var(--text);}
+.rc-hist-meta{font-size:.64rem;color:var(--muted2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rc-hist-del{border:none;background:none;color:var(--muted2);font-size:1.05rem;cursor:pointer;padding:4px 6px;}
+.rc-empty{text-align:center;color:var(--muted2);font-size:.74rem;padding:24px 10px;font-family:'Sarabun',sans-serif;}
+/* log modal */
+.rc-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:flex-end;justify-content:center;}
+.rc-modal.open{display:flex;}
+.rc-sheet{background:var(--card);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));animation:rcUp .25s ease;}
+@keyframes rcUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.rc-sheet-h{display:flex;align-items:center;gap:11px;margin-bottom:16px;}
+.rc-sheet-ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;}
+.rc-sheet-ic svg{width:24px;height:24px;}
+.rc-sheet-ttl{font-family:'Kanit',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);}
+.rc-field{margin-bottom:13px;}
+.rc-field label{display:block;font-family:'Kanit',sans-serif;font-size:.7rem;font-weight:600;color:var(--muted2);margin-bottom:5px;}
+.rc-field input{width:100%;border:1px solid var(--border);border-radius:12px;padding:11px 13px;font-family:'Sarabun',sans-serif;font-size:.86rem;background:var(--card2);color:var(--text);box-sizing:border-box;}
+.rc-chips{display:flex;gap:7px;flex-wrap:wrap;}
+.rc-chip{border:1px solid var(--border);background:var(--card2);border-radius:30px;padding:7px 13px;font-family:'Kanit',sans-serif;font-size:.74rem;color:var(--text);cursor:pointer;}
+.rc-chip.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+.rc-save{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,var(--accent),#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:4px;box-shadow:0 4px 15px rgba(74,124,89,.3);}
+.rc-cancel{width:100%;border:none;background:none;color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.78rem;padding:11px;cursor:pointer;}
+</style>
+
+<!-- ════════ RECOVERY & RITUALS ════════ -->
+<div class="page" id="page-recovery">
+  <div class="rc-hero">
+    <div class="eyebrow">RECOVERY &amp; RITUALS</div>
+    <div class="ttl"><span class="lang-th">ฟื้นฟู &amp; ดูแลตัวเอง</span><span class="lang-en" style="display:none;">Recovery &amp; Self-Care</span></div>
+    <div class="sub"><span class="lang-th">บันทึกการฟื้นฟูร่างกายในแต่ละเดือน — แช่น้ำแข็ง ซาวน่า ออนเซน นวด สครับ ทำเล็บ และอื่น ๆ</span><span class="lang-en" style="display:none;">Track your monthly recovery rituals — ice bath, sauna, onsen, massage, scrub, nails &amp; more</span></div>
+  </div>
+
+  <div class="rc-monthbar">
+    <button onclick="recMonthChange(-1)">‹</button>
+    <div class="m" id="rc-month-label">—</div>
+    <button onclick="recMonthChange(1)">›</button>
+  </div>
+
+  <div class="rc-summary" id="rc-summary"></div>
+
+  <div class="rc-sec-ttl"><span class="lang-th">แตะเพื่อบันทึกกิจกรรม</span><span class="lang-en" style="display:none;">Tap to log a ritual</span></div>
+  <div class="rc-grid" id="rc-grid"></div>
+
+  <div class="rc-sec-ttl"><span class="lang-th">ประวัติเดือนนี้</span><span class="lang-en" style="display:none;">This month</span></div>
+  <div id="rc-history"></div>
+</div>
+
+<!-- recovery log modal -->
+<div class="rc-modal" id="rc-modal" onclick="if(event.target===this)recCloseModal()">
+  <div class="rc-sheet">
+    <div class="rc-sheet-h">
+      <div class="rc-sheet-ic" id="rc-sheet-ic"></div>
+      <div class="rc-sheet-ttl" id="rc-sheet-ttl">—</div>
+    </div>
+    <div class="rc-field">
+      <label><span class="lang-th">วันที่</span><span class="lang-en" style="display:none;">Date</span></label>
+      <input type="date" id="rc-in-date">
+    </div>
+    <div class="rc-field">
+      <label><span class="lang-th">ระยะเวลา (นาที)</span><span class="lang-en" style="display:none;">Duration (min)</span></label>
+      <div class="rc-chips" id="rc-dur-chips"></div>
+    </div>
+    <div class="rc-field">
+      <label><span class="lang-th">สถานที่ (ไม่บังคับ)</span><span class="lang-en" style="display:none;">Place (optional)</span></label>
+      <input type="text" id="rc-in-place" placeholder="เช่น บ้าน / สปา / ออนเซน">
+    </div>
+    <div class="rc-field">
+      <label><span class="lang-th">โน้ต (ไม่บังคับ)</span><span class="lang-en" style="display:none;">Note (optional)</span></label>
+      <input type="text" id="rc-in-note" placeholder="ความรู้สึก / รายละเอียด">
+    </div>
+    <button class="rc-save" onclick="recSave()"><span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
+    <button class="rc-cancel" onclick="recCloseModal()"><span class="lang-th">ยกเลิก</span><span class="lang-en" style="display:none;">Cancel</span></button>
+  </div>
 </div>
 <div class="page" id="page-body">
 
@@ -2963,7 +3078,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio','shop','member','orders'];
+  const allPages = ['home','profile','log','table','stats','body','meals','ing','bio','shop','member','orders','recovery'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -2980,6 +3095,8 @@ function goPage(name){
   if(name==='shop'){ renderShop(); }
   if(name==='member'){ renderMember(); }
   if(name==='orders'){ renderOrders(); }
+  if(name==='recovery'){ recRender(); }
+  if(name==='home' && typeof updateHomeRecovery==='function'){ updateHomeRecovery(); }
   if(name==='body'){ switchBodyTab('map'); }
   if(name==='meals'){renderMealPresets();}
   if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
@@ -4505,6 +4622,155 @@ function renderOrders(){
 }
 
 
+// ════════ RECOVERY & RITUALS ════════
+// Custom hand-drawn SVG icons (no system emoji)
+const RC_SVG = {
+  icebath:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M9.5 5.5 12 8l2.5-2.5M9.5 18.5 12 16l2.5 2.5"/><path d="m4.2 7.5 15.6 9"/><path d="m5.5 6.4-1.3 1.1.3 1.7M18.5 17.6l1.3-1.1-.3-1.7"/><path d="m19.8 7.5-15.6 9"/><path d="m18.5 6.4 1.3 1.1-.3 1.7M5.5 17.6l-1.3-1.1.3-1.7"/></svg>',
+  sauna:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="8.5" cy="17" rx="3.2" ry="1.7"/><ellipse cx="15" cy="17.5" rx="3" ry="1.6"/><ellipse cx="11.5" cy="14.3" rx="2.7" ry="1.5"/><path d="M9 10.5c-.9-1 .9-2 0-3.2M13 10.5c-.9-1 .9-2 0-3.2"/></svg>',
+  onsen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5h16c0 3.3-2.7 5.5-6 5.5h-4c-3.3 0-6-2.2-6-5.5z"/><path d="M9 11c-1-1.1 1-2.2 0-3.4M12 11c-1-1.1 1-2.2 0-3.4M15 11c-1-1.1 1-2.2 0-3.4"/></svg>',
+  bigbath:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5h18v2.5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M5.5 12.5V7.2A2 2 0 0 1 7.5 5.2"/><path d="M7 5.2a1.6 1.6 0 0 1 3.1 0"/><path d="M6.5 19.5l-.7 1.4M17.5 19.5l.7 1.4"/></svg>',
+  thaimassage:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5c-2 0-6-1.4-6-4.2 0-1.4 1.6-2.1 2.7-1.4M12 19.5c2 0 6-1.4 6-4.2 0-1.4-1.6-2.1-2.7-1.4"/><path d="M12 19.5c-1.7 0-3.2-2.1-3.2-4.7S12 9 12 9s3.2 3.2 3.2 5.8-1.5 4.7-3.2 4.7z"/></svg>',
+  aroma:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s5 5.7 5 9.5a5 5 0 0 1-10 0c0-3.8 5-9.5 5-9.5z"/><path d="M9.8 13.2c.4 1.6 1.9 2.7 3.5 2.7"/></svg>',
+  scrub:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m11 3.5 1.7 4.6 4.6 1.7-4.6 1.7L11 16.1 9.3 11.5 4.7 9.8l4.6-1.7z"/><circle cx="17.5" cy="16.5" r="1.3"/><circle cx="6.5" cy="16" r="1"/></svg>',
+  facial:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10a5 5 0 0 1 9.8-1.4"/><path d="M7 10v1.5a5 5 0 0 0 10 0V10"/><path d="M9.7 11h.01M14.3 11h.01"/><path d="M16.5 5c2-1 3.3.2 3.3.2s-.6 2.4-2.9 2.6"/></svg>',
+  nails:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20.5c0-5.5 1.8-9.5 4-9.5s4 4 4 9.5z"/><path d="M9.4 14c.8-1.6 4.4-1.6 5.2 0"/></svg>',
+  hair:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16"/><path d="M7 6.5v6.5M11 6.5v8.5M15 6.5v6.5M19 6.5v5.5"/></svg>',
+  other:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 3 3.5 3.5 5.5 3.5C16.5 9 16 11 17 13c-2-.8-3.8 0-5 2-1.2-2-3-2.8-5-2 1-2 .5-4-.5-6.5C8.5 6.5 10.5 6 12 3z"/></svg>',
+};
+const RECOVERY_TYPES = [
+  { id:'icebath',     th:'แช่น้ำแข็ง',        en:'Ice Bath',       color:'#6B8FA3' },
+  { id:'sauna',       th:'ซาวน่า',            en:'Sauna',          color:'#D4845A' },
+  { id:'onsen',       th:'ออนเซน',            en:'Onsen',          color:'#C0672E' },
+  { id:'bigbath',     th:'อาบน้ำใหญ่',        en:'Ritual Bath',    color:'#7A6B8A' },
+  { id:'thaimassage', th:'นวดไทย',            en:'Thai Massage',   color:'#4A7C59' },
+  { id:'aroma',       th:'นวดน้ำมัน/อโรม่า',  en:'Aroma Massage',  color:'#8B5E52' },
+  { id:'scrub',       th:'สครับ/สครับอโรม่า', en:'Body Scrub',     color:'#C9A96E' },
+  { id:'facial',      th:'ทรีตเมนต์หน้า',     en:'Facial',         color:'#D4845A' },
+  { id:'nails',       th:'ทำเล็บเจล',         en:'Gel Nails',      color:'#B5688A' },
+  { id:'hair',        th:'ทรีตเมนต์ผม',       en:'Hair Treatment', color:'#6B8FA3' },
+  { id:'other',       th:'อื่น ๆ',            en:'Other',          color:'#9B9B9B' },
+];
+const RC_KEY='girl_recovery';
+let recMonth = new Date().toISOString().substring(0,7); // YYYY-MM
+let _recType = null;
+
+function rcType(id){ return RECOVERY_TYPES.find(t=>t.id===id) || RECOVERY_TYPES[RECOVERY_TYPES.length-1]; }
+function rcSvg(id){ return RC_SVG[id] || RC_SVG.other; }
+function rcLoad(){ try{ return JSON.parse(localStorage.getItem(RC_KEY)||'[]'); }catch(e){ return []; } }
+function rcSaveAll(a){ try{ localStorage.setItem(RC_KEY, JSON.stringify(a)); }catch(e){} }
+function rcMonthEntries(){ return rcLoad().filter(e=>(e.date||'').substring(0,7)===recMonth); }
+function rcLang(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  document.querySelectorAll('#page-recovery .lang-th, #rc-modal .lang-th').forEach(e=>e.style.display=en?'none':'');
+  document.querySelectorAll('#page-recovery .lang-en, #rc-modal .lang-en').forEach(e=>e.style.display=en?'':'none');
+}
+function recMonthChange(d){
+  const [y,m]=recMonth.split('-').map(Number);
+  const dt=new Date(y, m-1+d, 1); recMonth=dt.toISOString().substring(0,7); recRender();
+}
+function recRender(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  // month label
+  const [y,m]=recMonth.split('-').map(Number);
+  const lbl=new Date(y,m-1,1).toLocaleDateString(en?'en-US':'th-TH',{month:'long',year:'numeric'});
+  const lblEl=document.getElementById('rc-month-label'); if(lblEl) lblEl.textContent=lbl;
+  const entries=rcMonthEntries();
+  // counts per type
+  const counts={}; entries.forEach(e=>counts[e.type]=(counts[e.type]||0)+1);
+  const total=entries.length;
+  const typesUsed=Object.keys(counts).length;
+  // summary ring (target ~12 sessions/month as "great")
+  const goal=12; const pct=Math.min(100, Math.round(total/goal*100));
+  const sum=document.getElementById('rc-summary');
+  if(sum){
+    sum.innerHTML=`<div class="rc-sum-ring" style="--p:${pct*3.6}deg;"><div><b>${total}</b><span>${en?'sessions':'ครั้ง'}</span></div></div>
+      <div class="rc-sum-txt">
+        <div class="rc-sum-h">${ total===0?(en?'No rituals logged yet':'ยังไม่มีบันทึกเดือนนี้') : (en?'Nice self-care this month!':'ดูแลตัวเองดีมากเดือนนี้!') }</div>
+        <div class="rc-sum-sub">${en?`${typesUsed} types of recovery · keep your body & mind glowing 🌿`:`ฟื้นฟู ${typesUsed} แบบ · ดูแลกายใจให้เปล่งปลั่งต่อไปนะ 🌿`}</div>
+      </div>`;
+  }
+  // grid
+  const grid=document.getElementById('rc-grid');
+  if(grid){
+    grid.innerHTML=RECOVERY_TYPES.map(t=>{
+      const c=counts[t.id]||0;
+      const nm=en?t.en:t.th;
+      return `<div class="rc-tile${c?' has':''}" onclick="recOpenModal('${t.id}')">
+        <div class="rc-tile-ic" style="background:${t.color}1a;color:${t.color};">${rcSvg(t.id)}</div>
+        <div class="rc-tile-name">${nm}</div>
+        <div class="rc-tile-cnt">${ c? (en?`${c}× this month`:`เดือนนี้ ${c} ครั้ง`) : (en?'tap to add':'แตะเพื่อเพิ่ม') }</div>
+        ${c?`<div class="rc-tile-badge" style="background:${t.color};">${c}</div>`:''}
+        <div class="rc-tile-plus">+</div>
+      </div>`;
+    }).join('');
+  }
+  // history
+  const hist=document.getElementById('rc-history');
+  if(hist){
+    if(!entries.length){ hist.innerHTML=`<div class="rc-empty">${en?'No rituals logged this month yet. Tap a tile above to start. ✨':'ยังไม่มีบันทึกเดือนนี้ — แตะการ์ดด้านบนเพื่อเริ่มเลยค่ะ ✨'}</div>`; }
+    else{
+      const sorted=entries.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+      hist.innerHTML=sorted.map(e=>{
+        const t=rcType(e.type); const nm=en?t.en:t.th;
+        const d=new Date(e.date).toLocaleDateString(en?'en-US':'th-TH',{day:'numeric',month:'short'});
+        const meta=[d, e.mins?`${e.mins} ${en?'min':'นาที'}`:'', e.place||'', e.note||''].filter(Boolean).join(' · ');
+        return `<div class="rc-hist">
+          <div class="rc-hist-ic" style="background:${t.color}1a;color:${t.color};">${rcSvg(e.type)}</div>
+          <div class="rc-hist-info"><div class="rc-hist-name">${nm}</div><div class="rc-hist-meta">${meta}</div></div>
+          <button class="rc-hist-del" onclick="recDelete('${e.id}')">✕</button>
+        </div>`;
+      }).join('');
+    }
+  }
+  rcLang();
+}
+function recOpenModal(typeId){
+  _recType=typeId; const t=rcType(typeId); const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  document.getElementById('rc-sheet-ttl').textContent=(en?'Log ':'บันทึก ')+(en?t.en:t.th);
+  const ic=document.getElementById('rc-sheet-ic'); ic.style.background=t.color+'1a'; ic.style.color=t.color; ic.innerHTML=rcSvg(typeId);
+  document.getElementById('rc-in-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('rc-in-place').value='';
+  document.getElementById('rc-in-note').value='';
+  // duration chips
+  const durs=[15,30,45,60,90];
+  const dc=document.getElementById('rc-dur-chips');
+  dc.innerHTML=durs.map(d=>`<div class="rc-chip" data-d="${d}" onclick="recPickDur(this,${d})">${d}</div>`).join('');
+  _recDur=null;
+  document.getElementById('rc-modal').classList.add('open');
+  rcLang();
+}
+let _recDur=null;
+function recPickDur(el,d){
+  document.querySelectorAll('#rc-dur-chips .rc-chip').forEach(c=>c.classList.remove('on'));
+  if(_recDur===d){ _recDur=null; } else { el.classList.add('on'); _recDur=d; }
+}
+function recCloseModal(){ document.getElementById('rc-modal').classList.remove('open'); }
+function recSave(){
+  if(!_recType) return;
+  const date=document.getElementById('rc-in-date').value || new Date().toISOString().split('T')[0];
+  const place=(document.getElementById('rc-in-place').value||'').trim();
+  const note=(document.getElementById('rc-in-note').value||'').trim();
+  const all=rcLoad();
+  all.push({ id:'rc'+Date.now(), type:_recType, date, mins:_recDur||null, place, note });
+  rcSaveAll(all);
+  recMonth=date.substring(0,7); // jump to that month so it shows
+  recCloseModal(); recRender();
+  const t=rcType(_recType);
+  toast('✨ บันทึก '+( (typeof currentLang!=='undefined'&&currentLang==='en')?t.en:t.th )+' แล้ว');
+  if(typeof updateHomeRecovery==='function') updateHomeRecovery();
+}
+function recDelete(id){
+  rcSaveAll(rcLoad().filter(e=>e.id!==id)); recRender();
+  if(typeof updateHomeRecovery==='function') updateHomeRecovery();
+}
+function updateHomeRecovery(){
+  const el=document.getElementById('hd-rec-count'); if(!el) return;
+  const ym=new Date().toISOString().substring(0,7);
+  const n=rcLoad().filter(e=>(e.date||'').substring(0,7)===ym).length;
+  el.textContent=n;
+}
+
+
 let curBioDay = new Date().toISOString().split('T')[0];
 let curBioMo = curBioDay.substring(0,7);
 let bioTodayData = {}; // {productId: true/false}
@@ -4618,7 +4884,7 @@ function renderBioCards(){
 
     return `<div class="bio-card${done?' taken':''}" id="biocard-${p.id}" style="--bc:${p.dotColor}${done?`;border-color:${p.dotColor}55;background:linear-gradient(160deg,${p.dotColor}0a,var(--card) 55%)`:''}">
       <div class="bio-card-top">
-        <div class="bio-dot" style="background:linear-gradient(140deg,${p.dotColor},${p.dotColor}cc)">${p.icon}</div>
+        <div class="bio-dot" style="background:#fff;border:1.5px solid ${p.dotColor}55;padding:3px;overflow:hidden;"><img src="${shopImg(p.id)}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:11px;"></div>
         <div style="flex:1;min-width:0;">
           <div class="bio-name">${p.name}</div>
           <div class="bio-brand">BioActive+ · ${p.form}</div>
