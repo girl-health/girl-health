@@ -691,6 +691,7 @@ body.ltab-supp .s-supp{display:block;}
     <div>
       <div class="hd-hello" id="hd-hello">Good morning, GIRL</div>
       <div class="hd-hello-sub" id="hd-hello-sub">พร้อมดูแลตัวเองให้ดีที่สุดวันนี้</div>
+      <div id="hd-age" style="font-size:.62rem;color:var(--accent);font-weight:600;margin-top:3px;letter-spacing:.2px;"></div>
     </div>
     <div class="hd-date-chip" id="hd-date-chip">—</div>
   </div>
@@ -885,7 +886,7 @@ body.ltab-supp .s-supp{display:block;}
         <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" class="pf-input"></div>
       </div>
       <div style="margin-bottom:10px;"><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg><span class="lang-th">วันที่วัด</span><span class="lang-en" style="display:none;">Date measured</span></label><input type="date" id="pb-date-in" class="pf-input"></div>
-      <button onclick="saveProfileBody()" class="pf-save-btn">💾 <span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
+      <button onclick="saveProfileBody()" class="pf-save-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M5 4h11l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V5.5A1.5 1.5 0 0 1 5 4z"/><path d="M8 4v5h7V4.5M8 13.5h8V20H8z"/></svg><span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
     </div>
   </div>
 
@@ -1275,10 +1276,10 @@ body.ltab-supp .s-supp{display:block;}
 
     <!-- 🌸 Period Tracker — TOP for easy access -->
     <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:13px;padding:11px 13px;margin-bottom:12px;">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#C0392B;margin-bottom:8px;">🌸 Period Tracker</div>
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#C0392B;margin-bottom:8px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#C0392B;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="1.9"/><ellipse cx="12" cy="7.6" rx="1.9" ry="2.5"/><ellipse cx="16.2" cy="10.7" rx="2.5" ry="1.9"/><ellipse cx="14.6" cy="15.5" rx="1.9" ry="2.5"/><ellipse cx="9.4" cy="15.5" rx="1.9" ry="2.5"/><ellipse cx="7.8" cy="10.7" rx="2.5" ry="1.9"/></svg>Period Tracker</div>
       <div style="display:flex;gap:6px;margin-bottom:8px;">
         <button onclick="setPeriod('none')" class="period-btn" id="pd-none" style="flex:1;">— None</button>
-        <button onclick="setPeriod('on')" class="period-btn" id="pd-on" style="flex:2;">🩸 On Period today</button>
+        <button onclick="setPeriod('on')" class="period-btn" id="pd-on" style="flex:2;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#C0392B;vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>On Period today</button>
       </div>
       <div id="period-detail" style="display:none;">
         <div style="font-size:.62rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;">Flow</div>
@@ -1322,7 +1323,7 @@ body.ltab-supp .s-supp{display:block;}
     <!-- Cheat Day -->
     <div style="display:flex;gap:8px;margin-bottom:12px;">
       <button id="bad-day-btn" onclick="toggleBadDay()" style="flex:1;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;transition:all .25s;color:var(--muted2);">
-        🍰 Cheat Day
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day
       </button>
     </div>
     <div id="daily-photo-preview" style="display:none;margin-bottom:10px;"></div>
@@ -1373,24 +1374,24 @@ body.ltab-supp .s-supp{display:block;}
 
     <!-- Day Rating -->
     <div style="margin-top:12px;margin-bottom:12px;">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">⭐ Day Rating</div>
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3l2.3 6.5 6.7.2-5.4 4 2 6.5L12 16l-5.6 4.2 2-6.5-5.4-4 6.7-.2z"/></svg>Day Rating</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button onclick="setDayRating('excellent')" class="day-rating-btn" id="dr-excellent">🌟 Excellent</button>
-        <button onclick="setDayRating('good')" class="day-rating-btn" id="dr-good">✅ Good</button>
-        <button onclick="setDayRating('okay')" class="day-rating-btn" id="dr-okay">😐 Okay</button>
-        <button onclick="setDayRating('bad')" class="day-rating-btn" id="dr-bad">💀 Bad</button>
-        <button onclick="setDayRating('sick')" class="day-rating-btn" id="dr-sick">🤒 Sick</button>
+        <button onclick="setDayRating('excellent')" class="day-rating-btn" id="dr-excellent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3l2.3 6.5 6.7.2-5.4 4 2 6.5L12 16l-5.6 4.2 2-6.5-5.4-4 6.7-.2z"/></svg>Excellent</button>
+        <button onclick="setDayRating('good')" class="day-rating-btn" id="dr-good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M4.5 12.5l4.5 4.5 10-11"/></svg>Good</button>
+        <button onclick="setDayRating('okay')" class="day-rating-btn" id="dr-okay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.5h7M9 9.8h.01M15 9.8h.01"/></svg>Okay</button>
+        <button onclick="setDayRating('bad')" class="day-rating-btn" id="dr-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#C0392B;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 15.2c1-1.3 2.1-2 3.5-2s2.5.7 3.5 2M9 9.8h.01M15 9.8h.01"/></svg>Bad</button>
+        <button onclick="setDayRating('sick')" class="day-rating-btn" id="dr-sick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#D4845A;vertical-align:-2px;margin-right:4px;"><path d="M10 13.8V5.5a2 2 0 0 1 4 0v8.3a3.6 3.6 0 1 1-4 0z"/><path d="M12 9.5v4.8"/></svg>Sick</button>
       </div>
     </div>
 
     <!-- Alcohol -->
     <div style="margin-bottom:12px;">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;">🍷 Alcohol</div>
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#8B5E8B;vertical-align:-2px;margin-right:4px;"><path d="M7.5 4h9l-.6 5a3.9 3.9 0 0 1-7.8 0z"/><path d="M12 13v6M9 20h6"/></svg>Alcohol</div>
       <div style="display:flex;gap:6px;margin-bottom:7px;">
-        <button onclick="setAlcohol('none')" class="alcohol-btn" id="alc-none">✗ None</button>
-        <button onclick="setAlcohol('light')" class="alcohol-btn" id="alc-light">🍺 Light</button>
-        <button onclick="setAlcohol('moderate')" class="alcohol-btn" id="alc-moderate">🍷 Moderate</button>
-        <button onclick="setAlcohol('heavy')" class="alcohol-btn" id="alc-heavy">🥃 Heavy</button>
+        <button onclick="setAlcohol('none')" class="alcohol-btn" id="alc-none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--muted2);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M6.2 6.2 17.8 17.8"/></svg>None</button>
+        <button onclick="setAlcohol('light')" class="alcohol-btn" id="alc-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M6 8h9v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M15 10h2.5a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M8.5 8c0-2 1.2-3 3-3s3 1 3 3"/></svg>Light</button>
+        <button onclick="setAlcohol('moderate')" class="alcohol-btn" id="alc-moderate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#8B5E8B;vertical-align:-2px;margin-right:4px;"><path d="M7.5 4h9l-.6 5a3.9 3.9 0 0 1-7.8 0z"/><path d="M12 13v6M9 20h6"/></svg>Moderate</button>
+        <button onclick="setAlcohol('heavy')" class="alcohol-btn" id="alc-heavy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#8B5E52;vertical-align:-2px;margin-right:4px;"><path d="M6.5 8h11l-1 9.5a1.5 1.5 0 0 1-1.5 1.3H9a1.5 1.5 0 0 1-1.5-1.3z"/><path d="M8 12h8"/></svg>Heavy</button>
       </div>
       <textarea id="alcohol_note" class="meal-ta" placeholder="e.g. 2 glasses red wine · 1 beer  — or upload/type for AI to calculate calories & impact" oninput="autoResize(this)" style="margin-top:4px;"></textarea>
       <button onclick="analyzeAlcohol()" style="margin-top:6px;font-size:.63rem;font-weight:700;letter-spacing:.6px;color:#fff;background:#8B5E8B;border:none;border-radius:7px;padding:5px 12px;cursor:pointer;text-transform:uppercase;">✦ Calculate Impact</button>
@@ -1754,7 +1755,7 @@ body.ltab-supp .s-supp{display:block;}
   <div class="mb-sec-ttl"><span class="lang-th">สิทธิ์ระดับของคุณ</span><span class="lang-en" style="display:none;">Your tier perks</span></div>
   <div id="mb-benefits"></div>
 
-  <div class="mb-sec-ttl" style="margin-top:18px;"><span class="lang-th">🎁 แลกของรางวัลด้วยแต้ม</span><span class="lang-en" style="display:none;">🎁 Redeem with points</span></div>
+  <div class="mb-sec-ttl" style="margin-top:18px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#D4845A;vertical-align:-2px;margin-right:4px;"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M4 13h16M12 9v11M12 9c-1.2-3-5.2-2.6-5.2.2 0 .9.6 1.8 2.2 1.8M12 9c1.2-3 5.2-2.6 5.2.2 0 .9-.6 1.8-2.2 1.8"/></svg>แลกของรางวัลด้วยแต้ม</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#D4845A;vertical-align:-2px;margin-right:4px;"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M4 13h16M12 9v11M12 9c-1.2-3-5.2-2.6-5.2.2 0 .9.6 1.8 2.2 1.8M12 9c1.2-3 5.2-2.6 5.2.2 0 .9-.6 1.8-2.2 1.8"/></svg>Redeem with points</span></div>
   <div id="mb-rewards"></div>
 
   <div class="mb-sec-ttl" style="margin-top:14px;"><span class="lang-th">ชื่อบนการ์ด</span><span class="lang-en" style="display:none;">Name on card</span></div>
@@ -2071,7 +2072,7 @@ body.ltab-supp .s-supp{display:block;}
 
         <!-- Most common needs -->
         <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;margin-bottom:10px;">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;"><span class="lang-th">💊 BioActive+ แนะนำตามผิว</span><span class="lang-en" style="display:none;">💊 BioActive+ Skin Recommendations</span></div>
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ แนะนำตามผิว</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ Skin Recommendations</span></div>
           <div id="sdash-nutrients-wrap"></div>
         </div>
       </div>
@@ -2211,7 +2212,7 @@ body.ltab-supp .s-supp{display:block;}
       <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Body Fat (%)</label><input type="number" id="body-fat" step="0.1" placeholder="25.3" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
       <div><label class="lbl">💪 Muscle (kg)</label><input type="number" id="body-muscle" step="0.1" placeholder="20.2" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:100%;"></div>
     </div>
-    <button onclick="saveBodySnapshot()" style="width:100%;padding:11px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;letter-spacing:.5px;">💾 Save Measurement</button>
+    <button onclick="saveBodySnapshot()" style="width:100%;padding:11px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:11px;cursor:pointer;letter-spacing:.5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#fff;vertical-align:-2px;margin-right:4px;"><path d="M5 4h11l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V5.5A1.5 1.5 0 0 1 5 4z"/><path d="M8 4v5h7V4.5M8 13.5h8V20H8z"/></svg>Save Measurement</button>
   </div>
 
   <!-- Next Goals -->
@@ -2397,6 +2398,9 @@ body.ltab-supp .s-supp{display:block;}
 // ── SUPABASE ──
 const SUPA_URL = 'https://moycqmyzpsirrcenkuvy.supabase.co';
 const SUPA_KEY = 'sb_publishable_lbZYBL1Jh_3Z63Hh4J2DDA_tPDotm6W';
+const GIRL_BIRTHDATE='1994-05-07';
+function girlAge(){ try{ const b=new Date(GIRL_BIRTHDATE), n=new Date(); let a=n.getFullYear()-b.getFullYear(); const m=n.getMonth()-b.getMonth(); if(m<0||(m===0&&n.getDate()<b.getDate())) a--; return a; }catch(e){ return 32; } }
+function setHomeAge(){ const el=document.getElementById('hd-age'); if(!el) return; const en=(typeof currentLang!=='undefined'&&currentLang==='en'); el.textContent = en?('Age '+girlAge()+' · born 7 May 1994'):('อายุ '+girlAge()+' ปี · เกิด 7 พ.ค. 1994'); }
 const { createClient } = supabase;
 const db = createClient(SUPA_URL, SUPA_KEY, {
   auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
@@ -2759,7 +2763,7 @@ async function loadDay(){
   isBadDay = (d.h_note||'').includes('Cheat day');
   const btn=document.getElementById('bad-day-btn');
   btn.classList.toggle('active',isBadDay);
-  btn.textContent=isBadDay?'🍰 Cheat Day — logged':'🍰 Cheat Day';
+  btn.innerHTML=isBadDay?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day — logged':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day';
   // Water alert check
   await checkWaterAlert();
   // BioActive quick view
@@ -3246,7 +3250,7 @@ async function renderStats(){
   // Heatmap cells
   const ratingColor={'excellent':'#4A7C59','good':'#4A7C59','okay':'#C9A96E','bad':'#C0392B','sick':'#8B5E8B'};
   const ratingBg={'excellent':'rgba(74,124,89,.16)','good':'rgba(74,124,89,.1)','okay':'rgba(201,169,110,.13)','bad':'rgba(192,57,43,.1)','sick':'rgba(139,94,139,.1)'};
-  const ratingLabel={'excellent':'🌟','good':'✅','okay':'😐','bad':'💀','sick':'🤒','':''};
+  const ratingLabel={'excellent':`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:var(--grain);vertical-align:-2px;"><path d="M12 3l2.3 6.5 6.7.2-5.4 4 2 6.5L12 16l-5.6 4.2 2-6.5-5.4-4 6.7-.2z"/></svg>`,'good':`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:var(--veg);vertical-align:-2px;"><path d="M4.5 12.5l4.5 4.5 10-11"/></svg>`,'okay':`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:var(--grain);vertical-align:-2px;"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.5h7M9 9.8h.01M15 9.8h.01"/></svg>`,'bad':`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:#C0392B;vertical-align:-2px;"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 15.2c1-1.3 2.1-2 3.5-2s2.5.7 3.5 2M9 9.8h.01M15 9.8h.01"/></svg>`,'sick':`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:#D4845A;vertical-align:-2px;"><path d="M10 13.8V5.5a2 2 0 0 1 4 0v8.3a3.6 3.6 0 1 1-4 0z"/><path d="M12 9.5v4.8"/></svg>`,'':''};
   const [y,m]=mo.split('-').map(Number);
   const daysInMo=new Date(y,m,0).getDate();
   const firstDow=new Date(y,m-1,1).getDay();
@@ -3358,10 +3362,10 @@ async function renderStats(){
 
     <!-- TREND MINI-CARDS -->
     <div class="st-trend-grid">
-      ${trendCard('🥩',isEN?'Protein':'โปรตีน',protVals,`${avg('mac_p')}g`,'var(--prot)')}
-      ${trendCard('🌙',isEN?'Sleep':'การนอน',sleepVals,avgSlH,'var(--sleep)')}
-      ${trendCard('💧',isEN?'Water':'น้ำ',waterVals,`${(sum('water')/n).toFixed(1)}L`,'var(--water)')}
-      ${trendCard('🏋️',isEN?'Exercise':'ออกกำลัง',exVals,`${Math.round(totalEx/n)}m`,'var(--veg)')}
+      ${trendCard(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--prot);"><circle cx="13.5" cy="9.5" r="4.3"/><path d="m10.3 12.7-4.2 4.2"/><path d="m6.1 16.9-1.4-.1-.1 1.6 1.6-.1z"/></svg>`,isEN?'Protein':'โปรตีน',protVals,`${avg('mac_p')}g`,'var(--prot)')}
+      ${trendCard(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--sleep);"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>`,isEN?'Sleep':'การนอน',sleepVals,avgSlH,'var(--sleep)')}
+      ${trendCard(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--water);"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>`,isEN?'Water':'น้ำ',waterVals,`${(sum('water')/n).toFixed(1)}L`,'var(--water)')}
+      ${trendCard(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--veg);"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>`,isEN?'Exercise':'ออกกำลัง',exVals,`${Math.round(totalEx/n)}m`,'var(--veg)')}
     </div>
 
     <!-- GOOD VS BAD -->
@@ -3639,6 +3643,7 @@ async function init(){
 
   // Load profile body stats
   loadProfileBody();
+  try{ setHomeAge(); }catch(e){}
 
   // Restore language preference
   try {
@@ -3732,7 +3737,7 @@ const translations = {
     ai_sub: 'AI วิเคราะห์จากข้อมูลที่บันทึก',
     ai_placeholder: '<span class="lang-th">บันทึกข้อมูลแล้วกด "วิเคราะห์" ✨</span><span class="lang-en" style="display:none;">Log your data then tap "Analyze" ✨</span>',
     ai_btn: '🔍 วิเคราะห์วันนี้',
-    save_btn: '💾 บันทึก',
+    save_btn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M5 4h11l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V5.5A1.5 1.5 0 0 1 5 4z"/><path d="M8 4v5h7V4.5M8 13.5h8V20H8z"/></svg>บันทึก',
     sugar_note: '🚫 งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้',
     lbl_breakfast: '🌅 เช้า',
     lbl_lunch: '☀️ กลางวัน',
@@ -3796,7 +3801,7 @@ const translations = {
     ai_sub: 'AI analysis from your logged data',
     ai_placeholder: 'Log your data then tap "Analyze" ✨',
     ai_btn: '🔍 Analyze Today',
-    save_btn: '💾 Save',
+    save_btn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M5 4h11l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V5.5A1.5 1.5 0 0 1 5 4z"/><path d="M8 4v5h7V4.5M8 13.5h8V20H8z"/></svg>Save',
     sugar_note: '🚫 No added sugar — natural fruit sugar only',
     lbl_breakfast: '🌅 Breakfast',
     lbl_lunch: '☀️ Lunch',
@@ -4003,6 +4008,7 @@ function applyLang() {
   if(document.getElementById('page-bio')?.classList.contains('active')) renderBio();
   if(document.getElementById('page-ing')?.classList.contains('active')) renderIng();
   if(typeof renderOrganGrid==='function' && document.getElementById('page-body')?.classList.contains('active')) renderOrganGrid();
+  if(typeof setHomeAge==='function') setHomeAge();
   if(document.getElementById('page-meals')?.classList.contains('active') && typeof renderMealPresets==='function') renderMealPresets();
   if(document.getElementById('bio-cards')?.children.length) renderBioCards();
   const organPanel = document.getElementById('organ-panel');
@@ -4363,11 +4369,11 @@ function memberLang(){
   document.querySelectorAll('#page-member .lang-en').forEach(e=>e.style.display=en?'':'none');
 }
 const REWARDS = [
-  {pts:200,  icon:'🎟️', th:'ส่วนลด ฿100',                        en:'฿100 off'},
-  {pts:400,  icon:'🚚', th:'ส่งฟรี 1 ครั้ง',                       en:'Free shipping ×1'},
-  {pts:700,  icon:'🧪', th:'ซองทดลอง BioActive+ ฟรี',             en:'Free BioActive+ sample'},
-  {pts:1200, icon:'🎁', th:'รับสินค้าฟรี 1 กล่อง',                 en:'Free product (1 box)'},
-  {pts:2000, icon:'💎', th:'เซ็ตของขวัญพิเศษ + ปรึกษาผิวตัวต่อตัว', en:'Gift set + 1:1 skin consult'},
+  {pts:200,  icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#D4845A;"><path d="M3.5 8.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2 2 2 0 0 0 0 3 2 2 0 0 1 0 3 2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2 2 2 0 0 0 0-3 2 2 0 0 1 0-3z"/></svg>', th:'ส่วนลด ฿100',                        en:'฿100 off'},
+  {pts:400,  icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#C9A96E;"><path d="M3 7.5h10v8H3z"/><path d="M13 10h4l3.5 3.5v2H13z"/><circle cx="6.5" cy="17.5" r="1.7"/><circle cx="17" cy="17.5" r="1.7"/></svg>', th:'ส่งฟรี 1 ครั้ง',                       en:'Free shipping ×1'},
+  {pts:700,  icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#4A7C59;"><path d="M9 3h6M10 3v10.5a3 3 0 0 0 4 0V3"/><path d="M10 12.5h4"/></svg>', th:'ซองทดลอง BioActive+ ฟรี',             en:'Free BioActive+ sample'},
+  {pts:1200, icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#D4607A;"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M4 13h16M12 9v11M12 9c-1.2-3-5.2-2.6-5.2.2 0 .9.6 1.8 2.2 1.8M12 9c1.2-3 5.2-2.6 5.2.2 0 .9-.6 1.8-2.2 1.8"/></svg>', th:'รับสินค้าฟรี 1 กล่อง',                 en:'Free product (1 box)'},
+  {pts:2000, icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#6B8FA3;"><path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18M9 4 7.5 9 12 20M15 4l1.5 5L12 20"/></svg>', th:'เซ็ตของขวัญพิเศษ + ปรึกษาผิวตัวต่อตัว', en:'Gift set + 1:1 skin consult'},
 ];
 function renderRewards(){
   const el=document.getElementById('mb-rewards'); if(!el) return;
@@ -4407,7 +4413,7 @@ function renderMember(){
       <div><b>${s.months}</b><span>เดือน</span></div>
     </div>
     <div class="mb-card-since">สมาชิกตั้งแต่ ${s.since} · เดือนนี้ ${s.thisMonthBoxes} กล่อง</div>
-    <div class="mb-share-ico" onclick="shareMemberCard()" title="แชร์การ์ด">📤</div>
+    <div class="mb-share-ico" onclick="shareMemberCard()" title="แชร์การ์ด"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:#fff;"><path d="M12 3v11"/><path d="M8.5 6.5 12 3l3.5 3.5"/><path d="M6 11v7a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-7"/></svg></div>
   </div>`;
 
   const prog=document.getElementById('mb-progress');
@@ -4556,7 +4562,7 @@ function renderOrders(){
   let orders=[]; try{ orders=JSON.parse(localStorage.getItem('girl_orders')||'[]'); }catch(e){}
   if(!orders.length){
     el.innerHTML=`<div class="ord-empty">
-      <div style="font-size:2.6rem;">📦</div>
+      <div style="line-height:0;margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:46px;height:46px;color:var(--grain);"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></div>
       <div class="ord-empty-ttl"><span class="lang-th">ยังไม่มีออเดอร์</span><span class="lang-en" style="display:none;">No orders yet</span></div>
       <div class="ord-empty-sub"><span class="lang-th">เริ่มช้อป BioActive+ แล้วติดตามสถานะจัดส่งได้ที่นี่</span><span class="lang-en" style="display:none;">Shop BioActive+ and track your delivery here</span></div>
       <button onclick="goPage('shop')"><span class="lang-th">ไปช้อปเลย →</span><span class="lang-en" style="display:none;">Shop now →</span></button>
@@ -5020,7 +5026,7 @@ function setDayRating(r){
     isBadDay = (document.getElementById('h_note')?.value||'').includes('Cheat day');
     const btn=document.getElementById('bad-day-btn');
     btn.classList.toggle('active',isBadDay);
-    btn.textContent=isBadDay?'🍰 Cheat Day — logged':'🍰 Cheat Day';
+    btn.innerHTML=isBadDay?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day — logged':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day';
   }
 }
 function setDayRatingUI(r){
@@ -5094,7 +5100,7 @@ function toggleBadDay(){
   isBadDay = !isBadDay;
   const btn = document.getElementById('bad-day-btn');
   btn.classList.toggle('active', isBadDay);
-  btn.textContent = isBadDay ? '🍰 Cheat Day — logged' : '🍰 Cheat Day';
+  btn.innerHTML = isBadDay ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day — logged' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg>Cheat Day';
   const note = document.getElementById('h_note');
   if(isBadDay){
     if(note && !note.value.includes('Cheat day')) note.value = (note.value.trim()? note.value.trim()+' · ':'') + '🍰 Cheat day';
@@ -6957,7 +6963,7 @@ function renderSkinResult(r){
   const isEN = currentLang === 'en';
   const wrap = document.getElementById('skin-result-wrap');
   wrap.style.display = 'block';
-  const diff = 32 - r.skin_age;
+  const diff = girlAge() - r.skin_age;
   const diffColor = diff >= 5 ? '#4A7C59' : diff >= 0 ? '#C9A96E' : '#C0392B';
   const condColor = {Excellent:'#4A7C59', Good:'#6B8FA3', Fair:'#C9A96E'}[r.overall_condition] || '#C0392B';
 
@@ -6982,7 +6988,7 @@ function renderSkinResult(r){
         <div style="flex:1;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:2px;"><div style="font-family:'Kanit',sans-serif;font-size:.85rem;color:${condColor};font-weight:700;display:flex;align-items:center;gap:4px;">${r.overall_condition}<svg viewBox="0 0 24 24" fill="${condColor}" style="width:13px;height:13px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/></svg></div><button onclick="shareSkinResult('${r.date||''}')" title="แชร์" style="flex-shrink:0;background:rgba(255,126,179,.14);border:none;border-radius:10px;padding:6px 11px;cursor:pointer;color:var(--fruit);display:flex;align-items:center;gap:5px;font-family:'Kanit',sans-serif;font-size:.64rem;font-weight:700;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 3v11"/><path d="M8.5 6.5 12 3l3.5 3.5"/><path d="M6 11v7a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-7"/></svg><span class="lang-th">แชร์</span><span class="lang-en" style="display:none;">Share</span></button></div>
           <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:${diffColor};">${diff>=0?'+':''}${diff} yrs ${diff>=0?'younger':'older'}</div>
-          <div style="font-size:.6rem;color:var(--muted2);margin-bottom:6px;">กว่าอายุจริง 32 ปี · วิเคราะห์จาก ${r.photos||1} รูป</div>
+          <div style="font-size:.6rem;color:var(--muted2);margin-bottom:6px;">กว่าอายุจริง ${girlAge()} ปี · วิเคราะห์จาก ${r.photos||1} รูป</div>
           <div style="background:var(--bg);border-radius:20px;height:7px;overflow:hidden;">
             <div style="width:${r.skin_score}%;height:100%;background:linear-gradient(90deg,var(--fruit),#C9A96E);border-radius:20px;transition:width .8s;"></div>
           </div>
@@ -6998,14 +7004,14 @@ function renderSkinResult(r){
     <div style="padding:12px;border-bottom:1px solid var(--border);">
       <div style="font-size:.58rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">การวิเคราะห์รายละเอียด</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
-        ${metricPill('💧 Hydration', r.hydration)}
-        ${metricPill('✨ Radiance', r.radiance)}
-        ${metricPill('🪄 Texture', r.texture)}
-        ${metricPill('🔬 Pores', r.pore_size)}
-        ${metricPill('〰️ Lines', r.fine_lines)}
-        ${metricPill('🎨 Pigment', r.pigmentation)}
-        ${metricPill('💪 Elasticity', r.elasticity)}
-        ${metricPill('👁️ Under-eye', r.under_eye)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>Hydration`, r.hydration)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/></svg>Radiance`, r.radiance)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:#7A6B8A;vertical-align:-2px;margin-right:4px;"><path d="M4 20 16 8M14 6l4 4M17.5 4.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5L15 6l1.5-.5z"/></svg>Texture`, r.texture)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--muted2);vertical-align:-2px;margin-right:4px;"><path d="M6 20h12M9 20l-2-3M8.5 14.5 13 7a2.2 2.2 0 0 0-3.8-2.2L5 12z"/><path d="M11 9l2.5 1.5M13.5 13a4 4 0 0 1 3.5 4"/></svg>Pores`, r.pore_size)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:#6B8FA3;vertical-align:-2px;margin-right:4px;"><path d="M3 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg>Lines`, r.fine_lines)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:#D4845A;vertical-align:-2px;margin-right:4px;"><path d="M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2 0-1.3-1-1.5-1-2.6 0-.8.7-1.4 1.6-1.4H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/><circle cx="8" cy="11" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="11" r="1"/></svg>Pigment`, r.pigmentation)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg>Elasticity`, r.elasticity)}
+        ${metricPill(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Under-eye`, r.under_eye)}
       </div>
     </div>
 
@@ -7354,7 +7360,7 @@ async function shareSkinResult(date){
   if(!r) r=window.__curSkinResult;
   if(!r){ try{toast('ไม่พบข้อมูล');}catch(e){} return; }
   const defs=(r.nutrition_deficiencies||[]).map(d=>(d&&d.nutrient)?d.nutrient:d).filter(Boolean);
-  const diff=32-(r.skin_age||0);
+  const diff=girlAge()-(r.skin_age||0);
   const lines=[
     `GIRL Health · Skin Scan${r.date?' ('+r.date+')':''}`,
     `Skin age: ${r.skin_age} yrs${diff>=0?' · '+diff+' yrs younger':' · '+(-diff)+' yrs older'}`,
@@ -7398,7 +7404,7 @@ async function renderSkinHistory(){
   }
 
   wrap.innerHTML = filtered.map(e => {
-    const diff = 32 - e.skin_age;
+    const diff = girlAge() - e.skin_age;
     const diffColor = diff>=5?'var(--veg)':diff>=0?'var(--grain)':'var(--prot)';
     const condIcon = skinCondIcon(e.overall_condition);
     const topNutrient = (e.nutrition_deficiencies||[])[0]?.nutrient||'';
@@ -8094,7 +8100,7 @@ function renderBioQuick(takenObj){
     const bgCol = done ? p.dotColor+'22' : 'var(--card2)';
     const txtCol = done ? p.dotColor : 'var(--muted2)';
     const shadow = done ? `box-shadow:0 2px 10px ${p.dotColor}40;` : '';
-    return `<button onclick="toggleBioQuick('${p.id}')" id="bioq-${p.id}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;border-radius:13px;border:2px solid ${borderCol};background:${bgCol};cursor:pointer;transition:all .18s;position:relative;${shadow}width:100%;"><span style="font-size:1.25rem;line-height:1;">${p.icon}</span><span style="font-family:'Kanit',sans-serif;font-size:.6rem;font-weight:600;color:${txtCol};text-align:center;line-height:1.2;">${p.name}</span>${done?`<span style="position:absolute;top:3px;right:5px;font-size:.55rem;color:${p.dotColor};font-weight:700;">✓</span>`:''}</button>`;
+    return `<button onclick="toggleBioQuick('${p.id}')" id="bioq-${p.id}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;border-radius:13px;border:2px solid ${borderCol};background:${bgCol};cursor:pointer;transition:all .18s;position:relative;${shadow}width:100%;"><span style="line-height:1;display:flex;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;" fill="${p.dotColor}"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg></span><span style="font-family:'Kanit',sans-serif;font-size:.6rem;font-weight:600;color:${txtCol};text-align:center;line-height:1.2;">${p.name}</span>${done?`<span style="position:absolute;top:3px;right:5px;font-size:.55rem;color:${p.dotColor};font-weight:700;">✓</span>`:''}</button>`;
   }).join('');
 }
 
