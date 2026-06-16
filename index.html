@@ -1227,6 +1227,10 @@ body.ltab-supp .s-supp{display:block;}
     </div>
     <div class="ex-block">
       <div class="ex-bl-ttl">🏃 Cardio</div>
+      <div style="margin:2px 0 10px;">
+        <div style="font-size:.6rem;color:var(--muted2);margin-bottom:6px;"><span class="lang-th">ประเภท (เลื่อนดูเพิ่ม →)</span><span class="lang-en" style="display:none;">Type (scroll →)</span></div>
+        <div id="cardio-type-chips" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;white-space:nowrap;"></div>
+      </div>
       <div class="ex-g">
         <div><label class="lbl">นาที</label><input type="number" id="e2_m" placeholder="0" oninput="updateQ()"></div>
         <div><label class="lbl">km</label><input type="number" id="e2_k" placeholder="0" step="0.01"></div>
@@ -2861,6 +2865,7 @@ async function loadDay(){
   const _ps=document.getElementById('prot_supp'); if(_ps) _ps.value=(typeof getProtSupp==='function'?getProtSupp(curDay):0)||'';
   if(typeof updateProtTotalLabel==='function') updateProtTotalLabel();
   if(typeof renderDlogMeals==='function') renderDlogMeals();
+  if(typeof renderCardioTypes==='function') renderCardioTypes();
 }
 
 async function saveDay(){
@@ -3230,6 +3235,7 @@ async function renderTable(){
           <span class="tbl-stat" style="background:rgba(139,94,82,.1);color:var(--prot);">🥩 ${d.mac_p||0}g</span>
           <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)">🌙 ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
           ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);">🏋️ ${exM}m</span>`:''}
+          ${(function(){ if(typeof getCardioType!=='function') return ''; const ct=getCardioType(d.date); if(!ct) return ''; const lbl=(typeof cardioTypeLabel==='function')?cardioTypeLabel(ct):ct; if(!lbl) return ''; return `<span class="tbl-stat" style="background:rgba(74,124,89,.13);color:var(--accent);display:inline-flex;align-items:center;gap:3px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.4l2-5.4 4 11 2.5-7.4 1.5 2h4.6"/></svg>${lbl}</span>`; })()}
           <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);">💧 ${d.water?d.water+'L':'—'}</span>
           ${(function(){ const it=(typeof rcLoad==='function'?rcLoad():[]).filter(e=>e.date===d.date); if(!it.length) return ''; const c={}; it.forEach(e=>c[e.type]=(c[e.type]||0)+1); return Object.keys(c).map(id=>{ const t=rcType(id); return `<span class="tbl-stat" style="background:${t.color}1a;color:${t.color};display:inline-flex;align-items:center;gap:3px;" title="${(typeof currentLang!=='undefined'&&currentLang==='en')?t.en:t.th}">${rcSvg(id)}${c[id]>1?'×'+c[id]:''}</span>`; }).join(''); })()}
           ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);">⚖️ ${d.weight}kg</span>`:''}
@@ -3943,6 +3949,7 @@ function applyLang() {
   const sugarNote = document.querySelector('.sugar-note');
   if (sugarNote) sugarNote.textContent = t.sugar_note;
   if (typeof renderDlogMeals==='function') renderDlogMeals();
+  if (typeof renderCardioTypes==='function') renderCardioTypes();
   
   // Toggle .lang-th / .lang-en elements (profile page bilingual)
   const isEN = currentLang === 'en';
@@ -7746,6 +7753,43 @@ function deleteCustomMeal(id){
   renderMealPresets();
 }
 
+
+const CARDIO_TYPE_KEY='girl_cardiotype';
+const CARDIO_TYPES=[
+ {k:'run',th:'วิ่ง',en:'Run'},{k:'treadmill',th:'ลู่วิ่ง',en:'Treadmill'},{k:'walk',th:'เดิน',en:'Walk'},
+ {k:'cycling',th:'ปั่นจักรยาน',en:'Cycling'},{k:'swim',th:'ว่ายน้ำ',en:'Swim'},{k:'tennis',th:'เทนนิส',en:'Tennis'},
+ {k:'padel',th:'แพเดิล',en:'Padel'},{k:'badminton',th:'แบดมินตัน',en:'Badminton'},{k:'golf',th:'กอล์ฟ',en:'Golf'},
+ {k:'pilates',th:'พิลาทิส',en:'Pilates'},{k:'yoga',th:'โยคะ',en:'Yoga'},{k:'hiit',th:'HIIT',en:'HIIT'},
+ {k:'boxing',th:'มวย/คิกบ็อก',en:'Boxing'},{k:'dance',th:'เต้น',en:'Dance'},{k:'hiking',th:'ไฮกิ้ง',en:'Hiking'},
+ {k:'rowing',th:'พายเรือ',en:'Rowing'},{k:'climbing',th:'ปีนผา',en:'Climbing'},{k:'elliptical',th:'เครื่องวงรี',en:'Elliptical'},
+ {k:'spin',th:'ปั่นสปิน',en:'Spin'},{k:'other',th:'อื่นๆ',en:'Other'}
+];
+function loadCardioMap(){ try{ return JSON.parse(localStorage.getItem(CARDIO_TYPE_KEY)||'{}'); }catch(e){ return {}; } }
+function getCardioType(d){ return loadCardioMap()[d]||''; }
+function setCardioType(d,k){ const m=loadCardioMap(); if(k)m[d]=k; else delete m[d]; try{ localStorage.setItem(CARDIO_TYPE_KEY,JSON.stringify(m)); }catch(e){} }
+function cardioTypeLabel(k){ const t=CARDIO_TYPES.find(x=>x.k===k); if(!t) return ''; const en=(typeof currentLang!=='undefined'&&currentLang==='en'); return en?t.en:t.th; }
+function renderCardioTypes(){
+  const wrap=document.getElementById('cardio-type-chips'); if(!wrap) return;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const cur=(typeof curDay!=='undefined')?getCardioType(curDay):'';
+  wrap.innerHTML=CARDIO_TYPES.map(t=>{ const on=cur===t.k;
+    return `<button onclick="pickCardioType('${t.k}')" style="flex:0 0 auto;padding:6px 13px;border-radius:18px;border:1px solid ${on?'var(--accent)':'var(--border2)'};background:${on?'var(--accent)':'var(--card2)'};color:${on?'#fff':'var(--muted2)'};font-family:'Kanit',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;">${en?t.en:t.th}</button>`;
+  }).join('');
+}
+function pickCardioType(k){
+  if(typeof curDay==='undefined'||!curDay) return;
+  const prev=getCardioType(curDay);
+  const n=document.getElementById('ex_n');
+  if(prev===k){
+    setCardioType(curDay,'');
+    if(n && n.value.trim()===cardioTypeLabel(k)) n.value='';
+  } else {
+    setCardioType(curDay,k);
+    if(k==='other'){ if(n) n.focus(); }
+    else if(n && !n.value.trim()){ n.value=cardioTypeLabel(k); }
+  }
+  renderCardioTypes();
+}
 
 let dlogMealCat='all';
 function renderDlogMeals(){
