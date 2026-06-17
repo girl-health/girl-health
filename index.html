@@ -5964,9 +5964,10 @@ Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" f
     const items = foods.map(r=>(r.food.items||'').trim()).filter(Boolean);
     if(items.length){ const mb=document.getElementById('m_b'); if(mb){ mb.value = (mb.value.trim()? mb.value.trim()+' · ':'') + items.join(' · '); if(typeof autoResize==='function') autoResize(mb); } }
     const sum=(k)=>foods.reduce((t,r)=>t+(+r.food[k]||0),0);
-    const kcal=sum('kcal'),prot=sum('protein_g'),carb=sum('carb_g'),fat=sum('fat_g'),fib=sum('fiber_g'),sug=sum('sugar_g'),fsug=sum('fruit_sugar_g'),sod=isHome?0:sum('sodium_mg');
+    const kcal=sum('kcal'),prot=sum('protein_g'),carb=sum('carb_g'),fat=sum('fat_g'),fib=sum('fiber_g'),sug=sum('sugar_g'),fsug=sum('fruit_sugar_g'),sod=isHome?0:sum('sodium_mg'),water=sum('water_ml');
     const addN=(id,v)=>{ const el=document.getElementById(id); if(el&&(+v||0)){ el.value = Math.round((parseFloat(el.value)||0)+(+v||0)); } };
     addN('mac_kcal',kcal); addN('mac_p',prot); addN('mac_carb',carb); addN('mac_fat',fat); addN('mac_f',fib); addN('mac_sugar_total',sug); addN('mac_s',fsug); addN('mac_sodium',sod);
+    if(water>0 && typeof addScanWater==='function') addScanWater(water);
     try{
       const merged={};
       foods.forEach(r=>{ Object.entries(r.food.ing||{}).forEach(([c,arr])=>{ (merged[c]=merged[c]||[]).push(...(arr||[])); }); });
