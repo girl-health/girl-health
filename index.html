@@ -3076,10 +3076,9 @@ async function _aiJSON(prompt, maxTok){
 }
 function _sleepH(d){ if(+d.sl_total_h>0) return +d.sl_total_h; if(+d.sl_min>0) return +d.sl_min/60; if(d.sl_s&&d.sl_e){ try{ const a=d.sl_s.split(':'),b=d.sl_e.split(':'); let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]); if(m<0)m+=1440; return m/60; }catch(e){} } return 0; }
 async function gatherHealthData(days){
-  const today=new Date();
-  const cutoff=new Date(today.getTime()-days*864e5).toISOString().split('T')[0];
+  const cutoff=new Date(Date.now()-days*864e5).toISOString().split('T')[0];
   const months=new Set();
-  for(let i=0;i<=Math.ceil(days/28)+1;i++){ const d=new Date(today.getFullYear(),today.getMonth()-i,1); months.add(d.toISOString().substring(0,7)); }
+  for(let i=0;i<=days+1;i++){ months.add(new Date(Date.now()-i*864e5).toISOString().substring(0,7)); }
   let rows=[];
   for(const m of months){ try{ const r=await dbLoadMonth(m); rows=rows.concat(r||[]); }catch(e){} }
   const seen={}; rows=rows.filter(r=>{ if(!r.date||r.date<cutoff) return false; if(seen[r.date]) return false; seen[r.date]=1; return true; }).sort((a,b)=>a.date.localeCompare(b.date));
