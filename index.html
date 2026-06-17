@@ -664,6 +664,7 @@ body.ltab-supp .s-supp{display:block;}
     <div class="nav-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px;margin-right:4px;color:var(--accent);"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>GIRL</div>
     <div class="nav-tabs">
       <div class="ntab active" onclick="goPage('home')" id="ntab-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M4 11.3 12 4l8 7.3"/><path d="M6 10.3V20h12v-9.7"/><path d="M10 20v-5h4v5"/></svg><span class="ntab-tx">Home</span></div>
+      <div class="ntab" onclick="goPage('timeline')" id="ntab-timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M5 4v16"/><circle cx="5" cy="8" r="1.5"/><circle cx="5" cy="15" r="1.5"/><path d="M9 8h10M9 15h7"/></svg><span class="lang-th">ไทม์ไลน์</span><span class="lang-en" style="display:none;">Timeline</span></div>
       <div class="ntab" onclick="goPage('profile')" id="ntab-profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg><span class="ntab-tx">Profile</span></div>
       <div class="ntab" onclick="goPage('log')" id="ntab-log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg><span class="ntab-tx">บันทึกวัน</span></div>
       <div class="ntab" onclick="goPage('table')" id="ntab-table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6h6v.9M8.5 10h7M8.5 13.5h7M8.5 17h4.5"/></svg><span class="ntab-tx">ตาราง</span></div>
@@ -771,6 +772,20 @@ body.ltab-supp .s-supp{display:block;}
       <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--prot);">—</div><div class="hd-tbox-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--prot);"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg>Protein</div><div class="hd-tbox-d t-eq">—</div></div>
       <div class="hd-tbox"><div class="hd-tbox-val" style="color:var(--exercise);">—</div><div class="hd-tbox-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--exercise);"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise</div><div class="hd-tbox-d t-eq">—</div></div>
     </div>
+  </div>
+
+  <!-- TODAY'S COACH -->
+  <div style="margin-top:6px;background:linear-gradient(150deg,rgba(74,124,89,.10),rgba(107,143,163,.07));border:1px solid rgba(74,124,89,.22);border-radius:18px;padding:15px 15px 16px;box-shadow:0 3px 16px rgba(74,124,89,.06);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:11px;">
+      <div style="width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#4A7C59,#6B8FA3);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(74,124,89,.3);"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><path d="M12 3l1.7 4.8L18.5 9.5l-4.1 3 1.5 4.9L12 14.6 8.1 17.4l1.5-4.9-4.1-3 4.8-1.7z"/></svg></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:.92rem;color:var(--accent);line-height:1.1;"><span class="lang-th">โค้ชวันนี้</span><span class="lang-en" style="display:none;">Today's Coach</span></div>
+        <div style="font-size:.6rem;color:var(--muted2);margin-top:1px;"><span class="lang-th">AI อ่านข้อมูล 14 วัน · สรุป + สิ่งที่ควรทำ</span><span class="lang-en" style="display:none;">AI reads 14 days · summary + what to do</span></div>
+      </div>
+      <button onclick="loadTodayCoach(true)" style="border:1px solid var(--border2);background:var(--card);color:var(--accent);border-radius:20px;padding:5px 11px;font-family:'Kanit',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;flex-shrink:0;"><span class="lang-th">รีเฟรช</span><span class="lang-en" style="display:none;">Refresh</span></button>
+    </div>
+    <div id="hd-coach-body"></div>
+    <div onclick="goPage('timeline')" style="margin-top:12px;text-align:center;font-family:'Kanit',sans-serif;font-size:.66rem;font-weight:700;color:var(--accent);cursor:pointer;border-top:1px solid rgba(74,124,89,.15);padding-top:11px;"><span class="lang-th">ดู Health Timeline เต็ม ›</span><span class="lang-en" style="display:none;">View full Health Timeline ›</span></div>
   </div>
 
   <!-- AI INSIGHT -->
@@ -1878,6 +1893,19 @@ body.ltab-supp .s-supp{display:block;}
 .rc-save{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,var(--accent),#3d6b4a);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:4px;box-shadow:0 4px 15px rgba(74,124,89,.3);}
 .rc-cancel{width:100%;border:none;background:none;color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.78rem;padding:11px;cursor:pointer;}
 </style>
+
+<!-- ════════ HEALTH TIMELINE ════════ -->
+<div class="page" id="page-timeline">
+  <div class="page-hero">
+    <div class="eyebrow">HEALTH TIMELINE</div>
+    <div class="ttl"><span class="lang-th">ไทม์ไลน์สุขภาพ</span><span class="lang-en" style="display:none;">Health Timeline</span></div>
+    <div class="sub"><span class="lang-th">ไดอารี่สุขภาพ 30 วัน + AI หาความเชื่อมโยงข้ามวันให้</span><span class="lang-en" style="display:none;">Your 30-day health diary + AI cross-day correlations</span></div>
+  </div>
+  <div style="background:linear-gradient(150deg,rgba(107,143,163,.10),rgba(122,107,138,.06));border:1px solid rgba(107,143,163,.22);border-radius:16px;padding:14px;margin-bottom:16px;">
+    <div id="timeline-insight"></div>
+  </div>
+  <div id="timeline-wrap" style="padding:2px 2px 30px;"></div>
+</div>
 
 <!-- ════════ RECOVERY & RITUALS ════════ -->
 <div class="page" id="page-recovery">
@@ -3001,7 +3029,7 @@ Include 4-7 tips total. Be specific, warm, personal tone.`;
 
 // ── PAGE SWITCH ──
 function goPage(name){
-  const allPages = ['home','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders','recovery'];
+  const allPages = ['home','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders','recovery','timeline'];
   document.querySelectorAll('.ntab').forEach(t=>{
     const pageId = t.id ? t.id.replace('ntab-','') : null;
     if(pageId) t.classList.toggle('active', pageId===name);
@@ -3022,14 +3050,134 @@ function goPage(name){
   if(name==='member'){ renderMember(); }
   if(name==='orders'){ renderOrders(); }
   if(name==='recovery'){ recRender(); }
+  if(name==='timeline'){ if(typeof renderTimeline==='function') renderTimeline(); }
   if(name==='home' && typeof updateHomeRecovery==='function'){ updateHomeRecovery(); }
   if(name==='body'){ switchBodyTab('map'); }
   if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
 }
 
+
+// ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
+const COACH_KEY='girl_coach_v1', TLINS_KEY='girl_tlinsight_v1';
+async function _aiJSON(prompt, maxTok){
+  const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
+  const data=await res.json();
+  if(!res.ok||!Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
+  let raw=data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+  const a=raw.indexOf('{'),b=raw.lastIndexOf('}'); if(a>=0&&b>a) raw=raw.slice(a,b+1);
+  return JSON.parse(raw);
+}
+function _sleepH(d){ if(+d.sl_total_h>0) return +d.sl_total_h; if(+d.sl_min>0) return +d.sl_min/60; if(d.sl_s&&d.sl_e){ try{ const a=d.sl_s.split(':'),b=d.sl_e.split(':'); let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]); if(m<0)m+=1440; return m/60; }catch(e){} } return 0; }
+async function gatherHealthData(days){
+  const today=new Date();
+  const cutoff=new Date(today.getTime()-days*864e5).toISOString().split('T')[0];
+  const months=new Set();
+  for(let i=0;i<=Math.ceil(days/28)+1;i++){ const d=new Date(today.getFullYear(),today.getMonth()-i,1); months.add(d.toISOString().substring(0,7)); }
+  let rows=[];
+  for(const m of months){ try{ const r=await dbLoadMonth(m); rows=rows.concat(r||[]); }catch(e){} }
+  const seen={}; rows=rows.filter(r=>{ if(!r.date||r.date<cutoff) return false; if(seen[r.date]) return false; seen[r.date]=1; return true; }).sort((a,b)=>a.date.localeCompare(b.date));
+  let rec={}; try{ (rcLoad()||[]).forEach(e=>{ if(e.date>=cutoff){ (rec[e.date]=rec[e.date]||[]).push(e.type); } }); }catch(e){}
+  let skin={}; try{ const sl=await getSkinLog(); (sl||[]).forEach(s=>{ if(s.date>=cutoff && !skin[s.date]) skin[s.date]=s; }); }catch(e){}
+  return rows.map(d=>({ ...d, _rec:rec[d.date]||[], _skin:skin[d.date]||null }));
+}
+function _coachLine(d){
+  const p=[]; const sh=_sleepH(d);
+  if(sh) p.push('sleep '+sh.toFixed(1)+'h');
+  if(+d.sl_score) p.push('sleepScore '+d.sl_score);
+  if(+d.sl_hrv) p.push('HRV '+d.sl_hrv);
+  if(+d.sl_rhr) p.push('RHR '+d.sl_rhr);
+  if(+d.sl_bb) p.push('bodyBattery '+d.sl_bb);
+  if(+d.water) p.push('water '+d.water+'L');
+  if(+d.mac_p) p.push('protein '+d.mac_p+'g');
+  if(+d.mac_sugar_total) p.push('sugar '+d.mac_sugar_total+'g');
+  if(+d.mac_kcal) p.push('kcal '+d.mac_kcal);
+  const ex=[]; if(+d.e1_m) ex.push(d.e1_m+'min strength'); if(+d.e2_m) ex.push(d.e2_m+'min cardio');
+  if(ex.length) p.push('workout '+ex.join('+'));
+  if(d._rec&&d._rec.length) p.push('recovery: '+d._rec.join('+'));
+  if(+d.mood) p.push('mood '+d.mood+'/5');
+  if(d.day_rating) p.push('rating '+d.day_rating);
+  if(d.alcohol_level&&d.alcohol_level!=='none') p.push('alcohol '+d.alcohol_level);
+  try{ if(d.period_data){ const pd=JSON.parse(d.period_data); if(pd&&(pd.on||pd.flow)) p.push('period'); } }catch(e){}
+  if(d._skin) p.push('skinAge '+d._skin.skin_age+' skinScore '+d._skin.skin_score);
+  if((d.h_note||'').toLowerCase().includes('cheat')) p.push('cheat day');
+  return d.date.substring(5)+': '+(p.join(', ')||'no data logged');
+}
+async function loadTodayCoach(force){
+  const body=document.getElementById('hd-coach-body'); if(!body) return;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const today=new Date().toISOString().split('T')[0];
+  if(!force){ try{ const c=JSON.parse(localStorage.getItem(COACH_KEY)||'{}'); if(c.date===today&&c.html){ body.innerHTML=c.html; return; } }catch(e){} }
+  body.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.72rem;font-family:\'Sarabun\',sans-serif;"><div style="width:14px;height:14px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Coach is reading your last 14 days…':'โค้ชกำลังอ่านข้อมูล 14 วันล่าสุด…')+'</div>';
+  try{
+    const data=await gatherHealthData(14);
+    const withData=data.filter(d=>_coachLine(d).indexOf('no data logged')<0);
+    if(withData.length<2){ body.innerHTML='<div style="font-size:.74rem;color:var(--muted2);font-family:\'Sarabun\',sans-serif;line-height:1.5;">'+(en?'Log a few more days and your coach will start spotting patterns for you.':'บันทึกอีกสัก 2-3 วัน แล้วโค้ชจะเริ่มจับแพทเทิร์นมาแนะนำให้ค่ะ')+'</div>'; return; }
+    const lines=withData.map(_coachLine).join('\n');
+    const prompt='You are GIRL\'s personal longevity health coach (she optimizes sleep, HRV, nutrition, training, recovery, skin). Below is her real health log for the last '+withData.length+' days (most recent last). Act like a sharp coach: find CROSS-DAY patterns/correlations (e.g. sleep vs HRV, sugar vs skin, training load vs recovery), judge her current recovery/readiness, and tell her exactly what to do TODAY.\n\nDATA:\n'+lines+'\n\nRespond in '+(en?'English':'Thai')+'. Be specific and cite her real numbers. Respond ONLY with valid JSON, no markdown:\n{"state":"one short sentence on her current body/recovery state + what is lacking","patterns":["1-2 concrete correlations found in HER data with numbers"],"actions":["2-4 specific things to do today, each short and concrete"],"focus":"one keyword: Recovery|Hydration|Sleep|Protein|Training|Skin"}';
+    const r=await _aiJSON(prompt,900);
+    let h='<div style="display:flex;flex-direction:column;gap:10px;">';
+    if(r.focus) h+='<div style="align-self:flex-start;font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent);background:rgba(74,124,89,.1);border-radius:20px;padding:3px 10px;">'+(en?'Focus: ':'โฟกัส: ')+r.focus+'</div>';
+    if(r.state) h+='<div style="font-family:\'Sarabun\',sans-serif;font-size:.82rem;color:var(--text);line-height:1.55;font-weight:600;">'+r.state+'</div>';
+    if(r.patterns&&r.patterns.length){ h+='<div><div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--sleep);margin-bottom:5px;">'+(en?'Patterns found':'แพทเทิร์นที่เจอ')+'</div>'+r.patterns.map(function(p){return '<div style="font-size:.73rem;color:var(--text);font-family:\'Sarabun\',sans-serif;line-height:1.5;display:flex;gap:7px;margin-bottom:3px;"><span style="color:var(--sleep);">•</span><span>'+p+'</span></div>';}).join('')+'</div>'; }
+    if(r.actions&&r.actions.length){ h+='<div><div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--accent);margin-bottom:5px;">'+(en?'Do today':'วันนี้ควรทำ')+'</div>'+r.actions.map(function(a){return '<div style="font-size:.76rem;color:var(--text);font-family:\'Sarabun\',sans-serif;line-height:1.5;display:flex;gap:8px;align-items:flex-start;margin-bottom:4px;"><span style="color:var(--accent);font-weight:900;flex-shrink:0;">✓</span><span>'+a+'</span></div>';}).join('')+'</div>'; }
+    h+='</div>';
+    body.innerHTML=h;
+    try{ localStorage.setItem(COACH_KEY,JSON.stringify({date:today,html:h})); }catch(e){}
+  }catch(e){ console.error('coach',e); body.innerHTML='<div style="font-size:.73rem;color:var(--muted2);font-family:\'Sarabun\',sans-serif;">'+(en?'Coach is unavailable right now — tap refresh to retry.':'โค้ชยังไม่พร้อม กดรีเฟรชลองใหม่อีกครั้งค่ะ')+'</div>'; }
+}
+// ---- Timeline ----
+function _tlChip(color,label){ return '<span style="display:inline-flex;align-items:center;gap:4px;background:'+color+'14;color:'+color+';border:1px solid '+color+'33;border-radius:20px;padding:2px 9px;font-size:.62rem;font-weight:600;font-family:\'Kanit\',sans-serif;white-space:nowrap;">'+label+'</span>'; }
+function _tlDay(d,en){
+  const chips=[]; const sh=_sleepH(d);
+  if(sh) chips.push(_tlChip('#6B8FA3',(en?'Sleep ':'นอน ')+sh.toFixed(1)+'h'+(d.sl_score?' · '+d.sl_score:'')));
+  if(+d.sl_hrv) chips.push(_tlChip('#7A6B8A','HRV '+d.sl_hrv));
+  if(+d.e1_m) chips.push(_tlChip('#8B5E52',(en?'Strength ':'เวท ')+d.e1_m+'m'));
+  if(+d.e2_m) chips.push(_tlChip('#4A7C59',(en?'Cardio ':'คาร์ดิโอ ')+d.e2_m+'m'));
+  if(d._rec&&d._rec.length){ d._rec.forEach(function(t){ const rt=(typeof rcType==='function')?rcType(t):null; chips.push(_tlChip('#C0672E', rt?(en?rt.en:rt.th):t)); }); }
+  if(+d.water) chips.push(_tlChip('#54A0FF',(en?'Water ':'น้ำ ')+d.water+'L'));
+  if(+d.mac_p) chips.push(_tlChip('#A65A4A',(en?'Protein ':'โปรตีน ')+d.mac_p+'g'));
+  if(+d.mac_sugar_total>15) chips.push(_tlChip('#C99A2E',(en?'Sugar ':'น้ำตาล ')+d.mac_sugar_total+'g'));
+  if(d.alcohol_level&&d.alcohol_level!=='none') chips.push(_tlChip('#8B5E8B',(en?'Alcohol':'แอลกอฮอล์')));
+  try{ if(d.period_data){ const pd=JSON.parse(d.period_data); if(pd&&(pd.on||pd.flow)) chips.push(_tlChip('#C0392B',en?'Period':'ประจำเดือน')); } }catch(e){}
+  if(d._skin) chips.push(_tlChip('#D4607A',(en?'Skin age ':'อายุผิว ')+d._skin.skin_age));
+  if((d.h_note||'').toLowerCase().includes('cheat')) chips.push(_tlChip('#C9A96E',en?'Cheat day':'ชีตเดย์'));
+  const dt=new Date(d.date+'T00:00:00'); const dlabel=dt.toLocaleDateString(en?'en-US':'th-TH',{weekday:'short',day:'numeric',month:'short'});
+  if(!chips.length) return '';
+  return '<div style="display:flex;gap:11px;padding:2px 0;"><div style="flex-shrink:0;width:62px;text-align:right;font-family:\'Kanit\',sans-serif;font-size:.64rem;font-weight:700;color:var(--accent);padding-top:3px;">'+dlabel+'</div><div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;"><div style="width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--card);box-shadow:0 0 0 1px var(--accent);"></div><div style="flex:1;width:2px;background:var(--border);margin:2px 0;"></div></div><div style="flex:1;display:flex;flex-wrap:wrap;gap:5px;padding-bottom:14px;">'+chips.join('')+'</div></div>';
+}
+async function renderTimeline(){
+  const wrap=document.getElementById('timeline-wrap'); const ins=document.getElementById('timeline-insight');
+  if(!wrap) return;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  wrap.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.74rem;padding:14px;font-family:\'Sarabun\',sans-serif;"><div style="width:15px;height:15px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Loading your timeline…':'กำลังโหลดไทม์ไลน์…')+'</div>';
+  let data;
+  try{ data=await gatherHealthData(30); }catch(e){ data=[]; }
+  const days=data.slice().reverse();
+  const rows=days.map(function(d){return _tlDay(d,en);}).filter(Boolean);
+  wrap.innerHTML = rows.length? rows.join('') : '<div style="text-align:center;padding:28px;color:var(--muted2);font-size:.78rem;font-family:\'Sarabun\',sans-serif;">'+(en?'No entries in the last 30 days yet.':'ยังไม่มีบันทึกใน 30 วันล่าสุดค่ะ')+'</div>';
+  // correlation insight (AI, cached per day)
+  if(ins) renderTimelineInsight(data, ins, en);
+}
+async function renderTimelineInsight(data, ins, en){
+  const today=new Date().toISOString().split('T')[0];
+  try{ const c=JSON.parse(localStorage.getItem(TLINS_KEY)||'{}'); if(c.date===today&&c.html){ ins.innerHTML=c.html; return; } }catch(e){}
+  const withData=(data||[]).filter(function(d){return _coachLine(d).indexOf('no data logged')<0;});
+  if(withData.length<4){ ins.innerHTML='<div style="font-size:.72rem;color:var(--muted2);font-family:\'Sarabun\',sans-serif;line-height:1.5;">'+(en?'Keep logging — after about a week, AI will reveal correlations across your days.':'บันทึกต่อไปเรื่อย ๆ พอครบ ~1 สัปดาห์ AI จะเริ่มหาความเชื่อมโยงข้ามวันให้ค่ะ')+'</div>'; return; }
+  ins.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.72rem;font-family:\'Sarabun\',sans-serif;"><div style="width:13px;height:13px;border:2px solid var(--sleep);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Finding correlations…':'กำลังหาความเชื่อมโยง…')+'</div>';
+  try{
+    const lines=withData.map(_coachLine).join('\n');
+    const prompt='You are a longevity data analyst. Here is GIRL\'s health log for the last '+withData.length+' days (most recent last). Find the most useful CROSS-DAY correlations and patterns a human would miss — link sleep, HRV, RHR, body battery, training, recovery rituals, water, sugar, protein, skin, mood. Only state patterns actually supported by the data, and cite real numbers.\n\nDATA:\n'+lines+'\n\nRespond in '+(en?'English':'Thai')+'. Respond ONLY with valid JSON, no markdown:\n{"insights":["3-4 concrete correlation findings, each one sentence with numbers"]}';
+    const r=await _aiJSON(prompt,800);
+    let h='<div style="font-size:.55rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--sleep);margin-bottom:7px;">'+(en?'AI Correlations':'AI หาความเชื่อมโยง')+'</div>';
+    h+=(r.insights||[]).map(function(x){return '<div style="font-size:.75rem;color:var(--text);font-family:\'Sarabun\',sans-serif;line-height:1.55;display:flex;gap:7px;margin-bottom:6px;"><span style="color:var(--sleep);font-weight:900;flex-shrink:0;">↳</span><span>'+x+'</span></div>';}).join('');
+    ins.innerHTML=h;
+    try{ localStorage.setItem(TLINS_KEY,JSON.stringify({date:today,html:h})); }catch(e){}
+  }catch(e){ console.error('tlinsight',e); ins.innerHTML='<div style="font-size:.72rem;color:var(--muted2);font-family:\'Sarabun\',sans-serif;">'+(en?'Correlations unavailable right now.':'ยังหาความเชื่อมโยงไม่ได้ตอนนี้ค่ะ')+'</div>'; }
+}
+
 // ── SWIPE NAV (left/right to change page) ──
 (function(){
-  const ORDER=['home','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders'];
+  const ORDER=['home','timeline','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders'];
   let sx=0,sy=0,st=0,ok=false;
   function curPage(){ const p=document.querySelector('.page.active'); return p?p.id.replace('page-',''):'home'; }
   function hscroll(node){ while(node && node!==document.body){ try{ if(node.scrollWidth-node.clientWidth>8){ const ov=getComputedStyle(node).overflowX; if(ov==='auto'||ov==='scroll') return true; } }catch(e){} node=node.parentElement; } return false; }
@@ -8451,6 +8599,7 @@ async function addWater(delta){
 }
 
 async function loadHomeDashboard(force){
+  try{ if(typeof loadTodayCoach==='function') loadTodayCoach(force); }catch(e){}
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   const isEN = currentLang === 'en';
