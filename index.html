@@ -696,7 +696,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v5 · ครบ 9 สี</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v6 · Recovery+Coach+2ภาษา</span>
   </div>
 
   <!-- Greeting -->
@@ -939,12 +939,28 @@ body.ltab-supp .s-supp{display:block;}
     <div class="hd-sec-title"><span class="lang-th">Recovery</span><span class="lang-en" style="display:none;">Recovery</span></div>
     <div class="hd-sec-note"><span class="lang-th">ข้อมูลจาก Garmin</span><span class="lang-en" style="display:none;">From Garmin</span></div>
   </div>
-  <div class="hd-block" style="margin-bottom:14px;">
-    <div class="hd-recovery" id="hd-recovery">
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-bb" style="color:var(--veg);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--veg);"><rect x="3" y="8.5" width="15" height="7" rx="2"/><path d="M21 11.2v1.6"/><path d="M6.5 10.8v2.4M9.5 10.8v2.4"/></svg><span class="lang-th">Body Battery</span><span class="lang-en" style="display:none;">Body Battery</span></div></div>
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-hrv" style="color:var(--other);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--other);"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 1-.3 2-.9 3"/><path d="M9.3 12.6h1.8l1-1.9 1.5 3.1.9-1.7h2"/></svg>HRV</div></div>
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-rhr" style="color:var(--prot);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--prot);"><path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/></svg>RHR</div></div>
-      <div class="hd-rec-box"><div class="hd-rec-val" id="hd-rec-sleep" style="color:var(--sleep);">—</div><div class="hd-rec-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;color:var(--sleep);"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg><span class="lang-th">คะแนนนอน</span><span class="lang-en" style="display:none;">Sleep Score</span></div></div>
+  <div class="hd-block" style="margin-bottom:14px;background:transparent;border:none;box-shadow:none;padding:0;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
+        <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#E0EBE2;color:#3B6D11;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="8.5" width="15" height="7" rx="2"/><path d="M21 11.2v1.6M6.5 10.8v2.4M9.5 10.8v2.4"/></svg></div>
+        <div class="hd-rec-val" id="hd-rec-bb" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#3B6D11;">&mdash;</div>
+        <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;"><span class="lang-th">Battery</span><span class="lang-en" style="display:none;">Battery</span></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
+        <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#DCE6EE;color:#4A7CB0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M3.5 12h3l2-5 3 9 2-6 1.5 2h5"/></svg></div>
+        <div class="hd-rec-val" id="hd-rec-hrv" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#4A7CB0;">&mdash;</div>
+        <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;">HRV</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
+        <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#EFE3DD;color:#8B5E52;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 20C7 16.5 4 13 4 9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 8 2.5C20 13 17 16.5 12 20z"/></svg></div>
+        <div class="hd-rec-val" id="hd-rec-rhr" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#8B5E52;">&mdash;</div>
+        <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;">RHR</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
+        <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#F3ECD6;color:#B8860B;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M20 14A8 8 0 0 1 10 4 7 7 0 1 0 20 14z"/></svg></div>
+        <div class="hd-rec-val" id="hd-rec-sleep" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#B8860B;">&mdash;</div>
+        <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;"><span class="lang-th">Sleep</span><span class="lang-en" style="display:none;">Sleep</span></div>
+      </div>
     </div>
   </div>
 
@@ -962,17 +978,18 @@ body.ltab-supp .s-supp{display:block;}
   </div>
 
   <!-- TODAY'S COACH -->
-  <div style="margin-top:6px;background:linear-gradient(150deg,rgba(74,124,89,.10),rgba(107,143,163,.07));border:1px solid rgba(74,124,89,.22);border-radius:18px;padding:15px 15px 16px;box-shadow:0 3px 16px rgba(74,124,89,.06);">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:11px;">
-      <div style="width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#4A7C59,#6B8FA3);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(74,124,89,.3);"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><path d="M12 3l1.7 4.8L18.5 9.5l-4.1 3 1.5 4.9L12 14.6 8.1 17.4l1.5-4.9-4.1-3 4.8-1.7z"/></svg></div>
+  <div style="margin-top:14px;background:linear-gradient(158deg,#3B6D11 0%,#2C5610 100%);border-radius:26px;padding:22px 22px 20px;position:relative;overflow:hidden;box-shadow:0 14px 36px rgba(44,86,16,.3);">
+    <div style="position:absolute;top:-30%;right:-12%;width:55%;height:75%;background:radial-gradient(circle,rgba(201,169,110,.22),transparent 70%);pointer-events:none;"></div>
+    <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px;position:relative;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A96E,#B8860B);display:flex;align-items:center;justify-content:center;color:#2C5610;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 3l1.6 4.6L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.4z"/></svg></div>
       <div style="flex:1;min-width:0;">
-        <div style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.92rem;color:var(--accent);line-height:1.1;"><span class="lang-th">โค้ชวันนี้</span><span class="lang-en" style="display:none;">Today's Coach</span></div>
-        <div style="font-size:.6rem;color:var(--muted2);margin-top:1px;"><span class="lang-th">AI อ่านข้อมูล 14 วัน · สรุป + สิ่งที่ควรทำ</span><span class="lang-en" style="display:none;">AI reads 14 days · summary + what to do</span></div>
+        <div style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:600;font-size:.92rem;color:#fff;line-height:1.1;"><span class="lang-th">โค้ชวันนี้</span><span class="lang-en" style="display:none;">Today's Coach</span></div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.55);margin-top:1px;"><span class="lang-th">AI อ่านข้อมูล 14 วัน</span><span class="lang-en" style="display:none;">AI reads 14 days</span></div>
       </div>
-      <button onclick="loadTodayCoach(true)" style="border:1px solid var(--border2);background:var(--card);color:var(--accent);border-radius:20px;padding:5px 11px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;flex-shrink:0;"><span class="lang-th">รีเฟรช</span><span class="lang-en" style="display:none;">Refresh</span></button>
+      <button onclick="loadTodayCoach(true)" style="border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:20px;padding:5px 12px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;flex-shrink:0;"><span class="lang-th">รีเฟรช</span><span class="lang-en" style="display:none;">Refresh</span></button>
     </div>
-    <div id="hd-coach-body"></div>
-    <div onclick="goPage('timeline')" style="margin-top:12px;text-align:center;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;color:var(--accent);cursor:pointer;border-top:1px solid rgba(74,124,89,.15);padding-top:11px;"><span class="lang-th">ดู Health Timeline เต็ม ›</span><span class="lang-en" style="display:none;">View full Health Timeline ›</span></div>
+    <div id="hd-coach-body" style="position:relative;"></div>
+    <div onclick="goPage('timeline')" style="margin-top:14px;text-align:center;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.7rem;font-weight:600;color:#EBD9A8;cursor:pointer;border-top:1px solid rgba(255,255,255,.13);padding-top:12px;position:relative;"><span class="lang-th">ดู Health Timeline เต็ม ›</span><span class="lang-en" style="display:none;">View full Health Timeline ›</span></div>
   </div>
 
   <!-- AI INSIGHT -->
@@ -3290,26 +3307,32 @@ function _coachLine(d){
 }
 async function loadTodayCoach(force){
   const body=document.getElementById('hd-coach-body'); if(!body) return;
-  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
   const today=new Date().toISOString().split('T')[0];
   if(!force){ try{ const c=JSON.parse(localStorage.getItem(COACH_KEY)||'{}'); if(c.date===today&&c.html){ body.innerHTML=c.html; return; } }catch(e){} }
-  body.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.72rem;font-family:\'Sarabun\',sans-serif;"><div style="width:14px;height:14px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Coach is reading your last 14 days…':'โค้ชกำลังอ่านข้อมูล 14 วันล่าสุด…')+'</div>';
+  body.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:.74rem;font-family:\'IBM Plex Sans Thai\',sans-serif;"><div style="width:14px;height:14px;border:2px solid rgba(255,255,255,.5);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div><span class="lang-th">โค้ชกำลังอ่านข้อมูล 14 วันล่าสุด…</span><span class="lang-en" style="display:none;">Coach is reading your last 14 days…</span></div>';
   try{
     const data=await gatherHealthData(14);
     const withData=data.filter(d=>_coachLine(d).indexOf('no data logged')<0);
-    if(withData.length<2){ body.innerHTML='<div style="font-size:.74rem;color:var(--muted2);font-family:\'Sarabun\',sans-serif;line-height:1.5;">'+(en?'Log a few more days and your coach will start spotting patterns for you.':'บันทึกอีกสัก 2-3 วัน แล้วโค้ชจะเริ่มจับแพทเทิร์นมาแนะนำให้ค่ะ')+'</div>'; return; }
+    if(withData.length<2){ body.innerHTML='<div style="font-size:.76rem;color:rgba(255,255,255,.82);font-family:\'IBM Plex Sans Thai\',sans-serif;line-height:1.5;"><span class="lang-th">บันทึกอีกสัก 2-3 วัน แล้วโค้ชจะเริ่มจับแพทเทิร์นมาแนะนำให้ค่ะ</span><span class="lang-en" style="display:none;">Log a few more days and your coach will start spotting patterns for you.</span></div>'; return; }
     const lines=withData.map(_coachLine).join('\n');
-    const prompt='You are GIRL\'s personal longevity health coach (she optimizes sleep, HRV, nutrition, training, recovery, skin). Below is her real health log for the last '+withData.length+' days (most recent last). Act like a sharp coach: find CROSS-DAY patterns/correlations (e.g. sleep vs HRV, sugar vs skin, training load vs recovery), judge her current recovery/readiness, and tell her exactly what to do TODAY.\n\nDATA:\n'+lines+'\n\nRespond in '+(en?'English':'Thai')+'. Be specific and cite her real numbers. Respond ONLY with valid JSON, no markdown:\n{"state":"one short sentence on her current body/recovery state + what is lacking","patterns":["1-2 concrete correlations found in HER data with numbers"],"actions":["2-4 specific things to do today, each short and concrete"],"focus":"one keyword: Recovery|Hydration|Sleep|Protein|Training|Skin"}';
-    const r=await _aiJSON(prompt,900);
-    let h='<div style="display:flex;flex-direction:column;gap:10px;">';
-    if(r.focus) h+='<div style="align-self:flex-start;font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent);background:rgba(74,124,89,.1);border-radius:20px;padding:3px 10px;">'+(en?'Focus: ':'โฟกัส: ')+r.focus+'</div>';
-    if(r.state) h+='<div style="font-family:\'Sarabun\',sans-serif;font-size:.82rem;color:var(--text);line-height:1.55;font-weight:600;">'+r.state+'</div>';
-    if(r.patterns&&r.patterns.length){ h+='<div><div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--sleep);margin-bottom:5px;">'+(en?'Patterns found':'แพทเทิร์นที่เจอ')+'</div>'+r.patterns.map(function(p){return '<div style="font-size:.73rem;color:var(--text);font-family:\'Sarabun\',sans-serif;line-height:1.5;display:flex;gap:7px;margin-bottom:3px;"><span style="color:var(--sleep);">•</span><span>'+p+'</span></div>';}).join('')+'</div>'; }
-    if(r.actions&&r.actions.length){ h+='<div><div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--accent);margin-bottom:5px;">'+(en?'Do today':'วันนี้ควรทำ')+'</div>'+r.actions.map(function(a){return '<div style="font-size:.76rem;color:var(--text);font-family:\'Sarabun\',sans-serif;line-height:1.5;display:flex;gap:8px;align-items:flex-start;margin-bottom:4px;"><span style="color:var(--accent);font-weight:900;flex-shrink:0;">✓</span><span>'+a+'</span></div>';}).join('')+'</div>'; }
+    const prompt='You are GIRL\'s personal longevity health coach (she optimizes sleep, HRV, nutrition, training, recovery, skin). Below is her real health log for the last '+withData.length+' days (most recent last). Act like a sharp coach: find CROSS-DAY patterns/correlations, judge her current recovery/readiness, and tell her exactly what to do TODAY.\n\nDATA:\n'+lines+'\n\nReply in BOTH Thai and English. Be specific and cite her real numbers. Respond ONLY with valid JSON, no markdown:\n{"focus_en":"one keyword: Recovery|Hydration|Sleep|Protein|Training|Skin","focus_th":"Thai of that keyword","state_en":"one short sentence on her current body/recovery state + what is lacking","state_th":"Thai version of state","actions_en":["2-4 specific things to do today, each short and concrete"],"actions_th":["Thai versions in the SAME order and count"]}';
+    const r=await _aiJSON(prompt,1200);
+    const L=(th,en)=>'<span class="lang-th">'+(th||en||'')+'</span><span class="lang-en" style="display:none;">'+(en||th||'')+'</span>';
+    let h='<div style="display:flex;flex-direction:column;gap:12px;">';
+    if(r.focus_en||r.focus_th) h+='<div style="align-self:flex-start;font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#EBD9A8;background:rgba(255,255,255,.1);border-radius:20px;padding:4px 11px;">'+L('โฟกัส: '+(r.focus_th||r.focus_en||''),'Focus: '+(r.focus_en||r.focus_th||''))+'</div>';
+    if(r.state_en||r.state_th) h+='<div style="font-family:\'Playfair Display\',serif;font-style:italic;font-size:1.06rem;line-height:1.5;color:#FBF6EC;">'+L('“'+(r.state_th||'')+'”','“'+(r.state_en||'')+'”')+'</div>';
+    const aEn=r.actions_en||[], aTh=r.actions_th||[];
+    const n=Math.max(aEn.length,aTh.length);
+    for(let i=0;i<n;i++){
+      const en=aEn[i]||aTh[i]||'', th=aTh[i]||aEn[i]||'';
+      h+='<div style="display:flex;gap:10px;align-items:flex-start;padding:11px 13px;background:rgba(255,255,255,.08);border-radius:13px;">'
+        +'<span style="width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(191,224,196,.25);color:#BFE0C4;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M5 13l4 4L19 7"/></svg></span>'
+        +'<p style="font-size:.76rem;line-height:1.5;color:rgba(255,255,255,.85);margin:0;">'+L(th,en)+'</p></div>';
+    }
     h+='</div>';
     body.innerHTML=h;
     try{ localStorage.setItem(COACH_KEY,JSON.stringify({date:today,html:h})); }catch(e){}
-  }catch(e){ console.error('coach',e); body.innerHTML='<div style="font-size:.73rem;color:var(--muted2);font-family:\'Sarabun\',sans-serif;">'+(en?'Coach is unavailable right now — tap refresh to retry.':'โค้ชยังไม่พร้อม กดรีเฟรชลองใหม่อีกครั้งค่ะ')+'</div>'; }
+  }catch(e){ console.error('coach',e); body.innerHTML='<div style="font-size:.74rem;color:rgba(255,255,255,.8);font-family:\'IBM Plex Sans Thai\',sans-serif;"><span class="lang-th">โค้ชยังไม่พร้อม กดรีเฟรชลองใหม่อีกครั้งค่ะ</span><span class="lang-en" style="display:none;">Coach is unavailable right now — tap refresh to retry.</span></div>'; }
 }
 // ---- Timeline ----
 function _tlQuality(d){
@@ -4559,6 +4582,13 @@ function applyLang() {
   // Re-render Stats if active (labels are language-dependent)
   if(document.getElementById('page-stats')?.classList.contains('active')){
     if(typeof renderStats === 'function') renderStats();
+  }
+
+  if(document.getElementById('page-home')?.classList.contains('active')){
+    if(typeof loadHomeDashboard === 'function') loadHomeDashboard();
+  }
+  if(document.getElementById('page-bio')?.classList.contains('active')){
+    if(typeof renderBio === 'function') renderBio();
   }
 
   // Save lang preference
