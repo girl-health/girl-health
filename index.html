@@ -696,7 +696,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v6 · Recovery+Coach+2ภาษา</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v7 · โค้ชอ่านง่าย</span>
   </div>
 
   <!-- Greeting -->
@@ -3262,7 +3262,7 @@ function goPage(name){
 
 
 // ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
-const COACH_KEY='girl_coach_v1', TLINS_KEY='girl_tlinsight_v2';
+const COACH_KEY='girl_coach_v2', TLINS_KEY='girl_tlinsight_v2';
 async function _aiJSON(prompt, maxTok){
   const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
   const data=await res.json();
@@ -3318,21 +3318,36 @@ async function loadTodayCoach(force){
     const prompt='You are GIRL\'s personal longevity health coach (she optimizes sleep, HRV, nutrition, training, recovery, skin). Below is her real health log for the last '+withData.length+' days (most recent last). Act like a sharp coach: find CROSS-DAY patterns/correlations, judge her current recovery/readiness, and tell her exactly what to do TODAY.\n\nDATA:\n'+lines+'\n\nReply in BOTH Thai and English. Be specific and cite her real numbers. Respond ONLY with valid JSON, no markdown:\n{"focus_en":"one keyword: Recovery|Hydration|Sleep|Protein|Training|Skin","focus_th":"Thai of that keyword","state_en":"one short sentence on her current body/recovery state + what is lacking","state_th":"Thai version of state","actions_en":["2-4 specific things to do today, each short and concrete"],"actions_th":["Thai versions in the SAME order and count"]}';
     const r=await _aiJSON(prompt,1200);
     const L=(th,en)=>'<span class="lang-th">'+(th||en||'')+'</span><span class="lang-en" style="display:none;">'+(en||th||'')+'</span>';
-    let h='<div style="display:flex;flex-direction:column;gap:12px;">';
-    if(r.focus_en||r.focus_th) h+='<div style="align-self:flex-start;font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#EBD9A8;background:rgba(255,255,255,.1);border-radius:20px;padding:4px 11px;">'+L('โฟกัส: '+(r.focus_th||r.focus_en||''),'Focus: '+(r.focus_en||r.focus_th||''))+'</div>';
-    if(r.state_en||r.state_th) h+='<div style="font-family:\'Playfair Display\',serif;font-style:italic;font-size:1.06rem;line-height:1.5;color:#FBF6EC;">'+L('“'+(r.state_th||'')+'”','“'+(r.state_en||'')+'”')+'</div>';
+    let h='<div style="display:flex;flex-direction:column;gap:11px;">';
+    if(r.focus_en||r.focus_th) h+='<div style="align-self:flex-start;font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#EBD9A8;background:rgba(255,255,255,.12);border-radius:20px;padding:4px 11px;">'+L('โฟกัส: '+(r.focus_th||r.focus_en||''),'Focus: '+(r.focus_en||r.focus_th||''))+'</div>';
+    if(r.state_en||r.state_th) h+='<div style="font-family:\'Playfair Display\',serif;font-style:italic;font-size:1.04rem;line-height:1.5;color:#FFFFFF;">'+L('“'+(r.state_th||'')+'”','“'+(r.state_en||'')+'”')+'</div>';
     const aEn=r.actions_en||[], aTh=r.actions_th||[];
     const n=Math.max(aEn.length,aTh.length);
-    for(let i=0;i<n;i++){
-      const en=aEn[i]||aTh[i]||'', th=aTh[i]||aEn[i]||'';
-      h+='<div style="display:flex;gap:10px;align-items:flex-start;padding:11px 13px;background:rgba(255,255,255,.08);border-radius:13px;">'
-        +'<span style="width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(191,224,196,.25);color:#BFE0C4;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M5 13l4 4L19 7"/></svg></span>'
-        +'<p style="font-size:.76rem;line-height:1.5;color:rgba(255,255,255,.85);margin:0;">'+L(th,en)+'</p></div>';
+    if(n>0){
+      let acts='<div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#BFE0C4;margin-bottom:2px;">'+L('วันนี้ควรทำ','Do today')+'</div>';
+      for(let i=0;i<n;i++){
+        const en=aEn[i]||aTh[i]||'', th=aTh[i]||aEn[i]||'';
+        acts+='<div style="display:flex;gap:10px;align-items:flex-start;padding:11px 13px;background:rgba(255,255,255,.10);border-radius:13px;">'
+          +'<span style="width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(191,224,196,.3);color:#DDF0DF;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M5 13l4 4L19 7"/></svg></span>'
+          +'<p style="font-size:.78rem;line-height:1.55;color:#FFFFFF;margin:0;">'+L(th,en)+'</p></div>';
+      }
+      h+='<div id="coach-more" style="display:none;flex-direction:column;gap:8px;">'+acts+'</div>';
+      h+='<button onclick="coachToggle(this)" style="align-self:flex-start;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:20px;padding:7px 15px;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.68rem;font-weight:700;cursor:pointer;margin-top:2px;">'+L('ดูสิ่งที่ควรทำวันนี้ ›','See today’s actions ›')+'</button>';
     }
     h+='</div>';
     body.innerHTML=h;
+    if(typeof currentLang!=='undefined' && currentLang==='en'){ body.querySelectorAll('.lang-th').forEach(function(e){e.style.display='none';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display='';}); }
     try{ localStorage.setItem(COACH_KEY,JSON.stringify({date:today,html:h})); }catch(e){}
   }catch(e){ console.error('coach',e); body.innerHTML='<div style="font-size:.74rem;color:rgba(255,255,255,.8);font-family:\'IBM Plex Sans Thai\',sans-serif;"><span class="lang-th">โค้ชยังไม่พร้อม กดรีเฟรชลองใหม่อีกครั้งค่ะ</span><span class="lang-en" style="display:none;">Coach is unavailable right now — tap refresh to retry.</span></div>'; }
+}
+function coachToggle(btn){
+  var m=document.getElementById('coach-more'); if(!m) return;
+  var open=m.style.display!=='none';
+  m.style.display=open?'none':'flex';
+  var en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  var th=open?'ดูสิ่งที่ควรทำวันนี้ ›':'ซ่อน ▲';
+  var enx=open?'See today’s actions ›':'Hide ▲';
+  btn.innerHTML='<span class="lang-th"'+(en?' style="display:none"':'')+'>'+th+'</span><span class="lang-en"'+(en?'':' style="display:none"')+'>'+enx+'</span>';
 }
 // ---- Timeline ----
 function _tlQuality(d){
