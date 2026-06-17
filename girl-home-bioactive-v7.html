@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GIRL × BioActive · Health</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F6F1E7; --cream2:#F0E9DA; --paper:#FFFFFF; --paper2:#FCFAF4;
+  --bio:#3B6D11; --bio-deep:#2C5610; --bio-soft:#EAF0DC; --bio-mid:#5C7A3A;
+  --gold:#B8860B; --gold2:#C9A96E; --brown:#6B5036; --brown2:#8B6914;
+  --ink:#2A2A22; --stone:#938E7E; --stone2:#BBB4A2; --line:#E7DECB;
+  /* muted pastels for the score ring — cute, unisex (not candy) */
+  --c-sleep:#B9A9D6; --c-food:#9CBE8E; --c-water:#93BBD6; --c-move:#E6A77E;
+  --c-rec:#D69BAE; --c-skin:#E89C8C; --c-supp:#DFBE74; --c-mind:#8FC9B4; --c-body:#C9AE84;
+  /* fixed BioActive product colors — DO NOT CHANGE */
+  --p-col:#2C2C2C; --p-glu:#D4607A; --p-ast:#C0392B; --p-gold:#B8860B; --p-ker:#A8A29A;
+  --p-mag:#4A7CB0; --p-tri:#5C7A3A; --p-imm:#8B6914; --p-juv:#C0622A;
+  --sh-sm:0 1px 3px rgba(59,109,17,.05);
+  --sh:0 2px 8px rgba(59,109,17,.05), 0 16px 40px rgba(43,43,34,.06);
+  --serif:'Playfair Display',serif;
+  --sans:'IBM Plex Sans Thai','Sarabun',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{font-size:17px;}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;
+  background:radial-gradient(125% 80% at 50% -8%, #FAF6EE 0%, var(--cream) 45%, var(--cream2) 100%);
+  background-attachment:fixed;min-height:100vh;}
+.en{display:none;}
+body.lang-en .th{display:none;}
+body.lang-en .en{display:inline;}
+.shell{max-width:440px;margin:0 auto;padding:22px 18px 64px;}
+.rise{opacity:0;animation:rise .7s cubic-bezier(.16,1,.3,1) forwards;}
+@keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pop{0%{transform:scale(0) rotate(-30deg);opacity:0;}70%{transform:scale(1.15);}100%{transform:scale(1) rotate(0);opacity:1;}}
+svg.i{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── top bar ── */
+.top{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.av{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--bio),var(--bio-mid));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:1.05rem;box-shadow:0 4px 12px rgba(59,109,17,.25);}
+.greet{flex:1;min-width:0;}
+.greet .eye{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);font-weight:500;}
+.greet .name{font-family:var(--serif);font-size:1.32rem;color:var(--bio-deep);line-height:1.1;margin-top:1px;}
+.greet .name em{font-style:italic;color:var(--gold);}
+.lang{display:flex;border:1px solid var(--line);border-radius:100px;overflow:hidden;background:var(--paper);flex-shrink:0;}
+.lang button{border:none;background:none;font-family:var(--sans);font-size:.66rem;font-weight:600;color:var(--stone);padding:6px 11px;cursor:pointer;transition:all .2s;}
+.lang button.on{background:var(--bio);color:#fff;}
+
+/* ── streak ── */
+.streak{display:inline-flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:100px;padding:6px 14px 6px 8px;margin-bottom:18px;box-shadow:var(--sh-sm);}
+.streak .ic{width:24px;height:24px;border-radius:50%;background:var(--bio-soft);display:flex;align-items:center;justify-content:center;color:var(--bio);}
+.streak b{font-size:.78rem;font-weight:600;color:var(--bio-deep);}
+.streak span{font-size:.72rem;color:var(--stone);}
+
+/* ── HERO score ── */
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:22px 20px 22px;margin-bottom:14px;box-shadow:var(--sh);text-align:center;position:relative;overflow:hidden;}
+.hero .badge{position:absolute;top:18px;right:18px;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bio);background:var(--bio-soft);border-radius:100px;padding:4px 10px;font-weight:600;}
+.hero .badge-l{position:absolute;top:18px;left:18px;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone2);font-weight:500;}
+.ring-wrap{position:relative;width:248px;height:248px;margin:16px auto 8px;}
+.ring-wrap svg.ring{width:248px;height:248px;transform:rotate(-90deg);}
+.ring-seg{stroke-linecap:round;fill:none;stroke-width:25;stroke-dasharray:0 600;transition:stroke-dasharray .9s cubic-bezier(.16,1,.3,1);}
+.chip{position:absolute;width:26px;height:26px;display:flex;align-items:center;justify-content:center;opacity:0;color:#2A2A22;}
+.chip.show{animation:pop .5s cubic-bezier(.16,1,.4,1) forwards;}
+.chip svg{width:20px;height:20px;}
+.ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;}
+.score{font-family:var(--sans);font-weight:700;font-size:4.7rem;line-height:.82;color:var(--bio-deep);letter-spacing:-3px;}
+.score-sub{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:6px;font-weight:600;}
+.hero-status{font-family:var(--serif);font-style:italic;font-size:1.16rem;color:var(--ink);margin:4px 0 8px;}
+.delta{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:var(--bio);background:var(--bio-soft);padding:4px 11px;border-radius:100px;}
+.hero-cap{font-size:.72rem;color:var(--stone);margin-top:11px;line-height:1.55;max-width:300px;margin:11px auto 0;}
+
+/* ── section head ── */
+.sec{margin-top:26px;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:13px;}
+.sec h2{font-family:var(--serif);font-weight:600;font-size:1.2rem;color:var(--bio-deep);}
+.sec .note{font-size:.66rem;color:var(--stone2);}
+.sec .note.link{color:var(--bio);font-weight:600;}
+
+/* ── focus tiles ── */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:16px 17px 15px;box-shadow:var(--sh-sm);}
+.tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.tile-name{font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--stone);font-weight:500;}
+.tile-ic{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+.tile-ic svg{width:21px;height:21px;}
+.tile-val{font-family:var(--sans);font-weight:700;font-size:1.95rem;color:var(--bio-deep);line-height:.9;letter-spacing:-.5px;}
+.tile-val small{font-family:var(--sans);font-size:.66rem;color:var(--stone2);font-weight:400;}
+.bar{height:5px;border-radius:100px;background:var(--cream2);margin-top:11px;overflow:hidden;}
+.bar i{display:block;height:100%;border-radius:100px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1) .4s;}
+.ages{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.age{border:1px solid var(--line);border-radius:22px;padding:15px 16px 14px;box-shadow:var(--sh-sm);position:relative;overflow:hidden;}
+.age.fit{background:#E6EEDA;border-color:#D6E3C0;}
+.age.skin{background:#F5E4E9;border-color:#ECD2DA;}
+.age .a-wm{position:absolute;right:-14px;bottom:-18px;opacity:.13;pointer-events:none;}
+.age .a-wm svg{width:78px;height:78px;}
+.age.fit .a-wm{color:#3B6D11;} .age.skin .a-wm{color:#A33B5C;}
+.age .a-top{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.age .a-ic{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.age .a-ic svg{width:18px;height:18px;}
+.age .a-name{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+.age.fit .a-name{color:#5C7A3A;} .age.skin .a-name{color:#A86077;}
+.age .a-val{font-family:var(--sans);font-weight:700;font-size:2.3rem;line-height:.85;letter-spacing:-1px;position:relative;}
+.age.fit .a-val{color:#2C5610;} .age.skin .a-val{color:#8E3F58;}
+.age .a-val small{font-size:.66rem;color:var(--stone2);font-weight:500;letter-spacing:0;}
+.age .a-delta{font-size:.62rem;font-weight:700;margin-top:10px;display:inline-flex;align-items:center;gap:4px;border-radius:100px;padding:3px 9px;background:#fff;position:relative;}
+.age.fit .a-delta{color:#3B6D11;} .age.skin .a-delta{color:#9d4560;}
+.nutri{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:17px 17px 15px;box-shadow:var(--sh-sm);}
+.nutri-note{font-size:.64rem;color:var(--stone);margin:-2px 0 13px;}
+.nutri-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px 18px;}
+.n-top{display:flex;justify-content:space-between;align-items:baseline;}
+.n-name{font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;color:var(--stone);font-weight:600;}
+.n-val{font-family:var(--sans);font-weight:700;font-size:1.22rem;color:var(--bio-deep);line-height:1;}
+.n-val small{font-size:.56rem;color:var(--stone2);font-weight:500;}
+.q3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.q3 .box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:13px 8px 11px;text-align:center;box-shadow:var(--sh-sm);}
+.q3 .box .ic{width:30px;height:30px;border-radius:9px;margin:0 auto 7px;display:flex;align-items:center;justify-content:center;}
+.q3 .box .ic svg{width:17px;height:17px;}
+.q3 .box .v{font-family:var(--sans);font-weight:700;font-size:1.1rem;color:var(--bio-deep);line-height:1;}
+.q3 .box .v small{font-size:.54rem;color:var(--stone2);font-weight:500;}
+.q3 .box .l{font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;color:var(--stone);margin-top:6px;font-weight:600;}
+
+/* ── meal photo cards ── */
+.meals{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.meal{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh-sm);}
+.meal-img{position:relative;height:134px;background:linear-gradient(135deg,var(--bio-soft),var(--cream2));}
+.meal-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.meal-img .fallback{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;color:var(--bio-mid);}
+.meal-tag{position:absolute;top:10px;left:10px;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--bio-deep);background:rgba(255,255,255,.92);padding:4px 10px;border-radius:100px;backdrop-filter:blur(4px);z-index:2;}
+.meal-tag.lt{background:var(--bio);color:#fff;}
+.meal.feat{grid-column:1 / -1;}
+.meal.feat .meal-img{height:194px;}
+.meal-ov{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 14px;background:linear-gradient(transparent,rgba(26,38,14,.85));}
+.meal-ov .meal-ttl{color:#fff;font-size:1.1rem;font-weight:700;}
+.meal-ov .meal-meta{color:rgba(255,255,255,.88);margin-top:6px;}
+.meal-ov .meal-meta b{color:#CFE6B8;}
+.meal-body{padding:11px 13px 13px;}
+.meal-ttl{font-size:.86rem;font-weight:600;color:var(--ink);line-height:1.2;}
+.meal-meta{display:flex;gap:10px;margin-top:6px;font-size:.66rem;color:var(--stone);}
+.meal-meta b{color:var(--bio);font-weight:600;}
+.meal.add{grid-column:1 / -1;display:flex;align-items:center;justify-content:center;border-style:dashed;color:var(--stone);flex-direction:row;gap:9px;min-height:auto;padding:14px;cursor:pointer;background:var(--paper2);}
+.meal.add .plus{width:38px;height:38px;border-radius:50%;background:var(--bio-soft);display:flex;align-items:center;justify-content:center;color:var(--bio);}
+.meal.add span{font-size:.72rem;font-weight:500;}
+
+/* ── BioActive cute bottles ── */
+.bio-card{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:18px 14px 14px;box-shadow:var(--sh-sm);}
+.bio-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;padding:0 4px;}
+.bio-ttl{font-family:var(--serif);font-size:1.04rem;color:var(--bio-deep);}
+.bio-count{font-size:.72rem;color:var(--stone);}
+.bio-count b{color:var(--bio);font-weight:700;}
+.bottles{display:flex;justify-content:space-between;gap:3px;margin-top:15px;padding:0 2px;}
+.bot{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;}
+.jar{width:16px;height:58px;position:relative;transition:transform .25s;}
+.jar:active{transform:scale(.9) rotate(-3deg);}
+.jar .body{position:absolute;inset:0;border-radius:7px 7px 5px 5px;background:var(--paper2);border:1.5px solid var(--line);overflow:hidden;transition:all .3s;}
+.jar .body .liq{position:absolute;left:0;right:0;bottom:0;height:0;transition:height .7s cubic-bezier(.16,1,.3,1);}
+.jar .body .seam{position:absolute;left:50%;top:7px;bottom:6px;width:1px;transform:translateX(-50%);background:rgba(255,255,255,.3);z-index:2;}
+.jar .body .gloss{position:absolute;top:7px;left:2.5px;width:3px;height:64%;border-radius:100px;background:rgba(255,255,255,.5);z-index:2;}
+.jar .crimp{position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:13px;height:6px;border-radius:5px 5px 2px 2px;background:var(--stone2);transition:background .3s;z-index:3;}
+.jar .crimp::after{content:'';position:absolute;inset:1px 2px;border-top:1px dashed rgba(255,255,255,.4);}
+.bot.on .jar .body{border-color:transparent;box-shadow:0 5px 12px rgba(43,43,34,.22);}
+.bot.on .jar .body .liq{height:100%;}
+.bot .lab{font-size:.5rem;letter-spacing:.03em;color:var(--stone);font-weight:600;text-transform:uppercase;}
+.bot.on .lab{color:var(--ink);}
+.bot .chk{position:absolute;top:-5px;right:-4px;width:14px;height:14px;border-radius:50%;background:var(--bio);display:none;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2);z-index:4;}
+.bot.on .chk{display:flex;}
+
+/* ── recovery ── */
+.rec{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.rbox{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px 4px 10px;text-align:center;box-shadow:var(--sh-sm);}
+.rbox .ric{width:28px;height:28px;border-radius:9px;margin:0 auto 7px;display:flex;align-items:center;justify-content:center;}
+.rbox .ric svg{width:16px;height:16px;}
+.rval{font-family:var(--sans);font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;}
+.rname{font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--stone);font-weight:500;margin-top:4px;}
+
+/* ── coach ── */
+.coach{background:linear-gradient(158deg,var(--bio) 0%,var(--bio-deep) 100%);border-radius:28px;padding:22px 22px 20px;position:relative;overflow:hidden;box-shadow:0 14px 36px rgba(44,86,16,.3);margin-top:14px;}
+.coach::before{content:'';position:absolute;top:-30%;right:-12%;width:55%;height:75%;background:radial-gradient(circle,rgba(201,169,110,.22),transparent 70%);}
+.coach-head{display:flex;align-items:center;gap:11px;margin-bottom:13px;position:relative;}
+.coach-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;color:var(--bio-deep);flex-shrink:0;}
+.coach-ttl{font-weight:600;font-size:.88rem;color:#fff;}
+.coach-sub{font-size:.6rem;color:rgba(255,255,255,.55);margin-top:1px;}
+.coach-q{font-family:var(--serif);font-style:italic;font-size:1.12rem;line-height:1.46;color:#FBF6EC;margin-bottom:14px;position:relative;}
+.coach-tip{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;background:rgba(255,255,255,.07);border-radius:13px;margin-bottom:8px;}
+.coach-tip .d{width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.coach-tip .d svg{width:13px;height:13px;}
+.coach-tip p{font-size:.74rem;line-height:1.5;color:rgba(255,255,255,.82);}
+.coach-tip p b{font-weight:600;color:#fff;display:block;margin-bottom:1px;}
+.coach-link{margin-top:12px;text-align:center;font-size:.7rem;font-weight:600;color:#EBD9A8;cursor:pointer;border-top:1px solid rgba(255,255,255,.13);padding-top:12px;}
+
+.foot{text-align:center;margin-top:30px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone2);}
+.foot b{color:var(--bio);}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}.rise,.chip{opacity:1!important;}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="top rise" style="animation-delay:.02s">
+    <div class="av">G</div>
+    <div class="greet">
+      <div class="eye"><span class="th">วันพุธ · เช้านี้</span><span class="en">Wednesday · Morning</span></div>
+      <div class="name">Good morning, <em>Girl</em></div>
+    </div>
+    <div class="lang"><button class="on" onclick="setLang('th',this)">TH</button><button onclick="setLang('en',this)">EN</button></div>
+  </div>
+
+  <div class="streak rise" style="animation-delay:.08s">
+    <span class="ic"><svg class="i" viewBox="0 0 24 24" width="14" height="14"><path d="M12 3c1 3-1 4-1 6a3 3 0 0 0 6 0c0-1 0-2-1-3 2 1 4 4 4 7a7 7 0 0 1-14 0c0-4 3-5 3-8 1 .5 3 1 3-2z"/></svg></span>
+    <b><span class="th">12 วันต่อเนื่อง</span><span class="en">12-day streak</span></b>
+    <span><span class="th">· บันทึกทุกวันเก่งมาก</span><span class="en">· logged every day</span></span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero rise" style="animation-delay:.14s">
+    <div class="badge-l">BioActive+</div>
+    <div class="badge"><span class="th">วันนี้</span><span class="en">Today</span></div>
+    <div class="ring-wrap" id="ringWrap">
+      <svg class="ring" viewBox="0 0 248 248" id="ring"></svg>
+      <div class="ring-inner">
+        <div class="score" id="score">0</div>
+        <div class="score-sub">Health Score</div>
+      </div>
+    </div>
+    <div class="hero-status"><span class="th">ร่างกายฟื้นตัวดี</span><span class="en">Well recovered</span></div>
+    <div class="delta"><svg class="i" viewBox="0 0 24 24" width="12" height="12"><path d="M6 15l6-6 6 6"/></svg> <span class="th">+6 จากเมื่อวาน</span><span class="en">+6 vs yesterday</span></div>
+    <div class="hero-cap"><span class="th">นอนดี · น้ำพอ · โปรตีนเกือบครบ — เหลือแค่ขยับร่างกายอีกนิด แล้วครบเป้าวันนี้</span><span class="en">Good sleep, hydrated, protein nearly there — just a little movement left today</span></div>
+  </div>
+
+  <!-- LONGEVITY · age -->
+  <div class="sec"><h2><span class="th">อายุของร่างกาย</span><span class="en">Your real age</span></h2><div class="note"><span class="th">ยิ่งดูแล ยิ่งเด็ก</span><span class="en">care today, younger tomorrow</span></div></div>
+  <div class="ages">
+    <div class="age fit rise" style="animation-delay:.18s">
+      <div class="a-wm"><svg class="i" viewBox="0 0 24 24"><circle cx="13" cy="5" r="1.8"/><path d="M11.5 8l-3 2.5 2.5 2 1 5M8.5 10.5l-3 1M13 12.5l3 1.5 1 4"/></svg></div>
+      <div class="a-top" style="position:relative"><div class="a-ic" style="background:rgba(255,255,255,.85);color:var(--bio)"><svg class="i" viewBox="0 0 24 24"><circle cx="13" cy="5" r="1.8"/><path d="M11.5 8l-3 2.5 2.5 2 1 5M8.5 10.5l-3 1M13 12.5l3 1.5 1 4"/></svg></div>
+        <div class="a-name"><span class="th">ฟิตเนส</span><span class="en">Fitness</span></div></div>
+      <div class="a-val">24<small> <span class="th">ปี</span><span class="en">yrs</span></small></div>
+      <div class="a-delta"><svg class="i" viewBox="0 0 24 24" width="11" height="11"><path d="M6 15l6-6 6 6"/></svg><span class="th">เด็กกว่าจริง 4 ปี</span><span class="en">4 yrs younger</span></div>
+    </div>
+    <div class="age skin rise" style="animation-delay:.23s">
+      <div class="a-wm"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.5 4.3L18 9l-4.5 1.7L12 15l-1.5-4.3L6 9l4.5-1.7z"/></svg></div>
+      <div class="a-top" style="position:relative"><div class="a-ic" style="background:rgba(255,255,255,.85);color:var(--p-glu)"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.5 4.3L18 9l-4.5 1.7L12 15l-1.5-4.3L6 9l4.5-1.7z"/><path d="M18 14l.6 1.6 1.6.6-1.6.6L18 19l-.6-1.6L15.8 16.8l1.6-.6z"/></svg></div>
+        <div class="a-name"><span class="th">ผิว</span><span class="en">Skin</span></div></div>
+      <div class="a-val">26<small> <span class="th">ปี</span><span class="en">yrs</span></small></div>
+      <div class="a-delta"><svg class="i" viewBox="0 0 24 24" width="11" height="11"><path d="M6 15l6-6 6 6"/></svg><span class="th">เด็กกว่าจริง 2 ปี</span><span class="en">2 yrs younger</span></div>
+    </div>
+  </div>
+
+  <!-- EATING today -->
+  <div class="sec"><h2><span class="th">การกินวันนี้</span><span class="en">Eating today</span></h2><div class="note"><span class="th">ใส่ใจทุกคำ</span><span class="en">every bite counts</span></div></div>
+  <div class="nutri rise" style="animation-delay:.28s">
+    <div class="nutri-grid">
+      <div>
+        <div class="n-top"><div class="n-name"><span class="th">แคลอรี่</span><span class="en">Calories</span></div><div class="n-val">1,420<small> / 1,800</small></div></div>
+        <div class="bar"><i data-w="79" style="background:var(--gold2)"></i></div>
+      </div>
+      <div>
+        <div class="n-top"><div class="n-name"><span class="th">โปรตีน</span><span class="en">Protein</span></div><div class="n-val">96<small> / 110g</small></div></div>
+        <div class="bar"><i data-w="87" style="background:var(--brown)"></i></div>
+      </div>
+      <div>
+        <div class="n-top"><div class="n-name"><span class="th">ไฟเบอร์</span><span class="en">Fiber</span></div><div class="n-val">22<small> / 28g</small></div></div>
+        <div class="bar"><i data-w="79" style="background:var(--bio)"></i></div>
+      </div>
+      <div>
+        <div class="n-top"><div class="n-name"><span class="th">น้ำตาลผลไม้</span><span class="en">Fruit sugar</span></div><div class="n-val">14<small> / 22g</small></div></div>
+        <div class="bar"><i data-w="64" style="background:var(--p-juv)"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY goals quick -->
+  <div class="sec"><h2><span class="th">เป้าหมายวันนี้</span><span class="en">Daily goals</span></h2><div class="note"><span class="th">น้ำ · นอน · ขยับ</span><span class="en">water · sleep · move</span></div></div>
+  <div class="q3 rise" style="animation-delay:.33s">
+    <div class="box"><div class="ic" style="background:#dce6ee;color:var(--p-mag)"><svg class="i" viewBox="0 0 24 24"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg></div><div class="v">1.8<small>/2.5L</small></div><div class="l"><span class="th">น้ำ</span><span class="en">Water</span></div></div>
+    <div class="box"><div class="ic" style="background:#e6e0f0;color:var(--c-sleep)"><svg class="i" viewBox="0 0 24 24"><path d="M20 14A8 8 0 0 1 10 4 7 7 0 1 0 20 14z"/></svg></div><div class="v">7<small>ช</small>12<small>น</small></div><div class="l"><span class="th">นอน</span><span class="en">Sleep</span></div></div>
+    <div class="box"><div class="ic" style="background:#f0e2d6;color:var(--p-juv)"><svg class="i" viewBox="0 0 24 24"><path d="M6 9v6M3.5 11v2M18 9v6M20.5 11v2M6 12h12"/></svg></div><div class="v">41<small>/60น</small></div><div class="l"><span class="th">ขยับ</span><span class="en">Move</span></div></div>
+  </div>
+
+  <div class="sec"><h2><span class="th">มื้อแนะนำวันนี้</span><span class="en">Meals for today</span></h2><div class="note link"><span class="th">ดูทั้งหมด ›</span><span class="en">See all ›</span></div></div>
+  <div class="meals">
+    <div class="meal feat rise" style="animation-delay:.4s">
+      <div class="meal-img"><span class="meal-tag lt"><span class="th">มื้อเด่นวันนี้</span><span class="en">Top pick today</span></span>
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?fm=jpg&q=80&w=820&h=560&fit=crop" alt="bowl" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="fallback"><svg class="i" viewBox="0 0 24 24" width="30" height="30"><path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M9 7c1-1.5 3-2 4.5-1"/></svg></div>
+        <div class="meal-ov">
+          <div class="meal-ttl"><span class="th">โบวล์ธัญพืช + อะโวคาโด</span><span class="en">Grain & avocado bowl</span></div>
+          <div class="meal-meta"><span><b>32g</b> <span class="th">โปรตีน</span><span class="en">protein</span></span><span>420 kcal</span><span><span class="th">15 นาที</span><span class="en">15 min</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="meal rise" style="animation-delay:.45s">
+      <div class="meal-img"><span class="meal-tag"><span class="th">กลางวัน</span><span class="en">Lunch</span></span>
+        <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?fm=jpg&q=75&w=640&h=480&fit=crop" alt="salmon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="fallback"><svg class="i" viewBox="0 0 24 24" width="26" height="26"><path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M9 7c1-1.5 3-2 4.5-1"/></svg></div></div>
+      <div class="meal-body"><div class="meal-ttl"><span class="th">แซลมอน + ผักใบเขียว</span><span class="en">Salmon & greens</span></div>
+        <div class="meal-meta"><span><b>41g</b> <span class="th">โปรตีน</span><span class="en">protein</span></span><span>510 kcal</span></div></div>
+    </div>
+    <div class="meal rise" style="animation-delay:.5s">
+      <div class="meal-img"><span class="meal-tag"><span class="th">เย็น</span><span class="en">Dinner</span></span>
+        <img src="https://images.unsplash.com/photo-1607532941433-304659e8198a?fm=jpg&q=75&w=640&h=480&fit=crop" alt="plate" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="fallback"><svg class="i" viewBox="0 0 24 24" width="26" height="26"><path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M9 7c1-1.5 3-2 4.5-1"/></svg></div></div>
+      <div class="meal-body"><div class="meal-ttl"><span class="th">จานสลัดโปรตีนสูง</span><span class="en">High-protein plate</span></div>
+        <div class="meal-meta"><span><b>28g</b> <span class="th">โปรตีน</span><span class="en">protein</span></span><span>380 kcal</span></div></div>
+    </div>
+    <div class="meal add rise" style="animation-delay:.55s">
+      <span class="plus"><svg class="i" viewBox="0 0 24 24" width="20" height="20"><path d="M12 5v14M5 12h14"/></svg></span>
+      <span><span class="th">บันทึกมื้อเอง</span><span class="en">Log a meal</span></span>
+    </div>
+  </div>
+
+  <div class="sec"><h2>BioActive+</h2><div class="note"><span class="th">กินวันนี้</span><span class="en">Taken today</span></div></div>
+  <div class="bio-card rise" style="animation-delay:.58s">
+    <div class="bio-head"><div class="bio-ttl"><span class="th">9 สูตร · วันนี้</span><span class="en">9 formulas · today</span></div><div class="bio-count"><b>7</b> / 9</div></div>
+    <div class="bottles" id="bottles"></div>
+  </div>
+
+  <div class="sec"><h2>Recovery</h2><div class="note"><span class="th">จาก Garmin</span><span class="en">from Garmin</span></div></div>
+  <div class="rec rise" style="animation-delay:.62s">
+    <div class="rbox"><div class="ric" style="background:#e0ebe2;color:var(--bio)"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="8.5" width="15" height="7" rx="2"/><path d="M21 11.2v1.6M6.5 10.8v2.4M9.5 10.8v2.4"/></svg></div><div class="rval" style="color:var(--bio)">64</div><div class="rname">Battery</div></div>
+    <div class="rbox"><div class="ric" style="background:#dce6ee;color:var(--p-mag)"><svg class="i" viewBox="0 0 24 24"><path d="M3.5 12h3l2-5 3 9 2-6 1.5 2h5"/></svg></div><div class="rval" style="color:var(--p-mag)">48</div><div class="rname">HRV</div></div>
+    <div class="rbox"><div class="ric" style="background:#efe3dd;color:var(--brown)"><svg class="i" viewBox="0 0 24 24"><path d="M12 20C7 16.5 4 13 4 9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 8 2.5C20 13 17 16.5 12 20z"/></svg></div><div class="rval" style="color:var(--brown)">52</div><div class="rname">RHR</div></div>
+    <div class="rbox"><div class="ric" style="background:#f3ecd6;color:var(--gold)"><svg class="i" viewBox="0 0 24 24"><path d="M20 14A8 8 0 0 1 10 4 7 7 0 1 0 20 14z"/></svg></div><div class="rval" style="color:var(--gold)">86</div><div class="rname">Sleep</div></div>
+  </div>
+
+  <div class="coach rise" style="animation-delay:.66s">
+    <div class="coach-head"><div class="coach-av"><svg class="i" viewBox="0 0 24 24" width="18" height="18"><path d="M12 3l1.6 4.6L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.4z"/></svg></div>
+      <div><div class="coach-ttl"><span class="th">โค้ชวันนี้</span><span class="en">Today's Coach</span></div><div class="coach-sub"><span class="th">AI อ่านข้อมูล 14 วัน</span><span class="en">AI reads 14 days</span></div></div></div>
+    <div class="coach-q"><span class="th">"อาทิตย์นี้นอนสม่ำเสมอขึ้นมาก HRV เลยขยับขึ้น — ร่างกายพร้อมเทรนหนักได้แล้ว"</span><span class="en">"Sleep got steadier this week and your HRV climbed — your body's ready to train hard."</span></div>
+    <div class="coach-tip"><span class="d" style="background:rgba(191,224,196,.25);color:#BFE0C4"><svg class="i" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><p><b><span class="th">ทำต่อ</span><span class="en">Keep going</span></b><span class="th">เข้านอนก่อนเที่ยงคืน 5 คืนรวด คือกุญแจของอาทิตย์นี้</span><span class="en">Sleeping before midnight 5 nights was the key this week</span></p></div>
+    <div class="coach-tip"><span class="d" style="background:rgba(201,169,110,.22);color:var(--gold2)"><svg class="i" viewBox="0 0 24 24"><path d="M9 3h6v4l-2 2v3l3 7H8l3-7V9L9 7z"/></svg></span><p><b><span class="th">ปรับนิด · Magnesium</span><span class="en">Adjust · Magnesium</span></b><span class="th">คืนนี้อย่าลืม Magnesium ก่อนนอน ช่วยให้หลับลึกต่อเนื่อง</span><span class="en">Don't skip Magnesium tonight to keep deep sleep going</span></p></div>
+    <div class="coach-link"><span class="th">ดู Health Timeline เต็ม ›</span><span class="en">View full Health Timeline ›</span></div>
+  </div>
+
+  <div class="foot">GIRL × <b>BioActive</b> · Health Journal</div>
+</div>
+
+<script>
+function setLang(l,btn){document.body.classList.toggle('lang-en',l==='en');
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.documentElement.lang=l;}
+
+/* 9 health dimensions — cute pastel ring with icons */
+var DIMS=[
+  {name:'Sleep',  c:'var(--c-sleep)', ic:'<path d="M20 14A8 8 0 0 1 10 4 7 7 0 1 0 20 14z"/>'},
+  {name:'Food',   c:'var(--c-food)',  ic:'<path d="M12 20v-7M12 13c-3 0-5-1.6-5-4 0-1 .5-1.8 1.2-2.4C9 4.6 10.4 4 12 4s3 .6 3.8 2.6C16.5 7.2 17 8 17 9c0 2.4-2 4-5 4z"/>'},
+  {name:'Water',  c:'var(--c-water)', ic:'<path d="M12 4c3.5 4.5 5.5 7 5.5 10A5.5 5.5 0 0 1 6.5 14c0-3 2-5.5 5.5-10z"/>'},
+  {name:'Move',   c:'var(--c-move)',  ic:'<path d="M6 9v6M3.5 11v2M18 9v6M20.5 11v2M6 12h12"/>'},
+  {name:'Recovery',c:'var(--c-rec)',  ic:'<path d="M12 20C7 16.5 4 13 4 9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 8 2.5C20 13 17 16.5 12 20z"/>'},
+  {name:'Skin',   c:'var(--c-skin)',  ic:'<path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/><path d="M18 14l.7 1.8 1.8.7-1.8.7L18 19l-.7-1.8L15.5 16.5l1.8-.7z"/>'},
+  {name:'Supplements',c:'var(--c-supp)',ic:'<rect x="4.5" y="9" width="15" height="6" rx="3" transform="rotate(45 12 12)"/><path d="M9.5 9.5l5 5"/>'},
+  {name:'Mind',   c:'var(--c-mind)',  ic:'<path d="M12 19c4-3 6-5.5 6-9a3.5 3.5 0 0 0-6-2.4A3.5 3.5 0 0 0 6 10c0 1 .3 2 1 3"/><circle cx="12" cy="13" r="1"/>'},
+  {name:'Body',   c:'var(--c-body)',  ic:'<circle cx="12" cy="6" r="2.2"/><path d="M12 8.5V15M12 15l-3 5M12 15l3 5M8 11h8"/>'}
+];
+
+function buildRing(){
+  var svg=document.getElementById('ring'),wrap=document.getElementById('ringWrap');
+  var cx=124,cy=124,r=94,C=2*Math.PI*r,seg=C/9,gap=22,arc=seg-gap,ns='http://www.w3.org/2000/svg';
+  var track=document.createElementNS(ns,'circle');
+  track.setAttribute('cx',cx);track.setAttribute('cy',cy);track.setAttribute('r',r);
+  track.setAttribute('fill','none');track.setAttribute('stroke','#F1EBDD');track.setAttribute('stroke-width','25');svg.appendChild(track);
+  DIMS.forEach(function(d,i){
+    var c=document.createElementNS(ns,'circle');
+    c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.setAttribute('r',r);
+    c.setAttribute('class','ring-seg');c.setAttribute('stroke',d.c);
+    c.setAttribute('transform','rotate('+(i*40+4)+' '+cx+' '+cy+')');
+    c.dataset.arc=arc;svg.appendChild(c);
+    var ang=(-90+i*40+20)*Math.PI/180;
+    var chip=document.createElement('div');chip.className='chip';
+    chip.style.left=(124+r*Math.cos(ang)-13)/248*100+'%';
+    chip.style.top=(124+r*Math.sin(ang)-13)/248*100+'%';
+    chip.innerHTML='<svg class="i" viewBox="0 0 24 24" style="stroke-width:2.1">'+d.ic+'</svg>';
+    wrap.appendChild(chip);
+  });
+}
+
+var PRODUCTS=[
+  {ab:'Col',c:'#2C2C2C',on:true},{ab:'Glu',c:'#D4607A',on:true},{ab:'Ast',c:'#C0392B',on:true},
+  {ab:'Gold',c:'#B8860B',on:true},{ab:'Ker',c:'#A8A29A',on:true},{ab:'Mag',c:'#4A7CB0',on:false},
+  {ab:'Tri',c:'#5C7A3A',on:true},{ab:'Imm',c:'#8B6914',on:true},{ab:'Juv',c:'#C0622A',on:false}
+];
+function buildBottles(){
+  var box=document.getElementById('bottles');
+  PRODUCTS.forEach(function(p){
+    var d=document.createElement('div');d.className='bot'+(p.on?' on':'');
+    d.innerHTML='<div class="jar"><div class="crimp" style="'+(p.on?'background:'+p.c:'')+'"></div>'
+      +'<div class="body" style="'+(p.on?'border-color:'+p.c:'')+'"><div class="liq" style="background:'+p.c+'"></div><div class="seam"></div><div class="gloss"></div></div>'
+      +'<div class="chk"><svg class="i" viewBox="0 0 24 24" width="9" height="9" style="stroke:#fff;stroke-width:3"><path d="M5 13l4 4L19 7"/></svg></div></div>'
+      +'<div class="lab">'+p.ab+'</div>';
+    box.appendChild(d);
+  });
+}
+
+window.addEventListener('load',function(){
+  buildRing();buildBottles();
+  setTimeout(function(){
+    var segs=document.querySelectorAll('.ring-seg'),chips=document.querySelectorAll('.chip');
+    segs.forEach(function(s,i){setTimeout(function(){s.style.strokeDasharray=s.dataset.arc+' 999';},i*60);});
+    chips.forEach(function(c,i){setTimeout(function(){c.classList.add('show');},250+i*60);});
+    var el=document.getElementById('score'),n=0,target=84;
+    var t=setInterval(function(){n+=2;if(n>=target){n=target;clearInterval(t);}el.textContent=n;},20);
+    document.querySelectorAll('.bar i').forEach(function(b){b.style.width=b.dataset.w+'%';});
+    document.querySelectorAll('.bot.on .liq').forEach(function(l){l.style.height='100%';});
+  },300);
+});
+</script>
+</body>
+</html>
