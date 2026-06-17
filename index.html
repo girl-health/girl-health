@@ -1339,10 +1339,11 @@ body.ltab-supp .s-supp{display:block;}
         </div>
       </div>
       <div id="smartscan-preview" style="display:none;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:9px;"></div>
+      <div id="smartscan-actions" style="display:none;gap:7px;margin-bottom:9px;"></div>
       <label id="smartscan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:11px;border:1.5px dashed var(--border2);background:var(--card2);cursor:pointer;transition:all .2s;">
         <span style="font-size:1.15rem;">✨</span>
         <span style="font-size:.74rem;font-weight:700;letter-spacing:.3px;color:var(--accent);font-family:'Kanit',sans-serif;"><span class="lang-th">ถ่าย / อัปรูป — ได้หลายรูปพร้อมกัน</span><span class="lang-en" style="display:none;">Add photos — multiple at once</span></span>
-        <input type="file" accept="image/*" multiple style="display:none" onchange="analyzeSmartScan(this)">
+        <input type="file" accept="image/*" multiple style="display:none" onchange="loadSmartScan(this)">
       </label>
       <div id="allday-result" style="display:none;"></div>
     </div>
@@ -1362,6 +1363,7 @@ body.ltab-supp .s-supp{display:block;}
         <span style="font-size:.72rem;color:var(--muted2);">litres</span>
         <div id="water-status" style="font-size:.68rem;border-radius:20px;padding:3px 10px;font-weight:600;letter-spacing:.3px;"></div>
       </div>
+      <div id="water-scan-note" style="display:none;align-items:center;gap:5px;margin-top:7px;font-size:.66rem;color:var(--water);font-family:'Kanit',sans-serif;"></div>
       <div id="water-alert" style="display:none;margin-top:7px;font-size:.68rem;padding:7px 10px;border-radius:9px;background:rgba(107,143,163,.1);border:1px solid rgba(107,143,163,.25);color:var(--sleep);letter-spacing:.2px;line-height:1.5;"></div>
     </div>
 
@@ -2744,6 +2746,7 @@ async function loadDay(){
     document.getElementById('alcohol-result').style.display='none';
     setPeriodUI(null);
     renderBioQuick({});
+    if(typeof renderScanWaterNote==="function") renderScanWaterNote(curDay);
     return;
   }
   const g=(k,def='')=>d[k]!==undefined&&d[k]!==null&&d[k]!==0?d[k]:def;
@@ -2772,6 +2775,7 @@ async function loadDay(){
   const bioData = await dbLoadBio(curDay);
   renderBioQuick(bioData);
   if(typeof renderLogRecovery==='function') renderLogRecovery();
+  if(typeof renderScanWaterNote==='function') renderScanWaterNote(curDay);
   const _ps=document.getElementById('prot_supp'); if(_ps) _ps.value=(typeof getProtSupp==='function'?getProtSupp(curDay):0)||'';
   if(typeof updateProtTotalLabel==='function') updateProtTotalLabel();
   if(typeof renderDlogMeals==='function') renderDlogMeals();
@@ -4022,6 +4026,7 @@ function applyLang() {
   if(document.getElementById('page-ing')?.classList.contains('active')) renderIng();
   if(typeof renderOrganGrid==='function' && document.getElementById('page-body')?.classList.contains('active')) renderOrganGrid();
   if(typeof setHomeAge==='function') setHomeAge();
+  if(typeof renderScanWaterNote==='function') renderScanWaterNote();
   if(document.getElementById('page-meals')?.classList.contains('active') && typeof renderMealPresets==='function') renderMealPresets();
   if(document.getElementById('bio-cards')?.children.length) renderBioCards();
   const organPanel = document.getElementById('organ-panel');
@@ -5145,16 +5150,25 @@ function toggleBadDay(){
 
 // ── WATER ──
 let activeWater = 0;
+const SCANW_KEY='girl_scanwater';
+function scanWaterLoad(){ try{ return JSON.parse(localStorage.getItem(SCANW_KEY)||'{}'); }catch(e){ return {}; } }
+function scanWaterFor(date){ return scanWaterLoad()[date]||0; }
+function renderScanWaterNote(date){
+  const el=document.getElementById('water-scan-note'); if(!el) return;
+  date = date || ((typeof curDay!=='undefined'&&curDay)?curDay:new Date().toISOString().split('T')[0]);
+  const ml=scanWaterFor(date); const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  if(ml>0){ el.style.display='flex'; el.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="var(--water)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg><span>${en?`From drink photos: +${(ml/1000).toFixed(2)}L (included in total above)`:`น้ำจากรูปเครื่องดื่ม: +${(ml/1000).toFixed(2)}L (รวมในยอดบนแล้ว)`}</span>`; }
+  else { el.style.display='none'; el.innerHTML=''; }
+}
 function addScanWater(ml){
   ml=+ml||0; if(ml<=0) return;
-  const inp=document.getElementById('water'); if(!inp) return;
-  const cur=+inp.value||0;
-  let next=Math.round((cur + ml/1000)*100)/100;
-  if(next>6) next=6;
-  inp.value=next;
-  try{ if(typeof onWaterInput==='function') onWaterInput(); }catch(e){}
+  const date=(typeof curDay!=='undefined'&&curDay)?curDay:new Date().toISOString().split('T')[0];
+  const inp=document.getElementById('water');
+  if(inp){ const cur=+inp.value||0; let next=Math.round((cur + ml/1000)*100)/100; if(next>6) next=6; inp.value=next; try{ if(typeof onWaterInput==='function') onWaterInput(); }catch(e){} }
+  try{ const m=scanWaterLoad(); m[date]=(m[date]||0)+ml; localStorage.setItem(SCANW_KEY, JSON.stringify(m)); }catch(e){}
+  renderScanWaterNote(date);
   const en=(typeof currentLang!=='undefined'&&currentLang==='en');
-  try{ toast('+'+Math.round(ml)+'ml '+(en?'water from drink':'น้ำจากเครื่องดื่ม')); }catch(e){}
+  try{ toast('+'+Math.round(ml)+'ml '+(en?'water from drink (auto)':'น้ำจากเครื่องดื่ม (อัตโนมัติ)')); }catch(e){}
 }
 function setWater(val){
   document.getElementById('water').value = val;
@@ -5864,9 +5878,23 @@ async function recalcFood(){
   }catch(e){ console.error('recalcFood error:',e); if(out) out.innerHTML=`<div style="font-size:.66rem;color:var(--prot);padding:6px 0;">⚠ ${isEN?'Could not calculate — try again':'คำนวณไม่ได้ ลองใหม่ค่ะ'}</div>`; }
 }
 
-async function analyzeSmartScan(input){
+let smartScanFiles=[];
+function loadSmartScan(input){ const add=Array.from(input.files||[]); smartScanFiles=smartScanFiles.concat(add).slice(0,8); try{input.value='';}catch(e){} renderSmartPreview(); }
+function removeSmartPhoto(i){ smartScanFiles.splice(i,1); renderSmartPreview(); }
+function clearSmartScan(){ smartScanFiles=[]; renderSmartPreview(); const r=document.getElementById('allday-result'); if(r){ r.style.display='none'; r.innerHTML=''; } }
+function renderSmartPreview(){
+  const prev=document.getElementById('smartscan-preview'); const act=document.getElementById('smartscan-actions');
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en'); if(!prev||!act) return;
+  if(!smartScanFiles.length){ prev.style.display='none'; prev.innerHTML=''; act.style.display='none'; act.innerHTML=''; return; }
+  prev.style.display='grid';
+  prev.innerHTML=smartScanFiles.map((f,i)=>{ const u=URL.createObjectURL(f); return `<div style="position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--border);"><img src="${u}" style="width:100%;height:100%;object-fit:cover;display:block;"><div onclick="removeSmartPhoto(${i})" title="ลบรูป" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.6);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;line-height:1;cursor:pointer;">✕</div></div>`; }).join('');
+  act.style.display='flex';
+  act.innerHTML=`<button onclick="analyzeSmartScan()" style="flex:1;padding:11px;border:none;border-radius:11px;background:var(--accent);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;">${en?`Analyze ${smartScanFiles.length} photo(s)`:`วิเคราะห์ ${smartScanFiles.length} รูป`}</button><button onclick="clearSmartScan()" style="padding:11px 13px;border:1px solid var(--border2);border-radius:11px;background:var(--card);color:var(--muted2);font-family:'Kanit',sans-serif;font-size:.74rem;cursor:pointer;">${en?'Clear':'ล้าง'}</button>`;
+}
+async function analyzeSmartScan(){
   const MAX_PHOTOS = 8;
-  const allFiles = Array.from(input.files||[]);
+  const allFiles = smartScanFiles.slice(); smartScanFiles=[];
+  const _act=document.getElementById('smartscan-actions'); if(_act) _act.style.display='none';
   const files = allFiles.slice(0, MAX_PHOTOS);
   const tooMany = allFiles.length > MAX_PHOTOS;
   if(!files.length) return;
