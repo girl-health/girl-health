@@ -497,11 +497,12 @@ textarea{min-height:42px;}
 
 /* ── GAP / INSIGHT BLOCKS ── */
 .hd-block{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px 19px;margin-bottom:14px;box-shadow:0 3px 16px rgba(0,0,0,.04);}
-.hd-gap-row{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border-radius:15px;margin-bottom:8px;}
+.hd-gap-row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;margin-bottom:9px;}
 .hd-gap-row:last-child{margin-bottom:0;}
-.hd-gap-ic{font-size:.92rem;line-height:1.5;flex-shrink:0;}
-.hd-gap-tx strong{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.76rem;font-weight:600;display:block;margin-bottom:2px;letter-spacing:.2px;}
-.hd-gap-tx span{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.68rem;color:var(--muted2);line-height:1.45;}
+.hd-gap-ic{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hd-gap-ic svg{width:18px!important;height:18px!important;vertical-align:0!important;}
+.hd-gap-tx strong{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.82rem;font-weight:700;display:block;margin-bottom:3px;letter-spacing:.1px;}
+.hd-gap-tx span{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.71rem;color:var(--muted);font-weight:500;line-height:1.45;}
 
 /* ── TREND ── */
 .hd-trend-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
@@ -696,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v10 · อายุ+โค้ช 2 ภาษา</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v11 · What to improve พาสเทล</span>
   </div>
 
   <!-- Greeting -->
@@ -9313,11 +9314,13 @@ async function loadHomeDashboard(force){
   const gStyle={good:'background:rgba(74,124,89,.06);',warn:'background:rgba(201,169,110,.08);',info:'background:rgba(107,143,163,.07);'};
   const gCol={good:'var(--veg)',warn:'var(--grain)',info:'var(--sleep)'};
   const gapEl=document.getElementById('hd-gap-block');
-  if(gapEl){ gapEl.innerHTML=gaps.map(([t,ic,ti,ms])=>`
-    <div class="hd-gap-row" style="${gStyle[t]}">
-      <span class="hd-gap-ic">${ic}</span>
-      <div class="hd-gap-tx"><strong style="color:${gCol[t]};">${ti}</strong><span>${ms}</span></div>
-    </div>`).join('');
+  if(gapEl){ gapEl.innerHTML=gaps.map(([t,ic,ti,ms])=>{
+      const cm=(String(ic).match(/color:(#[0-9A-Fa-f]{6})/)||[])[1]||'#4A7C59';
+      return `
+    <div class="hd-gap-row" style="background:${cm}14;border:1px solid ${cm}26;">
+      <span class="hd-gap-ic" style="background:${cm}26;">${ic}</span>
+      <div class="hd-gap-tx"><strong style="color:${cm};">${ti}</strong><span>${ms}</span></div>
+    </div>`;}).join('');
     if(typeof currentLang!=='undefined' && currentLang==='en'){ gapEl.querySelectorAll('.lang-th').forEach(function(e){e.style.display='none';}); gapEl.querySelectorAll('.lang-en').forEach(function(e){e.style.display='';}); }
   }
   updateHomeAges();
