@@ -5145,6 +5145,17 @@ function toggleBadDay(){
 
 // ── WATER ──
 let activeWater = 0;
+function addScanWater(ml){
+  ml=+ml||0; if(ml<=0) return;
+  const inp=document.getElementById('water'); if(!inp) return;
+  const cur=+inp.value||0;
+  let next=Math.round((cur + ml/1000)*100)/100;
+  if(next>6) next=6;
+  inp.value=next;
+  try{ if(typeof onWaterInput==='function') onWaterInput(); }catch(e){}
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  try{ toast('+'+Math.round(ml)+'ml '+(en?'water from drink':'น้ำจากเครื่องดื่ม')); }catch(e){}
+}
 function setWater(val){
   document.getElementById('water').value = val;
   activeWater = val;
@@ -5214,11 +5225,12 @@ async function analyzeDailyPhoto(input){
 ${isHome?`IMPORTANT — Home-cooked: no added salt/sauce/sugar, Olive oil only, natural sodium/sugar from ingredients only.`:`IMPORTANT — Dining Out: include realistic restaurant sodium, sauces, and cooking oils.`}
 
 Identify every dish/item visible. Estimate total daily nutrition.
+For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
 Respond ONLY with valid JSON:
 {
   "day_summary": "brief English description of all meals seen",
   "meals_identified": ["dish 1","dish 2"],
-  "nutrition": {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},
+  "nutrition": {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0},
   "ing_categories": {"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},
   "confidence": "high|medium|low"
 }`;
@@ -5235,6 +5247,7 @@ Respond ONLY with valid JSON:
     ['mac_kcal','mac_p','mac_carb','mac_fat','mac_f','mac_sugar_total','mac_s','mac_sodium'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     const set=(id,v)=>{const el=document.getElementById(id);if(el&&v)el.value=Math.round(v);};
     set('mac_kcal',n.kcal);set('mac_p',n.protein_g);set('mac_carb',n.carb_g);
+    if(n.water_ml>0) addScanWater(n.water_ml);
     set('mac_fat',n.fat_g);set('mac_f',n.fiber_g);set('mac_sugar_total',n.sugar_g);
     set('mac_s',n.fruit_sugar_g);set('mac_sodium',n.sodium_mg);
     updateQ();
@@ -5345,8 +5358,9 @@ PHOTO ANALYSIS RULES:
 
 ${homeContext}
 
+For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
 Output ONLY valid JSON. No explanation, no markdown fences:
-{"meal_description":"concise accurate description","alternatives":[{"name":"alternative option 1","kcal":100},{"name":"alternative option 2","kcal":120}],"ingredients":["item (amount)"],"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"cooking_method":"","confidence":"high|medium|low","identification_notes":"brief note on visual cues"}`;
+{"meal_description":"concise accurate description","alternatives":[{"name":"alternative option 1","kcal":100},{"name":"alternative option 2","kcal":120}],"ingredients":["item (amount)"],"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"cooking_method":"","confidence":"high|medium|low","identification_notes":"brief note on visual cues"}`;
 }
 
 async function analyzeFood(input, meal, mode){
@@ -5634,6 +5648,7 @@ async function confirmFoodResult(meal){
   if(confirmedDesc) document.getElementById(`m_${meal}`).value = confirmedDesc;
   const addTo=(id,val)=>{ const el=document.getElementById(id); if(el) el.value=Math.round((+el.value||0)+val); };
   addTo('mac_kcal', n.kcal); addTo('mac_p', n.protein_g); addTo('mac_carb', n.carb_g);
+  if(n.water_ml>0) addScanWater(n.water_ml);
   addTo('mac_fat', n.fat_g); addTo('mac_f', n.fiber_g); addTo('mac_sugar_total', n.sugar_g);
   addTo('mac_s', n.fruit_sugar_g); addTo('mac_sodium', n.sodium_mg);
   updateQ();
@@ -5820,7 +5835,7 @@ async function recalcFood(){
   if(!txt){ toast(isEN?'Type your food first':'พิมพ์รายการอาหารก่อนค่ะ'); return; }
   if(out){ out.style.display='block'; out.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:9px;background:var(--bg);border-radius:9px;font-size:.7rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div> ${isEN?'Calculating total…':'กำลังคำนวณแคลรวม…'}</div>`; }
   const isHome=(typeof mealMode!=='undefined' && mealMode==='home');
-  const prompt=`Calculate the TOTAL nutrition for this whole day of food: "${txt}". ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Some dining out: include restaurant sodium.'} Respond ONLY with valid JSON, no markdown: {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}}`;
+  const prompt=`Calculate the TOTAL nutrition for this whole day of food: "${txt}". ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Some dining out: include restaurant sodium.'} For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake. Respond ONLY with valid JSON, no markdown: {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}}`;
   try{
     const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
@@ -5829,6 +5844,7 @@ async function recalcFood(){
     if(isHome) r.sodium_mg=0;
     const setN=(id,v)=>{ const el=document.getElementById(id); if(el) el.value=Math.round(v||0); };
     setN('mac_kcal',r.kcal); setN('mac_p',r.protein_g); setN('mac_carb',r.carb_g);
+    if(r.water_ml>0) addScanWater(r.water_ml);
     setN('mac_fat',r.fat_g); setN('mac_f',r.fiber_g); setN('mac_sugar_total',r.sugar_g);
     setN('mac_s',r.fruit_sugar_g); setN('mac_sodium',r.sodium_mg);
     try{
@@ -5872,9 +5888,10 @@ async function analyzeSmartScan(input){
     const prompt = `This is ONE photo from a daily health journal. Classify it as EXACTLY one type, then extract its data.
 Types: "food" (a meal / drink / dish), "sleep" (a Garmin SLEEP screen — sleep score, stages, bedtime/wake, HRV, RHR, body battery), "exercise" (a Garmin/workout activity screen — duration, calories, heart rate, distance), or "other" (anything else, e.g. scenery, a desk, a person, a supplement label).
 ${isHome?'If food: home-cooked, no added salt/sauces/sugar, olive oil only.':'If food: some dining out — include sodium.'}
+For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
 Respond ONLY with valid JSON, no markdown, no extra text:
 {"type":"food",
- "food":{"items":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}},
+ "food":{"items":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}},
  "sleep":{"bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
  "exercise":{"activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}}
 Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" for anything not clearly visible (do NOT guess).`;
@@ -6013,8 +6030,9 @@ async function analyzeAllDay(input, mode){
 
   const prompts = {
     meals: `This photo shows GIRL's meals for the day. ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Dining out: include restaurant sodium.'}
-Identify all dishes. Respond ONLY with valid JSON:
-{"meals":{"breakfast":"description or empty","lunch":"description or empty","dinner":"description or empty","snack":"description or empty"},"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high|medium|low","summary":"brief"}`,
+Identify all dishes. For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
+Respond ONLY with valid JSON:
+{"meals":{"breakfast":"description or empty","lunch":"description or empty","dinner":"description or empty","snack":"description or empty"},"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high|medium|low","summary":"brief"}`,
     sleep: `This is a Garmin screenshot — it may be the Sleep screen, HRV Status screen, or Body Battery screen. Extract EVERY metric visible. Note: HRV (ms) and Sleep Score are often on DIFFERENT Garmin screens. If a value is not visible, use 0 (don't guess). Convert sleep duration to decimal hours and stage times to minutes. Respond ONLY with valid JSON:
 {"type":"sleep","bedtime":"HH:MM or empty","waketime":"HH:MM or empty","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0}`,
     exercise: `This is a Garmin exercise/activity summary screenshot. Extract ALL visible data. Respond ONLY with valid JSON:
@@ -6044,6 +6062,7 @@ Identify all dishes. Respond ONLY with valid JSON:
       // Fill nutrition
       const setN = (id,v) => { const el = document.getElementById(id); if(el&&v) el.value = Math.round(v); };
       setN('mac_kcal',n.kcal); setN('mac_p',n.protein_g); setN('mac_carb',n.carb_g);
+      if(n.water_ml>0) addScanWater(n.water_ml);
       setN('mac_fat',n.fat_g); setN('mac_f',n.fiber_g); setN('mac_sugar_total',n.sugar_g);
       setN('mac_s',n.fruit_sugar_g); setN('mac_sodium',n.sodium_mg);
       updateQ();
