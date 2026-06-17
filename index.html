@@ -3435,7 +3435,7 @@ async function renderTable(){
   const n=rows.length;
   const sum=k=>rows.reduce((a,r)=>a+(+r[k]||0),0);
   const avg=k=>Math.round(sum(k)/n);
-  const avgSlMin=Math.round(rows.reduce((a,r)=>a+(r.sl_min||(+r.sl_total_h||0)*60),0)/n);
+  const avgSlMin=Math.round(rows.reduce((a,r)=>{const c=[(+r.sl_total_h||0),(r.sl_min?r.sl_min/60:0)].filter(x=>x>0&&x<=16);return a+(c.length?c[0]*60:0);},0)/n);
   const avgSlH=avgSlMin?Math.floor(avgSlMin/60)+'h'+(avgSlMin%60?String(avgSlMin%60).padStart(2,'0')+'m':''):'—';
   const avgWater=(rows.reduce((a,r)=>a+(+r.water||0),0)/n).toFixed(1);
   sumEl.innerHTML=`
@@ -3460,7 +3460,8 @@ async function renderTable(){
   let h='';
   sorted.forEach(d=>{
     const exM=(d.e1_m||0)+(d.e2_m||0);
-    const slMin=d.sl_min||Math.round((+d.sl_total_h||0)*60);
+    const _slc=[(+d.sl_total_h||0),(d.sl_min?d.sl_min/60:0)].filter(v=>v>0&&v<=16);
+    const slMin=_slc.length?Math.round(_slc[0]*60):0;
     const slH=slMin?Math.floor(slMin/60)+'h'+(slMin%60?String(slMin%60).padStart(2,'0')+'m':''):'—';
     const meals=[d.m_b,d.m_l,d.m_d].filter(Boolean).join(' · ');
     const sm=meals.length>62?meals.substring(0,62)+'…':(meals||(isEN?'No meals logged':'ยังไม่บันทึกมื้ออาหาร'));
