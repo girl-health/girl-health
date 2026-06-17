@@ -696,7 +696,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v9 · หลอดตรง+เมนูAIรายวัน</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v10 · อายุ+โค้ช 2 ภาษา</span>
   </div>
 
   <!-- Greeting -->
@@ -3225,7 +3225,7 @@ function goPage(name){
 
 
 // ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
-const COACH_KEY='girl_coach_v2', TLINS_KEY='girl_tlinsight_v2';
+const COACH_KEY='girl_coach_v3', TLINS_KEY='girl_tlinsight_v2';
 async function _aiJSON(prompt, maxTok){
   const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
   const data=await res.json();
@@ -3271,7 +3271,7 @@ function _coachLine(d){
 async function loadTodayCoach(force){
   const body=document.getElementById('hd-coach-body'); if(!body) return;
   const today=new Date().toISOString().split('T')[0];
-  if(!force){ try{ const c=JSON.parse(localStorage.getItem(COACH_KEY)||'{}'); if(c.date===today&&c.html){ body.innerHTML=c.html; if(typeof currentLang!=='undefined'&&currentLang==='en'){ body.querySelectorAll('.lang-th').forEach(function(e){e.style.display='none';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display='';}); } return; } }catch(e){} }
+  if(!force){ try{ const c=JSON.parse(localStorage.getItem(COACH_KEY)||'{}'); if(c.date===today&&c.html){ body.innerHTML=c.html; const _en=(typeof currentLang!=='undefined'&&currentLang==='en'); body.querySelectorAll('.lang-th').forEach(function(e){e.style.display=_en?'none':'';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display=_en?'':'none';}); return; } }catch(e){} }
   body.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:.74rem;font-family:\'IBM Plex Sans Thai\',sans-serif;"><div style="width:14px;height:14px;border:2px solid rgba(255,255,255,.5);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div><span class="lang-th">โค้ชกำลังอ่านข้อมูล 14 วันล่าสุด…</span><span class="lang-en" style="display:none;">Coach is reading your last 14 days…</span></div>';
   try{
     const data=await gatherHealthData(14);
@@ -3327,6 +3327,9 @@ async function updateHomeAges(){
       if(diff>0) dl.innerHTML=up+'<span class="lang-th">เด็กกว่าจริง '+diff+' ปี</span><span class="lang-en" style="display:none;">'+diff+' yrs younger</span>';
       else if(diff<0) dl.innerHTML=dn+'<span class="lang-th">มากกว่าจริง '+Math.abs(diff)+' ปี</span><span class="lang-en" style="display:none;">'+Math.abs(diff)+' yrs older</span>';
       else dl.innerHTML='<span class="lang-th">เท่าอายุจริง</span><span class="lang-en" style="display:none;">same as actual</span>';
+      const _en=(typeof currentLang!=='undefined'&&currentLang==='en');
+      card.querySelectorAll('.lang-th').forEach(function(e){e.style.display=_en?'none':'';});
+      card.querySelectorAll('.lang-en').forEach(function(e){e.style.display=_en?'':'none';});
     };
     setCard('hdx-fit-age', d.fitnessAge);
     setCard('hdx-skin-age', d.skinAge||25);
