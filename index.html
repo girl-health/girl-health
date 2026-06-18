@@ -90,8 +90,12 @@ textarea{min-height:42px;}
 .ex-g{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
 .ex-g input{text-align:center;font-size:.78rem;padding:5px 3px;}
 .qstats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px;}
-.qcard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 6px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);}
-.qval{font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.18rem;margin-bottom:2px;letter-spacing:-.5px;}
+.qcard{background:var(--card);border:1px solid rgba(0,0,0,.04);border-radius:18px;padding:14px 6px;text-align:center;box-shadow:0 2px 11px rgba(0,0,0,.035);}
+.qstats .qcard:nth-child(1){background:linear-gradient(150deg,#FBEFD2,#FFFBF1);border-color:#F0DDB0;}
+.qstats .qcard:nth-child(2){background:linear-gradient(150deg,#F4E4DC,#FDF7F3);border-color:#E8CFC4;}
+.qstats .qcard:nth-child(3){background:linear-gradient(150deg,#E5EEF5,#F5FAFD);border-color:#CFE0EC;}
+.qstats .qcard:nth-child(4){background:linear-gradient(150deg,#E2EFFB,#F3F9FE);border-color:#C7E0F5;}
+.qval{font-family:'IBM Plex Sans Thai',sans-serif;font-weight:800;font-size:1.25rem;margin-bottom:2px;letter-spacing:-.5px;}
 .qlbl{font-size:.6rem;color:var(--muted2);}
 .save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.88rem;border:none;border-radius:14px;cursor:pointer;transition:all .25s;letter-spacing:.5px;box-shadow:0 4px 15px rgba(74,124,89,0.3);}
 .save-btn:hover{opacity:.88;}
@@ -99,7 +103,7 @@ textarea{min-height:42px;}
 .ai-wrap{background:linear-gradient(145deg,rgba(74,124,89,.055),rgba(201,169,110,.045));border:1px solid rgba(74,124,89,.16);border-radius:22px;padding:18px 19px;margin-bottom:14px;}
 .ai-hdr{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
 .ai-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 2px 8px rgba(74,124,89,0.3);}
-.ai-ttl{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.85rem;color:var(--accent);}
+.ai-ttl{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.88rem;font-weight:700;color:var(--accent);}
 .ai-sub{font-size:.67rem;color:var(--muted2);}
 .ai-content{font-size:.78rem;line-height:1.6;}
 .ai-tip{display:flex;gap:8px;margin-bottom:7px;padding:8px 10px;background:rgba(0,0,0,.2);border-radius:9px;align-items:flex-start;}
@@ -113,8 +117,9 @@ textarea{min-height:42px;}
 .tip-bio strong{color:#4A7CB0;}
 .tip-add strong{color:var(--fruit);}
 .tip-miss strong{color:var(--prot);}
-.analyze-btn{width:100%;padding:11px;background:rgba(74,124,89,.08);border:1px solid rgba(74,124,89,.22);color:var(--accent);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.8rem;border-radius:13px;cursor:pointer;margin-top:11px;transition:all .2s;font-weight:600;}
+.analyze-btn{width:100%;padding:12px;background:linear-gradient(135deg,rgba(74,124,89,.12),rgba(201,169,110,.1));border:1px solid rgba(74,124,89,.28);color:var(--accent);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.82rem;border-radius:14px;cursor:pointer;margin-top:12px;transition:all .2s;font-weight:700;}
 .analyze-btn:disabled{opacity:.5;cursor:not-allowed;}
+.analyze-btn:hover{background:linear-gradient(135deg,rgba(74,124,89,.18),rgba(201,169,110,.15));transform:translateY(-1px);box-shadow:0 4px 14px rgba(74,124,89,.18);}
 .dot-pulse span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);margin:0 2px;animation:dp 1.2s ease-in-out infinite;}
 .dot-pulse span:nth-child(2){animation-delay:.2s;}
 .dot-pulse span:nth-child(3){animation-delay:.4s;}
@@ -778,7 +783,7 @@ try{
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v34 · หน้า Table สีพาสเทล</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v36 · Daily Log การ์ด AI พรีเมียม</span>
   <!-- Greeting -->
   <div class="hd-top">
     <div>
@@ -1255,8 +1260,8 @@ try{
     <div class="qcard"><div class="qval" id="q-water" style="color:var(--water)">—</div><div class="qlbl"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>น้ำ</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>water</span></div></div>
   </div>
   <div class="ai-wrap">
-    <div class="ai-hdr"><div class="ai-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#fff;"><path d="M12 3.5l1.7 4.8L18.5 10l-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7z"/><path d="M18.5 14.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div><div><div class="ai-ttl">คำแนะนำสุขภาพวันนี้</div><div class="ai-sub">AI วิเคราะห์จากข้อมูลที่บันทึก</div></div></div>
-  <div class="ai-content" id="day-advice"><div style="color:var(--muted2);font-size:.76rem"><span class="lang-th">บันทึกข้อมูลแล้วกด "วิเคราะห์"</span><span class="lang-en" style="display:none;">Log your data then tap "Analyze"</span></div></div>
+    <div class="ai-hdr"><div class="ai-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#fff;"><path d="M12 3.5l1.7 4.8L18.5 10l-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7z"/><path d="M18.5 14.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div><div><div class="ai-ttl"><span class="lang-th">คำแนะนำสุขภาพวันนี้</span><span class="lang-en" style="display:none;">Today's Health Insights</span></div><div class="ai-sub"><span class="lang-th">AI วิเคราะห์จากข้อมูลที่บันทึก</span><span class="lang-en" style="display:none;">AI reading from your logs</span></div></div></div>
+  <div class="ai-content" id="day-advice"><div style="display:flex;flex-direction:column;gap:7px;"><div style="display:flex;align-items:center;gap:9px;"><span style="width:7px;height:7px;border-radius:50%;background:#C08552;flex-shrink:0;"></span><span style="font-size:.74rem;color:var(--text);"><span class="lang-th">บันทึกอาหาร การนอน และการออกกำลังกายของวันนี้</span><span class="lang-en" style="display:none;">Log today's food, sleep &amp; training</span></span></div><div style="display:flex;align-items:center;gap:9px;"><span style="width:7px;height:7px;border-radius:50%;background:#4A9E6A;flex-shrink:0;"></span><span style="font-size:.74rem;color:var(--text);"><span class="lang-th">แล้วกด \"วิเคราะห์วันนี้\" ให้ AI สรุปให้</span><span class="lang-en" style="display:none;">Then tap \"Analyze Today\" for AI insights</span></span></div></div></div>
     <button class="analyze-btn" id="dayAdvBtn" onclick="analyzeDay()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:currentColor;vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg>วิเคราะห์วันนี้</button>
   </div>
   <!-- LOG SUB-TABS -->
