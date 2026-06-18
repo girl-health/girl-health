@@ -697,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v23 · Patterns ขาว(ล้างแคช)</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v24 · Timeline ปรับ 5 จุด</span>
   </div>
 
   <!-- Greeting -->
@@ -3240,7 +3240,7 @@ function goPage(name){
 
 
 // ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
-const COACH_KEY='girl_coach_v4', TLINS_KEY='girl_tlinsight_v4';
+const COACH_KEY='girl_coach_v4', TLINS_KEY='girl_tlinsight_v5';
 async function _aiJSON(prompt, maxTok){
   const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
   const data=await res.json();
@@ -3390,10 +3390,10 @@ function _tlQuality(d){
   if((+d.water||0)>=2)pos++; if((+d.mac_p||0)>=80)pos++;
   if(((+d.e1_m||0)+(+d.e2_m||0))>0)pos++; if(d._rec&&d._rec.length)pos++;
   const _SVG=function(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;">'+p+'</svg>';};
-  if(sh&&sh<6) return {c:'#E08A4E',e:_SVG('<path d="M20 13.5A7.5 7.5 0 1 1 10.5 4 6 6 0 0 0 20 13.5z"/><path d="M17 4.5l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"/>'),th:'ต้องฟื้นฟู',en:'Recovery needed'};
-  if(pos>=4) return {c:'#4A9E6A',e:_SVG('<path d="M12 21c0-6 2.8-10.5 8-12-.6 6-3.4 10-8 12z"/><path d="M12 21c0-4.5-2-8-6-9 .6 4.5 2.5 7.4 6 9z"/>'),th:'วันที่ดีมาก',en:'Beautiful day'};
-  if(pos>=2) return {c:'#E0B43E',e:_SVG('<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12h2.2M19 12h2.2M5.4 5.4l1.6 1.6M16.9 16.9l1.6 1.6M18.6 5.4l-1.6 1.6M7.1 16.9l-1.6 1.6"/>'),th:'วันโอเค',en:'Okay day'};
-  return {c:'#8FA6C9',e:_SVG('<path d="M12 4c3.4 4 5.4 7.1 5.4 9.8a5.4 5.4 0 0 1-10.8 0C6.6 11.1 8.6 8 12 4z"/>'),th:'วันเงียบ ๆ',en:'Quiet day'};
+  if(sh&&sh<6) return {c:'#C75D4E',e:_SVG('<path d="M20 13.5A7.5 7.5 0 1 1 10.5 4 6 6 0 0 0 20 13.5z"/><path d="M17 4.5l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"/>'),th:'พลังงานต่ำ',en:'Depleted'};
+  if(pos>=4) return {c:'#4A9E6A',e:_SVG('<path d="M12 21c0-6 2.8-10.5 8-12-.6 6-3.4 10-8 12z"/><path d="M12 21c0-4.5-2-8-6-9 .6 4.5 2.5 7.4 6 9z"/>'),th:'แข็งแรงเต็มที่',en:'Thriving'};
+  if(pos>=2) return {c:'#D4A53A',e:_SVG('<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12h2.2M19 12h2.2M5.4 5.4l1.6 1.6M16.9 16.9l1.6 1.6M18.6 5.4l-1.6 1.6M7.1 16.9l-1.6 1.6"/>'),th:'คงที่',en:'Stable'};
+  return {c:'#E0913F',e:_SVG('<path d="M12 4c3.4 4 5.4 7.1 5.4 9.8a5.4 5.4 0 0 1-10.8 0C6.6 11.1 8.6 8 12 4z"/>'),th:'กำลังฟื้นตัว',en:'Recovering'};
 }
 function _tlIco(p,c){ return '<svg viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0;">'+p+'</svg>'; }
 function _tlMajor(color,icon,label){ return '<span style="display:inline-flex;align-items:center;gap:5px;background:'+color+'18;color:'+color+';border:1px solid '+color+'33;border-radius:12px;padding:5px 12px;font-size:.72rem;font-weight:700;font-family:\'IBM Plex Sans Thai\',sans-serif;white-space:nowrap;">'+icon+label+'</span>'; }
@@ -3425,7 +3425,7 @@ function _tlDay(d,en,idx){
     body+='<button id="tlbtn-'+idx+'" data-more="▾ '+moreT+'" data-less="▴ '+(en?'Show less':'ย่อ')+'" onclick="tlToggleDay('+idx+')" style="margin-top:7px;background:none;border:none;color:var(--muted2);font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;padding:0;">▾ '+moreT+'</button>';
     body+='<div id="tlmin-'+idx+'" style="display:none;flex-wrap:wrap;gap:5px;margin-top:7px;">'+minor.join('')+'</div>';
   }
-  return '<div style="display:flex;gap:11px;"><div style="flex-shrink:0;width:60px;text-align:right;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.64rem;font-weight:700;color:var(--text);padding-top:1px;">'+dlabel+'</div><div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;"><div style="width:12px;height:12px;border-radius:50%;background:'+q.c+';border:2px solid var(--card);box-shadow:0 0 0 1.5px '+q.c+';margin-top:2px;"></div><div style="flex:1;width:2px;background:var(--border);margin:3px 0;"></div></div><div style="flex:1;min-width:0;padding-bottom:15px;"><div style="background:linear-gradient(135deg,'+q.c+'18,'+q.c+'09);border:1px solid '+q.c+'2e;border-left:3px solid '+q.c+';border-radius:16px;padding:12px 14px;box-shadow:0 4px 16px '+q.c+'14;">'+body+'</div></div></div>';
+  return '<div style="display:flex;gap:11px;"><div style="flex-shrink:0;width:60px;text-align:right;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.64rem;font-weight:700;color:var(--text);padding-top:1px;">'+dlabel+'</div><div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;"><div style="width:15px;height:15px;border-radius:50%;background:'+q.c+';border:2.5px solid var(--card);box-shadow:0 0 0 1.5px '+q.c+';margin-top:1px;"></div><div style="flex:1;width:1.4px;background:var(--border);margin:3px 0;"></div></div><div style="flex:1;min-width:0;padding-bottom:15px;"><div style="background:linear-gradient(135deg,'+q.c+'18,'+q.c+'09);border:1px solid '+q.c+'1f;border-left:3px solid '+q.c+';border-radius:20px;padding:12px 15px;box-shadow:0 2px 9px '+q.c+'0d;">'+body+'</div></div></div>';
 }
 window.tlToggleDay=function(i){ const el=document.getElementById('tlmin-'+i), b=document.getElementById('tlbtn-'+i); if(!el)return; if(el.style.display==='none'){ el.style.display='flex'; if(b)b.textContent=b.dataset.less; } else { el.style.display='none'; if(b)b.textContent=b.dataset.more; } };
 window.tlToggleIns=function(i){ const el=document.getElementById('tlins-'+i), c=document.getElementById('tlinsc-'+i); if(!el)return; if(el.style.display==='none'){ el.style.display='block'; if(c)c.style.transform='rotate(180deg)'; } else { el.style.display='none'; if(c)c.style.transform='none'; } };
@@ -3463,12 +3463,12 @@ async function renderTimelineInsight(data, ins, en){
     h+=list.map(function(x,i){
       const p=PPAL[i%PPAL.length];
       const sp='<svg viewBox="0 0 24 24" fill="none" stroke="'+p.tx+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M9.3 17.5h5.4M10.2 20.5h3.6"/><path d="M12 3a6 6 0 0 1 4 10.4c-.6.6-1 1.4-1.1 2.1H9.1c-.1-.7-.5-1.5-1.1-2.1A6 6 0 0 1 12 3z"/></svg>';
-      return '<div style="background:#FFFFFF;border:1px solid '+p.tx+'33;border-left:4px solid '+p.tx+';border-radius:14px;margin-bottom:9px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05);">'
-        +'<div onclick="tlToggleIns('+i+')" style="display:flex;align-items:center;gap:10px;padding:11px 13px;cursor:pointer;">'
-        +'<span style="width:28px;height:28px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+p.tx+'24;">'+sp+'</span>'
+      return '<div style="background:#FFFFFF;border:1px solid '+p.tx+'33;border-left:4px solid '+p.tx+';border-radius:14px;margin-bottom:7px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05);">'
+        +'<div onclick="tlToggleIns('+i+')" style="display:flex;align-items:center;gap:9px;padding:8px 12px;cursor:pointer;">'
+        +'<span style="width:24px;height:24px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+p.tx+'24;">'+sp+'</span>'
         +'<span style="flex:1;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.78rem;font-weight:700;color:'+p.tx+';line-height:1.3;">'+x.title+'</span>'
         +'<svg id="tlinsc-'+i+'" viewBox="0 0 24 24" fill="none" stroke="'+p.tx+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;transition:transform .2s;opacity:.7;"><path d="M6 9l6 6 6-6"/></svg></div>'
-        +'<div id="tlins-'+i+'" style="display:none;font-size:.74rem;color:var(--muted);font-family:\'IBM Plex Sans Thai\',sans-serif;line-height:1.55;padding:0 13px 12px 51px;">'+(x.detail||'')+'</div>'
+        +'<div id="tlins-'+i+'" style="display:none;font-size:.74rem;color:var(--muted);font-family:\'IBM Plex Sans Thai\',sans-serif;line-height:1.5;padding:0 13px 11px 45px;">'+(x.detail||'')+'</div>'
         +'</div>';
     }).join('');
     ins.innerHTML=h;
