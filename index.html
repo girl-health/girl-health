@@ -783,7 +783,7 @@ try{
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v37 · BioActive ไอคอนหลอดเหมือน Home</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v38 · BioActive หลอดเรียว v7 เหมือน Home</span>
   <!-- Greeting -->
   <div class="hd-top">
     <div>
@@ -5555,7 +5555,7 @@ function renderBioCards(){
 
     return `<div class="bio-card${done?' taken':''}" id="biocard-${p.id}" style="--bc:${p.dotColor}${done?`;border-color:${p.dotColor}55;background:linear-gradient(160deg,${p.dotColor}0a,var(--card) 55%)`:''}">
       <div class="bio-card-top">
-        <div class="bio-dot" style="background:linear-gradient(150deg,${p.dotColor}1c,${p.dotColor}0c);border:1.5px solid ${p.dotColor}33;box-shadow:none;">${bioCap(p.dotColor,20)}</div>
+        <div class="v7-bot${done?' on':''}" style="flex:none;width:auto;cursor:default;"><div class="v7-jar"><div class="v7-crimp" style="background:${p.dotColor};${done?'':'opacity:.5'}"></div><div class="v7-jbody" style="${done?'':'border-color:'+p.dotColor+'66'}"><div class="v7-liq" style="background:${p.dotColor};height:100%;${done?'':'opacity:.3'}"></div><div class="v7-seam"></div><div class="v7-gloss"></div></div><div class="v7-chk"><svg viewBox="0 0 24 24" width="9" height="9" style="stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M5 13l4 4L19 7"/></svg></div></div></div>
         <div style="flex:1;min-width:0;">
           <div class="bio-name">${p.name}</div>
           <div class="bio-brand">BioActive+ · ${p.form}</div>
