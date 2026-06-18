@@ -697,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v12 · Wins+Recovery+โค้ชสั้น</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v13 · สแกนอาหารในเพิ่มเมนู</span>
   </div>
 
   <!-- Greeting -->
@@ -1368,6 +1368,9 @@ body.ltab-supp .s-supp{display:block;}
       <div id="dlog-meal-cats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;"></div>
       <div id="dlog-meal-chips" style="display:flex;flex-direction:column;gap:6px;"></div>
       <div id="dlog-meal-add" style="display:none;margin-top:11px;background:var(--bg);border:1px solid var(--border);border-radius:13px;padding:12px;">
+        <input type="file" id="dlm-photo-input" accept="image/*" capture="environment" style="display:none;" onchange="scanDlogMealPhoto(this)">
+        <button type="button" onclick="document.getElementById('dlm-photo-input').click()" style="width:100%;padding:10px;border:1px dashed var(--accent);border-radius:11px;background:rgba(74,124,89,.06);color:var(--accent);font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.76rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:9px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span class="lang-th">สแกนรูปอาหาร · AI คิดแคลให้</span><span class="lang-en" style="display:none;">Scan food photo · AI estimates calories</span></button>
+        <div id="dlm-scan-status" style="margin-bottom:9px;"></div>
         <div style="display:grid;grid-template-columns:1fr 70px;gap:7px;margin-bottom:7px;">
           <input id="dlm-name" placeholder="ชื่อเมนู / Meal name" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.78rem;padding:8px 10px;outline:none;width:100%;box-sizing:border-box;">
           <select id="dlm-cat" style="background:var(--card);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.85rem;padding:8px 6px;outline:none;width:100%;box-sizing:border-box;text-align:center;"><option value="b">🌅</option><option value="l">☀️</option><option value="d">🌆</option><option value="s">🍃</option></select>
@@ -8471,6 +8474,30 @@ function applyPlanToLog(){
   else toast(isEN ? 'No meals selected yet' : 'ยังไม่ได้เลือกเมนู');
 }
 
+async function scanDlogMealPhoto(input){
+  const file=(input.files||[])[0]; if(!file) return; try{input.value='';}catch(e){}
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const st=document.getElementById('dlm-scan-status');
+  if(st) st.innerHTML='<div style="display:flex;align-items:center;gap:8px;padding:9px;background:var(--card);border:1px solid var(--border2);border-radius:9px;font-size:.7rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div> '+(en?'AI is reading your food photo…':'AI กำลังอ่านรูปอาหาร…')+'</div>';
+  try{
+    const img=await fileToJpegBase64(file);
+    const isHome=(typeof mealMode!=='undefined'&&mealMode==='home');
+    const prompt='This is ONE food photo for a meal the user wants to save as a reusable preset. Identify the dish and estimate nutrition for the portion shown. '+(isHome?'Assume home-cooked: no added salt/sauce/sugar, olive oil only.':'Assume some dining out — include sodium.')+'\nReply ONLY with valid JSON, no markdown, no extra text:\n{"name_th":"ชื่อเมนูสั้นๆ","name_en":"short dish name","desc_th":"วัตถุดิบหลัก คั่นด้วย ·","desc_en":"main items separated by ·","emoji":"one food emoji","cat":"b","kcal":0,"protein_g":0}\ncat = best meal slot: b=breakfast, l=lunch, d=dinner, s=snack. Use 0 only if truly unknown — do not guess wildly.';
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:img.type,data:img.data}},{type:'text',text:prompt}]}]})});
+    const data=await res.json();
+    if(!res.ok||!Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
+    let raw=data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const a=raw.indexOf('{'),b=raw.lastIndexOf('}'); if(a>=0&&b>a) raw=raw.slice(a,b+1);
+    const r=JSON.parse(raw);
+    const setV=(id,v)=>{ const e=document.getElementById(id); if(e&&v!=null&&v!=='') e.value=v; };
+    setV('dlm-name', en?(r.name_en||r.name_th):(r.name_th||r.name_en));
+    setV('dlm-desc', en?(r.desc_en||r.desc_th):(r.desc_th||r.desc_en));
+    if(r.kcal) setV('dlm-kcal', Math.round(r.kcal));
+    if(r.emoji) setV('dlm-emoji', r.emoji);
+    if(r.cat){ const sel=document.getElementById('dlm-cat'); if(sel) sel.value=r.cat; }
+    if(st) st.innerHTML='<div style="padding:8px 11px;background:rgba(74,124,89,.08);border-radius:9px;font-size:.68rem;color:var(--accent);line-height:1.55;">✓ '+(en?'Filled in below — review &amp; tap Save meal':'กรอกให้ด้านล่างแล้ว — ตรวจแล้วกดบันทึกเมนู')+(r.kcal?(' · ~'+Math.round(r.kcal)+' kcal'):'')+(r.protein_g?(' · '+Math.round(r.protein_g)+'g '+(en?'protein':'โปรตีน')):'')+'</div>';
+  }catch(e){ console.error('scanDlogMeal',e); if(st) st.innerHTML='<div style="padding:8px 11px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.68rem;color:var(--prot);">⚠ '+(en?'Could not read the photo — try again or fill in manually':'อ่านรูปไม่ได้ — ลองใหม่ หรือกรอกเอง')+'</div>'; }
+}
 function addMealPreset(){
   const name = document.getElementById('new-meal-name').value.trim();
   const cat = document.getElementById('new-meal-cat').value;
