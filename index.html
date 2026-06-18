@@ -697,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v17 · Timeline แต่งใหม่</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v18 · Timeline การ์ดพาสเทล</span>
   </div>
 
   <!-- Greeting -->
@@ -3383,10 +3383,10 @@ function _tlQuality(d){
   if(sh>=7.5)pos+=2; else if(sh>=6.5)pos+=1;
   if((+d.water||0)>=2)pos++; if((+d.mac_p||0)>=80)pos++;
   if(((+d.e1_m||0)+(+d.e2_m||0))>0)pos++; if(d._rec&&d._rec.length)pos++;
-  if(sh&&sh<6) return {c:'#C0672E',th:'ต้องฟื้นฟู',en:'Recovery needed'};
-  if(pos>=4) return {c:'#4A7C59',th:'วันที่ดีมาก',en:'Beautiful day'};
-  if(pos>=2) return {c:'#C9A96E',th:'วันโอเค',en:'Okay day'};
-  return {c:'#9AA0A6',th:'วันเงียบ ๆ',en:'Quiet day'};
+  if(sh&&sh<6) return {c:'#E08A4E',e:'🌙',th:'ต้องฟื้นฟู',en:'Recovery needed'};
+  if(pos>=4) return {c:'#4A9E6A',e:'🌿',th:'วันที่ดีมาก',en:'Beautiful day'};
+  if(pos>=2) return {c:'#E0B43E',e:'☀️',th:'วันโอเค',en:'Okay day'};
+  return {c:'#8FA6C9',e:'🍃',th:'วันเงียบ ๆ',en:'Quiet day'};
 }
 function _tlIco(p,c){ return '<svg viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0;">'+p+'</svg>'; }
 function _tlMajor(color,icon,label){ return '<span style="display:inline-flex;align-items:center;gap:5px;background:'+color+'18;color:'+color+';border:1px solid '+color+'33;border-radius:12px;padding:5px 12px;font-size:.72rem;font-weight:700;font-family:\'IBM Plex Sans Thai\',sans-serif;white-space:nowrap;">'+icon+label+'</span>'; }
@@ -3411,14 +3411,14 @@ function _tlDay(d,en,idx){
   if(!major.length&&!minor.length) return '';
   const q=_tlQuality(d);
   const dt=new Date(d.date+'T00:00:00'); const dlabel=dt.toLocaleDateString(en?'en-US':'th-TH',{weekday:'short',day:'numeric',month:'short'});
-  let body='<div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;"><span style="width:8px;height:8px;border-radius:50%;background:'+q.c+';"></span><span style="font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.68rem;font-weight:700;color:'+q.c+';">'+(en?q.en:q.th)+'</span></div>';
+  let body='<div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;"><span style="font-size:.82rem;line-height:1;">'+q.e+'</span><span style="font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.68rem;font-weight:700;color:'+q.c+';">'+(en?q.en:q.th)+'</span></div>';
   if(major.length) body+='<div style="display:flex;flex-wrap:wrap;gap:6px;">'+major.join('')+'</div>';
   if(minor.length){
     const moreT=(en?('+ '+minor.length+' more'):('+ '+minor.length+' รายการ'));
     body+='<button id="tlbtn-'+idx+'" data-more="▾ '+moreT+'" data-less="▴ '+(en?'Show less':'ย่อ')+'" onclick="tlToggleDay('+idx+')" style="margin-top:7px;background:none;border:none;color:var(--muted2);font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;padding:0;">▾ '+moreT+'</button>';
     body+='<div id="tlmin-'+idx+'" style="display:none;flex-wrap:wrap;gap:5px;margin-top:7px;">'+minor.join('')+'</div>';
   }
-  return '<div style="display:flex;gap:11px;"><div style="flex-shrink:0;width:60px;text-align:right;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.64rem;font-weight:700;color:var(--text);padding-top:1px;">'+dlabel+'</div><div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;"><div style="width:12px;height:12px;border-radius:50%;background:'+q.c+';border:2px solid var(--card);box-shadow:0 0 0 1.5px '+q.c+';margin-top:2px;"></div><div style="flex:1;width:2px;background:var(--border);margin:3px 0;"></div></div><div style="flex:1;min-width:0;padding-bottom:18px;">'+body+'</div></div>';
+  return '<div style="display:flex;gap:11px;"><div style="flex-shrink:0;width:60px;text-align:right;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.64rem;font-weight:700;color:var(--text);padding-top:1px;">'+dlabel+'</div><div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;"><div style="width:12px;height:12px;border-radius:50%;background:'+q.c+';border:2px solid var(--card);box-shadow:0 0 0 1.5px '+q.c+';margin-top:2px;"></div><div style="flex:1;width:2px;background:var(--border);margin:3px 0;"></div></div><div style="flex:1;min-width:0;padding-bottom:15px;"><div style="background:linear-gradient(135deg,'+q.c+'18,'+q.c+'09);border:1px solid '+q.c+'2e;border-left:3px solid '+q.c+';border-radius:16px;padding:12px 14px;box-shadow:0 4px 16px '+q.c+'14;">'+body+'</div></div></div>';
 }
 window.tlToggleDay=function(i){ const el=document.getElementById('tlmin-'+i), b=document.getElementById('tlbtn-'+i); if(!el)return; if(el.style.display==='none'){ el.style.display='flex'; if(b)b.textContent=b.dataset.less; } else { el.style.display='none'; if(b)b.textContent=b.dataset.more; } };
 window.tlToggleIns=function(i){ const el=document.getElementById('tlins-'+i), c=document.getElementById('tlinsc-'+i); if(!el)return; if(el.style.display==='none'){ el.style.display='block'; if(c)c.style.transform='rotate(180deg)'; } else { el.style.display='none'; if(c)c.style.transform='none'; } };
