@@ -660,6 +660,58 @@ textarea{min-height:42px;}
 .pf-med{border-left:3px solid;border-radius:0 13px 13px 0;padding:11px 14px;}
 .pf-med-ttl{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.74rem;font-weight:600;margin-bottom:4px;}
 .pf-med-desc{font-size:.68rem;color:var(--text);line-height:1.65;}
+/* ===== PASSPORT (profile redesign) ===== */
+.pf-hero{padding:24px 22px;}
+.pf-avatar{width:70px;height:70px;}
+.pf-name{font-size:1.28rem;}
+.pf-hero-ages{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:18px;position:relative;}
+.pf-hero-age{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:11px 13px;}
+.pf-hero-age-ic{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pf-hero-age-l{font-size:.58rem;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px;}
+.pf-hero-age-v{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;}
+.pf-hero-age-diff{font-size:.58rem;color:rgba(255,255,255,.7);margin-top:2px;}
+.pf-hero-tag{font-family:'Playfair Display',serif;font-style:italic;font-size:.96rem;color:rgba(255,255,255,.92);text-align:center;margin-top:16px;position:relative;letter-spacing:.3px;}
+/* current body round cards */
+.pf-bio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pf-bio-card{background:var(--card2);border:1px solid rgba(0,0,0,.04);border-radius:20px;padding:14px 8px 13px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+.pf-bio-ic{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+.pf-bio-v{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.3rem;font-weight:800;line-height:1;letter-spacing:-.5px;}
+.pf-bio-l{font-size:.58rem;color:var(--muted2);line-height:1.3;}
+/* AI summary */
+.pf-ai{margin-top:14px;background:rgba(74,124,89,.05);border:1px solid rgba(74,124,89,.13);border-radius:15px;padding:12px 14px;}
+.pf-ai-head{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:6px;margin-bottom:7px;}
+/* daily goals story */
+.pf-goal2-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.pf-goal2{background:var(--card2);border:1px solid rgba(0,0,0,.04);border-radius:18px;padding:14px 14px 15px;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+.pf-goal2-ic{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:9px;}
+.pf-goal2-name{font-size:.62rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;font-weight:600;}
+.pf-goal2-v{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.18rem;color:var(--text);font-weight:800;letter-spacing:-.3px;margin-top:2px;}
+.pf-goal2-sub{font-size:.62rem;color:var(--muted2);margin-top:3px;line-height:1.4;}
+/* lifestyle pinterest */
+.pf-life-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px 8px;}
+.pf-life{display:flex;flex-direction:column;align-items:center;gap:7px;}
+.pf-life-ic{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.05);}
+.pf-life-l{font-size:.6rem;color:var(--muted2);text-align:center;font-weight:600;}
+/* nutrition/training/recovery */
+.pf-ntr-list{display:flex;flex-direction:column;gap:10px;}
+.pf-ntr{display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(0,0,0,.04);border-radius:16px;padding:12px 14px;}
+.pf-ntr-ic{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pf-ntr-body{flex:1;min-width:0;}
+.pf-ntr-name{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.84rem;font-weight:700;color:var(--text);}
+.pf-ntr-desc{font-size:.64rem;color:var(--muted2);line-height:1.45;margin-top:2px;}
+.pf-ntr-status{font-size:.62rem;font-weight:700;padding:5px 11px;border-radius:30px;white-space:nowrap;flex-shrink:0;}
+/* accordion */
+.pf-acc-list{display:flex;flex-direction:column;gap:9px;}
+.pf-acc{background:var(--card2);border:1px solid rgba(0,0,0,.05);border-radius:15px;overflow:hidden;}
+.pf-acc-head{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer;}
+.pf-acc-ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pf-acc-ttl{flex:1;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.8rem;font-weight:700;color:var(--text);}
+.pf-acc-body{padding:0 14px 14px 59px;font-size:.7rem;color:var(--muted2);line-height:1.6;}
+/* life philosophy */
+.pf-philo{background:linear-gradient(145deg,#4A7C59 0%,#3d6b4a 55%,#5a8c66 120%);border-radius:24px;padding:26px 22px;text-align:center;box-shadow:0 8px 30px rgba(74,124,89,.25);margin-bottom:12px;position:relative;overflow:hidden;}
+.pf-philo-leaf{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.3);display:inline-flex;align-items:center;justify-content:center;color:#fff;margin-bottom:14px;}
+.pf-philo-big{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:12px;}
+.pf-philo-sub{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.74rem;color:rgba(255,255,255,.82);line-height:1.7;font-style:italic;}
 
 /* ══════════ LOG · SUB-TABS ══════════ */
 .log-tabs{display:flex;gap:7px;margin-bottom:14px;position:sticky;top:52px;z-index:40;padding:4px;background:var(--bg);border-radius:16px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04);}
@@ -715,7 +767,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v25 · Profile พาสเทล</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v26 · Profile Passport/span>
   </div>
 
   <!-- Greeting -->
@@ -1016,65 +1068,50 @@ body.ltab-supp .s-supp{display:block;}
 <!-- PAGE PROFILE -->
 <div class="page pf-page" id="page-profile">
 
-  <!-- HERO -->
+  <!-- HERO · PASSPORT -->
   <div class="pf-hero">
     <div class="pf-hero-glow"></div>
     <div class="pf-hero-top">
-      <div class="pf-avatar">🌿</div>
+      <div class="pf-avatar" style="color:#fff;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:34px;"><path d="M12 21c0-7 3-12 9-13-1 7-4 11-9 13z"/><path d="M12 21c0-5-2-9-7-10 1 5 3 8 7 10z"/></svg></div>
       <div class="pf-id">
         <div class="pf-name">Passaranun Siravitchayangkul</div>
         <div class="pf-sub">GIRL · Personal Longevity OS</div>
-        <div class="pf-meta">07 May 1994 · <span class="lang-th">อายุ 32 · หญิง</span><span class="lang-en" style="display:none;">Age 32 · Female</span></div>
+        <div class="pf-meta">32 yrs · ENFJ · Blood B</div>
       </div>
     </div>
-    <div class="pf-chips">
-      <div class="pf-chip"><div class="pf-chip-v">32</div><div class="pf-chip-l">Age</div></div>
-      <div class="pf-chip"><div class="pf-chip-v">♀</div><div class="pf-chip-l">Female</div></div>
-      <div class="pf-chip"><div class="pf-chip-v">B</div><div class="pf-chip-l">Blood</div></div>
-      <div class="pf-chip pf-chip-hl"><div class="pf-chip-v" style="font-size:.92rem;">ENFJ</div><div class="pf-chip-l">MBTI</div></div>
+    <div class="pf-hero-ages">
+      <div class="pf-hero-age">
+        <span class="pf-hero-age-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 3l2.3 5.8L20 9.3l-4.6 3.7L17 19l-5-3.3L7 19l1.6-6L4 9.3l5.7-.5z"/></svg></span>
+        <div><div class="pf-hero-age-l"><span class="lang-th">อายุร่างกาย</span><span class="lang-en" style="display:none;">Fitness age</span></div>
+        <div class="pf-hero-age-v"><span id="pb-fitness-age">27.5</span></div>
+        <div class="pf-hero-age-diff" id="pb-age-diff">6.1 yrs younger</div></div>
+      </div>
+      <div class="pf-hero-age">
+        <span class="pf-hero-age-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/></svg></span>
+        <div><div class="pf-hero-age-l"><span class="lang-th">อายุผิว</span><span class="lang-en" style="display:none;">Skin age</span></div>
+        <div class="pf-hero-age-v"><span id="pb-skin-age">24</span></div>
+        <div class="pf-hero-age-diff skin-age-diff">7 yrs younger</div></div>
+      </div>
     </div>
+    <div class="pf-hero-tag">Strong. Calm. Beautiful.</div>
+    <span id="pb-fit-reason" style="display:none;"></span><span id="pb-fit-recalc" style="display:none;"></span>
   </div>
 
-  <!-- AGE BANNERS · Fitness + Skin -->
-  <div class="pf-age-row">
-    <div class="pf-age-card pf-age-fitness">
-      <div class="pf-age-label"><span class="lang-th">อายุร่างกาย</span><span class="lang-en" style="display:none;">Fitness Age</span></div>
-      <div class="pf-age-big"><span id="pb-fitness-age">25</span><span class="pf-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span></span></div>
-      <div class="pf-age-diff" style="color:var(--veg);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5z"/></svg><span id="pb-age-diff">6.1 yrs younger</span></div>
-      <div id="pb-fit-reason" style="font-size:.56rem;color:var(--muted2);margin-top:5px;line-height:1.25;"></div>
-      <button id="pb-fit-recalc" onclick="computeFitnessAge(true)" style="margin-top:7px;border:1px solid var(--border2);background:var(--card);color:var(--accent);border-radius:20px;padding:4px 11px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.58rem;font-weight:700;cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M20 11a8 8 0 1 0-1.8 6"/><path d="M20 4v5h-5"/></svg><span class="lang-th">คำนวณด้วย AI</span><span class="lang-en" style="display:none;">Recalc with AI</span></button>
-    </div>
-    <div class="pf-age-card pf-age-skin">
-      <div class="pf-age-label"><span class="lang-th">อายุผิว</span><span class="lang-en" style="display:none;">Skin Age</span></div>
-      <div class="pf-age-big" style="color:var(--fruit);"><span id="pb-skin-age">25</span><span class="pf-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">yrs</span></span></div>
-      <div class="pf-age-diff skin-age-diff" style="color:var(--fruit);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5z"/></svg>7 yrs younger</div>
-    </div>
-  </div>
-
-  <!-- BODY COMPOSITION -->
+  <!-- CURRENT BODY -->
   <div class="pf-card" id="profile-body-card">
     <div class="pf-card-head">
       <div class="pf-card-head-l">
-        <div class="pf-card-ico" style="background:rgba(201,169,110,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C9A96E;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg></div>
+        <div class="pf-card-ico" style="background:rgba(201,169,110,.14);color:#C9A96E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;"><circle cx="12" cy="4.6" r="1"/><path d="M12 5.6v13M7 19h10M5 9h14"/><path d="M5 9l-2.2 4.8a3 3 0 0 0 4.4 0z"/><path d="M19 9l2.2 4.8a3 3 0 0 1-4.4 0z"/></svg></div>
         <div>
-          <div class="pf-card-ttl"><span class="lang-th">สัดส่วนร่างกาย</span><span class="lang-en" style="display:none;">Body Composition</span></div>
-          <div class="pf-card-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--muted2);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg><span class="lang-th">อัปเดต:</span><span class="lang-en" style="display:none;">Updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
+          <div class="pf-card-ttl"><span class="lang-th">ร่างกายตอนนี้</span><span class="lang-en" style="display:none;">Current Body</span></div>
+          <div class="pf-card-sub"><span class="lang-th">อัปเดต:</span><span class="lang-en" style="display:none;">Updated:</span> <span id="pb-date-val" style="color:var(--accent);">5 มิ.ย. 2026</span></div>
         </div>
       </div>
-      <button onclick="toggleProfileEdit()" id="profile-edit-btn" class="pf-edit-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg><span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
+      <button onclick="toggleProfileEdit()" id="profile-edit-btn" class="pf-edit-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg> <span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
     </div>
-    <!-- Display mode -->
     <div id="profile-body-display">
-      <div class="pf-body-grid">
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-weight-val">48.7</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="4.2" r="1.1"/><path d="M12 5.3v13M7 19h10M5 8.5h14"/><path d="M5 8.5 2.7 13.5a3 3 0 0 0 4.6 0z"/><path d="M19 8.5l2.3 5a3 3 0 0 1-4.6 0z"/></svg><span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> kg</div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--prot);" id="pb-fat-val">25.3%</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg><span class="lang-th">ไขมัน</span><span class="lang-en" style="display:none;">Body Fat</span></div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-muscle-val">20.2</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg><span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> kg</div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--text);" id="pb-bmi-val">19.0</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>BMI</div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--veg);" id="pb-visceral-val">4</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M3 12h4l2.2-6 3.6 12 2.2-6H20"/></svg><span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral</span></div></div>
-        <div class="pf-body-box"><div class="pf-body-v" style="color:var(--grain);" id="pb-score-val">82</div><div class="pf-body-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>GIRL Score</div></div>
-      </div>
+      <div class="pf-bio-grid"><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><circle cx="12" cy="4.6" r="1"/><path d="M12 5.6v13M7 19h10M5 9h14"/><path d="M5 9l-2.2 4.8a3 3 0 0 0 4.4 0z"/><path d="M19 9l2.2 4.8a3 3 0 0 1-4.4 0z"/></svg></span><div class="pf-bio-v" id="pb-weight-val" style="color:#4A7C59;">48.7</div><div class="pf-bio-l">Weight · kg</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FBEBF1;color:#C2799F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/></svg></span><div class="pf-bio-v" id="pb-fat-val" style="color:#C2799F;">25.3%</div><div class="pf-bio-l">Body fat</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M6 5v3a3 3 0 0 0 3 3h1"/><path d="M10 11c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5V14"/></svg></span><div class="pf-bio-v" id="pb-muscle-val" style="color:#4E86AE;">20.2</div><div class="pf-bio-l">Muscle · kg</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FDF4DC;color:#C79A2E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></span><div class="pf-bio-v" id="pb-bmi-val" style="color:#C79A2E;">19.0</div><div class="pf-bio-l">BMI</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FCECE4;color:#C25E63;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 19C7.5 15.8 5 13 5 9.9A3.4 3.4 0 0 1 12 7.3 3.4 3.4 0 0 1 19 9.9c0 3.1-2.5 5.9-7 9.1z"/></svg></span><div class="pf-bio-v" id="pb-visceral-val" style="color:#C25E63;">4</div><div class="pf-bio-l">Visceral</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#F1EBF9;color:#8A6FBE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg></span><div class="pf-bio-v" id="pb-score-val" style="color:#8A6FBE;">82</div><div class="pf-bio-l">GIRL Score</div></div></div>
     </div>
-    <!-- Edit mode -->
     <div id="profile-body-edit" style="display:none;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
         <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="4.2" r="1.1"/><path d="M12 5.3v13M7 19h10M5 8.5h14"/><path d="M5 8.5 2.7 13.5a3 3 0 0 0 4.6 0z"/><path d="M19 8.5l2.3 5a3 3 0 0 1-4.6 0z"/></svg><span class="lang-th">น้ำหนัก</span><span class="lang-en" style="display:none;">Weight</span> (kg)</label><input type="number" id="pb-weight-in" step="0.1" class="pf-input"></div>
@@ -1091,130 +1128,77 @@ body.ltab-supp .s-supp{display:block;}
     </div>
   </div>
 
-  <!-- GIRL HEALTH SCORE -->
+  <!-- GIRL HEALTH SCORE + AI SUMMARY -->
   <div class="pf-score-card">
     <div class="pf-score-head">
-      <div class="pf-score-ring">
-        <div class="pf-score-num" id="girl-health-score">—</div>
-        <div class="pf-score-max">/100</div>
-      </div>
+      <div class="pf-score-ring"><div class="pf-score-num" id="girl-health-score">—</div><div class="pf-score-max">/100</div></div>
       <div class="pf-score-meta">
         <div class="pf-score-ttl">GIRL Health Score</div>
-        <div class="pf-score-period" id="score-period-lbl">คำนวณจากบันทึก 30 วันล่าสุด</div>
+        <div class="pf-score-period" id="score-period-lbl"><span class="lang-th">คำนวณจากบันทึก 30 วันล่าสุด</span><span class="lang-en" style="display:none;">Last 30 days</span></div>
       </div>
       <div class="pf-score-label" id="score-label">—</div>
     </div>
     <div id="score-breakdown" style="display:flex;flex-direction:column;gap:6px;margin-top:4px;"></div>
-    <button onclick="computeGirlScore()" class="pf-recalc-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3.5 12a8.5 8.5 0 0 1 14.5-6M20.5 12a8.5 8.5 0 0 1-14.5 6"/><path d="M17.5 3.5V6h-2.5M6.5 20.5V18h2.5"/></svg><span class="lang-th">คำนวณใหม่</span><span class="lang-en" style="display:none;">Recalculate</span></button>
-  </div>
-
-  <!-- WELLNESS SYSTEM -->
-  <div class="pf-card">
-    <div class="pf-card-head" style="margin-bottom:15px;">
-      <div class="pf-card-head-l">
-        <div class="pf-card-ico" style="background:rgba(74,124,89,.1);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#4A7C59;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg></div>
-        <div>
-          <div class="pf-card-ttl">Wellness System</div>
-          <div class="pf-card-sub"><span class="lang-th">ระบบดูแลสุขภาพส่วนตัว</span><span class="lang-en" style="display:none;">Your personal longevity system</span></div>
-        </div>
-      </div>
+    <div class="pf-ai">
+      <div class="pf-ai-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/></svg> <span class="lang-th">AI สรุป</span><span class="lang-en" style="display:none;">AI Summary</span> · <span id="pf-ai-grade" style="color:var(--accent);">—</span></div>
+      <div id="pf-ai-list"></div>
     </div>
-    <div class="pf-well-list">
-      <div class="pf-well-row" style="border-left-color:#4A7C59;">
-        <div class="pf-well-ico" style="background:rgba(74,124,89,.1);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#4A7C59;"><path d="M7 3v18M5 3v4.5a2 2 0 0 0 4 0V3"/><path d="M16.5 3c-1.4 0-2.3 2-2.3 5 0 2 1 2.8 2.3 2.8V21"/></svg></div>
-        <div class="pf-well-body">
-          <div class="pf-well-name">Nutrition</div>
-          <div class="pf-well-desc lang-th">ทำอาหารเองทุกวัน · ไม่เติมน้ำตาล · ไม่กินอาหารแปรรูป · รับเฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
-          <div class="pf-well-desc lang-en" style="display:none;">Fresh home-cooking daily · No added sugar · Zero processed food · Natural fruit sugars only</div>
-        </div>
-      </div>
-      <div class="pf-well-row" style="border-left-color:#8B5E52;">
-        <div class="pf-well-ico" style="background:rgba(139,94,82,.1);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#8B5E52;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg></div>
-        <div class="pf-well-body">
-          <div class="pf-well-name">Training</div>
-          <div class="pf-well-desc lang-th">เวทเทรนนิ่ง · ลู่วิ่งความชัน · วิ่งกลางแจ้ง · เทนนิส — สม่ำเสมอ</div>
-          <div class="pf-well-desc lang-en" style="display:none;">Weight training · Treadmill incline · Outdoor run · Tennis — consistent</div>
-        </div>
-      </div>
-      <div class="pf-well-row" style="border-left-color:#6B8FA3;">
-        <div class="pf-well-ico" style="background:rgba(107,143,163,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#6B8FA3;"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5 4.2 16.5"/><path d="M12 6.4 9.6 5M12 6.4 14.4 5M12 17.6 9.6 19M12 17.6 14.4 19M4.9 9.6l2.7.2M4.9 14.4l2.7-.2M19.1 9.6l-2.7.2M19.1 14.4l-2.7-.2"/></svg></div>
-        <div class="pf-well-body">
-          <div class="pf-well-name">Recovery</div>
-          <div class="pf-well-desc lang-th">Ice Bath ฟื้นฟูกล้ามเนื้อ · Sauna detox &amp; ผ่อนคลาย</div>
-          <div class="pf-well-desc lang-en" style="display:none;">Ice bath for muscle recovery · Sauna for detox &amp; relaxation</div>
-        </div>
-      </div>
-      <div class="pf-well-row" style="border-left-color:#7A6B8A;">
-        <div class="pf-well-ico" style="background:rgba(122,107,138,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#7A6B8A;"><rect x="7.5" y="6" width="9" height="12" rx="3"/><path d="M9.5 6 10 3h4l.5 3M9.5 18l.5 3h4l.5-3"/><circle cx="12" cy="12" r="2.2"/></svg></div>
-        <div class="pf-well-body">
-          <div class="pf-well-name">Garmin Tracking</div>
-          <div class="pf-well-desc lang-th">Sleep Score · HRV · RHR · Body Battery — ติดตามทุกวัน</div>
-          <div class="pf-well-desc lang-en" style="display:none;">Sleep Score · HRV · RHR · Body Battery — tracked daily</div>
-        </div>
-      </div>
-      <div class="pf-well-row" style="border-left-color:#C9A96E;">
-        <div class="pf-well-ico" style="background:rgba(201,169,110,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#C9A96E;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg></div>
-        <div class="pf-well-body">
-          <div class="pf-well-name">BioActive+ Protocol</div>
-          <div class="pf-well-desc">Collagen · Gluta · Asta · Gold · Kera · <strong style="color:#6B8FA3;">Magnesium (<span class="lang-th">ทุกคืน</span><span class="lang-en" style="display:none;">nightly</span>)</strong> · Tribiotic · Immuchew · Juvecol</div>
-        </div>
-      </div>
-    </div>
+    <button onclick="computeGirlScore()" class="pf-recalc-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M3.5 12a8.5 8.5 0 0 1 14.5-6M20.5 12a8.5 8.5 0 0 1-14.5 6"/><path d="M17.5 3.5V6h-2.5M6.5 20.5V18h2.5"/></svg> <span class="lang-th">คำนวณใหม่</span><span class="lang-en" style="display:none;">Recalculate</span></button>
   </div>
 
   <!-- DAILY GOALS -->
   <div class="pf-card">
-    <div class="pf-card-head" style="margin-bottom:14px;">
+    <div class="pf-card-head">
       <div class="pf-card-head-l">
-        <div class="pf-card-ico" style="background:rgba(201,169,110,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C9A96E;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></div>
-        <div>
-          <div class="pf-card-ttl"><span class="lang-th">เป้าหมายสุขภาพ</span><span class="lang-en" style="display:none;">Daily Goals</span></div>
-          <div class="pf-card-sub"><span class="lang-th">เป้าหมายรายวันเพื่อ longevity</span><span class="lang-en" style="display:none;">Daily targets for longevity</span></div>
-        </div>
+        <div class="pf-card-ico" style="background:rgba(74,124,89,.1);color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;"><path d="M12 3l2.3 5.8L20 9.3l-4.6 3.7L17 19l-5-3.3L7 19l1.6-6L4 9.3l5.7-.5z"/></svg></div>
+        <div><div class="pf-card-ttl"><span class="lang-th">เป้าหมายรายวัน</span><span class="lang-en" style="display:none;">Daily Goals</span></div>
+        <div class="pf-card-sub"><span class="lang-th">เป้าเพื่อ longevity</span><span class="lang-en" style="display:none;">Daily targets for longevity</span></div></div>
       </div>
     </div>
-    <div class="pf-quote">
-      <div class="lang-th">"รับเฉพาะน้ำตาลธรรมชาติ งดน้ำตาลเพิ่ม — ใช้ชีวิตอย่างมีคุณภาพและยั่งยืน"</div>
-      <div class="lang-en" style="display:none;">"Natural sugars only. No added sugar. Live with intention — strong, sustainable, built to last."</div>
-    </div>
-    <div class="pf-goals-grid">
-      <div class="pf-goal"><div class="pf-goal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;color:#6B8FA3;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg></div><div class="pf-goal-v">2.5L+</div><div class="pf-goal-l"><span class="lang-th">น้ำดื่มต่อวัน</span><span class="lang-en" style="display:none;">Daily water</span></div></div>
-      <div class="pf-goal"><div class="pf-goal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;color:#6B8FA3;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg></div><div class="pf-goal-v">7.5–8.5h</div><div class="pf-goal-l"><span class="lang-th">เป้าการนอน</span><span class="lang-en" style="display:none;">Sleep target</span></div></div>
-      <div class="pf-goal"><div class="pf-goal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;color:#C9A96E;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg></div><div class="pf-goal-v">1,600–1,850</div><div class="pf-goal-l"><span class="lang-th">แคลอรี่ / วัน</span><span class="lang-en" style="display:none;">kcal / day</span></div></div>
-      <div class="pf-goal"><div class="pf-goal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;color:#8B5E52;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg></div><div class="pf-goal-v">90–110g</div><div class="pf-goal-l"><span class="lang-th">โปรตีน / วัน</span><span class="lang-en" style="display:none;">Protein / day</span></div></div>
-      <div class="pf-goal"><div class="pf-goal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;color:#4A7C59;"><path d="M12 21v-6.5"/><path d="M12 14.5c-3 0-5-1.7-5-3.9 0-1 .5-1.8 1.2-2.4C8 5.7 9.8 4.5 12 4.5s4 1.2 4.8 3.2c.7.6 1.2 1.4 1.2 2.4 0 2.2-2 3.9-5 3.9z"/></svg></div><div class="pf-goal-v">25–30g</div><div class="pf-goal-l"><span class="lang-th">ไฟเบอร์ / วัน</span><span class="lang-en" style="display:none;">Fiber / day</span></div></div>
-      <div class="pf-goal"><div class="pf-goal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;color:#D4845A;"><path d="M12 7.2c-1-1.6-2.8-2.2-4.3-1.4C6 6.7 5.3 8.8 6.1 11.2c.7 2.2 2.3 4.7 4 5.5.7.4 1.1.4 1.8 0 1.7-.8 3.3-3.3 4-5.5.8-2.4.1-4.5-1.6-5.4-1.5-.8-3.3-.2-4.3 1.4"/><path d="M12 6.5c0-1.2.8-2.2 2-2.5"/></svg></div><div class="pf-goal-v">15–25g</div><div class="pf-goal-l"><span class="lang-th">น้ำตาลผลไม้</span><span class="lang-en" style="display:none;">Fruit sugar</span></div></div>
-    </div>
+    <div class="pf-goal2-grid"><div class="pf-goal2"><span class="pf-goal2-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;"><path d="M12 4c3.4 4 5.4 7.1 5.4 9.8a5.4 5.4 0 0 1-10.8 0C6.6 11.1 8.6 8 12 4z"/></svg></span><div class="pf-goal2-name"><span class="lang-th">น้ำดื่ม</span><span class="lang-en" style="display:none;">Water</span></div><div class="pf-goal2-v">2.5L+</div><div class="pf-goal2-sub">Progress 85%</div><div style="margin-top:8px;background:#4E86AE22;border-radius:8px;height:7px;overflow:hidden;"><div style="width:85%;height:100%;background:#4E86AE;border-radius:8px;"></div></div></div><div class="pf-goal2"><span class="pf-goal2-ic" style="background:#ECEAF8;color:#6B8FA3;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;"><path d="M20 13.5A7.5 7.5 0 1 1 10.5 4 6 6 0 0 0 20 13.5z"/></svg></span><div class="pf-goal2-name"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div><div class="pf-goal2-v">7.5–8.5h</div><div class="pf-goal2-sub"><span class="lang-th">สัปดาห์ก่อน 7.3h</span><span class="lang-en" style="display:none;">Last week 7.3h</span></div></div><div class="pf-goal2"><span class="pf-goal2-ic" style="background:#F5ECE7;color:#C08552;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.6"/></svg></span><div class="pf-goal2-name"><span class="lang-th">โปรตีน</span><span class="lang-en" style="display:none;">Protein</span></div><div class="pf-goal2-v">90–110g</div><div class="pf-goal2-sub"><span class="lang-th">เฉลี่ยตอนนี้ 102g</span><span class="lang-en" style="display:none;">Current avg 102g</span></div></div><div class="pf-goal2"><span class="pf-goal2-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg></span><div class="pf-goal2-name"><span class="lang-th">แคลอรี่</span><span class="lang-en" style="display:none;">Calories</span></div><div class="pf-goal2-v">1,600–1,850</div><div class="pf-goal2-sub"><span class="lang-th">โฟกัส longevity</span><span class="lang-en" style="display:none;">Longevity focus</span></div></div><div class="pf-goal2"><span class="pf-goal2-ic" style="background:#EAF5EC;color:#4A9E6A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;"><path d="M12 21c0-7 3-12 9-13-1 7-4 11-9 13z"/><path d="M12 21c0-5-2-9-7-10 1 5 3 8 7 10z"/></svg></span><div class="pf-goal2-name"><span class="lang-th">ไฟเบอร์</span><span class="lang-en" style="display:none;">Fiber</span></div><div class="pf-goal2-v">25–30g</div><div class="pf-goal2-sub"><span class="lang-th">จากผักทุกมื้อ</span><span class="lang-en" style="display:none;">Veggies every meal</span></div></div><div class="pf-goal2"><span class="pf-goal2-ic" style="background:#FDF4DC;color:#C79A2E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:23px;height:23px;"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/></svg></span><div class="pf-goal2-name"><span class="lang-th">น้ำตาลผลไม้</span><span class="lang-en" style="display:none;">Fruit sugar</span></div><div class="pf-goal2-v">15–25g</div><div class="pf-goal2-sub"><span class="lang-th">ธรรมชาติเท่านั้น</span><span class="lang-en" style="display:none;">Natural only</span></div></div></div>
   </div>
 
-  <!-- HEALTH & MEDICATION -->
+  <!-- MY WELLNESS LIFESTYLE -->
   <div class="pf-card">
-    <div class="pf-card-head" style="margin-bottom:14px;">
+    <div class="pf-card-head">
       <div class="pf-card-head-l">
-        <div class="pf-card-ico" style="background:rgba(192,57,43,.08);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;color:#C0392B;"><path d="M6 3.5v5a4 4 0 0 0 8 0v-5"/><path d="M5 3.5h2M13 3.5h2"/><path d="M10 15.5a4 4 0 0 0 8 0v-1.6"/><circle cx="18" cy="12.5" r="1.7"/></svg></div>
-        <div>
-          <div class="pf-card-ttl" style="color:#C0392B;"><span class="lang-th">สุขภาพ &amp; ยา</span><span class="lang-en" style="display:none;">Health &amp; Medication</span></div>
-          <div class="pf-card-sub"><span class="lang-th">อยู่ในการดูแลของแพทย์</span><span class="lang-en" style="display:none;">Under physician supervision</span></div>
-        </div>
+        <div class="pf-card-ico" style="background:rgba(199,101,144,.12);color:#C76590;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;"><path d="M12 19C7.5 15.8 5 13 5 9.9A3.4 3.4 0 0 1 12 7.3 3.4 3.4 0 0 1 19 9.9c0 3.1-2.5 5.9-7 9.1z"/></svg></div>
+        <div><div class="pf-card-ttl"><span class="lang-th">ไลฟ์สไตล์ที่ฉันรัก</span><span class="lang-en" style="display:none;">My Wellness Lifestyle</span></div>
+        <div class="pf-card-sub"><span class="lang-th">สิ่งเล็กๆ ที่ทำให้มีความสุข</span><span class="lang-en" style="display:none;">Little things I love</span></div></div>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:9px;">
-      <div class="pf-med" style="border-left-color:#D4607A;background:rgba(212,96,122,.05);">
-        <div class="pf-med-ttl" style="color:#D4607A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:#D4607A;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="12" r="1.9"/><ellipse cx="12" cy="7.6" rx="1.9" ry="2.5"/><ellipse cx="16.2" cy="10.7" rx="2.5" ry="1.9"/><ellipse cx="14.6" cy="15.5" rx="1.9" ry="2.5"/><ellipse cx="9.4" cy="15.5" rx="1.9" ry="2.5"/><ellipse cx="7.8" cy="10.7" rx="2.5" ry="1.9"/></svg><span class="lang-th">ยาคุมกำเนิด · ฮอร์โมน</span><span class="lang-en" style="display:none;">Hormonal Contraceptive</span></div>
-        <div class="pf-med-desc lang-th">รับประทานต่อเนื่องมากกว่า 10 ปี เพื่อควบคุมฮอร์โมนและรอบเดือน อยู่ในการดูแลของแพทย์</div>
-        <div class="pf-med-desc lang-en" style="display:none;">Hormonal contraceptives for 10+ years to regulate menstrual cycle &amp; hormone balance — under physician supervision.</div>
-      </div>
-      <div class="pf-med" style="border-left-color:#6B8FA3;background:rgba(107,143,163,.05);">
-        <div class="pf-med-ttl" style="color:#6B8FA3;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:#6B8FA3;vertical-align:-2px;margin-right:5px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg><span class="lang-th">ยานอนหลับ · ยาคลายเครียด</span><span class="lang-en" style="display:none;">Sleep Medication</span></div>
-        <div class="pf-med-desc lang-th">ยาคลายเครียดก่อนนอนต่อเนื่องกว่า 5 ปี ขนาดยาอยู่ในการดูแลของแพทย์ <strong style="color:#6B8FA3">ต้องทานแมกนีเซียมทุกคืน</strong></div>
-        <div class="pf-med-desc lang-en" style="display:none;">Mild muscle relaxant / anxiolytic nightly for 5+ years — dosage managed by physician. <strong style="color:#6B8FA3">Magnesium required every night.</strong></div>
-      </div>
-      <div class="pf-med" style="border-left-color:#4A7C59;background:rgba(74,124,89,.05);">
-        <div class="pf-med-ttl" style="color:var(--accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:var(--accent);vertical-align:-2px;margin-right:5px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg><span class="lang-th">BioActive+ ที่จำเป็น</span><span class="lang-en" style="display:none;">BioActive+ Essentials</span></div>
-        <div class="pf-med-desc lang-th"><strong>แมกนีเซียมทุกคืน</strong> — จำเป็นเพื่อสนับสนุนการทำงานของยานอนหลับ</div>
-        <div class="pf-med-desc lang-en" style="display:none;"><strong>Magnesium every night</strong> — essential to support sleep medication efficacy.</div>
+    <div class="pf-life-grid"><div class="pf-life"><span class="pf-life-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M5 9h12v3a6 6 0 0 1-12 0z"/><path d="M17 10h1.4a2 2 0 0 1 0 4H17"/><path d="M8 5.4c0 .8-.8 1.2-.8 2M11 5c0 .8-.8 1.2-.8 2"/></svg></span><div class="pf-life-l">Matcha</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5 4.2 16.5"/><path d="M12 6.3 9.7 5M12 6.3 14.3 5M12 17.7 9.7 19M12 17.7 14.3 19"/></svg></span><div class="pf-life-l">Ice bath</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FDF4DC;color:#C79A2E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><circle cx="12" cy="12" r="8.5"/><path d="M5.2 6.5c3 2.5 3 8.5 0 11M18.8 6.5c-3 2.5-3 8.5 0 11"/></svg></span><div class="pf-life-l">Tennis</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FCECE4;color:#E0913F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><circle cx="12" cy="12" r="3.8"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"/></svg></span><div class="pf-life-l">Morning sun</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#F1EBF9;color:#8A6FBE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M5 4.5h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z"/><path d="M5 17.5a2 2 0 0 1 2-2h11"/><path d="M9 8.5h5M9 11.5h5"/></svg></span><div class="pf-life-l">Journaling</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FBEBF1;color:#C2799F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M5 10v5a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-5"/><path d="M3 10h18"/><path d="M9 6.3c0-1 .8-1.3.8-2.3M13 6.3c0-1 .8-1.3.8-2.3"/></svg></span><div class="pf-life-l">Home cooking</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#EAF5EC;color:#4A9E6A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M12 20c-4 0-7-2.5-7-5 2 0 3.5.6 5 2 .3-2.6 1-4.6 2-6 1 1.4 1.7 3.4 2 6 1.5-1.4 3-2 5-2 0 2.5-3 5-7 5z"/></svg></span><div class="pf-life-l">Self-care</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FCECE4;color:#C25E63;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><circle cx="8" cy="8.5" r="2.4"/><circle cx="16" cy="8.5" r="2.4"/><path d="M3.6 19c0-2.7 2-4.4 4.4-4.4 1.3 0 2.5.5 3.3 1.3M12.7 18.6c.4-2.4 2.1-4 4.4-4 2.4 0 4.4 1.7 4.4 4.4"/></svg></span><div class="pf-life-l">Family</div></div></div>
+  </div>
+
+  <!-- NUTRITION · TRAINING · RECOVERY -->
+  <div class="pf-card">
+    <div class="pf-card-head">
+      <div class="pf-card-head-l">
+        <div class="pf-card-ico" style="background:rgba(74,124,89,.1);color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg></div>
+        <div><div class="pf-card-ttl"><span class="lang-th">ระบบดูแลตัวเอง</span><span class="lang-en" style="display:none;">Wellness System</span></div>
+        <div class="pf-card-sub"><span class="lang-th">โภชนาการ · เทรนนิ่ง · ฟื้นฟู</span><span class="lang-en" style="display:none;">Nutrition · Training · Recovery</span></div></div>
       </div>
     </div>
+    <div class="pf-ntr-list"><div class="pf-ntr"><span class="pf-ntr-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 21c0-7 3-12 9-13-1 7-4 11-9 13z"/><path d="M12 21c0-5-2-9-7-10 1 5 3 8 7 10z"/></svg></span><div class="pf-ntr-body"><div class="pf-ntr-name">Nutrition</div><div class="pf-ntr-desc"><span class="lang-th">ไม่กินอาหารแปรรูป · น้ำตาลจากผลไม้ธรรมชาติ</span><span class="lang-en" style="display:none;">No processed food · Natural fruit sugar only</span></div></div><span class="pf-ntr-status" style="color:#4A9E6A;background:rgba(74,158,106,.13);"><span class="lang-th">ยอดเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></span></div><div class="pf-ntr"><span class="pf-ntr-ic" style="background:#F5ECE7;color:#C08552;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M4 9.5v5M6.6 7.8v8.4M17.4 7.8v8.4M20 9.5v5M6.6 12h10.8"/></svg></span><div class="pf-ntr-body"><div class="pf-ntr-name">Training</div><div class="pf-ntr-desc"><span class="lang-th">เวท + ลู่วิ่งชัน + เทนนิส</span><span class="lang-en" style="display:none;">Strength + incline walk + tennis</span></div></div><span class="pf-ntr-status" style="color:#4A9E6A;background:rgba(74,158,106,.13);"><span class="lang-th">สม่ำเสมอ</span><span class="lang-en" style="display:none;">Consistent</span></span></div><div class="pf-ntr"><span class="pf-ntr-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5 4.2 16.5"/><path d="M12 6.3 9.7 5M12 6.3 14.3 5M12 17.7 9.7 19M12 17.7 14.3 19"/></svg></span><div class="pf-ntr-body"><div class="pf-ntr-name">Recovery</div><div class="pf-ntr-desc"><span class="lang-th">Ice bath · Sauna</span><span class="lang-en" style="display:none;">Ice bath · Sauna</span></div></div><span class="pf-ntr-status" style="color:#E0913F;background:rgba(224,145,63,.14);"><span class="lang-th">กำลังดีขึ้น</span><span class="lang-en" style="display:none;">Improving</span></span></div></div>
+  </div>
+
+  <!-- HEALTH SUPPORT (accordion) -->
+  <div class="pf-card">
+    <div class="pf-card-head">
+      <div class="pf-card-head-l">
+        <div class="pf-card-ico" style="background:rgba(107,143,163,.12);color:#6B8FA3;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;"><rect x="3.5" y="9" width="17" height="6" rx="3" transform="rotate(-32 12 12)"/><path d="M9.2 7l3.8 6.2"/></svg></div>
+        <div><div class="pf-card-ttl"><span class="lang-th">การดูแลสุขภาพ</span><span class="lang-en" style="display:none;">Health Support</span></div>
+        <div class="pf-card-sub"><span class="lang-th">อยู่ในการดูแลของแพทย์</span><span class="lang-en" style="display:none;">Under physician supervision</span></div></div>
+      </div>
+    </div>
+    <div class="pf-acc-list"><div class="pf-acc"><div class="pf-acc-head" onclick="var c=this.parentElement.querySelector('.pfacc-c');var o=c.style.display!=='none';c.style.display=o?'none':'block';this.querySelector('.pfacc-chev').style.transform=o?'':'rotate(180deg)';"><span class="pf-acc-ic" style="background:#FBEBF1;color:#C2799F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><rect x="3.5" y="9" width="17" height="6" rx="3" transform="rotate(-32 12 12)"/><path d="M9.2 7l3.8 6.2"/></svg></span><span class="pf-acc-ttl"><span class="lang-th">ฮอร์โมน</span><span class="lang-en" style="display:none;">Hormonal support</span></span><svg class="pfacc-chev" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg></div><div class="pfacc-c" style="display:none;"><div class="pf-acc-body"><span class="lang-th">ยาคุมกำเนิดต่อเนื่อง 10+ ปี ปรับฮอร์โมนและรอบเดือน อยู่ในการดูแลของแพทย์</span><span class="lang-en" style="display:none;">Hormonal contraceptives 10+ yrs to regulate cycle &amp; hormones — under physician supervision.</span></div></div></div><div class="pf-acc"><div class="pf-acc-head" onclick="var c=this.parentElement.querySelector('.pfacc-c');var o=c.style.display!=='none';c.style.display=o?'none':'block';this.querySelector('.pfacc-chev').style.transform=o?'':'rotate(180deg)';"><span class="pf-acc-ic" style="background:#E9F1F8;color:#6B8FA3;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><path d="M20 13.5A7.5 7.5 0 1 1 10.5 4 6 6 0 0 0 20 13.5z"/></svg></span><span class="pf-acc-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep support</span></span><svg class="pfacc-chev" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg></div><div class="pfacc-c" style="display:none;"><div class="pf-acc-body"><span class="lang-th">ยาคลายเครียดก่อนนอน 5+ ปี อยู่ในการดูแลของแพทย์ · ต้องทานแมกนีเซียมทุกคืน</span><span class="lang-en" style="display:none;">Nightly anxiolytic 5+ yrs under physician care · Magnesium required every night.</span></div></div></div><div class="pf-acc"><div class="pf-acc-head" onclick="var c=this.parentElement.querySelector('.pfacc-c');var o=c.style.display!=='none';c.style.display=o?'none':'block';this.querySelector('.pfacc-chev').style.transform=o?'':'rotate(180deg)';"><span class="pf-acc-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><rect x="6.5" y="4" width="7" height="13" rx="3.5"/><path d="M6.5 10.5h7"/><circle cx="17" cy="16" r="3"/></svg></span><span class="pf-acc-ttl"><span class="lang-th">BioActive stack</span><span class="lang-en" style="display:none;">BioActive stack</span></span><svg class="pfacc-chev" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg></div><div class="pfacc-c" style="display:none;"><div class="pf-acc-body"><span class="lang-th">Collagen · Gluta · Asta · Magnesium (ทุกคืน) · Tribiotic — เสริมทุกวัน</span><span class="lang-en" style="display:none;">Collagen · Gluta · Asta · Magnesium (nightly) · Tribiotic — daily essentials.</span></div></div></div></div>
+  </div>
+
+  <!-- LIFE PHILOSOPHY -->
+  <div class="pf-philo">
+    <div class="pf-philo-leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;"><path d="M12 21c0-7 3-12 9-13-1 7-4 11-9 13z"/><path d="M12 21c0-5-2-9-7-10 1 5 3 8 7 10z"/></svg></div>
+    <div class="pf-philo-big"><span class="lang-th">ร่างกายแข็งแรง<br>จิตใจสงบ<br>ชีวิตงดงาม</span><span class="lang-en" style="display:none;">Strong body.<br>Calm mind.<br>Beautiful life.</span></div>
+    <div class="pf-philo-sub"><span class="lang-th">ฉันไม่ไล่ตามความสมบูรณ์แบบ<br>แต่สร้างนิสัยที่อยู่กับเราได้นาน</span><span class="lang-en" style="display:none;">I don\'t chase perfection.<br>I build habits that last.</span></div>
   </div>
 
 </div>
@@ -9036,6 +9020,18 @@ async function computeGirlScore(){
     }).join('');
   }
 
+  // ── AI SUMMARY (rule-based, instant) ──
+  const aiList=document.getElementById('pf-ai-list'); const aiGrade=document.getElementById('pf-ai-grade');
+  if(aiGrade) aiGrade.textContent = label;
+  if(aiList){
+    const _en=_isEN;
+    const stat=function(sc){ return sc>=85?(_en?'excellent':'ยอดเยี่ยม'):sc>=70?(_en?'on track':'ทำได้ดี'):sc>=55?(_en?'moderate':'ปานกลาง'):(_en?'needs focus':'ต้องใส่ใจ'); };
+    const col=function(sc){ return sc>=70?'#4A9E6A':sc>=55?'#E0B43E':'#E0913F'; };
+    const rows=[[_en?'Sleep quality':'คุณภาพการนอน',sleepScore],[_en?'Protein target':'เป้าโปรตีน',protScore],[_en?'Exercise consistency':'ความสม่ำเสมอออกกำลัง',exScore],[_en?'Hydration':'การดื่มน้ำ',waterScore]];
+    aiList.innerHTML = rows.map(function(r){ const c=col(r[1]);
+      return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;"><span style="width:7px;height:7px;border-radius:50%;background:'+c+';flex-shrink:0;"></span><span style="font-size:.72rem;color:var(--text);">'+r[0]+' <span style="color:'+c+';font-weight:700;">'+stat(r[1])+'</span></span></div>';
+    }).join('');
+  }
   // Also update pb-score-val on profile body card
   const pbScore = document.getElementById('pb-score-val');
   if(pbScore) pbScore.textContent = total;
