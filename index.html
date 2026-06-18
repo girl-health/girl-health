@@ -506,10 +506,10 @@ textarea{min-height:42px;}
 
 /* ── TREND ── */
 .hd-trend-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.hd-tbox{background:var(--bg);border-radius:16px;padding:14px 8px;text-align:center;}
-.hd-tbox-val{font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.18rem;line-height:1;letter-spacing:-.5px;}
-.hd-tbox-name{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:5px;}
-.hd-tbox-d{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.62rem;font-weight:600;margin-top:4px;}
+.hd-tbox{background:var(--bg);border-radius:16px;padding:10px 8px;text-align:center;}
+.hd-tbox-val{font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.06rem;line-height:1;letter-spacing:-.5px;}
+.hd-tbox-name{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.6rem;color:var(--muted2);margin-top:3px;}
+.hd-tbox-d{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.62rem;font-weight:600;margin-top:2px;}
 .t-up{color:var(--veg);} .t-dn{color:var(--prot);} .t-eq{color:var(--muted2);}
 
 /* ── AI INSIGHT ── */
@@ -697,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v11 · What to improve พาสเทล</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ ดีไซน์ใหม่ v12 · Wins+Recovery+โค้ชสั้น</span>
   </div>
 
   <!-- Greeting -->
@@ -919,8 +919,8 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- WHAT'S MISSING -->
   <div class="hd-sec-head">
-    <div class="hd-sec-title"><span class="lang-th">ขาดอะไร · ควรปรับอะไร</span><span class="lang-en" style="display:none;">What to improve</span></div>
-    <div class="hd-sec-note"><span class="lang-th">คำแนะนำวันนี้</span><span class="lang-en" style="display:none;">Today's tips</span></div>
+    <div class="hd-sec-title"><span class="lang-th">วันนี้ทำได้ดี 🎉</span><span class="lang-en" style="display:none;">Today's Wins 🎉</span></div>
+    <div class="hd-sec-note"><span class="lang-th">เยี่ยมมาก!</span><span class="lang-en" style="display:none;">keep it up</span></div>
   </div>
   <div class="hd-block" id="hd-gap-block">
     <div style="text-align:center;padding:8px 0;color:var(--muted2);font-size:.72rem;font-family:'IBM Plex Sans Thai',sans-serif;"><span class="lang-th">กำลังโหลด…</span><span class="lang-en" style="display:none;">Loading…</span></div>
@@ -944,22 +944,22 @@ body.ltab-supp .s-supp{display:block;}
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
       <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
         <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#E0EBE2;color:#3B6D11;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="8.5" width="15" height="7" rx="2"/><path d="M21 11.2v1.6M6.5 10.8v2.4M9.5 10.8v2.4"/></svg></div>
-        <div class="hd-rec-val" id="hd-rec-bb" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#3B6D11;">&mdash;</div>
+        <div class="hd-rec-val" id="hd-rec-bb" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#3B6D11;">&mdash;</div><div id="hd-rec-bb-s" style="font-size:.55rem;font-weight:700;margin-top:4px;color:#3B6D11;line-height:1;">&nbsp;</div>
         <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;"><span class="lang-th">Battery</span><span class="lang-en" style="display:none;">Battery</span></div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
         <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#DCE6EE;color:#4A7CB0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M3.5 12h3l2-5 3 9 2-6 1.5 2h5"/></svg></div>
-        <div class="hd-rec-val" id="hd-rec-hrv" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#4A7CB0;">&mdash;</div>
+        <div class="hd-rec-val" id="hd-rec-hrv" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#4A7CB0;">&mdash;</div><div id="hd-rec-hrv-s" style="font-size:.55rem;font-weight:700;margin-top:4px;color:#4A7CB0;line-height:1;">&nbsp;</div>
         <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;">HRV</div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
         <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#EFE3DD;color:#8B5E52;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 20C7 16.5 4 13 4 9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 8 2.5C20 13 17 16.5 12 20z"/></svg></div>
-        <div class="hd-rec-val" id="hd-rec-rhr" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#8B5E52;">&mdash;</div>
+        <div class="hd-rec-val" id="hd-rec-rhr" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#8B5E52;">&mdash;</div><div id="hd-rec-rhr-s" style="font-size:.55rem;font-weight:700;margin-top:4px;color:#8B5E52;line-height:1;">&nbsp;</div>
         <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;">RHR</div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
         <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#F3ECD6;color:#B8860B;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M20 14A8 8 0 0 1 10 4 7 7 0 1 0 20 14z"/></svg></div>
-        <div class="hd-rec-val" id="hd-rec-sleep" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#B8860B;">&mdash;</div>
+        <div class="hd-rec-val" id="hd-rec-sleep" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1.32rem;line-height:1;letter-spacing:-.5px;color:#B8860B;">&mdash;</div><div id="hd-rec-sleep-s" style="font-size:.55rem;font-weight:700;margin-top:4px;color:#B8860B;line-height:1;">&nbsp;</div>
         <div style="font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-top:5px;"><span class="lang-th">Sleep</span><span class="lang-en" style="display:none;">Sleep</span></div>
       </div>
     </div>
@@ -3226,7 +3226,7 @@ function goPage(name){
 
 
 // ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
-const COACH_KEY='girl_coach_v3', TLINS_KEY='girl_tlinsight_v2';
+const COACH_KEY='girl_coach_v4', TLINS_KEY='girl_tlinsight_v2';
 async function _aiJSON(prompt, maxTok){
   const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
   const data=await res.json();
@@ -3279,25 +3279,24 @@ async function loadTodayCoach(force){
     const withData=data.filter(d=>_coachLine(d).indexOf('no data logged')<0);
     if(withData.length<2){ body.innerHTML='<div style="font-size:.76rem;color:rgba(255,255,255,.82);font-family:\'IBM Plex Sans Thai\',sans-serif;line-height:1.5;"><span class="lang-th">บันทึกอีกสัก 2-3 วัน แล้วโค้ชจะเริ่มจับแพทเทิร์นมาแนะนำให้ค่ะ</span><span class="lang-en" style="display:none;">Log a few more days and your coach will start spotting patterns for you.</span></div>'; return; }
     const lines=withData.map(_coachLine).join('\n');
-    const prompt='You are GIRL\'s personal longevity health coach (she optimizes sleep, HRV, nutrition, training, recovery, skin). Below is her real health log for the last '+withData.length+' days (most recent last). Act like a sharp coach: find CROSS-DAY patterns/correlations, judge her current recovery/readiness, and tell her exactly what to do TODAY.\n\nDATA:\n'+lines+'\n\nReply in BOTH Thai and English. Be specific and cite her real numbers. Respond ONLY with valid JSON, no markdown:\n{"focus_en":"one keyword: Recovery|Hydration|Sleep|Protein|Training|Skin","focus_th":"Thai of that keyword","state_en":"one short sentence on her current body/recovery state + what is lacking","state_th":"Thai version of state","actions_en":["2-4 specific things to do today, each short and concrete"],"actions_th":["Thai versions in the SAME order and count"]}';
+    const prompt='You are GIRL\'s personal longevity health coach (she optimizes sleep, HRV, nutrition, training, recovery, skin). Below is her real health log for the last '+withData.length+' days (most recent last). Act like a sharp coach: find CROSS-DAY patterns/correlations, judge her current recovery/readiness, and tell her exactly what to do TODAY.\n\nDATA:\n'+lines+'\n\nReply in BOTH Thai and English. Keep it SHORT and human — a busy person must grasp it in 5 seconds, no jargon dumps. Respond ONLY with valid JSON, no markdown:\n{"focus_en":"one keyword: Recovery|Hydration|Sleep|Protein|Training|Skin","focus_th":"Thai of that keyword","state_en":"MAX 2 short sentences (~25 words total): sentence 1 = plain-language verdict, sentence 2 = cite 1-2 key numbers (e.g. HRV 38-41, RHR 56)","state_th":"Thai, same, short and plain","actions_en":["2-3 ULTRA-short imperatives, max 6 words each, e.g. Sleep before 23:00 / Magnesium / No cardio tomorrow"],"actions_th":["Thai, same order and count, short"],"gain_en":"Expected recovery +N% (one short line)","gain_th":"คาดว่าฟื้นตัว +N%"}';
     const r=await _aiJSON(prompt,1200);
     const L=(th,en)=>'<span class="lang-th">'+(th||en||'')+'</span><span class="lang-en" style="display:none;">'+(en||th||'')+'</span>';
-    let h='<div style="display:flex;flex-direction:column;gap:11px;">';
+    let h='<div style="display:flex;flex-direction:column;gap:10px;">';
     if(r.focus_en||r.focus_th) h+='<div style="align-self:flex-start;font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#EBD9A8;background:rgba(255,255,255,.12);border-radius:20px;padding:4px 11px;">'+L('โฟกัส: '+(r.focus_th||r.focus_en||''),'Focus: '+(r.focus_en||r.focus_th||''))+'</div>';
-    if(r.state_en||r.state_th) h+='<div style="font-family:\'IBM Plex Sans Thai\',sans-serif;font-weight:600;font-size:1.0rem;line-height:1.55;color:#FFFFFF;">'+L('“'+(r.state_th||'')+'”','“'+(r.state_en||'')+'”')+'</div>';
+    if(r.state_en||r.state_th) h+='<div style="font-family:\'IBM Plex Sans Thai\',sans-serif;font-weight:600;font-size:.92rem;line-height:1.55;color:#FFFFFF;">'+L(r.state_th||'',r.state_en||'')+'</div>';
     const aEn=r.actions_en||[], aTh=r.actions_th||[];
     const n=Math.max(aEn.length,aTh.length);
     if(n>0){
-      let acts='<div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#BFE0C4;margin-bottom:2px;">'+L('วันนี้ควรทำ','Do today')+'</div>';
+      h+='<div style="font-size:.55rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#BFE0C4;margin-top:3px;">'+L('คืนนี้','Tonight')+'</div>';
+      h+='<div style="display:flex;flex-direction:column;gap:7px;">';
       for(let i=0;i<n;i++){
         const en=aEn[i]||aTh[i]||'', th=aTh[i]||aEn[i]||'';
-        acts+='<div style="display:flex;gap:10px;align-items:flex-start;padding:11px 13px;background:rgba(255,255,255,.10);border-radius:13px;">'
-          +'<span style="width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(191,224,196,.3);color:#DDF0DF;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M5 13l4 4L19 7"/></svg></span>'
-          +'<p style="font-size:.78rem;line-height:1.55;color:#FFFFFF;margin:0;">'+L(th,en)+'</p></div>';
+        h+='<div style="display:flex;gap:9px;align-items:center;"><span style="color:#BFE0C4;flex-shrink:0;font-weight:900;font-size:.9rem;line-height:1;">✓</span><span style="font-size:.8rem;line-height:1.4;color:#FFFFFF;">'+L(th,en)+'</span></div>';
       }
-      h+='<div id="coach-more" style="display:none;flex-direction:column;gap:8px;">'+acts+'</div>';
-      h+='<button onclick="coachToggle(this)" style="align-self:flex-start;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:20px;padding:7px 15px;font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.68rem;font-weight:700;cursor:pointer;margin-top:2px;">'+L('ดูสิ่งที่ควรทำวันนี้ ›','See today’s actions ›')+'</button>';
+      h+='</div>';
     }
+    if(r.gain_en||r.gain_th) h+='<div style="margin-top:6px;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:rgba(201,169,110,.22);border:1px solid rgba(235,217,168,.4);color:#F1E4BE;font-weight:700;font-size:.72rem;border-radius:20px;padding:6px 13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M5 15l5-5 4 4 6-7"/><path d="M16 7h4v4"/></svg>'+L(r.gain_th||'',r.gain_en||'')+'</div>';
     h+='</div>';
     body.innerHTML=h;
     if(typeof currentLang!=='undefined' && currentLang==='en'){ body.querySelectorAll('.lang-th').forEach(function(e){e.style.display='none';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display='';}); }
@@ -9276,6 +9275,11 @@ async function loadHomeDashboard(force){
     setRec('hd-rec-sleep', slSc, '');
     const slEl=document.getElementById('hd-rec-sleep');
     if(slEl) slEl.style.color = slSc>=80?'var(--veg)':slSc>=60?'var(--grain)':slSc>0?'var(--prot)':'var(--sleep)';
+    const _rs=(id,th,en,col)=>{ const e=document.getElementById(id); if(!e) return; e.innerHTML=th?('<span class="lang-th">'+th+'</span><span class="lang-en" style="display:none;">'+en+'</span>'):'&nbsp;'; if(col)e.style.color=col; const _en=(typeof currentLang!=='undefined'&&currentLang==='en'); e.querySelectorAll('.lang-th').forEach(x=>x.style.display=_en?'none':''); e.querySelectorAll('.lang-en').forEach(x=>x.style.display=_en?'':'none'); };
+    _rs('hd-rec-bb-s', bb?(bb>=70?'ดีเยี่ยม':bb>=45?'ดี':bb>=25?'พอใช้':'ต่ำ'):'', bb?(bb>=70?'Excellent':bb>=45?'Good':bb>=25?'Fair':'Low'):'', '#3B6D11');
+    _rs('hd-rec-hrv-s', hrv?(hrv>=55?'ดีเยี่ยม':hrv>=40?'คงที่':hrv>=30?'พอใช้':'ต่ำ'):'', hrv?(hrv>=55?'Excellent':hrv>=40?'Stable':hrv>=30?'Fair':'Low'):'', '#4A7CB0');
+    _rs('hd-rec-rhr-s', rhr?(rhr<=50?'ดีเยี่ยม':rhr<=60?'ปกติ':rhr<=70?'สูงนิด':'สูง'):'', rhr?(rhr<=50?'Excellent':rhr<=60?'Normal':rhr<=70?'Elevated':'High'):'', '#8B5E52');
+    _rs('hd-rec-sleep-s', slSc?(slSc>=80?'ยอดเยี่ยม':slSc>=70?'ดี':slSc>=60?'พอใช้':'ต่ำ'):'', slSc?(slSc>=80?'Great':slSc>=70?'Good':slSc>=60?'Fair':'Low'):'', '#B8860B');
   }
 
   // ── GAP ANALYSIS ──
@@ -9308,17 +9312,18 @@ async function loadHomeDashboard(force){
     if(c<9) gapsWarn.push(['warn',I_BIO,BL(`BioActive ยังขาด ${9-c} ตัว`,`BioActive ${9-c} left`),BL(`วันนี้ ${c}/9 · อย่าลืม magnesium ก่อนนอน`,`${c}/9 today — don't miss magnesium before bed`)]);
     else gapsGood.push(['good',I_BIO,BL('BioActive ครบทุกตัว!','BioActive complete'),BL('9/9 · เยี่ยมมากค่ะ','9/9 · supplemented perfectly')]);
   }catch(e){}
-  let gaps=[...gapsWarn,...gapsGood];
+  let gaps=[...gapsGood,...gapsWarn];
   if(!gaps.length) gaps=[['info','🌿',BL('ยังไม่มีข้อมูลวันนี้','No data today yet'),BL('กด "บันทึก" เพื่อเพิ่มข้อมูลสุขภาพ','Tap Log to add your health data')]];
   gaps=gaps.slice(0,4);
   const gStyle={good:'background:rgba(74,124,89,.06);',warn:'background:rgba(201,169,110,.08);',info:'background:rgba(107,143,163,.07);'};
   const gCol={good:'var(--veg)',warn:'var(--grain)',info:'var(--sleep)'};
   const gapEl=document.getElementById('hd-gap-block');
   if(gapEl){ gapEl.innerHTML=gaps.map(([t,ic,ti,ms])=>{
-      const cm=(String(ic).match(/color:(#[0-9A-Fa-f]{6})/)||[])[1]||'#4A7C59';
+      let cm=(String(ic).match(/color:(#[0-9A-Fa-f]{6})/)||[])[1]||'#4A7C59';
+      if(t!=='good'){ cm='#C8973A'; ic=String(ic).replace(/color:#[0-9A-Fa-f]{6}/,'color:'+cm); }
       return `
-    <div class="hd-gap-row" style="background:${cm}14;border:1px solid ${cm}26;">
-      <span class="hd-gap-ic" style="background:${cm}26;">${ic}</span>
+    <div class="hd-gap-row" style="background:${cm}16;border:1px solid ${cm}2e;">
+      <span class="hd-gap-ic" style="background:${cm}2b;">${ic}</span>
       <div class="hd-gap-tx"><strong style="color:${cm};">${ti}</strong><span>${ms}</span></div>
     </div>`;}).join('');
     if(typeof currentLang!=='undefined' && currentLang==='en'){ gapEl.querySelectorAll('.lang-th').forEach(function(e){e.style.display='none';}); gapEl.querySelectorAll('.lang-en').forEach(function(e){e.style.display='';}); }
