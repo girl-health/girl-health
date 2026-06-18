@@ -697,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v15 · Wins พาสเทลสดใส</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v16 · Wins 4 สีสลับ</span>
   </div>
 
   <!-- Greeting -->
@@ -9352,17 +9352,16 @@ async function loadHomeDashboard(force){
   const gCol={good:'var(--veg)',warn:'var(--grain)',info:'var(--sleep)'};
   const gapEl=document.getElementById('hd-gap-block');
   if(gapEl){
-    const GPAL={
-      '#4A7C59':{bg:'#E9F3EC',chip:'#D2E7D8',bd:'#CBE3D3',tx:'#3E7050'},
-      '#6B8FA3':{bg:'#E8F1F6',chip:'#D3E6F0',bd:'#CFE2EE',tx:'#527F9D'},
-      '#C9A96E':{bg:'#FAF1DC',chip:'#F1E1BA',bd:'#EDDAAB',tx:'#B08B45'},
-      '#8B5E52':{bg:'#F6EBE5',chip:'#ECD8CE',bd:'#E9D2C8',tx:'#9C6453'},
-      '#C8973A':{bg:'#FCF3DB',chip:'#F6E6B8',bd:'#F1DDA4',tx:'#B5852E'}
-    };
-    gapEl.innerHTML=gaps.map(([t,ic,ti,ms])=>{
-      let cm=(String(ic).match(/color:(#[0-9A-Fa-f]{6})/)||[])[1]||'#4A7C59';
-      if(t!=='good'){ cm='#C8973A'; ic=String(ic).replace(/color:#[0-9A-Fa-f]{6}/,'color:'+cm); }
-      const p=GPAL[cm]||{bg:cm+'1c',chip:cm+'30',bd:cm+'38',tx:cm};
+    const GPALS=[
+      {bg:'#E7F3EA',chip:'#D2E8D9',bd:'#CDE5D4',tx:'#4A7C59'},
+      {bg:'#E6F0F7',chip:'#CFE4F1',bd:'#CBE0EF',tx:'#4E86AE'},
+      {bg:'#FBE9EF',chip:'#F6D4E0',bd:'#F4CEDC',tx:'#C76590'},
+      {bg:'#FDF3D8',chip:'#F8E6B2',bd:'#F5DEA0',tx:'#C79A2E'},
+      {bg:'#F0EAF8',chip:'#E2D7F1',bd:'#DDD0EE',tx:'#8A6FBE'}
+    ];
+    gapEl.innerHTML=gaps.map(([t,ic,ti,ms],i)=>{
+      const p=GPALS[i%GPALS.length];
+      ic=String(ic).replace(/color:#[0-9A-Fa-f]{6}/,'color:'+p.tx);
       return `
     <div class="hd-gap-row" style="background:${p.bg};border:1px solid ${p.bd};">
       <span class="hd-gap-ic" style="background:${p.chip};">${ic}</span>
