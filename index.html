@@ -783,7 +783,7 @@ try{
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v42 · Skin recs หลอด v7 เหมือนกันทุกหน้า</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v43 · HYROX โทนพาสเทลเขียว-ทอง</span>
   <!-- Greeting -->
   <div class="hd-top">
     <div>
@@ -2556,7 +2556,7 @@ try{
 </div>
 
 <div class="page" id="page-hyrox">
-  <div style="background:linear-gradient(135deg,#C0392B,#D4845A);border-radius:22px;padding:20px;color:#fff;box-shadow:0 8px 28px rgba(192,57,43,.28);">
+  <div style="background:linear-gradient(135deg,#4A7C59,#C9A96E);border-radius:22px;padding:20px;color:#fff;box-shadow:0 8px 28px rgba(74,124,89,.28);">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
       <span style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#fff;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg></span>
       <div style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:2px;">HYROX</div>
@@ -2566,8 +2566,8 @@ try{
     <div id="hxp-hero-sub" style="font-size:.7rem;opacity:.9;margin-top:3px;">—</div>
   </div>
   <div style="display:flex;gap:9px;margin-top:14px;">
-    <button onclick="hxOpenModal()" style="flex:1;padding:12px;border:none;border-radius:13px;background:#C0392B;color:#fff;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;">＋ <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Log session</span></button>
-    <label style="flex:1;padding:12px;border:1px solid #C0392B;border-radius:13px;background:rgba(192,57,43,.06);color:#C0392B;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;">📷 <span class="lang-th">สแกนผล</span><span class="lang-en" style="display:none;">Scan result</span><input type="file" accept="image/*" multiple style="display:none" onchange="analyzeHyroxPhoto(this)"></label>
+    <button onclick="hxOpenModal()" style="flex:1;padding:12px;border:none;border-radius:13px;background:#4A7C59;color:#fff;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;">＋ <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Log session</span></button>
+    <label style="flex:1;padding:12px;border:1px solid #4A7C59;border-radius:13px;background:rgba(74,124,89,.06);color:#4A7C59;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;">📷 <span class="lang-th">สแกนผล</span><span class="lang-en" style="display:none;">Scan result</span><input type="file" accept="image/*" multiple style="display:none" onchange="analyzeHyroxPhoto(this)"></label>
   </div>
   <div style="font-size:.58rem;color:var(--muted2);text-align:center;margin-top:8px;line-height:1.5;"><span class="lang-th">📷 ถ่ายรูปกระดานผล / หน้าจอนาฬิกา / ใบสรุป — AI อ่านเวลาให้อัตโนมัติ</span><span class="lang-en" style="display:none;">📷 Snap a results board / watch screen / scorecard — AI reads the times for you</span></div>
   <div id="hx-scan-status" style="display:none;margin-top:11px;"></div>
@@ -2591,10 +2591,10 @@ try{
     <div style="font-size:.62rem;color:var(--muted2);margin:12px 0 6px;"><span class="lang-th">รูปแบบการซ้อม</span><span class="lang-en" style="display:none;">Session type</span></div>
     <div id="hx-mode-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
     <div id="hx-modal-body" style="margin-top:13px;"></div>
-    <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;background:linear-gradient(135deg,rgba(192,57,43,.07),rgba(212,132,90,.05));border:1px solid rgba(192,57,43,.2);border-radius:13px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;background:linear-gradient(135deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.2);border-radius:13px;">
       <div style="flex:1;">
         <div style="font-size:.58rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;"><span class="lang-th">เวลารวม</span><span class="lang-en" style="display:none;">Total time</span></div>
-        <div id="hx-total" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:800;font-size:1.5rem;color:#C0392B;line-height:1.1;">--:--</div>
+        <div id="hx-total" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:800;font-size:1.5rem;color:#4A7C59;line-height:1.1;">--:--</div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:.55rem;color:var(--muted2);margin-bottom:3px;"><span class="lang-th">แก้เวลารวมเอง</span><span class="lang-en" style="display:none;">Override</span></div>
@@ -2602,7 +2602,7 @@ try{
       </div>
     </div>
     <textarea id="hx-note" placeholder="โน้ต / ความรู้สึก / สภาพอากาศ ฯลฯ" style="width:100%;box-sizing:border-box;margin-top:11px;background:var(--bg);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:9px 10px;outline:none;min-height:46px;resize:none;"></textarea>
-    <button onclick="hxSave()" style="width:100%;margin-top:12px;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,#C0392B,#D4845A);color:#fff;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;letter-spacing:.3px;">✓ <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Save session</span></button>
+    <button onclick="hxSave()" style="width:100%;margin-top:12px;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,#4A7C59,#C9A96E);color:#fff;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;letter-spacing:.3px;">✓ <span class="lang-th">บันทึกการซ้อม</span><span class="lang-en" style="display:none;">Save session</span></button>
   </div>
 </div>
 
@@ -3764,7 +3764,7 @@ async function renderTable(){
           <span class="tbl-stat" style="background:rgba(107,143,163,.12);color:var(--sleep);cursor:pointer;" onclick="inlineEditCell('${d.date}','sl_min',${slMin},this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg> ${slH}${d.sl_score?` · ${d.sl_score}`:''}</span>
           ${exM?`<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:var(--veg);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg> ${exM}m</span>`:''}
           ${(function(){ if(typeof getCardioType!=='function') return ''; const ct=getCardioType(d.date); if(!ct) return ''; const lbl=(typeof cardioTypeLabel==='function')?cardioTypeLabel(ct):ct; if(!lbl) return ''; return `<span class="tbl-stat" style="background:rgba(74,124,89,.13);color:var(--accent);display:inline-flex;align-items:center;gap:3px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.4l2-5.4 4 11 2.5-7.4 1.5 2h4.6"/></svg>${lbl}</span>`; })()}
-          ${(function(){ if(typeof getHyroxForDate!=='function') return ''; const hx=getHyroxForDate(d.date); if(!hx) return ''; const t=hx.total!=null?hxFmt(hx.total):''; return `<span class="tbl-stat" style="background:rgba(192,57,43,.1);color:#C0392B;display:inline-flex;align-items:center;gap:3px;font-weight:700;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX${t?' '+t:''}</span>`; })()}
+          ${(function(){ if(typeof getHyroxForDate!=='function') return ''; const hx=getHyroxForDate(d.date); if(!hx) return ''; const t=hx.total!=null?hxFmt(hx.total):''; return `<span class="tbl-stat" style="background:rgba(74,124,89,.1);color:#4A7C59;display:inline-flex;align-items:center;gap:3px;font-weight:700;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX${t?' '+t:''}</span>`; })()}
           <span class="tbl-stat" style="background:rgba(84,160,255,.1);color:var(--water);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg> ${d.water?d.water+'L':'—'}</span>
           ${(function(){ const it=(typeof rcLoad==='function'?rcLoad():[]).filter(e=>e.date===d.date); if(!it.length) return ''; const c={}; it.forEach(e=>c[e.type]=(c[e.type]||0)+1); return Object.keys(c).map(id=>{ const t=rcType(id); return `<span class="tbl-stat" style="background:${t.color}1a;color:${t.color};display:inline-flex;align-items:center;gap:3px;" title="${(typeof currentLang!=='undefined'&&currentLang==='en')?t.en:t.th}">${rcSvg(id)}${c[id]>1?'×'+c[id]:''}</span>`; }).join(''); })()}
           ${d.weight?`<span class="tbl-stat" style="background:var(--bg);color:var(--muted2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style=""><circle cx="12" cy="4.2" r="1.1"/><path d="M12 5.3v13M7 19h10"/><path d="M5 8.5h14"/><path d="M5 8.5 2.7 13.5a3 3 0 0 0 4.6 0z"/><path d="M19 8.5l2.3 5a3 3 0 0 1-4.6 0z"/></svg> ${d.weight}kg</span>`:''}
