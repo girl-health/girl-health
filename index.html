@@ -697,7 +697,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v20 · Patterns สีสัน(ล้างแคช)</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v21 · ไอคอนวาดใหม่+หัวใจ</span>
   </div>
 
   <!-- Greeting -->
@@ -2075,7 +2075,7 @@ body.ltab-supp .s-supp{display:block;}
   <div class="page-hero" style="display:flex;align-items:center;gap:15px;">
     <div style="width:56px;height:56px;border-radius:50%;flex-shrink:0;background:linear-gradient(140deg,#A7D3B4,#C9A96E);display:flex;align-items:center;justify-content:center;box-shadow:0 7px 20px rgba(74,124,89,.3);position:relative;">
       <span style="position:absolute;inset:4px;border-radius:50%;border:1.5px dashed rgba(255,255,255,.55);"></span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;position:relative;"><circle cx="12" cy="12" r="9"/><path d="M12 7.3V12l3.2 2"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;position:relative;"><path d="M12 20.3C7 16.8 4 13.5 4 9.8A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 8 2.8c0 3.7-3 7-8 10.5z"/></svg>
     </div>
     <div style="flex:1;min-width:0;">
       <div class="eyebrow">HEALTH TIMELINE</div>
@@ -3389,10 +3389,11 @@ function _tlQuality(d){
   if(sh>=7.5)pos+=2; else if(sh>=6.5)pos+=1;
   if((+d.water||0)>=2)pos++; if((+d.mac_p||0)>=80)pos++;
   if(((+d.e1_m||0)+(+d.e2_m||0))>0)pos++; if(d._rec&&d._rec.length)pos++;
-  if(sh&&sh<6) return {c:'#E08A4E',e:'🌙',th:'ต้องฟื้นฟู',en:'Recovery needed'};
-  if(pos>=4) return {c:'#4A9E6A',e:'🌿',th:'วันที่ดีมาก',en:'Beautiful day'};
-  if(pos>=2) return {c:'#E0B43E',e:'☀️',th:'วันโอเค',en:'Okay day'};
-  return {c:'#8FA6C9',e:'🍃',th:'วันเงียบ ๆ',en:'Quiet day'};
+  const _SVG=function(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;">'+p+'</svg>';};
+  if(sh&&sh<6) return {c:'#E08A4E',e:_SVG('<path d="M20 13.5A7.5 7.5 0 1 1 10.5 4 6 6 0 0 0 20 13.5z"/><path d="M17 4.5l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"/>'),th:'ต้องฟื้นฟู',en:'Recovery needed'};
+  if(pos>=4) return {c:'#4A9E6A',e:_SVG('<path d="M12 21c0-6 2.8-10.5 8-12-.6 6-3.4 10-8 12z"/><path d="M12 21c0-4.5-2-8-6-9 .6 4.5 2.5 7.4 6 9z"/>'),th:'วันที่ดีมาก',en:'Beautiful day'};
+  if(pos>=2) return {c:'#E0B43E',e:_SVG('<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12h2.2M19 12h2.2M5.4 5.4l1.6 1.6M16.9 16.9l1.6 1.6M18.6 5.4l-1.6 1.6M7.1 16.9l-1.6 1.6"/>'),th:'วันโอเค',en:'Okay day'};
+  return {c:'#8FA6C9',e:_SVG('<path d="M12 4c3.4 4 5.4 7.1 5.4 9.8a5.4 5.4 0 0 1-10.8 0C6.6 11.1 8.6 8 12 4z"/>'),th:'วันเงียบ ๆ',en:'Quiet day'};
 }
 function _tlIco(p,c){ return '<svg viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0;">'+p+'</svg>'; }
 function _tlMajor(color,icon,label){ return '<span style="display:inline-flex;align-items:center;gap:5px;background:'+color+'18;color:'+color+';border:1px solid '+color+'33;border-radius:12px;padding:5px 12px;font-size:.72rem;font-weight:700;font-family:\'IBM Plex Sans Thai\',sans-serif;white-space:nowrap;">'+icon+label+'</span>'; }
@@ -3401,10 +3402,10 @@ function _tlDay(d,en,idx){
   const sh=_sleepH(d);
   const major=[], minor=[];
   // MAJOR — sleep, HRV, strength, cardio
-  if(sh) major.push(_tlMajor('#6B8FA3',_tlIco('<path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/>','#6B8FA3'),(en?'Sleep ':'นอน ')+sh.toFixed(1)+'h'+(d.sl_score?' · '+d.sl_score:'')));
-  if(+d.sl_hrv) major.push(_tlMajor('#7A6B8A',_tlIco('<path d="M3 12h3l2-5 4 10 2-5h7"/>','#7A6B8A'),'HRV '+d.sl_hrv));
-  if(+d.e1_m) major.push(_tlMajor('#8B5E52',_tlIco('<path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/>','#8B5E52'),(en?'Strength ':'เวท ')+d.e1_m+'m'));
-  if(+d.e2_m) major.push(_tlMajor('#4A7C59',_tlIco('<path d="M3 12h3.4l2-5.4 4 11 2.5-7.4 1.5 1.8h4.6"/>','#4A7C59'),(en?'Cardio ':'คาร์ดิโอ ')+d.e2_m+'m'));
+  if(sh) major.push(_tlMajor('#6B8FA3',_tlIco('<path d="M19 13.5A7 7 0 1 1 10.5 5 5.6 5.6 0 0 0 19 13.5z"/><path d="M16.4 5l.4 1.1 1.1.4-1.1.4-.4 1.1-.4-1.1-1.1-.4 1.1-.4z"/>','#6B8FA3'),(en?'Sleep ':'นอน ')+sh.toFixed(1)+'h'+(d.sl_score?' · '+d.sl_score:'')));
+  if(+d.sl_hrv) major.push(_tlMajor('#C2799F',_tlIco('<path d="M12 19C7.5 15.8 5 13 5 9.9A3.4 3.4 0 0 1 12 7.3 3.4 3.4 0 0 1 19 9.9c0 3.1-2.5 5.9-7 9.1z"/>','#C2799F'),'HRV '+d.sl_hrv));
+  if(+d.e1_m) major.push(_tlMajor('#C08552',_tlIco('<path d="M4 9.5v5M6.6 7.8v8.4M17.4 7.8v8.4M20 9.5v5M6.6 12h10.8"/>','#C08552'),(en?'Strength ':'เวท ')+d.e1_m+'m'));
+  if(+d.e2_m) major.push(_tlMajor('#4A9E6A',_tlIco('<path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/>','#4A9E6A'),(en?'Cardio ':'คาร์ดิโอ ')+d.e2_m+'m'));
   // MINOR — water, protein, sugar, recovery rituals, skin, period, alcohol, cheat
   if(+d.water) minor.push(_tlMinor((en?'Water ':'น้ำ ')+d.water+'L'));
   if(+d.mac_p) minor.push(_tlMinor((en?'Protein ':'โปรตีน ')+d.mac_p+'g'));
@@ -3417,7 +3418,7 @@ function _tlDay(d,en,idx){
   if(!major.length&&!minor.length) return '';
   const q=_tlQuality(d);
   const dt=new Date(d.date+'T00:00:00'); const dlabel=dt.toLocaleDateString(en?'en-US':'th-TH',{weekday:'short',day:'numeric',month:'short'});
-  let body='<div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;"><span style="font-size:.82rem;line-height:1;">'+q.e+'</span><span style="font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.68rem;font-weight:700;color:'+q.c+';">'+(en?q.en:q.th)+'</span></div>';
+  let body='<div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;"><span style="display:inline-flex;align-items:center;color:'+q.c+';">'+q.e+'</span><span style="font-family:\'IBM Plex Sans Thai\',sans-serif;font-size:.68rem;font-weight:700;color:'+q.c+';">'+(en?q.en:q.th)+'</span></div>';
   if(major.length) body+='<div style="display:flex;flex-wrap:wrap;gap:6px;">'+major.join('')+'</div>';
   if(minor.length){
     const moreT=(en?('+ '+minor.length+' more'):('+ '+minor.length+' รายการ'));
@@ -3461,7 +3462,7 @@ async function renderTimelineInsight(data, ins, en){
     ];
     h+=list.map(function(x,i){
       const p=PPAL[i%PPAL.length];
-      const sp='<svg viewBox="0 0 24 24" fill="none" stroke="'+p.tx+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M12 3l1.6 4.8L18 9l-4.4 1.2L12 15l-1.6-4.8L6 9l4.4-1.2z"/></svg>';
+      const sp='<svg viewBox="0 0 24 24" fill="none" stroke="'+p.tx+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M9.3 17.5h5.4M10.2 20.5h3.6"/><path d="M12 3a6 6 0 0 1 4 10.4c-.6.6-1 1.4-1.1 2.1H9.1c-.1-.7-.5-1.5-1.1-2.1A6 6 0 0 1 12 3z"/></svg>';
       return '<div style="background:'+p.bg+';border:1px solid '+p.bd+';border-radius:14px;margin-bottom:9px;overflow:hidden;box-shadow:0 3px 11px '+p.tx+'12;">'
         +'<div onclick="tlToggleIns('+i+')" style="display:flex;align-items:center;gap:10px;padding:11px 13px;cursor:pointer;">'
         +'<span style="width:28px;height:28px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+p.tx+'24;">'+sp+'</span>'
