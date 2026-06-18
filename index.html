@@ -605,16 +605,23 @@ textarea{min-height:42px;}
 
 /* Body composition grid */
 .pf-body-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-.pf-body-box{background:var(--bg);border-radius:14px;padding:13px 8px;text-align:center;}
+.pf-body-box{border-radius:16px;padding:14px 8px;text-align:center;border:1px solid rgba(0,0,0,.035);}
+.pf-body-grid .pf-body-box:nth-child(1){background:linear-gradient(150deg,#EAF5EC,#F5FBF6);}
+.pf-body-grid .pf-body-box:nth-child(2){background:linear-gradient(150deg,#FBEBF1,#FEF6F9);}
+.pf-body-grid .pf-body-box:nth-child(3){background:linear-gradient(150deg,#E9F1F8,#F5FAFD);}
+.pf-body-grid .pf-body-box:nth-child(4){background:linear-gradient(150deg,#FDF4DC,#FFFBF0);}
+.pf-body-grid .pf-body-box:nth-child(5){background:linear-gradient(150deg,#EAF5EC,#F5FBF6);}
+.pf-body-grid .pf-body-box:nth-child(6){background:linear-gradient(150deg,#F1EBF9,#F9F6FD);}
 .pf-body-v{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.32rem;font-weight:700;line-height:1;letter-spacing:-.5px;}
 .pf-body-l{font-size:.57rem;color:var(--muted2);margin-top:5px;line-height:1.3;}
 
 /* Score card */
 .pf-score-card{background:linear-gradient(140deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.18);border-radius:22px;padding:18px 19px;margin-bottom:12px;}
 .pf-score-head{display:flex;align-items:center;gap:13px;margin-bottom:14px;}
-.pf-score-ring{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#4A7C59,#C9A96E);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(74,124,89,.3);flex-shrink:0;}
-.pf-score-num{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.42rem;font-weight:800;color:#fff;line-height:.9;letter-spacing:-1px;}
-.pf-score-max{font-size:.46rem;color:rgba(255,255,255,.82);margin-top:1px;}
+.pf-score-ring{width:86px;height:86px;border-radius:50%;background:conic-gradient(#4A7C59 calc(var(--p,0)*1%),rgba(74,124,89,.14) 0);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 18px rgba(74,124,89,.2);flex-shrink:0;position:relative;}
+.pf-score-ring::before{content:'';position:absolute;inset:8px;border-radius:50%;background:var(--card);box-shadow:inset 0 1px 3px rgba(0,0,0,.04);}
+.pf-score-num{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.65rem;font-weight:800;color:var(--accent);line-height:.9;letter-spacing:-1px;position:relative;z-index:1;}
+.pf-score-max{font-size:.5rem;color:var(--muted2);margin-top:1px;position:relative;z-index:1;}
 .pf-score-meta{flex:1;min-width:0;}
 .pf-score-ttl{font-family:'Playfair Display',serif;font-size:.98rem;color:var(--accent);font-weight:700;}
 .pf-score-period{font-size:.62rem;color:var(--muted2);margin-top:3px;}
@@ -623,7 +630,12 @@ textarea{min-height:42px;}
 
 /* Wellness list */
 .pf-well-list{display:flex;flex-direction:column;gap:10px;}
-.pf-well-row{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--bg);border-radius:16px;border-left:3px solid;}
+.pf-well-row{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border-radius:16px;border-left:3px solid;}
+.pf-well-list .pf-well-row:nth-child(1){background:rgba(74,124,89,.07);}
+.pf-well-list .pf-well-row:nth-child(2){background:rgba(139,94,82,.07);}
+.pf-well-list .pf-well-row:nth-child(3){background:rgba(107,143,163,.08);}
+.pf-well-list .pf-well-row:nth-child(4){background:rgba(122,107,138,.08);}
+.pf-well-list .pf-well-row:nth-child(5){background:rgba(201,169,110,.1);}
 .pf-well-ico{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0;}
 .pf-well-body{flex:1;min-width:0;}
 .pf-well-name{font-family:'IBM Plex Sans Thai',sans-serif;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:3px;}
@@ -633,8 +645,14 @@ textarea{min-height:42px;}
 .pf-quote{padding:11px 14px;background:linear-gradient(135deg,rgba(74,124,89,.06),rgba(201,169,110,.04));border-radius:14px;border-left:3px solid var(--accent);margin-bottom:14px;}
 .pf-quote div{font-size:.69rem;color:var(--accent);line-height:1.6;font-style:italic;}
 .pf-goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.pf-goal{background:var(--bg);border-radius:16px;padding:15px 13px;text-align:center;}
-.pf-goal-ic{font-size:1.45rem;margin-bottom:6px;}
+.pf-goal{border-radius:18px;padding:16px 13px;text-align:center;border:1px solid rgba(0,0,0,.035);}
+.pf-goals-grid .pf-goal:nth-child(1){background:linear-gradient(150deg,#E9F1F8,#F5FAFD);}
+.pf-goals-grid .pf-goal:nth-child(2){background:linear-gradient(150deg,#ECEAF8,#F7F5FD);}
+.pf-goals-grid .pf-goal:nth-child(3){background:linear-gradient(150deg,#FDF4DC,#FFFBF0);}
+.pf-goals-grid .pf-goal:nth-child(4){background:linear-gradient(150deg,#F5ECE7,#FCF7F4);}
+.pf-goals-grid .pf-goal:nth-child(5){background:linear-gradient(150deg,#EAF5EC,#F5FBF6);}
+.pf-goals-grid .pf-goal:nth-child(6){background:linear-gradient(150deg,#FCECE4,#FFF7F3);}
+.pf-goal-ic{font-size:1.45rem;margin-bottom:9px;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.75);box-shadow:0 2px 9px rgba(0,0,0,.05);}
 .pf-goal-v{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.12rem;color:var(--text);font-weight:700;letter-spacing:-.3px;}
 .pf-goal-l{font-size:.61rem;color:var(--muted2);margin-top:3px;}
 
@@ -697,7 +715,7 @@ body.ltab-supp .s-supp{display:block;}
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v24 · Timeline ปรับ 5 จุด</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v25 · Profile พาสเทล</span>
   </div>
 
   <!-- Greeting -->
@@ -8992,28 +9010,28 @@ async function computeGirlScore(){
                 total >= 50 ? 'Fair' : 'Needs Work';
 
   scoreEl.textContent = total;
+  { const _ring=document.querySelector('#page-profile .pf-score-ring'); if(_ring) _ring.style.setProperty('--p', total); }
   if(labelEl){ labelEl.innerHTML = label + `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:currentColor;vertical-align:-2px;margin-left:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>`; }
 
   // ── BREAKDOWN BARS ──
   const dims = [
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/><path d="M15 3.5h3l-3 3.2h3"/></svg>Sleep`,   score: sleepScore, weight:'25%', color:'var(--sleep)' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg>Protein`, score: protScore,  weight:'20%', color:'var(--prot)' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--exercise);vertical-align:-2px;margin-right:4px;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise`,score: exScore,    weight:'20%', color:'var(--exercise)' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>Water`,   score: waterScore, weight:'15%', color:'var(--water)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/><path d="M15 3.5h3l-3 3.2h3"/></svg>Sleep`,   score: sleepScore, weight:'25%', color:'#6B8FA3' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg>Protein`, score: protScore,  weight:'20%', color:'#B5739E' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--exercise);vertical-align:-2px;margin-right:4px;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise`,score: exScore,    weight:'20%', color:'#C08552' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>Water`,   score: waterScore, weight:'15%', color:'#4E86AE' },
     { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#8B5E52;vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive`,score: bioScore,  weight:'10%', color:'#8B5E52' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Calories`,score: kcalScore,  weight:'10%', color:'var(--grain)' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Calories`,score: kcalScore,  weight:'10%', color:'#C9A96E' },
   ];
 
   if(bdEl){
     bdEl.innerHTML = dims.map(d => {
       const pct = Math.round(d.score);
-      return `<div style="display:flex;align-items:center;gap:7px;">
-        <div style="font-size:.66rem;color:var(--muted2);width:92px;flex-shrink:0;white-space:nowrap;">${d.name}</div>
-        <div style="flex:1;background:var(--card2);border-radius:4px;height:14px;overflow:hidden;">
-          <div style="width:${pct}%;height:100%;background:${d.color};border-radius:4px;transition:width .6s ease;"></div>
+      return `<div style="display:flex;align-items:center;gap:9px;margin-bottom:10px;">
+        <div style="font-size:.68rem;color:var(--text);font-weight:600;width:96px;flex-shrink:0;white-space:nowrap;">${d.name}</div>
+        <div style="flex:1;background:${d.color}22;border-radius:10px;height:15px;overflow:hidden;">
+          <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,${d.color}cc,${d.color});border-radius:10px;transition:width .7s ease;box-shadow:0 1px 5px ${d.color}55;"></div>
         </div>
-        <div style="font-size:.65rem;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:600;color:var(--text);width:30px;text-align:right;">${pct}</div>
-        <div style="font-size:.58rem;color:var(--muted2);width:22px;">${d.weight}</div>
+        <div style="font-size:.74rem;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;color:${d.color};width:26px;text-align:right;">${pct}</div>
       </div>`;
     }).join('');
   }
