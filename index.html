@@ -627,7 +627,7 @@ textarea{min-height:42px;}
 /* Score card */
 .pf-score-card{background:linear-gradient(140deg,rgba(74,124,89,.07),rgba(201,169,110,.05));border:1px solid rgba(74,124,89,.18);border-radius:22px;padding:18px 19px;margin-bottom:12px;}
 .pf-score-head{display:flex;align-items:center;gap:13px;margin-bottom:14px;}
-.pf-score-ring{width:86px;height:86px;border-radius:50%;background:conic-gradient(#4A7C59 calc(var(--p,0)*1%),rgba(74,124,89,.14) 0);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 18px rgba(74,124,89,.2);flex-shrink:0;position:relative;}
+.pf-score-ring{width:86px;height:86px;border-radius:50%;background:conic-gradient(#5FC18E calc(var(--p,0)*1%),rgba(95,193,142,.18) 0);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(95,193,142,.32);flex-shrink:0;position:relative;}
 .pf-score-ring::before{content:'';position:absolute;inset:8px;border-radius:50%;background:var(--card);box-shadow:inset 0 1px 3px rgba(0,0,0,.04);}
 .pf-score-num{font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.65rem;font-weight:800;color:var(--accent);line-height:.9;letter-spacing:-1px;position:relative;z-index:1;}
 .pf-score-max{font-size:.5rem;color:var(--muted2);margin-top:1px;position:relative;z-index:1;}
@@ -701,6 +701,9 @@ textarea{min-height:42px;}
 .pf-life{display:flex;flex-direction:column;align-items:center;gap:7px;}
 .pf-life-ic{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.05);}
 .pf-life-l{font-size:.6rem;color:var(--muted2);text-align:center;font-weight:600;}
+.pf-life-add{cursor:pointer;}
+.wl-chip{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:20px;border:1.5px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.wl-chip.on{font-weight:700;}
 /* nutrition/training/recovery */
 .pf-ntr-list{display:flex;flex-direction:column;gap:10px;}
 .pf-ntr{display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(0,0,0,.04);border-radius:16px;padding:12px 14px;}
@@ -783,7 +786,7 @@ try{
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v43 · HYROX โทนพาสเทลเขียว-ทอง</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v44 · Profile สีกราฟสดใส + Wellness เลือกได้</span>
   <!-- Greeting -->
   <div class="hd-top">
     <div>
@@ -1182,7 +1185,7 @@ try{
         <div class="pf-card-sub"><span class="lang-th">สิ่งเล็กๆ ที่ทำให้มีความสุข</span><span class="lang-en" style="display:none;">Little things I love</span></div></div>
       </div>
     </div>
-    <div class="pf-life-grid"><div class="pf-life"><span class="pf-life-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M5 9h12v3a6 6 0 0 1-12 0z"/><path d="M17 10h1.4a2 2 0 0 1 0 4H17"/><path d="M8 5.4c0 .8-.8 1.2-.8 2M11 5c0 .8-.8 1.2-.8 2"/></svg></span><div class="pf-life-l">Matcha</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5 4.2 16.5"/><path d="M12 6.3 9.7 5M12 6.3 14.3 5M12 17.7 9.7 19M12 17.7 14.3 19"/></svg></span><div class="pf-life-l">Ice bath</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FDF4DC;color:#C79A2E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><circle cx="12" cy="12" r="8.5"/><path d="M5.2 6.5c3 2.5 3 8.5 0 11M18.8 6.5c-3 2.5-3 8.5 0 11"/></svg></span><div class="pf-life-l">Tennis</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FCECE4;color:#E0913F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><circle cx="12" cy="12" r="3.8"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"/></svg></span><div class="pf-life-l">Morning sun</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#F1EBF9;color:#8A6FBE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M5 4.5h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z"/><path d="M5 17.5a2 2 0 0 1 2-2h11"/><path d="M9 8.5h5M9 11.5h5"/></svg></span><div class="pf-life-l">Journaling</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FBEBF1;color:#C2799F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M5 10v5a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-5"/><path d="M3 10h18"/><path d="M9 6.3c0-1 .8-1.3.8-2.3M13 6.3c0-1 .8-1.3.8-2.3"/></svg></span><div class="pf-life-l">Home cooking</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#EAF5EC;color:#4A9E6A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><path d="M12 20c-4 0-7-2.5-7-5 2 0 3.5.6 5 2 .3-2.6 1-4.6 2-6 1 1.4 1.7 3.4 2 6 1.5-1.4 3-2 5-2 0 2.5-3 5-7 5z"/></svg></span><div class="pf-life-l">Self-care</div></div><div class="pf-life"><span class="pf-life-ic" style="background:#FCECE4;color:#C25E63;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;"><circle cx="8" cy="8.5" r="2.4"/><circle cx="16" cy="8.5" r="2.4"/><path d="M3.6 19c0-2.7 2-4.4 4.4-4.4 1.3 0 2.5.5 3.3 1.3M12.7 18.6c.4-2.4 2.1-4 4.4-4 2.4 0 4.4 1.7 4.4 4.4"/></svg></span><div class="pf-life-l">Family</div></div></div>
+    <div class="pf-life-grid" id="pf-life-grid"></div>
   </div>
 
   <!-- NUTRITION · TRAINING · RECOVERY -->
@@ -2606,6 +2609,15 @@ try{
   </div>
 </div>
 
+<!-- WELLNESS PICKER MODAL -->
+<div id="wl-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;backdrop-filter:blur(4px);" onclick="closeWellnessPicker()"></div>
+<div id="wl-modal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;background:var(--card);border-radius:22px;width:min(440px,94vw);max-height:84vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+  <div style="position:sticky;top:0;background:var(--card);padding:15px 16px 12px;border-bottom:1px solid var(--border);z-index:2;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);"><span class="lang-th">เลือกไลฟ์สไตล์ที่ชอบ</span><span class="lang-en" style="display:none;">Choose what you love</span></div><div id="wl-count" style="font-size:.62rem;color:var(--muted2);margin-top:2px;"></div></div>
+    <button onclick="closeWellnessPicker()" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--card2);color:var(--muted2);cursor:pointer;flex-shrink:0;">✕</button>
+  </div>
+  <div id="wl-picker-body" style="padding:16px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+</div>
 <!-- CHAT BAR -->
 <div class="chat-bar visible" id="chatBar">
   <div class="chat-hint" id="chat-hint">
@@ -3253,7 +3265,7 @@ function goPage(name){
   if(name==='timeline'){ if(typeof renderTimeline==='function') renderTimeline(); }
   if(name==='home' && typeof updateHomeRecovery==='function'){ updateHomeRecovery(); }
   if(name==='body'){ switchBodyTab('map'); }
-  if(name==='profile'){ loadProfileBody(); computeGirlScore(); }
+  if(name==='profile'){ loadProfileBody(); computeGirlScore(); renderWellness(); }
 }
 
 
@@ -4652,6 +4664,7 @@ function applyLang() {
   // Re-render Profile score breakdown if active (period label is language-dependent)
   if(document.getElementById('page-profile')?.classList.contains('active')){
     if(typeof computeGirlScore === 'function') computeGirlScore();
+    if(typeof renderWellness === 'function') renderWellness();
   }
   // Re-render Table if active (labels are language-dependent)
   if(document.getElementById('page-table')?.classList.contains('active')){
@@ -8890,7 +8903,77 @@ async function toggleBioQuick(pid){
 }
 
 // ── GIRL HEALTH SCORE — computed from real logs ──
-async function computeGirlScore(){
+// ══════════ MY WELLNESS LIFESTYLE — user-selectable ══════════
+const WELLNESS_OPTIONS = [
+  {id:'matcha', th:'มัทฉะ', en:'Matcha', bg:'#E6F4EA', c:'#4A9E6A', ic:'<path d="M5 9h12v3a6 6 0 0 1-12 0z"/><path d="M17 10h1.4a2 2 0 0 1 0 4H17"/><path d="M8 5.4c0 .8-.8 1.2-.8 2M11 5c0 .8-.8 1.2-.8 2"/>'},
+  {id:'icebath', th:'แช่น้ำแข็ง', en:'Ice bath', bg:'#E4F0FA', c:'#5B93C7', ic:'<path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5 4.2 16.5"/><path d="M12 6.3 9.7 5M12 6.3 14.3 5M12 17.7 9.7 19M12 17.7 14.3 19"/>'},
+  {id:'tennis', th:'เทนนิส', en:'Tennis', bg:'#FBF1D6', c:'#C79A2E', ic:'<circle cx="12" cy="12" r="8.5"/><path d="M5.2 6.5c3 2.5 3 8.5 0 11M18.8 6.5c-3 2.5-3 8.5 0 11"/>'},
+  {id:'sun', th:'แดดยามเช้า', en:'Morning sun', bg:'#FCEBE0', c:'#E0913F', ic:'<circle cx="12" cy="12" r="3.8"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"/>'},
+  {id:'journal', th:'เขียนไดอารี่', en:'Journaling', bg:'#F0EAFB', c:'#8A6FBE', ic:'<path d="M5 4.5h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z"/><path d="M5 17.5a2 2 0 0 1 2-2h11"/><path d="M9 8.5h5M9 11.5h5"/>'},
+  {id:'cooking', th:'ทำอาหารเอง', en:'Home cooking', bg:'#FBE7F0', c:'#C2799F', ic:'<path d="M5 10v5a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-5"/><path d="M3 10h18"/><path d="M9 6.3c0-1 .8-1.3.8-2.3M13 6.3c0-1 .8-1.3.8-2.3"/>'},
+  {id:'selfcare', th:'ดูแลตัวเอง', en:'Self-care', bg:'#EAF5EC', c:'#4A7C59', ic:'<path d="M12 20c-4 0-7-2.5-7-5 2 0 3.5.6 5 2 .3-2.6 1-4.6 2-6 1 1.4 1.7 3.4 2 6 1.5-1.4 3-2 5-2 0 2.5-3 5-7 5z"/>'},
+  {id:'family', th:'ครอบครัว', en:'Family', bg:'#FCE8E4', c:'#D9776B', ic:'<circle cx="8" cy="8.5" r="2.4"/><circle cx="16" cy="8.5" r="2.4"/><path d="M3.6 19c0-2.7 2-4.4 4.4-4.4 1.3 0 2.5.5 3.3 1.3M12.7 18.6c.4-2.4 2.1-4 4.4-4 2.4 0 4.4 1.7 4.4 4.4"/>'},
+  {id:'pet', th:'สัตว์เลี้ยง', en:'Pet', bg:'#FAF0D8', c:'#B8902B', ic:'<path d="M9 5.5a1.4 1.4 0 1 0 0 .01M15 5.5a1.4 1.4 0 1 0 0 .01M5.5 9a1.4 1.4 0 1 0 0 .01M18.5 9a1.4 1.4 0 1 0 0 .01M12 11c2.4 0 4.2 1.8 4.2 3.8 0 1.7-1.5 3-3.2 3h-2c-1.7 0-3.2-1.3-3.2-3C7.8 12.8 9.6 11 12 11z"/>'},
+  {id:'sauna', th:'ซาวน่า', en:'Sauna', bg:'#FCEBE0', c:'#D9776B', ic:'<path d="M4 20h16M5.5 20v-6M18.5 20v-6M5 14h14l-1.2-4H6.2z"/><path d="M9 7c0-1 .8-1.4.8-2.4M13 7c0-1 .8-1.4.8-2.4"/>'},
+  {id:'drawing', th:'วาดรูป', en:'Drawing', bg:'#F0EAFB', c:'#8A6FBE', ic:'<path d="M3 21l3.5-1L18 8.5 15.5 6 4 17.5z"/><path d="M14.5 6.5l3 3"/>'},
+  {id:'sunset', th:'ดูพระอาทิตย์ตก', en:'Sunset', bg:'#FCEBE0', c:'#E0913F', ic:'<path d="M3 18h18"/><path d="M8 18a4 4 0 0 1 8 0"/><path d="M12 4v4M5.5 8.5l1.4 1.4M18.5 8.5l-1.4 1.4M2.5 14h2M19.5 14h2"/>'},
+  {id:'reading', th:'อ่านหนังสือ', en:'Reading', bg:'#E2F3F1', c:'#3FA89A', ic:'<path d="M12 6.5C9.5 4.5 5 4.8 4 5v13c1-.2 5.5-.5 8 1.5 2.5-2 7-1.7 8-1.5V5c-1-.2-5.5-.5-8 1.5z"/><path d="M12 6.5v13"/>'},
+  {id:'music', th:'ฟังเพลง', en:'Music', bg:'#F0EAFB', c:'#8A6FBE', ic:'<path d="M9 17V5l10-2v12"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>'},
+  {id:'yoga', th:'โยคะ', en:'Yoga', bg:'#EAF5EC', c:'#4A7C59', ic:'<circle cx="12" cy="5" r="1.6"/><path d="M12 7v5M12 12l4 3M12 12l-4 3M6 12h12"/>'},
+  {id:'meditation', th:'นั่งสมาธิ', en:'Meditation', bg:'#E6F4EA', c:'#4A9E6A', ic:'<circle cx="12" cy="5.5" r="1.6"/><path d="M7 19c0-2.2 2.2-3.6 5-3.6s5 1.4 5 3.6M5 14c2-1 3.2 0 7 0s5-1 7 0"/>'},
+  {id:'walking', th:'เดินเล่น', en:'Walking', bg:'#E4F0FA', c:'#5B93C7', ic:'<circle cx="13" cy="4.6" r="1.5"/><path d="M12 8l-2 4 2 2v5M12 12l3 2M10 12L7.5 16"/>'},
+  {id:'cycling', th:'ปั่นจักรยาน', en:'Cycling', bg:'#FBF1D6', c:'#C79A2E', ic:'<circle cx="6" cy="17.5" r="3"/><circle cx="18" cy="17.5" r="3"/><path d="M9 17.5l3-6 3 3h3M14 6.5a1.3 1.3 0 1 0 0 .01"/>'},
+  {id:'swimming', th:'ว่ายน้ำ', en:'Swimming', bg:'#E2F3F1', c:'#3FA89A', ic:'<path d="M3 17c1.5 0 1.5 1.3 3 1.3S10.5 17 12 17s1.5 1.3 3 1.3S16.5 17 18 17s1.5 1.3 3 1.3"/><path d="M7 13l4-3M11 10a1.4 1.4 0 1 0 0 .01"/>'},
+  {id:'gardening', th:'ปลูกต้นไม้', en:'Gardening', bg:'#E6F4EA', c:'#4A9E6A', ic:'<path d="M12 21v-7M12 14c-3.3 0-5.3-2-5.3-5.3 3.3 0 5.3 2 5.3 5.3zM12 14c3.3 0 5.3-2 5.3-5.3-3.3 0-5.3 2-5.3 5.3z"/>'},
+  {id:'coffee', th:'กาแฟ', en:'Coffee', bg:'#FAF0D8', c:'#B8902B', ic:'<path d="M5 9h11v4a5 5 0 0 1-10 0z"/><path d="M16 10h1.6a2 2 0 0 1 0 4H16"/><path d="M8 5.5c0 .7-.7 1-.7 1.8M11 5c0 .7-.7 1-.7 1.8"/>'},
+  {id:'travel', th:'ท่องเที่ยว', en:'Travel', bg:'#E4F0FA', c:'#5B93C7', ic:'<path d="M21 4.5L3.5 11l6 2.2M21 4.5L14.5 21l-2.2-6M21 4.5L9.7 13z"/>'},
+  {id:'beach', th:'ทะเล', en:'Beach', bg:'#E2F3F1', c:'#3FA89A', ic:'<path d="M3 17c2 0 2 1.5 4 1.5S11 17 12 17s2 1.5 4 1.5S18 17 21 17"/><path d="M5 12a7 7 0 0 1 14 0"/>'},
+  {id:'running', th:'วิ่ง', en:'Running', bg:'#FCEBE0', c:'#E0913F', ic:'<circle cx="14" cy="4.6" r="1.5"/><path d="M13 8l-3 3 2 3-1 5M10 11l-3 1M15 11l2 4"/>'},
+  {id:'photography', th:'ถ่ายรูป', en:'Photography', bg:'#F0EAFB', c:'#8A6FBE', ic:'<path d="M4 8h3l1.4-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.2"/>'},
+  {id:'candle', th:'จุดเทียนหอม', en:'Aroma candle', bg:'#FCEBE0', c:'#E0913F', ic:'<path d="M9.5 10h5v9h-5z"/><path d="M12 10V6.5M12 3.5c1.2 1.2 1.2 2.5 0 2.5s-1.2-1.3 0-2.5z"/>'},
+  {id:'skincare', th:'สกินแคร์', en:'Skincare', bg:'#FBE7F0', c:'#C2799F', ic:'<path d="M9 8.5h6V19a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/><path d="M10 8.5V5.5h4v3M9 12.5h6"/>'},
+  {id:'massage', th:'นวดผ่อนคลาย', en:'Massage', bg:'#E6F4EA', c:'#4A9E6A', ic:'<circle cx="12" cy="5.5" r="1.6"/><path d="M8 21c0-3 1.6-5 4-5s4 2 4 5M6 11c2 1.5 4-1 6-1s4 2.5 6 1"/>'},
+  {id:'hiking', th:'เดินป่า', en:'Hiking', bg:'#FAF0D8', c:'#B8902B', ic:'<path d="M3 19h18L14 6l-3.5 6-2-2.5z"/>'},
+  {id:'dancing', th:'เต้นรำ', en:'Dancing', bg:'#FBE7F0', c:'#C2799F', ic:'<circle cx="13" cy="4.6" r="1.5"/><path d="M12 7l3.5 3.5-2 3 1.5 5.5M12 7l-3 3.5M13.5 13.5l-3.5 5.5"/>'}
+];
+const WELLNESS_KEY = 'girl_wellness_v1';
+const WELLNESS_DEFAULT = ['matcha','icebath','tennis','sun','journal','cooking','selfcare','family'];
+function getWellnessSel(){ try{ const r=JSON.parse(localStorage.getItem(WELLNESS_KEY)); if(Array.isArray(r)) return r; }catch(e){} return WELLNESS_DEFAULT.slice(); }
+function setWellnessSel(a){ try{ localStorage.setItem(WELLNESS_KEY, JSON.stringify(a)); }catch(e){} }
+function wlIcon(o,sz){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:${sz||27}px;height:${sz||27}px;">${o.ic}</svg>`; }
+function renderWellness(){
+  const grid=document.getElementById('pf-life-grid'); if(!grid) return;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const sel=getWellnessSel();
+  const byId={}; WELLNESS_OPTIONS.forEach(o=>byId[o.id]=o);
+  let html=sel.map(id=>{ const o=byId[id]; if(!o) return '';
+    return `<div class="pf-life"><span class="pf-life-ic" style="background:${o.bg};color:${o.c};">${wlIcon(o)}</span><div class="pf-life-l">${en?o.en:o.th}</div></div>`;
+  }).join('');
+  html += `<div class="pf-life pf-life-add" onclick="openWellnessPicker()"><span class="pf-life-ic" style="background:var(--card2);color:var(--muted2);border:1.6px dashed var(--border2);box-shadow:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M12 5v14M5 12h14"/></svg></span><div class="pf-life-l">${en?'Add':'เพิ่ม'}</div></div>`;
+  grid.innerHTML=html;
+}
+function openWellnessPicker(){
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const sel=getWellnessSel();
+  const body=document.getElementById('wl-picker-body'); if(!body) return;
+  body.innerHTML=WELLNESS_OPTIONS.map(o=>{ const on=sel.includes(o.id);
+    const st = on ? `background:${o.bg};border-color:${o.c};color:${o.c};` : '';
+    return `<button type="button" class="wl-chip${on?' on':''}" onclick="toggleWellness('${o.id}')" style="${st}"><span style="color:${o.c};display:inline-flex;line-height:0;">${wlIcon(o,17)}</span>${en?o.en:o.th}${on?' ✓':''}</button>`;
+  }).join('');
+  const cnt=document.getElementById('wl-count'); if(cnt) cnt.textContent = sel.length + (en?' selected':' รายการ');
+  document.getElementById('wl-overlay').style.display='block';
+  document.getElementById('wl-modal').style.display='block';
+}
+function closeWellnessPicker(){ const o=document.getElementById('wl-overlay'),m=document.getElementById('wl-modal'); if(o)o.style.display='none'; if(m)m.style.display='none'; }
+function toggleWellness(id){
+  let sel=getWellnessSel();
+  if(sel.includes(id)) sel=sel.filter(x=>x!==id); else sel.push(id);
+  setWellnessSel(sel);
+  renderWellness();
+  openWellnessPicker();
+}
+
+  async function computeGirlScore(){
   const scoreEl = document.getElementById('girl-health-score');
   const labelEl = document.getElementById('score-label');
   const bdEl    = document.getElementById('score-breakdown');
@@ -9015,12 +9098,12 @@ async function computeGirlScore(){
 
   // ── BREAKDOWN BARS ──
   const dims = [
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/><path d="M15 3.5h3l-3 3.2h3"/></svg>Sleep`,   score: sleepScore, weight:'25%', color:'#6B8FA3' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg>Protein`, score: protScore,  weight:'20%', color:'#B5739E' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--exercise);vertical-align:-2px;margin-right:4px;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise`,score: exScore,    weight:'20%', color:'#C08552' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--water);vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>Water`,   score: waterScore, weight:'15%', color:'#4E86AE' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#8B5E52;vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive`,score: bioScore,  weight:'10%', color:'#8B5E52' },
-    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Calories`,score: kcalScore,  weight:'10%', color:'#C9A96E' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#7FB0DD;vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/><path d="M15 3.5h3l-3 3.2h3"/></svg>Sleep`,   score: sleepScore, weight:'25%', color:'#7FB0DD' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#DB9AC8;vertical-align:-2px;margin-right:4px;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg>Protein`, score: protScore,  weight:'20%', color:'#DB9AC8' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#F2A977;vertical-align:-2px;margin-right:4px;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg>Exercise`,score: exScore,    weight:'20%', color:'#F2A977' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#6BC2DD;vertical-align:-2px;margin-right:4px;"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>Water`,   score: waterScore, weight:'15%', color:'#6BC2DD' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#84CBA8;vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive`,score: bioScore,  weight:'10%', color:'#84CBA8' },
+    { name:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:#EDC868;vertical-align:-2px;margin-right:4px;"><path d="M12 3c.5 2.5 3 3.8 3 6.8a3 3 0 0 1-6 0c0-.6.1-1 .3-1.5C7.6 9.4 6.5 11 6.5 13a5.5 5.5 0 0 0 11 0c0-4.2-3-6.5-5.5-10z"/></svg>Calories`,score: kcalScore,  weight:'10%', color:'#EDC868' },
   ];
 
   if(bdEl){
