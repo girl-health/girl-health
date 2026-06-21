@@ -704,6 +704,37 @@ textarea{min-height:42px;}
 .pf-life-add{cursor:pointer;}
 .wl-chip{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:20px;border:1.5px solid var(--border2);background:var(--card2);color:var(--muted2);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .15s;}
 .wl-chip.on{font-weight:700;}
+.onb-overlay{display:none;position:fixed;inset:0;z-index:3000;background:rgba(42,42,34,.45);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:18px;}
+.onb-card{position:relative;background:var(--bg);border-radius:26px;width:min(440px,96vw);max-height:92vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,.32);display:flex;flex-direction:column;}
+.onb-x{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:none;background:rgba(0,0,0,.06);color:var(--muted2);font-size:.85rem;cursor:pointer;z-index:3;}
+.onb-body{padding:34px 26px 8px;}
+.onb-hero{text-align:center;padding:8px 4px 4px;}
+.onb-logo{font-size:2.6rem;margin-bottom:6px;}
+.onb-h1{font-family:'Playfair Display',serif;font-weight:800;font-size:1.7rem;color:var(--accent);margin-bottom:10px;}
+.onb-h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:var(--text);margin-bottom:6px;}
+.onb-sub{font-size:.84rem;color:var(--muted2);line-height:1.6;max-width:332px;margin:0 auto;}
+.onb-hero-pills{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:18px;}
+.onb-pill{font-size:.66rem;font-weight:700;padding:5px 12px;border-radius:100px;}
+.onb-feats{display:flex;flex-direction:column;gap:11px;margin-top:14px;}
+.onb-feat{display:flex;align-items:center;gap:13px;}
+.onb-feat-ic{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.onb-feat-t{font-size:.92rem;font-weight:700;color:var(--text);}
+.onb-feat-d{font-size:.72rem;color:var(--muted2);margin-top:1px;}
+.onb-note{font-size:.74rem;color:var(--muted2);line-height:1.5;margin-bottom:6px;}
+.onb-form{display:flex;flex-direction:column;}
+.onb-lb{font-size:.62rem;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 5px;}
+.onb-in{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:11px 12px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.9rem;background:var(--card);color:var(--text);box-sizing:border-box;}
+.onb-in:focus{outline:none;border-color:var(--accent);}
+.onb-row{display:flex;gap:10px;}
+.onb-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.onb-chip{padding:8px 14px;border-radius:100px;border:1.5px solid var(--border2);background:var(--card);color:var(--muted2);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.onb-chip.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.onb-footer{padding:14px 26px 22px;position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 24%);}
+.onb-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px;}
+.onb-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);transition:all .25s;}
+.onb-dot.on{background:var(--accent);width:22px;border-radius:4px;}
+.onb-next{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;box-shadow:0 5px 16px rgba(74,124,89,.3);}
+.onb-skip{width:100%;border:none;background:none;color:var(--muted2);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.78rem;cursor:pointer;padding:9px;margin-top:2px;}
 /* nutrition/training/recovery */
 .pf-ntr-list{display:flex;flex-direction:column;gap:10px;}
 .pf-ntr{display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(0,0,0,.04);border-radius:16px;padding:12px 14px;}
@@ -786,7 +817,7 @@ try{
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v45 · Ingredient donut พาสเทลเหมือน Home</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v47 · แยกข้อมูลรายผู้ใช้ (uid) ป้องกันข้อมูลปนกัน</span>
   <!-- Greeting -->
   <div class="hd-top">
     <div>
@@ -1973,6 +2004,8 @@ try{
     <input id="mb-name-input" type="text" placeholder="ชื่อของคุณ" maxlength="22">
     <button onclick="setMemberName()"><span class="lang-th">บันทึก</span><span class="lang-en" style="display:none;">Save</span></button>
   </div>
+  <button onclick="openOnboarding()" style="margin-top:16px;width:100%;border:1px solid var(--border2);background:var(--card);color:var(--accent);border-radius:13px;padding:12px;font-family:'IBM Plex Sans Thai',sans-serif;font-weight:600;font-size:.84rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M4 5.5A2 2 0 0 1 6 4h6v15H6a2 2 0 0 0-2 1.5zM20 5.5A2 2 0 0 0 18 4h-6v15h6a2 2 0 0 1 2 1.5z"/></svg><span class="lang-th">ดูวิธีใช้แอปอีกครั้ง</span><span class="lang-en" style="display:none;">View app guide again</span></button>
+  <button onclick="setOwnerMode()" style="margin-top:8px;width:100%;border:none;background:none;color:var(--muted2);font-family:'IBM Plex Sans Thai',sans-serif;font-size:.62rem;cursor:pointer;opacity:.55;">🔑 <span class="lang-th">โหมดเจ้าของ (สำหรับเกิล)</span><span class="lang-en" style="display:none;">Owner mode</span></button>
   <div style="font-size:.6rem;color:var(--muted2);text-align:center;margin-top:14px;"><span class="lang-th">ได้แต้มเฉพาะการสั่งซื้อในแอปนี้เท่านั้น 🛍️</span><span class="lang-en" style="display:none;">Points earned on in-app orders only 🛍️</span></div>
 </div>
 
@@ -2618,6 +2651,8 @@ try{
   </div>
   <div id="wl-picker-body" style="padding:16px;display:flex;flex-wrap:wrap;gap:8px;"></div>
 </div>
+<!-- NEW-USER ONBOARDING -->
+<div id="onb-overlay" class="onb-overlay"><div id="onb-card" class="onb-card"></div></div>
 <!-- CHAT BAR -->
 <div class="chat-bar visible" id="chatBar">
   <div class="chat-hint" id="chat-hint">
@@ -2643,8 +2678,22 @@ const SUPA_KEY = 'sb_publishable_lbZYBL1Jh_3Z63Hh4J2DDA_tPDotm6W';
 function tierIcon(id){ const c={member:'#5C7A3A',silver:'#8A95A1',gold:'#B8860B',diamond:'#3E8DB0'}[id]||'#5C7A3A'; const pp={member:'<path d=\'M12 21v-7\'/><path d=\'M12 14c-.3-3-2.6-4.8-5.5-4.8C6.2 12 8.6 14 12 14zM12 14c.3-3 2.6-4.8 5.5-4.8C17.8 12 15.4 14 12 14z\'/>',silver:'<circle cx=\'12\' cy=\'9\' r=\'5\'/><path d=\'M9 13.2 7.5 20 12 18l4.5 2L15 13.2\'/>',gold:'<circle cx=\'12\' cy=\'9\' r=\'5\'/><path d=\'M9 13.2 7.5 20 12 18l4.5 2L15 13.2\'/>',diamond:'<path d=\'M6 4h12l3 5-9 11L3 9z\'/><path d=\'M3 9h18\'/>'}; const p=pp[id]||pp.member; return `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:3px;">${p}</svg>`; }
 function bioCap(col,w){ w=w||24; const h=Math.round(w*2.2); return `<svg viewBox="0 0 15 33" style="width:${w}px;height:${h}px;vertical-align:middle;display:inline-block;"><rect x="3.7" y="0.5" width="7.6" height="4" rx="1.8" fill="${col}"/><rect x="1.3" y="4.3" width="12.4" height="28.2" rx="4.2" fill="${col}"/><rect x="3.2" y="7.5" width="2.1" height="15" rx="1.05" fill="#ffffff" opacity="0.42"/><rect x="7" y="6.8" width="0.7" height="20" fill="#ffffff" opacity="0.16"/></svg>`; }
 function bioVial(col,w){ w=w||15; const h=Math.round(w*3.6); return `<svg viewBox="0 0 26 94" style="width:${w}px;height:${h}px;display:inline-block;vertical-align:middle;overflow:visible;"><path d="M12 3.5 Q13 2 14 3.5 L13.7 12 L12.3 12 Z" fill="${col}"/><path d="M9 12 Q8.4 8.5 13 8.5 Q17.6 8.5 17 12 Z" fill="${col}"/><path d="M6.5 24 Q6.5 14 13 14 Q19.5 14 19.5 24 L18.8 78 Q18.3 87 13 90.5 Q7.7 87 7.2 78 Z" fill="${col}"/><ellipse cx="13" cy="44" rx="5" ry="7" fill="#fff" opacity="0.06"/><rect x="9" y="22" width="2.6" height="52" rx="1.3" fill="#fff" opacity="0.34"/><rect x="15" y="24" width="1.1" height="46" rx="0.5" fill="#fff" opacity="0.13"/></svg>`; }
+// ── USER DATA ISOLATION (uid) ──
+function ensureUID(){
+  try{
+    let u=localStorage.getItem('girl_uid');
+    if(u) return u;
+    const legacy = localStorage.getItem('girl_profile_body')||localStorage.getItem('girl_orders')||localStorage.getItem('girl_wellness_v1')||localStorage.getItem('girl_member_name');
+    u = legacy ? 'owner' : ('u_'+Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4));
+    localStorage.setItem('girl_uid', u);
+    return u;
+  }catch(e){ return 'owner'; }
+}
+let USER_UID = (function(){ try{ return ensureUID(); }catch(e){ return 'owner'; } })();
+function currentUID(){ return USER_UID; }
+function setOwnerMode(){ try{ const c=prompt('ใส่รหัสเจ้าของ / Owner code'); if(c==='GIRLBIO2026'){ localStorage.setItem('girl_uid','owner'); USER_UID='owner'; alert('เข้าสู่โหมดเจ้าของแล้ว / Owner mode on'); location.reload(); } else if(c){ alert('รหัสไม่ถูกต้อง / Wrong code'); } }catch(e){} }
 const GIRL_BIRTHDATE='1994-05-07';
-function girlAge(){ try{ const b=new Date(GIRL_BIRTHDATE), n=new Date(); let a=n.getFullYear()-b.getFullYear(); const m=n.getMonth()-b.getMonth(); if(m<0||(m===0&&n.getDate()<b.getDate())) a--; return a; }catch(e){ return 32; } }
+function girlAge(){ try{ const _bd=(function(){try{return localStorage.getItem('girl_birthdate')||GIRL_BIRTHDATE;}catch(e){return GIRL_BIRTHDATE;}})(); const b=new Date(_bd), n=new Date(); let a=n.getFullYear()-b.getFullYear(); const m=n.getMonth()-b.getMonth(); if(m<0||(m===0&&n.getDate()<b.getDate())) a--; return a; }catch(e){ return 32; } }
 function setHomeAge(){ const el=document.getElementById('hd-age'); if(!el) return; const en=(typeof currentLang!=='undefined'&&currentLang==='en'); el.textContent = en?('Age '+girlAge()+' · born 7 May 1994'):('อายุ '+girlAge()+' ปี · เกิด 7 พ.ค. 1994'); }
 const { createClient } = supabase;
 const db = createClient(SUPA_URL, SUPA_KEY, {
@@ -2777,13 +2826,13 @@ async function dbSaveDay(date, data){
   setSyncBadge('syncing','☁️ กำลังบันทึก...');
   try {
     // Sanitize to plain primitives
-    const clean = {date};
+    const clean = {date, uid: currentUID()};
     Object.entries(data).forEach(([k,v])=>{
       if(v===undefined||v===null) return;
       if(typeof v==='string'||typeof v==='number'||typeof v==='boolean') clean[k]=v;
       else clean[k]=String(v);
     });
-    const {error} = await db.from('health_days').upsert(clean, {onConflict:'date'});
+    const {error} = await db.from('health_days').upsert(clean, {onConflict:'uid,date'});
     if(error){
       console.error('Save error:', error);
       const msg = (error.message||error.code||'unknown');
@@ -2803,20 +2852,20 @@ async function dbSaveDay(date, data){
 }
 
 async function dbLoadDay(date){
-  const{data,error}=await db.from('health_days').select('*').eq('date',date).single();
+  const{data,error}=await db.from('health_days').select('*').eq('uid',currentUID()).eq('date',date).single();
   if(error||!data) return null;
   return data;
 }
 
 async function dbLoadMonth(month){
-  const{data,error}=await db.from('health_days').select('*').like('date',`${month}%`).order('date');
+  const{data,error}=await db.from('health_days').select('*').eq('uid',currentUID()).like('date',`${month}%`).order('date');
   if(error) return [];
   return data||[];
 }
 
 // ── ING CRUD ──
 async function dbLoadIng(month){
-  const{data,error}=await db.from('health_ingredients').select('*').eq('month',month);
+  const{data,error}=await db.from('health_ingredients').select('*').eq('uid',currentUID()).eq('month',month);
   if(error) return {};
   const result={};
   (data||[]).forEach(r=>{
@@ -2826,12 +2875,12 @@ async function dbLoadIng(month){
   return result;
 }
 async function dbAddIng(month,cat,name,emoji,freq){
-  const{data,error}=await db.from('health_ingredients').insert({month,category:cat,name,emoji,freq}).select().single();
+  const{data,error}=await db.from('health_ingredients').insert({month,category:cat,name,emoji,freq,uid:currentUID()}).select().single();
   if(error) return null;
   return data;
 }
 async function dbDelIng(id){
-  const{error}=await db.from('health_ingredients').delete().eq('id',id);
+  const{error}=await db.from('health_ingredients').delete().eq('uid',currentUID()).eq('id',id);
   return !error;
 }
 
@@ -2895,7 +2944,7 @@ async function renderCalendar(){
   const[y,m]=calMo.split('-').map(Number);
   document.getElementById('cal-mo-lbl').textContent=`${MONTHS_EN[m]} ${y}`;
   // Load month data
-  const{data}=await db.from('health_days').select('date,mood,h_note').like('date',`${calMo}%`);
+  const{data}=await db.from('health_days').select('date,mood,h_note').eq('uid',currentUID()).like('date',`${calMo}%`);
   calDaysWithData={};
   (data||[]).forEach(r=>{
     calDaysWithData[r.date]={
@@ -3528,7 +3577,7 @@ function _gseedArt(key){
 function _gstreak(days,pred){ let n=0; for(let i=days.length-1;i>=0;i--){ if(pred(days[i])) n++; else break; } return n; }
 function _gseedIcon(p,c){ return '<svg viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-2px;margin-right:3px;">'+p+'</svg>'; }
 async function _gjourney(){
-  try{ const r=await db.from('health_days').select('date'); const data=r.data||[];
+  try{ const r=await db.from('health_days').select('date').eq('uid',currentUID()); const data=r.data||[];
     const set=new Set(data.map(x=>x.date).filter(Boolean)); const total=set.size;
     const k=dt=>dt.toISOString().split('T')[0];
     let streak=0, d=new Date(); if(!set.has(k(d))) d=new Date(Date.now()-864e5);
@@ -4295,7 +4344,7 @@ async function init(){
 
 async function goLatestDay(){
   try{
-    const{data}=await db.from('health_days').select('date').order('date',{ascending:false}).limit(1);
+    const{data}=await db.from('health_days').select('date').eq('uid',currentUID()).order('date',{ascending:false}).limit(1);
     if(data&&data.length) curDay=data[0].date;
     else curDay=new Date().toISOString().split('T')[0];
   }catch(e){ curDay=new Date().toISOString().split('T')[0]; }
@@ -4305,7 +4354,7 @@ async function goLatestDay(){
 // Retroactively parse bio_taken from supps field for all existing days
 async function migrateBioFromSupps(){
   try{
-    const{data,error}=await db.from('health_days').select('date,supps,m_b,m_s,bio_taken');
+    const{data,error}=await db.from('health_days').select('date,supps,m_b,m_s,bio_taken').eq('uid',currentUID());
     if(error||!data) return;
     for(const row of data){
       // Skip if already has bio data
@@ -4314,7 +4363,7 @@ async function migrateBioFromSupps(){
       const combined = [row.supps||'', row.m_b||'', row.m_s||''].join(' ');
       const detected = parseBioFromText(combined);
       if(Object.keys(detected).length){
-        await db.from('health_days').update({bio_taken: JSON.stringify(detected)}).eq('date', row.date);
+        await db.from('health_days').update({bio_taken: JSON.stringify(detected)}).eq('uid',currentUID()).eq('date', row.date);
       }
     }
   }catch(e){}
@@ -5462,18 +5511,18 @@ let bioTodayData = {}; // {productId: true/false}
 
 // Load BioActive data from Supabase (stored as JSON in health_days.bio_taken)
 async function dbLoadBio(date){
-  const{data,error}=await db.from('health_days').select('bio_taken').eq('date',date).single();
+  const{data,error}=await db.from('health_days').select('bio_taken').eq('uid',currentUID()).eq('date',date).single();
   if(error||!data) return {};
   try{ return JSON.parse(data.bio_taken||'{}'); }catch{ return {}; }
 }
 async function dbSaveBio(date, bioObj){
   try {
-    const {error} = await db.from('health_days').upsert({date, bio_taken: JSON.stringify(bioObj)}, {onConflict:'date'});
+    const {error} = await db.from('health_days').upsert({date, uid:currentUID(), bio_taken: JSON.stringify(bioObj)}, {onConflict:'uid,date'});
     return !error;
   } catch(e){ return false; }
 }
 async function dbLoadBioMonth(month){
-  const{data,error}=await db.from('health_days').select('date,bio_taken').like('date',`${month}%`);
+  const{data,error}=await db.from('health_days').select('date,bio_taken').eq('uid',currentUID()).like('date',`${month}%`);
   if(error) return [];
   return (data||[]).map(r=>({date:r.date,taken:(() => { try{ return JSON.parse(r.bio_taken||'{}'); }catch{ return {}; } })()}));
 }
@@ -7092,7 +7141,7 @@ async function inlineEditCell(date, field, currentVal, el){
   input.focus(); input.select();
   const save = async () => {
     const val = parseFloat(input.value)||0;
-    await db.from('health_days').update({[field]:val}).eq('date',date);
+    await db.from('health_days').update({[field]:val}).eq('uid',currentUID()).eq('date',date);
     await renderTable();
   };
   input.addEventListener('blur', save);
@@ -7190,7 +7239,7 @@ async function renderOrganGrid(){
   try{
     const today=new Date().toISOString().split('T')[0];
     const from=new Date(); from.setDate(from.getDate()-29);
-    const {data:rows}=await db.from('health_days').select('m_b,m_l,m_d,m_s,supps').gte('date',from.toISOString().split('T')[0]).lte('date',today);
+    const {data:rows}=await db.from('health_days').select('m_b,m_l,m_d,m_s,supps').eq('uid',currentUID()).gte('date',from.toISOString().split('T')[0]).lte('date',today);
     allText=(rows||[]).map(r=>[r.m_b,r.m_l,r.m_d,r.m_s,r.supps].join(' ')).join(' ').toLowerCase();
   }catch(e){ console.warn('renderOrganGrid log', e); }
   grid.innerHTML=Object.entries(ORGAN_DATA).map(([id,data])=>{
@@ -7256,7 +7305,7 @@ async function showOrgan(organId){
   const from  = new Date(); from.setDate(from.getDate()-29);
   const fromStr = from.toISOString().split('T')[0];
   const {data:rows} = await db.from('health_days')
-    .select('m_b,m_l,m_d,m_s,supps')
+    .select('m_b,m_l,m_d,m_s,supps').eq('uid',currentUID())
     .gte('date',fromStr).lte('date',today);
 
   const allText = (rows||[]).map(r=>[r.m_b,r.m_l,r.m_d,r.m_s,r.supps].join(' ')).join(' ').toLowerCase();
@@ -8973,6 +9022,112 @@ function toggleWellness(id){
   openWellnessPicker();
 }
 
+  // ══════════ NEW-USER ONBOARDING (welcome · features · profile) ══════════
+const ONB_DONE_KEY='girl_onboarded_v1';
+const ONB_PROFILE_KEY='girl_user_profile';
+const ONB_FEATURES=[
+  {bg:'#EAF5EC',c:'#4A7C59',th:'คะแนนสุขภาพ',en:'Health Score',dth:'ดูภาพรวมร่างกายเป็นคะแนนรายวัน',den:'Your body at a glance, scored daily',ic:'<path d="M12 21C7 17 4 13.5 4 9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 8 2.5C20 13.5 17 17 12 21z"/><path d="M4 12h4l1.5-3 2.5 6 1.5-3H20"/>'},
+  {bg:'#FCEFE1',c:'#E0913F',th:'บันทึกอาหาร',en:'Food & Nutrition',dth:'จดมื้ออาหาร โปรตีน แคลอรี่ ง่ายๆ',den:'Log meals, protein & calories fast',ic:'<path d="M5 10v5a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-5M3 10h18M9 6.5c0-1 .8-1.4.8-2.4M13 6.5c0-1 .8-1.4.8-2.4"/>'},
+  {bg:'#FBE9F0',c:'#C2799F',th:'สแกนผิว',en:'Skin Scan',dth:'AI วิเคราะห์ผิว + แนะนำการดูแล',den:'AI skin analysis & care tips',ic:'<path d="M12 3l1.5 4.3L18 9l-4.5 1.7L12 15l-1.5-4.3L6 9l4.5-1.7z"/><path d="M18 14l.6 1.6 1.6.6-1.6.6L18 19l-.6-1.6L15.8 16.8l1.6-.6z"/>'},
+  {bg:'#E9F1F8',c:'#4E86AE',th:'ออกกำลังกาย',en:'Exercise',dth:'สแกนผลจาก Garmin / Apple Watch',den:'Scan results from Garmin / Apple Watch',ic:'<path d="M6.5 6.5l11 11M5 9l-2 2 3 3M19 15l2-2-3-3M9 5L7 7M17 19l-2-2"/>'},
+  {bg:'#FDF4DC',c:'#C79A2E',th:'BioActive+',en:'BioActive+',dth:'ติดตามอาหารเสริมที่กินแต่ละวัน',den:'Track your daily supplements',ic:'<rect x="9" y="3" width="6" height="18" rx="3"/><path d="M9 12h6"/>'},
+  {bg:'#EFEAF8',c:'#8A6FBE',th:'องค์ประกอบร่างกาย',en:'Body Composition',dth:'น้ำหนัก ไขมัน กล้ามเนื้อ ตามเวลา',den:'Weight, fat & muscle over time',ic:'<path d="M12 5a2 2 0 1 0 0-.01M9 9h6l-1 5h-4zM10 14l-1 6M14 14l1 6"/>'},
+];
+const ONB_GENDERS=[{id:'female',th:'หญิง',en:'Female'},{id:'male',th:'ชาย',en:'Male'},{id:'other',th:'ไม่ระบุ',en:'Prefer not'}];
+const ONB_GOALS=[
+  {id:'fat',th:'ลดไขมัน',en:'Lose fat'},{id:'muscle',th:'เพิ่มกล้ามเนื้อ',en:'Build muscle'},
+  {id:'longevity',th:'สุขภาพดี-อายุยืน',en:'Longevity'},{id:'skin',th:'ดูแลผิว',en:'Skin care'},
+  {id:'energy',th:'มีพลังงาน',en:'More energy'},{id:'balance',th:'สมดุลชีวิต',en:'Balance'},
+];
+let onbStep=0, onbProfile={name:'',gender:'',birth:'',height:'',weight:'',goals:[]};
+function onbEN(){ return (typeof currentLang!=='undefined'&&currentLang==='en'); }
+function onbIcon(o,sz){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:${sz||26}px;height:${sz||26}px;">${o.ic}</svg>`; }
+
+function renderOnb(){
+  const root=document.getElementById('onb-card'); if(!root) return;
+  const en=onbEN();
+  const dots=[0,1,2].map(i=>`<span class="onb-dot${i===onbStep?' on':''}"></span>`).join('');
+  let body='';
+  if(onbStep===0){
+    body=`<div class="onb-hero">
+      <div class="onb-logo">🌿</div>
+      <div class="onb-h1">${en?'Welcome to GIRL':'ยินดีต้อนรับสู่ GIRL'}</div>
+      <div class="onb-sub">${en?'Your personal health journal — know your body, care a little every day, and watch real results.':'ไดอารี่สุขภาพส่วนตัว — รู้จักร่างกายตัวเอง ดูแลทีละนิดทุกวัน แล้วเห็นผลลัพธ์จริง'}</div>
+      <div class="onb-hero-pills">
+        <span class="onb-pill" style="background:#EAF5EC;color:#4A7C59;">${en?'Daily score':'คะแนนรายวัน'}</span>
+        <span class="onb-pill" style="background:#FBE9F0;color:#C2799F;">${en?'Skin & body':'ผิว & รูปร่าง'}</span>
+        <span class="onb-pill" style="background:#FDF4DC;color:#C79A2E;">${en?'AI insights':'AI ช่วยวิเคราะห์'}</span>
+      </div>
+    </div>`;
+  } else if(onbStep===1){
+    const feats=ONB_FEATURES.map(o=>`<div class="onb-feat"><span class="onb-feat-ic" style="background:${o.bg};color:${o.c};">${onbIcon(o,24)}</span><div><div class="onb-feat-t">${en?o.en:o.th}</div><div class="onb-feat-d">${en?o.den:o.dth}</div></div></div>`).join('');
+    body=`<div class="onb-h2">${en?'What you can do':'แอปนี้ช่วยอะไรได้บ้าง'}</div>
+      <div class="onb-feats">${feats}</div>`;
+  } else {
+    const gend=ONB_GENDERS.map(g=>`<button type="button" class="onb-chip${onbProfile.gender===g.id?' on':''}" onclick="onbSetGender('${g.id}')">${en?g.en:g.th}</button>`).join('');
+    const goals=ONB_GOALS.map(g=>`<button type="button" class="onb-chip${onbProfile.goals.includes(g.id)?' on':''}" onclick="onbToggleGoal('${g.id}')">${en?g.en:g.th}</button>`).join('');
+    body=`<div class="onb-h2">${en?'A little about you':'ข้อมูลประวัติของคุณ'}</div>
+      <div class="onb-note">${en?'Just the basics so your numbers are accurate. You can skip and fill later.':'แค่ข้อมูลพื้นฐานเพื่อให้ตัวเลขแม่นยำ ข้ามแล้วมากรอกทีหลังได้'}</div>
+      <div class="onb-form">
+        <label class="onb-lb">${en?'Nickname':'ชื่อเล่น'}</label>
+        <input id="onb-name" class="onb-in" type="text" value="${onbProfile.name}" placeholder="${en?'e.g. Girl':'เช่น เกิล'}" oninput="onbProfile.name=this.value">
+        <label class="onb-lb">${en?'Gender':'เพศ'}</label>
+        <div class="onb-chips">${gend}</div>
+        <div class="onb-row">
+          <div style="flex:1;"><label class="onb-lb">${en?'Birth date':'วันเกิด'}</label><input id="onb-birth" class="onb-in" type="date" value="${onbProfile.birth}" oninput="onbProfile.birth=this.value"></div>
+        </div>
+        <div class="onb-row">
+          <div style="flex:1;"><label class="onb-lb">${en?'Height (cm)':'ส่วนสูง (ซม.)'}</label><input id="onb-height" class="onb-in" type="number" inputmode="decimal" value="${onbProfile.height}" placeholder="165" oninput="onbProfile.height=this.value"></div>
+          <div style="flex:1;"><label class="onb-lb">${en?'Weight (kg)':'น้ำหนัก (กก.)'}</label><input id="onb-weight" class="onb-in" type="number" inputmode="decimal" value="${onbProfile.weight}" placeholder="52" oninput="onbProfile.weight=this.value"></div>
+        </div>
+        <label class="onb-lb">${en?'Your goals (pick any)':'เป้าหมาย (เลือกได้หลายอย่าง)'}</label>
+        <div class="onb-chips">${goals}</div>
+      </div>`;
+  }
+  const isLast=onbStep===2;
+  const nextLbl = isLast ? (en?'Start using GIRL':'เริ่มใช้งานเลย') : (en?'Next':'ถัดไป');
+  const skipLbl = en?'Skip for now':'ข้ามไปก่อน';
+  root.innerHTML = `
+    <button class="onb-x" onclick="onbSkip()" aria-label="skip">✕</button>
+    <div class="onb-body">${body}</div>
+    <div class="onb-footer">
+      <div class="onb-dots">${dots}</div>
+      <button class="onb-next" onclick="onbNext()">${nextLbl}</button>
+      <button class="onb-skip" onclick="onbSkip()">${skipLbl}</button>
+    </div>`;
+}
+function onbSetGender(id){ onbProfile.gender=id; renderOnb(); }
+function onbToggleGoal(id){ const i=onbProfile.goals.indexOf(id); if(i>=0)onbProfile.goals.splice(i,1); else onbProfile.goals.push(id); renderOnb(); }
+function onbNext(){
+  if(onbStep<2){ onbStep++; renderOnb(); return; }
+  onbFinish(true);
+}
+function onbSkip(){ onbFinish(false); }
+function onbFinish(save){
+  try{
+    if(save){
+      if(onbProfile.name && onbProfile.name.trim()) localStorage.setItem('girl_member_name', onbProfile.name.trim());
+      if(onbProfile.birth) localStorage.setItem('girl_birthdate', onbProfile.birth);
+      localStorage.setItem(ONB_PROFILE_KEY, JSON.stringify(onbProfile));
+      // seed body weight if provided
+      if(onbProfile.weight){ try{ const pb=JSON.parse(localStorage.getItem('girl_profile_body')||'{}'); if(pb.weight==null) pb.weight=parseFloat(onbProfile.weight); localStorage.setItem('girl_profile_body', JSON.stringify(pb)); }catch(e){} }
+    }
+    localStorage.setItem(ONB_DONE_KEY,'1');
+  }catch(e){}
+  closeOnb();
+  try{ if(typeof applyLang==='function') applyLang(); }catch(e){}
+  try{ if(typeof renderMemberCard==='function') renderMemberCard(); }catch(e){}
+}
+function closeOnb(){ const o=document.getElementById('onb-overlay'); if(o) o.style.display='none'; document.body.style.overflow=''; }
+function openOnboarding(reset){
+  try{ const p=JSON.parse(localStorage.getItem(ONB_PROFILE_KEY)||'{}'); onbProfile=Object.assign({name:'',gender:'',birth:'',height:'',weight:'',goals:[]}, p); }catch(e){}
+  if(!onbProfile.name){ try{ const m=localStorage.getItem('girl_member_name'); if(m&&m!=='GIRL') onbProfile.name=m; }catch(e){} }
+  if(!onbProfile.birth){ try{ const b=localStorage.getItem('girl_birthdate'); if(b) onbProfile.birth=b; }catch(e){} }
+  onbStep=0; renderOnb();
+  const o=document.getElementById('onb-overlay'); if(o) o.style.display='flex'; document.body.style.overflow='hidden';
+}
+function onbCheck(){ try{ if(!localStorage.getItem(ONB_DONE_KEY)){ openOnboarding(); } }catch(e){} }
+
   async function computeGirlScore(){
   const scoreEl = document.getElementById('girl-health-score');
   const labelEl = document.getElementById('score-label');
@@ -8990,7 +9145,7 @@ function toggleWellness(id){
   const toStr   = today.toISOString().split('T')[0];
 
   const {data, error} = await db.from('health_days')
-    .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,e1_k,e2_c,bio_taken')
+    .select('date,mac_kcal,mac_p,mac_f,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,e1_k,e2_c,bio_taken').eq('uid',currentUID())
     .gte('date', fromStr).lte('date', toStr).order('date');
 
   if(error || !data || data.length === 0){
@@ -9164,7 +9319,7 @@ async function addWater(delta){
   try{
     // read current
     let cur=0;
-    try{ const {data}=await db.from('health_days').select('water').eq('date',todayStr).maybeSingle(); cur=data?.water||0; }catch(e){}
+    try{ const {data}=await db.from('health_days').select('water').eq('uid',currentUID()).eq('date',todayStr).maybeSingle(); cur=data?.water||0; }catch(e){}
     let next=Math.round((cur+delta)*100)/100;
     if(next<0) next=0;
     if(next>9) next=9; // sanity cap
@@ -9200,9 +9355,9 @@ async function loadHomeDashboard(force){
   const hasRealData = r => r && ((r.sl_total_h||r.sl_min||r.sl_score||r.sl_hrv||r.sl_bb||r.sl_rhr||r.mac_kcal||r.mac_p||r.e1_m||r.e2_m||(r.bio_taken&&r.bio_taken!=='{}')) ? true : false);
   try{
     // today's row (may be partial — e.g. only water from quick-add)
-    const {data:tdData}=await db.from('health_days').select(SELECT_FIELDS).eq('date',todayStr).maybeSingle();
+    const {data:tdData}=await db.from('health_days').select(SELECT_FIELDS).eq('uid',currentUID()).eq('date',todayStr).maybeSingle();
     // pull recent days (newest first), then find the most recent one with real health data
-    const {data:recent}=await db.from('health_days').select(SELECT_FIELDS)
+    const {data:recent}=await db.from('health_days').select(SELECT_FIELDS).eq('uid',currentUID())
       .lte('date',todayStr).order('date',{ascending:false}).limit(10);
     const completeRow = (recent||[]).find(r => r.date!==todayStr && hasRealData(r))
                       || (recent||[]).find(r => hasRealData(r)) || null;
@@ -9234,7 +9389,7 @@ async function loadHomeDashboard(force){
   let week=[];
   try{ const f=new Date(today); f.setDate(today.getDate()-6);
     const {data}=await db.from('health_days')
-      .select('date,mac_p,water,sl_total_h,sl_min,e1_m,e2_m')
+      .select('date,mac_p,water,sl_total_h,sl_min,e1_m,e2_m').eq('uid',currentUID())
       .gte('date',f.toISOString().split('T')[0]).lte('date',todayStr).order('date');
     week=data||[]; }catch(e){}
 
@@ -9244,7 +9399,7 @@ async function loadHomeDashboard(force){
   try{
     const f30=new Date(today); f30.setDate(today.getDate()-29);
     const {data:sd}=await db.from('health_days')
-      .select('date,mac_p,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
+      .select('date,mac_p,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken').eq('uid',currentUID())
       .gte('date',f30.toISOString().split('T')[0]).lte('date',todayStr).order('date');
     if(sd&&sd.length){
       const n=sd.length; let ss=0,ps=0,ws=0,es=0,bs=0;
@@ -9284,7 +9439,7 @@ async function loadHomeDashboard(force){
     const yStr=new Date(today.getTime()-86400000).toISOString().split('T')[0];
     let yRow=null;
     try{ const {data}=await db.from('health_days')
-      .select('date,mac_p,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken')
+      .select('date,mac_p,water,sl_total_h,sl_min,sl_score,e1_m,e2_m,bio_taken').eq('uid',currentUID())
       .eq('date',yStr).maybeSingle(); yRow=data; }catch(e){}
     const todayScore=dayScoreOf(td);
     const yScore=dayScoreOf(yRow);
@@ -9421,7 +9576,7 @@ async function loadHomeDashboard(force){
       try{
         const f=new Date(today); f.setDate(today.getDate()-29);
         const {data:gd}=await db.from('health_days')
-          .select('date,sl_bb,sl_hrv,sl_rhr,sl_score')
+          .select('date,sl_bb,sl_hrv,sl_rhr,sl_score').eq('uid',currentUID())
           .gte('date',f.toISOString().split('T')[0]).lte('date',todayStr)
           .order('date',{ascending:false});
         if(gd&&gd.length){
@@ -9537,6 +9692,7 @@ async function loadHomeDashboard(force){
 }
 
 init();
+try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
 
 </script>
 </body>
