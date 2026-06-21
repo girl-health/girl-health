@@ -3455,9 +3455,21 @@ async function updateHomeAges(){
       const res=await fetch(`${SUPA_URL}/rest/v1/skin_scans?select=skin_age&order=date.desc&limit=1`,{headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${SUPA_KEY}`}});
       if(res.ok){ const rows=await res.json(); if(rows&&rows.length&&rows[0].skin_age){ d.skinAge=rows[0].skin_age; try{localStorage.setItem(PB_KEY,JSON.stringify(d));}catch(e){} setCard('hdx-skin-age', d.skinAge); } }
     }catch(e){}
-    // recompute fitness age from real data once per day, then refresh card
+    // fitness age — pull latest from cloud first (same value all devices)
     const _t=new Date().toISOString().split('T')[0];
-    if(d.fitnessAgeAt!==_t && typeof computeFitnessAge==='function'){ try{ await computeFitnessAge(false); const d2=JSON.parse(localStorage.getItem(PB_KEY)||'{}'); setCard('hdx-fit-age', d2.fitnessAge); }catch(e){} }
+    try{
+      const {data:_fr}=await db.from('health_days').select('date,fitness_age').eq('uid',currentUID()).not('fitness_age','is',null).order('date',{ascending:false}).limit(1);
+      const _row=(_fr&&_fr[0])||null;
+      if(_row && typeof _row.fitness_age==='number'){
+        setCard('hdx-fit-age', _row.fitness_age);
+        try{ const _d=JSON.parse(localStorage.getItem(PB_KEY)||'{}'); _d.fitnessAge=_row.fitness_age; _d.fitnessAgeAt=_row.date; localStorage.setItem(PB_KEY,JSON.stringify(_d)); }catch(e){}
+        if(_row.date!==_t && typeof computeFitnessAge==='function'){ try{ await computeFitnessAge(false); const d2=JSON.parse(localStorage.getItem(PB_KEY)||'{}'); setCard('hdx-fit-age', d2.fitnessAge); }catch(e){} }
+      } else if(typeof computeFitnessAge==='function'){
+        await computeFitnessAge(false); const d2=JSON.parse(localStorage.getItem(PB_KEY)||'{}'); setCard('hdx-fit-age', d2.fitnessAge);
+      }
+    }catch(e){
+      if(d.fitnessAgeAt!==_t && typeof computeFitnessAge==='function'){ try{ await computeFitnessAge(false); const d2=JSON.parse(localStorage.getItem(PB_KEY)||'{}'); setCard('hdx-fit-age', d2.fitnessAge); }catch(e){} }
+    }
   }catch(e){}
 }
 async function loadHomeMeals(force){
@@ -6939,7 +6951,33 @@ async function loadProfileBody(){
     }
     // auto-recompute from real data once per day
     const _today = new Date().toISOString().split('T')[0];
-    if(d.fitnessAgeAt !== _today){ setTimeout(()=>{ computeFitnessAge(false); }, 600); }
+    // ── Pull latest fitness age from cloud first (so all devices match) ──
+    (async()=>{
+      try{
+        const {data:_fr} = await db.from('health_days')
+          .select('date,fitness_age,fitness_age_reason')
+          .eq('uid',currentUID())
+          .not('fitness_age','is',null)
+          .order('date',{ascending:false}).limit(1);
+        const _row=(_fr&&_fr[0])||null;
+        if(_row && typeof _row.fitness_age==='number'){
+          // cloud has a value → show it (single source of truth across devices)
+          if(faEl) faEl.textContent=_row.fitness_age;
+          const _diff=(chronoAge-_row.fitness_age);
+          if(diffEl) diffEl.textContent=_diff>0?`${_diff.toFixed(1)} yrs younger`:`${Math.abs(_diff).toFixed(1)} yrs older`;
+          if(reasonEl && _row.fitness_age_reason) reasonEl.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M4 20 16 8M14 6l4 4M17.5 4.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5L15 6l1.5-.5z"/></svg>'+_row.fitness_age_reason;
+          try{ const _pb=JSON.parse(localStorage.getItem(PB_KEY)||'{}'); _pb.fitnessAge=_row.fitness_age; _pb.fitnessAgeReason=_row.fitness_age_reason; _pb.fitnessAgeAt=_row.date; localStorage.setItem(PB_KEY,JSON.stringify(_pb)); }catch(e){}
+          // only recompute if cloud value is not from today
+          if(_row.date!==_today){ setTimeout(()=>{ computeFitnessAge(false); }, 600); }
+          return;
+        }
+        // cloud empty → compute fresh
+        setTimeout(()=>{ computeFitnessAge(false); }, 600);
+      }catch(e){
+        // cloud unreachable → fall back to local once-per-day rule
+        if(d.fitnessAgeAt !== _today){ setTimeout(()=>{ computeFitnessAge(false); }, 600); }
+      }
+    })();
 
     // Skin age — fetch latest from Supabase skin_scans first, fallback to localStorage
     let sa = d.skinAge || 25;
@@ -7046,6 +7084,11 @@ Respond ONLY with valid JSON, no other text: {"fitness_age": <number, one decima
     // persist + render
     pb.fitnessAge=fa; pb.fitnessAgeReason=reason; pb.fitnessAgeAt=new Date().toISOString().split('T')[0];
     localStorage.setItem(PB_KEY, JSON.stringify(pb));
+    // ── Sync to cloud (health_days) so all devices show same value ──
+    try{
+      const _today2=new Date().toISOString().split('T')[0];
+      await db.from('health_days').upsert({uid:currentUID(),date:_today2,fitness_age:fa,fitness_age_reason:reason},{onConflict:'uid,date'});
+    }catch(e){ console.warn('fitness cloud sync', e); }
     const faEl=document.getElementById('pb-fitness-age'); if(faEl) faEl.textContent=fa;
     const diff=(chronoAge-fa);
     const diffEl=document.getElementById('pb-age-diff'); if(diffEl) diffEl.textContent = diff>0?`${diff.toFixed(1)} yrs younger`:`${Math.abs(diff).toFixed(1)} yrs older`;
