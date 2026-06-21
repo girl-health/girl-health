@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIRL Health Journal</title>
+<title>Bio+ Health Journal</title>
   <!-- ===== Bio+ PWA · วางบรรทัดพวกนี้ไว้ใน <head> ของ index.html (ก่อน </head>) ===== -->
 
 <!-- ชื่อแอปบน iPhone ตอนปักหมุด — แก้ชื่อทีหลังได้ตรงนี้ -->
@@ -799,7 +799,7 @@ try{
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px;margin-right:4px;color:var(--accent);"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>GIRL</div>
+    <div class="nav-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px;margin-right:4px;color:var(--accent);"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>Bio+</div>
     <div class="nav-tabs">
       <div class="ntab active" onclick="goPage('home')" id="ntab-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M4 11.3 12 4l8 7.3"/><path d="M6 10.3V20h12v-9.7"/><path d="M10 20v-5h4v5"/></svg><span class="ntab-tx">Home</span></div>
       <div class="ntab" onclick="goPage('timeline')" id="ntab-timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M5 4v16"/><circle cx="5" cy="8" r="1.5"/><circle cx="5" cy="15" r="1.5"/><path d="M9 8h10M9 15h7"/></svg><span class="lang-th">ไทม์ไลน์</span><span class="lang-en" style="display:none;">Timeline</span></div>
@@ -831,7 +831,7 @@ try{
   <!-- Greeting -->
   <div class="hd-top">
     <div>
-      <div class="hd-hello" id="hd-hello">Good morning, GIRL</div>
+      <div class="hd-hello" id="hd-hello">Good morning</div>
       <div class="hd-hello-sub" id="hd-hello-sub">พร้อมดูแลตัวเองให้ดีที่สุดวันนี้</div>
       <div id="hd-age" style="font-size:.62rem;color:var(--accent);font-weight:600;margin-top:3px;letter-spacing:.2px;"></div>
     </div>
@@ -1134,7 +1134,7 @@ try{
       <div class="pf-avatar" style="color:#fff;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:34px;"><path d="M12 21c0-7 3-12 9-13-1 7-4 11-9 13z"/><path d="M12 21c0-5-2-9-7-10 1 5 3 8 7 10z"/></svg></div>
       <div class="pf-id">
         <div class="pf-name">Passaranun Siravitchayangkul</div>
-        <div class="pf-sub">GIRL · Personal Longevity OS</div>
+        <div class="pf-sub">Bio+ · Personal Longevity OS</div>
         <div class="pf-meta">32 yrs · ENFJ · Blood B</div>
       </div>
     </div>
@@ -1169,7 +1169,7 @@ try{
       <button onclick="toggleProfileEdit()" id="profile-edit-btn" class="pf-edit-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg> <span class="lang-th">แก้ไข</span><span class="lang-en" style="display:none;">Edit</span></button>
     </div>
     <div id="profile-body-display">
-      <div class="pf-bio-grid"><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><circle cx="12" cy="4.6" r="1"/><path d="M12 5.6v13M7 19h10M5 9h14"/><path d="M5 9l-2.2 4.8a3 3 0 0 0 4.4 0z"/><path d="M19 9l2.2 4.8a3 3 0 0 1-4.4 0z"/></svg></span><div class="pf-bio-v" id="pb-weight-val" style="color:#4A7C59;">48.7</div><div class="pf-bio-l">Weight · kg</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FBEBF1;color:#C2799F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/></svg></span><div class="pf-bio-v" id="pb-fat-val" style="color:#C2799F;">25.3%</div><div class="pf-bio-l">Body fat</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M6 5v3a3 3 0 0 0 3 3h1"/><path d="M10 11c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5V14"/></svg></span><div class="pf-bio-v" id="pb-muscle-val" style="color:#4E86AE;">20.2</div><div class="pf-bio-l">Muscle · kg</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FDF4DC;color:#C79A2E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></span><div class="pf-bio-v" id="pb-bmi-val" style="color:#C79A2E;">19.0</div><div class="pf-bio-l">BMI</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FCECE4;color:#C25E63;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 19C7.5 15.8 5 13 5 9.9A3.4 3.4 0 0 1 12 7.3 3.4 3.4 0 0 1 19 9.9c0 3.1-2.5 5.9-7 9.1z"/></svg></span><div class="pf-bio-v" id="pb-visceral-val" style="color:#C25E63;">4</div><div class="pf-bio-l">Visceral</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#F1EBF9;color:#8A6FBE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg></span><div class="pf-bio-v" id="pb-score-val" style="color:#8A6FBE;">82</div><div class="pf-bio-l">GIRL Score</div></div></div>
+      <div class="pf-bio-grid"><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#EAF5EC;color:#4A7C59;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><circle cx="12" cy="4.6" r="1"/><path d="M12 5.6v13M7 19h10M5 9h14"/><path d="M5 9l-2.2 4.8a3 3 0 0 0 4.4 0z"/><path d="M19 9l2.2 4.8a3 3 0 0 1-4.4 0z"/></svg></span><div class="pf-bio-v" id="pb-weight-val" style="color:#4A7C59;">48.7</div><div class="pf-bio-l">Weight · kg</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FBEBF1;color:#C2799F;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/></svg></span><div class="pf-bio-v" id="pb-fat-val" style="color:#C2799F;">25.3%</div><div class="pf-bio-l">Body fat</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#E9F1F8;color:#4E86AE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M6 5v3a3 3 0 0 0 3 3h1"/><path d="M10 11c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5V14"/></svg></span><div class="pf-bio-v" id="pb-muscle-val" style="color:#4E86AE;">20.2</div><div class="pf-bio-l">Muscle · kg</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FDF4DC;color:#C79A2E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></span><div class="pf-bio-v" id="pb-bmi-val" style="color:#C79A2E;">19.0</div><div class="pf-bio-l">BMI</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#FCECE4;color:#C25E63;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M12 19C7.5 15.8 5 13 5 9.9A3.4 3.4 0 0 1 12 7.3 3.4 3.4 0 0 1 19 9.9c0 3.1-2.5 5.9-7 9.1z"/></svg></span><div class="pf-bio-v" id="pb-visceral-val" style="color:#C25E63;">4</div><div class="pf-bio-l">Visceral</div></div><div class="pf-bio-card"><span class="pf-bio-ic" style="background:#F1EBF9;color:#8A6FBE;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg></span><div class="pf-bio-v" id="pb-score-val" style="color:#8A6FBE;">82</div><div class="pf-bio-l">Bio+ Score</div></div></div>
     </div>
     <div id="profile-body-edit" style="display:none;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
@@ -1178,7 +1178,7 @@ try{
         <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg><span class="lang-th">กล้ามเนื้อ</span><span class="lang-en" style="display:none;">Muscle</span> (kg)</label><input type="number" id="pb-muscle-in" step="0.1" class="pf-input"></div>
         <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>BMI</label><input type="number" id="pb-bmi-in" step="0.1" class="pf-input"></div>
         <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--veg);vertical-align:-2px;margin-right:4px;"><path d="M3 12h4l2.2-6 3.6 12 2.2-6H20"/></svg><span class="lang-th">ไขมันช่องท้อง</span><span class="lang-en" style="display:none;">Visceral Fat</span></label><input type="number" id="pb-visceral-in" step="1" class="pf-input"></div>
-        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>GIRL Score</label><input type="number" id="pb-score-in" step="1" class="pf-input"></div>
+        <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>Bio+ Score</label><input type="number" id="pb-score-in" step="1" class="pf-input"></div>
         <div><label class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--other);vertical-align:-2px;margin-right:4px;"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 15c2 1 3-1 5 0s3 1 5 0 3-1 5 0M8 8.5V6.5M12 8.5V6M16 8.5V6.5"/></svg><span class="lang-th">อายุจริง</span><span class="lang-en" style="display:none;">Age</span></label><input type="number" id="pb-age-in" step="1" placeholder="32" class="pf-input"></div>
         <div><label class="lbl">✨ Skin Age</label><input type="number" id="pb-skinage-in" step="1" placeholder="25" class="pf-input"></div>
       </div>
@@ -1192,7 +1192,7 @@ try{
     <div class="pf-score-head">
       <div class="pf-score-ring"><div class="pf-score-num" id="girl-health-score">—</div><div class="pf-score-max">/100</div></div>
       <div class="pf-score-meta">
-        <div class="pf-score-ttl">GIRL Health Score</div>
+        <div class="pf-score-ttl">Bio+ Health Score</div>
         <div class="pf-score-period" id="score-period-lbl"><span class="lang-th">คำนวณจากบันทึก 30 วันล่าสุด</span><span class="lang-en" style="display:none;">Last 30 days</span></div>
       </div>
       <div class="pf-score-label" id="score-label">—</div>
@@ -2215,7 +2215,7 @@ try{
 
     <!-- Header -->
     <div style="text-align:center;margin-bottom:18px;padding-top:4px;">
-      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text);letter-spacing:.5px;margin-bottom:3px;">GIRL's Body Nutrition</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text);letter-spacing:.5px;margin-bottom:3px;">Body Nutrition</div>
       <div style="font-size:.63rem;color:var(--muted2);letter-spacing:.3px;">กดแต่ละส่วนเพื่อดูอาหารบำรุงจากบันทึกของเกิล</div>
     </div>
 
@@ -3696,7 +3696,7 @@ async function renderCompanion(){
        +'</div>'
      +'</div>'
      +'<div style="flex:1;min-width:0;padding-top:4px;">'
-       +'<div style="font-family:\'Playfair Display\',serif;font-size:1.12rem;color:var(--text);line-height:1.2;">'+tod+', GIRL'+spark+'</div>'
+       +'<div style="font-family:\'Playfair Display\',serif;font-size:1.12rem;color:var(--text);line-height:1.2;">'+tod+((function(){try{var _m=memberName();return (_m&&_m!=='GIRL')?', '+_m:'';}catch(e){return '';}})())+spark+'</div>'
        +'<div style="font-family:\'Sarabun\',sans-serif;font-size:.76rem;color:var(--muted2);line-height:1.55;margin-top:5px;">'+line+'</div>'
        +(chips.length?'<div style="display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap;">'+chips.join('')+'</div>':'')
      +'</div>'
@@ -8187,7 +8187,7 @@ async function shareSkinResult(date){
   const defs=(r.nutrition_deficiencies||[]).map(d=>(d&&d.nutrient)?d.nutrient:d).filter(Boolean);
   const diff=girlAge()-(r.skin_age||0);
   const lines=[
-    `GIRL Health · Skin Scan${r.date?' ('+r.date+')':''}`,
+    `Bio+ · Skin Scan${r.date?' ('+r.date+')':''}`,
     `Skin age: ${r.skin_age} yrs${diff>=0?' · '+diff+' yrs younger':' · '+(-diff)+' yrs older'}`,
     (r.skin_score!=null?`Skin score: ${r.skin_score}/100`:''),
     (r.overall_condition?`Condition: ${r.overall_condition}`:''),
@@ -8195,7 +8195,7 @@ async function shareSkinResult(date){
   ].filter(Boolean);
   const text=lines.join('\n');
   try{
-    if(navigator.share){ await navigator.share({title:'GIRL Skin Scan', text}); }
+    if(navigator.share){ await navigator.share({title:'Bio+ Skin Scan', text}); }
     else { await navigator.clipboard.writeText(text); toast(currentLang==='en'?'Summary copied':'คัดลอกสรุปแล้ว'); }
   }catch(e){ try{ await navigator.clipboard.writeText(text); toast(currentLang==='en'?'Summary copied':'คัดลอกสรุปแล้ว'); }catch(e2){ try{toast('แชร์ไม่ได้');}catch(e3){} } }
 }
@@ -9362,8 +9362,11 @@ async function loadHomeDashboard(force){
   const isEN = currentLang === 'en';
   const h = today.getHours();
 
-  // Greeting
-  const hello   = h<12 ? (isEN?'Good morning, GIRL':'สวัสดีตอนเช้า, GIRL') : h<17 ? (isEN?'Good afternoon, GIRL':'สวัสดีตอนบ่าย, GIRL') : (isEN?'Good evening, GIRL':'สวัสดีตอนเย็น, GIRL');
+  // Greeting — use member's own name (fallback to plain greeting)
+  let _nm=''; try{ const _m=memberName(); if(_m && _m!=='GIRL') _nm=_m; }catch(e){}
+  const _suffixEN = _nm ? ', '+_nm : '';
+  const _suffixTH = _nm ? ', '+_nm : '';
+  const hello   = h<12 ? (isEN?'Good morning'+_suffixEN:'สวัสดีตอนเช้า'+_suffixTH) : h<17 ? (isEN?'Good afternoon'+_suffixEN:'สวัสดีตอนบ่าย'+_suffixTH) : (isEN?'Good evening'+_suffixEN:'สวัสดีตอนเย็น'+_suffixTH);
   const helloSub= h<12 ? (isEN?'A fresh start to your day':'เริ่มวันใหม่อย่างมีพลัง') : h<17 ? (isEN?'Keep taking care of yourself':'ดูแลตัวเองให้ดีช่วงบ่าย') : (isEN?'Wind down and recover well':'ปิดวันด้วยการพักผ่อนที่ดี');
   const setTx = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
   setTx('hd-hello', hello);
