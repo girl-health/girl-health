@@ -9071,7 +9071,7 @@ function renderOnb(){
   if(onbStep===0){
     body=`<div class="onb-hero">
       <div class="onb-logo">🌿</div>
-      <div class="onb-h1">${en?'Welcome to GIRL':'ยินดีต้อนรับสู่ GIRL'}</div>
+      <div class="onb-h1">${en?'Welcome to Bio+':'ยินดีต้อนรับสู่ Bio+'}</div>
       <div class="onb-sub">${en?'Your personal health journal — know your body, care a little every day, and watch real results.':'ไดอารี่สุขภาพส่วนตัว — รู้จักร่างกายตัวเอง ดูแลทีละนิดทุกวัน แล้วเห็นผลลัพธ์จริง'}</div>
       <div class="onb-hero-pills">
         <span class="onb-pill" style="background:#EAF5EC;color:#4A7C59;">${en?'Daily score':'คะแนนรายวัน'}</span>
@@ -9105,7 +9105,7 @@ function renderOnb(){
       </div>`;
   }
   const isLast=onbStep===2;
-  const nextLbl = isLast ? (en?'Start using GIRL':'เริ่มใช้งานเลย') : (en?'Next':'ถัดไป');
+  const nextLbl = isLast ? (en?'Start using Bio+':'เริ่มใช้งานเลย') : (en?'Next':'ถัดไป');
   const skipLbl = en?'Skip for now':'ข้ามไปก่อน';
   root.innerHTML = `
     <button class="onb-x" onclick="onbSkip()" aria-label="skip">✕</button>
