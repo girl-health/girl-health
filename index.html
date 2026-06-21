@@ -817,7 +817,7 @@ try{
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
-    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v47 · แยกข้อมูลรายผู้ใช้ (uid) ป้องกันข้อมูลปนกัน</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.4px;color:#fff;background:#3B6D11;padding:6px 14px;border-radius:30px;box-shadow:0 2px 10px rgba(59,109,17,.3);">✨ v48 · เอา API key ออกจากเว็บ (ความปลอดภัย)</span>
   <!-- Greeting -->
   <div class="hd-top">
     <div>
@@ -3097,8 +3097,7 @@ async function saveDay(){
     e1_m:gi('e1_m'),e1_h:gi('e1_h'),e1_k:gi('e1_k'),
     e2_m:gi('e2_m'),e2_k:+g('e2_k')||0,e2_c:gi('e2_c'),e2_h:gi('e2_h'),
     ex_n:g('ex_n'),eq:Math.round(eq)||0,supps:g('supps'),
-    water:+g('water')||0,mood:Math.round(mq)||0,h_note:g('h_note'),
-  };
+    water:+g('water')||0,mood:Math.round(mq)||0,h_note:g('h_note')};
   // Add optional columns safely
   try { data.day_rating = dayRating||''; } catch(e){}
   try { data.alcohol_level = alcoholLevel||'none'; } catch(e){}
@@ -3137,8 +3136,7 @@ const BIO_KEYWORDS = {
   magnesium:['magnesium','แมกนีเซียม','magtein','mag bioactive','magnesium bioactive'],
   tribiotic:['tribiotic','ไตรไบโอติก','trebiotic','probiotic bioactive','probiotic','โปรไบโอติก','tribiotic 28','tribiotic pro'],
   immuchew: ['immuchew','อิมมูชิว','colostrum','immuno'],
-  juvecol:  ['juvecol','จูวีคอล','proteoglycan'],
-};
+  juvecol:  ['juvecol','จูวีคอล','proteoglycan']};
 
 function parseBioFromText(text){
   if(!text) return {};
@@ -3196,7 +3194,7 @@ async function sendChat(){
 {"m_b":"","m_l":"","m_d":"","m_s":"","mac_p":0,"mac_f":0,"mac_s":0,"water":0,"sl_s":"","sl_e":"","sl_score":0,"sl_rhr":0,"sl_hrv":0,"sl_bb":0,"e1_m":0,"e1_h":0,"e1_k":0,"e2_m":0,"e2_k":0,"e2_c":0,"e2_h":0,"ex_n":"","weight":0,"muscle":0,"fat_p":0,"supps":"","h_note":""}`;
 
   try{
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const raw=data.content.map(i=>i.text||'').join('').trim();
     const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
@@ -3272,7 +3270,7 @@ type "bio" = BioActive recommendation (use 💊 icon prefix)
 Include 4-7 tips total. Be specific, warm, personal tone.`;
 
   try{
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const tips=JSON.parse(data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim());
     content.innerHTML=tips.map(t=>`
@@ -3321,7 +3319,7 @@ function goPage(name){
 // ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
 const COACH_KEY='girl_coach_v4', TLINS_KEY='girl_tlinsight_v5';
 async function _aiJSON(prompt, maxTok){
-  const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
+  const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
   const data=await res.json();
   if(!res.ok||!Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
   let raw=data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
@@ -4171,8 +4169,7 @@ function ingCatSvg(id,col){
     prot:'<path d="M16 12c0-3-3-5-7-5S3 9 2 12c1 3 4 5 7 5s7-2 7-5z"/><path d="M16 12l5.5-3.2v6.4z"/><circle cx="6.2" cy="11" r=".7" fill="'+col+'" stroke="none"/>',
     grain:'<path d="M12 21V8.5"/><path d="M12 8.5c0-2.2-1.7-3.8-4-4.3M12 8.5c0-2.2 1.7-3.8 4-4.3"/><path d="M12 13c0-2.2-1.7-3.8-4-4.3M12 13c0-2.2 1.7-3.8 4-4.3"/><path d="M12 17.5c0-2.2-1.7-3.8-4-4.3M12 17.5c0-2.2 1.7-3.8 4-4.3"/>',
     dairy:'<path d="M9 3h6v2.6l1.5 3.2V19a2 2 0 0 1-2 2H9.5a2 2 0 0 1-2-2V8.8L9 5.6z"/><path d="M7.6 11.5h8.8"/>',
-    other:'<path d="M5 8h11v5.5a3.5 3.5 0 0 1-3.5 3.5h-4A3.5 3.5 0 0 1 5 13.5z"/><path d="M16 9.5h2.2a2 2 0 0 1 0 4H16"/><path d="M8.5 4.2c0 1-1 1.2-1 2.2M11.5 4.2c0 1-1 1.2-1 2.2"/>',
-  };
+    other:'<path d="M5 8h11v5.5a3.5 3.5 0 0 1-3.5 3.5h-4A3.5 3.5 0 0 1 5 13.5z"/><path d="M16 9.5h2.2a2 2 0 0 1 0 4H16"/><path d="M8.5 4.2c0 1-1 1.2-1 2.2M11.5 4.2c0 1-1 1.2-1 2.2"/>'};
   return `<svg viewBox="0 0 24 24" fill="none" stroke="${col}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">${SP[id]||''}</svg>`;
 }
 function renderIngCat(c,items,totalItems){
@@ -4301,7 +4298,7 @@ type options: good (strength), info (observation), add (suggest adding), warn (i
 type: good (จุดแข็ง), info (ข้อสังเกต), add (แนะนำเพิ่ม), warn (ไม่สมดุล), miss (ขาดสำคัญ)`;
 
   try{
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const tips=JSON.parse(data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim());
     content.innerHTML=tips.map(t=>`<div class="ai-tip tip-${t.type}"><div class="ai-tip-ico">${t.icon}</div><div class="ai-tip-body"><strong>${t.title}</strong><span>${t.detail}</span></div></div>`).join('');
@@ -4457,8 +4454,7 @@ const translations = {
     lbl_min: 'นาที',
     lbl_avghr: 'Avg HR',
     lbl_calories: 'Calories',
-    lbl_km: 'km',
-  },
+    lbl_km: 'km'},
   en: {
     nav_home: 'Home',
     nav_profile: 'Profile',
@@ -4521,8 +4517,7 @@ const translations = {
     lbl_min: 'min',
     lbl_avghr: 'Avg HR',
     lbl_calories: 'Calories',
-    lbl_km: 'km',
-  }
+    lbl_km: 'km'}
 };
 
 function toggleLang() {
@@ -4587,8 +4582,7 @@ function applyLang() {
     'sl_score': 'lbl_sleep_score', 'sl_rhr': 'lbl_rhr', 'sl_hrv': 'lbl_hrv', 'sl_bb': 'lbl_bb',
     'weight': 'lbl_weight', 'water': 'lbl_water', 'muscle': 'lbl_muscle', 'fat_p': 'lbl_fat_pct',
     'h_note': 'lbl_note', 'supps': 'lbl_supp_ph',
-    'ex_n': 'lbl_ex_note',
-  };
+    'ex_n': 'lbl_ex_note'};
   
   Object.entries(labelMap).forEach(([id, key]) => {
     const el = document.getElementById(id);
@@ -4628,8 +4622,7 @@ function applyLang() {
     'stab-overview': isEN?'📊 Overview':'📊 Overview',
     'stab-trend':    isEN?'📈 Trend':'📈 Trend',
     'stab-history':  isEN?'📅 History':'📅 ประวัติ',
-    'stab-insights': isEN?'💡 Insights':'💡 Insights',
-  };
+    'stab-insights': isEN?'💡 Insights':'💡 Insights'};
   Object.entries(skinTabMap).forEach(([id,txt])=>{const el=document.getElementById(id);if(el)el.textContent=txt;});
 
   // Organ map tab buttons text
@@ -5278,8 +5271,7 @@ const RC_SVG = {
   laser:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5 19 5"/><path d="M14 4h4v4M9 4.5l.8 1.8M5 8.5l1.8.8M15.7 18.2l-.8-1.8M19 14.4l-1.8-.8"/></svg>',
   icefacial:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.7"/><path d="M12 6.5v11M7.2 9.2l9.6 5.6M16.8 9.2l-9.6 5.6"/></svg>',
   medicube:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3.2"/><path d="M12 8.3l.9 2.5 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/></svg>',
-  other:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 3 3.5 3.5 5.5 3.5C16.5 9 16 11 17 13c-2-.8-3.8 0-5 2-1.2-2-3-2.8-5-2 1-2 .5-4-.5-6.5C8.5 6.5 10.5 6 12 3z"/></svg>',
-};
+  other:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 3 3.5 3.5 5.5 3.5C16.5 9 16 11 17 13c-2-.8-3.8 0-5 2-1.2-2-3-2.8-5-2 1-2 .5-4-.5-6.5C8.5 6.5 10.5 6 12 3z"/></svg>'};
 const RECOVERY_TYPES = [
   { id:'icebath',     th:'แช่น้ำแข็ง',        en:'Ice Bath',       color:'#6B8FA3' },
   { id:'sauna',       th:'ซาวน่า',            en:'Sauna',          color:'#D4845A' },
@@ -5589,13 +5581,11 @@ function renderBioCards(){
       magnesium:'Magtein® Magnesium L-Threonate Plus · World-class formula · Fast absorption · Deep sleep & muscle relaxation',
       tribiotic: '22 Probiotic strains + 5 Prebiotics + 1 Postbiotics · 25 Billion CFU · Gut health, digestion, immunity',
       immuchew: 'Colostrum from New Zealand · Boosts immunity gently from the first line of defense · Milk flavor, easy to chew',
-      juvecol:  'Purified Proteoglycan from Japan · Joint structural support · Vit D3+K2 for bones & calcium',
-    };
+      juvecol:  'Purified Proteoglycan from Japan · Joint structural support · Vit D3+K2 for bones & calcium'};
     const timingEN = {
       collagen: 'Before meal', gluta: 'Before meal', asta: 'After meal', gold: 'After meal',
       kera: 'After meal', magnesium: '1hr before bed', tribiotic: 'After dinner',
-      immuchew: '2 tabs daily', juvecol: 'After meal',
-    };
+      immuchew: '2 tabs daily', juvecol: 'After meal'};
     const benefitsEN = {
       collagen: ['Skin hydration','Skin elasticity','Reduces fine lines','Tightens pores'],
       gluta:    ['Skin brightening','Reduces dullness','Antioxidant','Dark spots & acne marks'],
@@ -5605,8 +5595,7 @@ function renderBioCards(){
       magnesium:['Deep sleep','Quality rest','Stress relief','Reduces migraines','Muscle relaxation'],
       tribiotic: ['Gut health','Immunity','Digestion','25 Billion CFU'],
       immuchew: ['Immunity','Colostrum NZ','Reduces illness','Gentle immune boost'],
-      juvecol:  ['Joint & bone','Vitamin D3+K2','Joint fluid','Mobility'],
-    };
+      juvecol:  ['Joint & bone','Vitamin D3+K2','Joint fluid','Mobility']};
 
     const displayNote = isEN ? (noteEN[p.id]||p.note) : p.note;
     const displayTiming = isEN ? (timingEN[p.id]||p.timing) : p.timing;
@@ -5765,7 +5754,7 @@ async function analyzeAlcohol(){
   resWrap.style.display='block';
   resWrap.innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:9px;background:var(--bg);border-radius:9px;font-size:.72rem;color:var(--muted2);"><div class="dot-pulse"><span></span><span></span><span></span></div>Calculating alcohol impact…</div>`;
   try{
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,messages:[{role:'user',content:`Analyse this alcohol consumption for a health journal. Respond ONLY in valid JSON, no other text:
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,messages:[{role:'user',content:`Analyse this alcohol consumption for a health journal. Respond ONLY in valid JSON, no other text:
 Consumed: "${note}"
 {"drinks_identified":["item 1","item 2"],"total_units":0,"kcal_from_alcohol":0,"impact":{"sleep":"brief impact note","recovery":"brief note","next_day":"brief note"},"recommendation":"one short sentence"}`}]})});
     const data=await res.json();
@@ -5917,7 +5906,7 @@ Respond ONLY with valid JSON:
   "confidence": "high|medium|low"
 }`;
   try{
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},{type:'text',text:prompt}]}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},{type:'text',text:prompt}]}]})});
     const data=await res.json();
     const raw=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
     const r=JSON.parse(raw);
@@ -6086,7 +6075,7 @@ async function analyzeFood(input, meal, mode){
   try {
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
       body:JSON.stringify({
         model:'claude-sonnet-4-6',
         max_tokens:1000,
@@ -6323,8 +6312,7 @@ async function confirmFoodResult(meal){
     fiber_g:       getN('food-n-fib-'+meal),
     sugar_g:       getN('food-n-sug-'+meal),
     fruit_sugar_g: getN('food-n-fsug-'+meal),
-    sodium_mg:     mealMode==='home' ? 0 : getN('food-n-na-'+meal),
-  };
+    sodium_mg:     mealMode==='home' ? 0 : getN('food-n-na-'+meal)};
 
   // Apply to form
   if(confirmedDesc) document.getElementById(`m_${meal}`).value = confirmedDesc;
@@ -6457,7 +6445,7 @@ cardio.type MUST be EXACTLY one of: run, treadmill, walk, cycling, swim, tennis,
 Use 0 / "" for anything not clearly visible. DO NOT guess.
 Respond ONLY with valid JSON, no markdown:
 {"strength":{"minutes":0,"avg_hr":0,"calories":0},"cardio":{"type":"","minutes":0,"distance_km":0,"calories":0,"avg_hr":0},"notes":""}`});
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{ method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{ method:'POST', headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
       body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:800, messages:[{role:'user', content}] }) });
     const data=await res.json();
     if(!res.ok || !Array.isArray(data.content)){ throw new Error(data?.error?.message||('API '+res.status)); }
@@ -6519,7 +6507,7 @@ Respond ONLY with valid JSON, no markdown:
 {"bedtime":"","waketime":"","total_hours":0.0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0,"notes":"brief summary of what each screen showed"}` });
 
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
-      method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      method:'POST', headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
       body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:700, messages:[{role:'user', content}] })
     });
     const data = await res.json();
@@ -6572,7 +6560,7 @@ async function recalcFood(){
   const isHome=(typeof mealMode!=='undefined' && mealMode==='home');
   const prompt=`Calculate the TOTAL nutrition for this whole day of food: "${txt}". ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Some dining out: include restaurant sodium.'} For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake. Respond ONLY with valid JSON, no markdown: {"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}}`;
   try{
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     if(!res.ok || !Array.isArray(data.content)){ console.error('recalcFood API error:', res.status, data); throw new Error(data?.error?.message||('API '+res.status)); }
     const r=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
@@ -6646,7 +6634,7 @@ Respond ONLY with valid JSON, no markdown, no extra text:
 Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" for anything not clearly visible (do NOT guess).`;
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
       body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1000, messages:[{role:'user', content:[{type:'image', source:{type:'base64', media_type:img.type, data:img.data}},{type:'text', text:prompt}]}]})
     });
     const data = await res.json();
@@ -6791,7 +6779,7 @@ Respond ONLY with valid JSON:
 
   try {
     const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
-      method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      method:'POST', headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
       body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:800, messages:[{role:'user', content:[
         {type:'image', source:{type:'base64', media_type:file.type||'image/jpeg', data:base64}},
         {type:'text', text:prompts[mode]}
@@ -7018,7 +7006,7 @@ Guidance:
 - Lower resting HR, higher HRV, more weekly active minutes, healthy body fat %, good sleep => younger fitness age.
 - Be realistic and evidence-based; normally within ~15 years of her chronological age (${chronoAge}). If data is sparse, stay closer to chronological age.
 Respond ONLY with valid JSON, no other text: {"fitness_age": <number, one decimal allowed>, "reason": "<THAI, max 16 words, name the biggest driver>"}`;
-      const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})});
+      const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})});
       if(res.ok){
         const data=await res.json();
         const txt=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
@@ -7103,7 +7091,7 @@ async function importInBody(input){
   const base64 = await new Promise(r=>{ const rd=new FileReader(); rd.onload=e=>r(e.target.result.split(',')[1]); rd.readAsDataURL(file); });
   try {
     const resp = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{
-      method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
       body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,messages:[{role:'user',content:[
         {type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},
         {type:'text',text:`This is an InBody body composition report. Extract all data. Respond ONLY with valid JSON:
@@ -7298,8 +7286,7 @@ async function showOrgan(organId){
     skin:    [{id:'collagen',icon:'🖤',name:'Collagen',   reason: isEN?'Marine collagen for skin elasticity & hydration':'คอลลาเจนทะเล ผิวเด้ง ชุ่มชื้น'},
               {id:'gluta',  icon:'💗', name:'Gluta',      reason: isEN?'Glutathione brightens skin, reduces pigmentation':'กลูต้า ผิวกระจ่างใส ลดจุดด่างดำ'},
               {id:'asta',   icon:'❤️', name:'Asta',       reason: isEN?'AstaReal 6mg internal UV protection':'Astaxanthin กันแดดจากภายใน'},
-              {id:'magnesium',icon:'💙',name:'Magnesium', reason: isEN?'Skin repairs 80% during deep sleep':'ผิวฟื้นตัว 80% ระหว่างหลับลึก'}],
-  };
+              {id:'magnesium',icon:'💙',name:'Magnesium', reason: isEN?'Skin repairs 80% during deep sleep':'ผิวฟื้นตัว 80% ระหว่างหลับลึก'}]};
 
   const today = new Date().toISOString().split('T')[0];
   const from  = new Date(); from.setDate(from.getDate()-29);
@@ -7682,10 +7669,7 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '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',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-browser': 'true'
-      },
+        'anthropic-version': '2023-06-01'},
       body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2800, messages: [{ role: 'user', content }] })
     });
 
@@ -8021,8 +8005,7 @@ async function renderSkinOverview(){
     'Iron':             {id:'immuchew', icon:'🤎', name:'Immuchew',    color:'#8B6914', reason_th:'Colostrum เสริมภูมิ + ลด skin fatigue', reason_en:'Colostrum — immunity boost & reduces skin fatigue'},
     'Iron & B12':       {id:'immuchew', icon:'🤎', name:'Immuchew',    color:'#8B6914', reason_th:'Colostrum NZ เสริมภูมิ ลด under-eye shadow', reason_en:'Colostrum NZ — immunity & reduces under-eye shadowing'},
     'Magnesium':        {id:'magnesium',icon:'💙', name:'Magnesium',   color:'#4A7CB0', reason_th:'ก่อนนอน — ผิวฟื้นตัว 80% ระหว่างหลับลึก', reason_en:'Before bed — skin repairs 80% during deep sleep'},
-    'Vitamin D':        {id:'juvecol',  icon:'🟠', name:'Juvecol',     color:'#C0622A', reason_th:'Vit D3+K2 — bone & skin health', reason_en:'Vitamin D3+K2 — supports bone & skin health'},
-  };
+    'Vitamin D':        {id:'juvecol',  icon:'🟠', name:'Juvecol',     color:'#C0622A', reason_th:'Vit D3+K2 — bone & skin health', reason_en:'Vitamin D3+K2 — supports bone & skin health'}};
 
   // Always recommend core skin BioActive stack
   const coreStack = [
@@ -8590,7 +8573,7 @@ async function scanDlogMealPhoto(input){
     const img=await fileToJpegBase64(file);
     const isHome=(typeof mealMode!=='undefined'&&mealMode==='home');
     const prompt='This is ONE food photo for a meal the user wants to save as a reusable preset. Identify the dish and estimate nutrition for the portion shown. '+(isHome?'Assume home-cooked: no added salt/sauce/sugar, olive oil only.':'Assume some dining out — include sodium.')+'\nReply ONLY with valid JSON, no markdown, no extra text:\n{"name_th":"ชื่อเมนูสั้นๆ","name_en":"short dish name","desc_th":"วัตถุดิบหลัก คั่นด้วย ·","desc_en":"main items separated by ·","emoji":"one food emoji","cat":"b","kcal":0,"protein_g":0}\ncat = best meal slot: b=breakfast, l=lunch, d=dinner, s=snack. Use 0 only if truly unknown — do not guess wildly.';
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:img.type,data:img.data}},{type:'text',text:prompt}]}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:img.type,data:img.data}},{type:'text',text:prompt}]}]})});
     const data=await res.json();
     if(!res.ok||!Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
     let raw=data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
@@ -8787,7 +8770,7 @@ CRITICAL — map each time to the CORRECT field by its LABEL, never by guessing 
 
 Respond ONLY with valid JSON, no markdown:
 {"total_sec":null,"runs_sec":[null,null,null,null,null,null,null,null],"stations":{"SkiErg":null,"Sled Push":null,"Sled Pull":null,"Burpee Broad Jump":null,"Rowing":null,"Farmers Carry":null,"Sandbag Lunges":null,"Wall Balls":null},"images_read":${images.length},"note":"short note of what each image showed"}`});
-    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:900,messages:[{role:'user',content}]})});
+    const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:900,messages:[{role:'user',content}]})});
     const data=await res.json(); if(!res.ok||!Array.isArray(data.content)){ console.error('hyrox scan API',res.status,data); throw new Error('API'); }
     const r=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
     const runs=(Array.isArray(r.runs_sec)?r.runs_sec.slice(0,8):[]).map(hxSanitizeSec); while(runs.length<8) runs.push(null);
