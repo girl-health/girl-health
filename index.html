@@ -822,7 +822,7 @@ try{
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M20.4 11.4c.95.3 1.6.9 1.6 1.6 0 1-1.2 1.9-3 2.2"/><path d="M9 7c1.4-1.9 3.8-2.4 5.3-1.4M12.2 10.9C11.3 8.5 12.7 6 14.6 5.5"/></svg><span class="ntab-tx">โภชนาการ</span></div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg><span class="ntab-tx">BioActive+</span></div>
       <div class="ntab" onclick="goPage('shop')" id="ntab-shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M6 8h12l-1 11.5a1.5 1.5 0 0 1-1.5 1.4H8.5A1.5 1.5 0 0 1 7 19.5z"/><path d="M9 8.5V6.3a3 3 0 0 1 6 0v2.2"/></svg><span class="lang-th">ช้อป</span><span class="lang-en" style="display:none;">Shop</span></div>
-      <div class="ntab" onclick="goPage('member')" id="ntab-member"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="14.5" r="5"/><path d="M8.6 10 6.3 4.4h3.9l1.6 3.1M15.4 10l2.3-5.6h-3.9L12.2 7.5"/><path d="m12 12.2.85 1.7 1.9.27-1.37 1.33.33 1.88L12 16.5l-1.7.9.33-1.88-1.37-1.33 1.9-.27z"/></svg><span class="lang-th">สมาชิก</span><span class="lang-en" style="display:none;">Member</span></div>
+      <div class="ntab" onclick="goPage('member')" id="ntab-member"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="14.5" r="5"/><path d="M8.6 10 6.3 4.4h3.9l1.6 3.1M15.4 10l2.3-5.6h-3.9L12.2 7.5"/><path d="m12 12.2.85 1.7 1.9.27-1.37 1.33.33 1.88L12 16.5l-1.7.9.33-1.88-1.37-1.33 1.9-.27z"/></svg><span class="lang-th">คลับ</span><span class="lang-en" style="display:none;">Club</span></div>
       <div class="ntab" onclick="goPage('orders')" id="ntab-orders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg><span class="lang-th">พัสดุ</span><span class="lang-en" style="display:none;">Orders</span></div>
     </div>
     <button class="lang-toggle" onclick="toggleLang()" id="langBtn">🇬🇧 EN</button>
@@ -1074,6 +1074,16 @@ try{
       </div>
     </div>
     <div style="position:relative;margin-top:13px;background:#fff;color:#C06B8A;border-radius:12px;padding:11px;text-align:center;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.84rem;letter-spacing:.3px;"><span class="lang-th">สแกนเลย ✨</span><span class="lang-en" style="display:none;">Scan now ✨</span></div>
+  </div>
+
+  <!-- CLUB EVENT TEASER -->
+  <div onclick="goPage('member');setTimeout(function(){var e=document.getElementById('mb-events');if(e)e.scrollIntoView({behavior:'smooth',block:'start'});},260);" style="margin:0 0 14px;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#2E5A0E,#3E7C7B);border-radius:16px;padding:13px 15px;cursor:pointer;color:#fff;box-shadow:0 6px 18px rgba(46,90,14,.22);">
+    <div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🏃</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-family:'Anuphan',sans-serif;font-weight:800;font-size:.84rem;">MOVE LIVELY · <span class="lang-th">งานวิ่งคลับ</span><span class="lang-en" style="display:none;">Club run</span></div>
+      <div style="font-size:.64rem;opacity:.92;"><span class="lang-th">เสาร์ 25 เม.ย. · The Standard · ลงทะเบียนเลย</span><span class="lang-en" style="display:none;">Sat 25 Apr · The Standard · register now</span></div>
+    </div>
+    <div style="font-size:1.1rem;opacity:.8;">›</div>
   </div>
 
   <!-- BIOACTIVE 9 DOTS -->
@@ -1826,7 +1836,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.2 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.3 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -2140,8 +2150,8 @@ function syncLogRings(){
 <!-- ════════ MEMBER · GLOW MEMBERSHIP ════════ -->
 <div class="page" id="page-member">
   <div class="mb-hero">
-    <div class="mb-eyebrow"><span class="lang-th">สมาชิก GLOW</span><span class="lang-en" style="display:none;">GLOW MEMBERSHIP</span></div>
-    <div class="mb-title"><span class="lang-th">บัตรสมาชิก BioActive+</span><span class="lang-en" style="display:none;">BioActive+ Membership</span></div>
+    <div class="mb-eyebrow"><span class="lang-th">BIO+ CLUB</span><span class="lang-en" style="display:none;">BIO+ CLUB</span></div>
+    <div class="mb-title"><span class="lang-th">คอมมูนิตี้ &amp; สิทธิพิเศษ</span><span class="lang-en" style="display:none;">Community &amp; Perks</span></div>
   </div>
 
   <div id="mb-card-wrap"></div>
@@ -2152,6 +2162,10 @@ function syncLogRings(){
     <div class="mb-points-num" id="mb-points">0 <span style="font-size:.8rem;font-weight:600;">แต้ม</span></div>
     <div class="mb-points-sub"><span class="lang-th">ทุก ฿10 ที่ซื้อในแอป = 1 แต้ม · 200 แต้ม = ส่วนลด ฿100</span><span class="lang-en" style="display:none;">Every ฿10 in-app = 1 point · 200 pts = ฿100 off</span></div>
   </div>
+
+  <!-- ===== BIO+ CLUB EVENTS ===== -->
+  <div class="mb-sec-ttl" style="margin-top:18px;display:flex;align-items:center;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="#3E7C7B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg><span class="lang-th">อีเวนต์ของคลับ</span><span class="lang-en" style="display:none;">Club events</span></div>
+  <div id="mb-events"></div>
 
   <div class="mb-sec-ttl"><span class="lang-th">สิทธิ์ระดับของคุณ</span><span class="lang-en" style="display:none;">Your tier perks</span></div>
   <div id="mb-benefits"></div>
@@ -5317,6 +5331,7 @@ function renderMember(){
   const ni=document.getElementById('mb-name-input'); if(ni && !ni.value) ni.value = (nm==='GIRL'?'':nm);
   renderRewards();
   memberLang();
+  try{ renderClubEvents(); }catch(e){}
 }
 
 function drawMemberCard(){
@@ -10037,6 +10052,50 @@ function showSkinCartPopup(scan){
       +'<button onclick="document.getElementById(\'skin-cart-pop\').remove();if(typeof goPage===\'function\')goPage(\'shop\');" style="width:100%;margin-top:9px;border:1px solid var(--border,#E8DFCB);background:transparent;color:var(--accent,#3B6D11);font-family:\'Anuphan\',sans-serif;font-weight:700;font-size:.8rem;padding:12px;border-radius:14px;cursor:pointer;">'+(en?'Go to cart / shop':'ไปที่ตะกร้า / ช้อป')+'</button></div>';
     document.body.appendChild(ov);
   }catch(e){}
+}
+</script>
+<script>
+/* ===== Bio+ Club events ===== */
+const CLUB_EVENTS=[{
+  id:'movelively', partner:'BioActive+ × Rolling Run Club', title:'MOVE LIVELY',
+  sub_th:'งานวิ่งสายเฮลตี้ · ปาร์ตี้ริมสระ', sub_en:'A Wellness Run · A Fun Poolside',
+  venue_th:'The Standard, Bangkok Mahanakhon', venue_en:'The Standard, Bangkok Mahanakhon',
+  date_th:'เสาร์ 25 เม.ย. 2026', date_en:'Sat 25 Apr 2026', time:'6:00–11:00',
+  grad:['#2E5A0E','#3E7C7B'],
+  segments:[{k:'MOVE',v_th:'วิ่งในเมือง',v_en:'City Run'},{k:'RECOVER',v_th:'ดนตรี & สระ',v_en:'Music & Pool'},{k:'CONNECT',v_th:'ดื่ม & พูดคุย',v_en:'Drink & Conversation'}]
+}];
+function renderClubEvents(){
+  var wrap=document.getElementById('mb-events'); if(!wrap) return;
+  var en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  var reg={}; try{ reg=JSON.parse(localStorage.getItem('girl_club_events')||'{}'); }catch(e){}
+  wrap.innerHTML = CLUB_EVENTS.map(function(ev){
+    var isReg=!!reg[ev.id];
+    var segs=ev.segments.map(function(s){ return '<div style="flex:1;text-align:center;"><div style="font-family:\'Anuphan\',sans-serif;font-weight:800;font-size:.6rem;letter-spacing:.1em;color:#fff;">'+s.k+'</div><div style="font-size:.56rem;color:rgba(255,255,255,.82);margin-top:1px;">'+(en?s.v_en:s.v_th)+'</div></div>'; }).join('<div style="width:1px;background:rgba(255,255,255,.25);"></div>');
+    return '<div style="border-radius:20px;overflow:hidden;box-shadow:0 8px 24px rgba(46,90,14,.16);margin-bottom:14px;border:1px solid var(--border);">'
+      +'<div style="position:relative;background:linear-gradient(135deg,'+ev.grad[0]+','+ev.grad[1]+');padding:16px 16px 13px;color:#fff;overflow:hidden;">'
+        +'<div style="position:absolute;right:-10px;bottom:-14px;opacity:.15;line-height:0;"><svg viewBox="0 0 24 24" width="120" height="120" fill="#fff"><path d="M5 19C5 11 11 5 20 5 20 13 14 19 5 19Z"/></svg></div>'
+        +'<div style="position:relative;font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.92;">'+ev.partner+'</div>'
+        +'<div style="position:relative;font-family:\'Playfair Display\',serif;font-weight:800;font-size:1.7rem;line-height:1.02;margin-top:5px;">'+ev.title+'</div>'
+        +'<div style="position:relative;font-size:.66rem;opacity:.92;margin-top:3px;font-style:italic;">'+(en?ev.sub_en:ev.sub_th)+'</div>'
+        +'<div style="position:relative;display:flex;align-items:center;gap:8px;margin-top:12px;background:rgba(255,255,255,.13);border-radius:11px;padding:9px 6px;">'+segs+'</div>'
+      +'</div>'
+      +'<div style="background:var(--card);padding:13px 15px 14px;">'
+        +'<div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--text);margin-bottom:5px;"><span>📍</span>'+(en?ev.venue_en:ev.venue_th)+'</div>'
+        +'<div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--text);margin-bottom:5px;"><span>📅</span>'+(en?ev.date_en:ev.date_th)+' · '+ev.time+'</div>'
+        +'<div style="display:flex;align-items:center;gap:7px;font-size:.62rem;color:var(--grain);margin-bottom:11px;"><span>✦</span>'+(en?'Exclusive for members · limited spots':'สิทธิพิเศษสมาชิก · ที่นั่งจำกัด')+'</div>'
+        +(isReg
+           ? '<button disabled style="width:100%;background:var(--bg);color:var(--accent);font-family:\'Anuphan\',sans-serif;font-weight:800;font-size:.84rem;padding:13px;border-radius:13px;border:1px solid var(--accent);">'+(en?'✓ Registered — see you there!':'✓ ลงทะเบียนแล้ว — เจอกันนะ!')+'</button>'
+           : '<button onclick="clubRegister(\''+ev.id+'\')" style="width:100%;border:none;background:linear-gradient(135deg,'+ev.grad[0]+','+ev.grad[1]+');color:#fff;font-family:\'Anuphan\',sans-serif;font-weight:800;font-size:.86rem;padding:14px;border-radius:13px;cursor:pointer;box-shadow:0 6px 16px rgba(46,90,14,.22);">'+(en?'Register now':'ลงทะเบียนเลย')+'</button>')
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+function clubRegister(id){
+  var reg={}; try{ reg=JSON.parse(localStorage.getItem('girl_club_events')||'{}'); }catch(e){}
+  reg[id]=true; try{ localStorage.setItem('girl_club_events', JSON.stringify(reg)); }catch(e){}
+  try{ renderClubEvents(); }catch(e){}
+  var en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  if(typeof toast==='function') toast(en?'🎉 Registered! Details sent soon':'🎉 ลงทะเบียนแล้ว! เดี๋ยวส่งรายละเอียดให้');
 }
 </script>
 </body>
