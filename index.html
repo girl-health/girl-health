@@ -1804,7 +1804,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.7 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.8 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -2118,7 +2118,7 @@ function syncLogRings(){
 <!-- ════════ MEMBER · GLOW MEMBERSHIP ════════ -->
 <div class="page" id="page-member">
   <div class="mb-hero">
-    <div class="mb-eyebrow">GLOW MEMBERSHIP</div>
+    <div class="mb-eyebrow"><span class="lang-th">สมาชิก GLOW</span><span class="lang-en" style="display:none;">GLOW MEMBERSHIP</span></div>
     <div class="mb-title"><span class="lang-th">บัตรสมาชิก BioActive+</span><span class="lang-en" style="display:none;">BioActive+ Membership</span></div>
   </div>
 
@@ -2196,7 +2196,7 @@ function syncLogRings(){
 <!-- ════════ ORDERS · TRACK SHIPPING ════════ -->
 <div class="page" id="page-orders">
   <div class="ord-hero">
-    <div class="eyebrow">MY ORDERS</div>
+    <div class="eyebrow"><span class="lang-th">คำสั่งซื้อของฉัน</span><span class="lang-en" style="display:none;">MY ORDERS</span></div>
     <div class="ttl"><span class="lang-th">ติดตามพัสดุ</span><span class="lang-en" style="display:none;">Track Orders</span></div>
   </div>
   <div class="ord-note"><span class="lang-th">สถานะอัปเดตโดยประมาณ · เฟสถัดไปจะซิงก์เลขพัสดุจริงอัตโนมัติ</span><span class="lang-en" style="display:none;">Approximate status · live tracking syncs in next phase</span></div>
@@ -2269,7 +2269,7 @@ function syncLogRings(){
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px;position:relative;"><path d="M12 20.3C7 16.8 4 13.5 4 9.8A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 8 2.8c0 3.7-3 7-8 10.5z"/></svg>
     </div>
     <div style="flex:1;min-width:0;">
-      <div class="eyebrow">HEALTH TIMELINE</div>
+      <div class="eyebrow"><span class="lang-th">ไทม์ไลน์สุขภาพ</span><span class="lang-en" style="display:none;">HEALTH TIMELINE</span></div>
       <div class="ttl"><span class="lang-th">ไทม์ไลน์สุขภาพ</span><span class="lang-en" style="display:none;">Health Timeline</span></div>
       <div class="sub"><span class="lang-th">ไดอารี่สุขภาพ 30 วัน + AI หาความเชื่อมโยงข้ามวันให้</span><span class="lang-en" style="display:none;">Your 30-day health diary + AI cross-day correlations</span></div>
     </div>
@@ -2283,7 +2283,7 @@ function syncLogRings(){
 <!-- ════════ RECOVERY & RITUALS ════════ -->
 <div class="page" id="page-recovery">
   <div class="rc-hero">
-    <div class="eyebrow">RECOVERY &amp; RITUALS</div>
+    <div class="eyebrow"><span class="lang-th">ฟื้นฟู &amp; กิจวัตร</span><span class="lang-en" style="display:none;">RECOVERY &amp; RITUALS</span></div>
     <div class="ttl"><span class="lang-th">ฟื้นฟู &amp; ดูแลตัวเอง</span><span class="lang-en" style="display:none;">Recovery &amp; Self-Care</span></div>
     <div class="sub"><span class="lang-th">บันทึกการฟื้นฟูร่างกายในแต่ละเดือน — แช่น้ำแข็ง ซาวน่า ออนเซน นวด สครับ ทำเล็บ และอื่น ๆ</span><span class="lang-en" style="display:none;">Track your monthly recovery rituals — ice bath, sauna, onsen, massage, scrub, nails &amp; more</span></div>
   </div>
@@ -3685,7 +3685,7 @@ async function renderTimeline(){
 }
 async function renderTimelineInsight(data, ins, en){
   const today=new Date().toISOString().split('T')[0];
-  try{ const c=JSON.parse(localStorage.getItem(TLINS_KEY)||'{}'); if(c.date===today&&c.html){ ins.innerHTML=c.html; return; } }catch(e){}
+  try{ const c=JSON.parse(localStorage.getItem(TLINS_KEY)||'{}'); if(c.date===today&&c.lang===currentLang&&c.html){ ins.innerHTML=c.html; return; } }catch(e){}
   const withData=(data||[]).filter(function(d){return _coachLine(d).indexOf('no data logged')<0;});
   if(withData.length<4){ ins.innerHTML='<div style="font-size:.72rem;color:var(--muted2);font-family:\'Anuphan\',sans-serif;line-height:1.5;">'+(en?'Keep logging — after about a week, AI will reveal correlations across your days.':'บันทึกต่อไปเรื่อย ๆ พอครบ ~1 สัปดาห์ AI จะเริ่มหาความเชื่อมโยงข้ามวันให้ค่ะ')+'</div>'; return; }
   ins.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.72rem;font-family:\'Anuphan\',sans-serif;"><div style="width:13px;height:13px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Finding patterns…':'กำลังค้นหารูปแบบ…')+'</div>';
@@ -3715,7 +3715,7 @@ async function renderTimelineInsight(data, ins, en){
         +'</div>';
     }).join('');
     ins.innerHTML=h;
-    try{ localStorage.setItem(TLINS_KEY,JSON.stringify({date:today,html:h})); }catch(e){}
+    try{ localStorage.setItem(TLINS_KEY,JSON.stringify({date:today,lang:currentLang,html:h})); }catch(e){}
   }catch(e){ console.error('tlinsight',e); ins.innerHTML='<div style="font-size:.72rem;color:var(--muted2);font-family:\'Anuphan\',sans-serif;">'+(en?'Patterns unavailable right now.':'ยังค้นหารูปแบบไม่ได้ตอนนี้ค่ะ')+'</div>'; }
 }
 
@@ -4688,7 +4688,16 @@ const translations = {
 
 function toggleLang() {
   currentLang = currentLang === 'th' ? 'en' : 'th';
+  try{ localStorage.setItem('girl_lang', currentLang); }catch(e){}
   applyLang();
+  // refresh dynamic pages so AI/rendered content switches language too
+  try{
+    var act=document.querySelector('.page.active'); var id=act?act.id:'';
+    if(id==='page-timeline' && typeof renderTimeline==='function') renderTimeline();
+    else if(id==='page-table' && typeof renderTable==='function') renderTable();
+    else if(id==='page-stats' && typeof renderStats==='function') renderStats();
+    else if(id==='page-body' && typeof renderBodyPage==='function') renderBodyPage();
+  }catch(e){}
 }
 
 function applyLang() {
