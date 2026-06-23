@@ -1826,7 +1826,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.1 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.2 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -9293,27 +9293,22 @@ function onbEN(){ return (typeof currentLang!=='undefined'&&currentLang==='en');
 function onbIcon(o,sz){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:${sz||26}px;height:${sz||26}px;">${o.ic}</svg>`; }
 
 function onbEmblemSVG(){
-  var cx=75, cy=72, R=48;
-  function chip(x,y,stroke,inner){
-    return '<g transform="translate('+x+','+y+')"><circle r="14" fill="#FBF7EE" stroke="#DCC9A0" stroke-width="1"/>'
-      +'<g stroke="'+stroke+'" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">'+inner+'</g></g>';
-  }
-  var dumbbell='<path d="M-5 0h10"/><rect x="-6.6" y="-3" width="2.3" height="6" rx="1"/><rect x="4.3" y="-3" width="2.3" height="6" rx="1"/>';
-  var heart='<path d="M0 4.4C-2.6 2.1-5 .6-5-1.7A2.1 2.1 0 0 1 0-2.9 2.1 2.1 0 0 1 5-1.7C5 .6 2.6 2.1 0 4.4Z"/>';
-  var bag='<path d="M-4.3-1.4h8.6l-.7 6.6a1 1 0 0 1-1 .9h-5.2a1 1 0 0 1-1-.9z"/><path d="M-2.3-1.4v-1.1a2.3 2.3 0 0 1 4.6 0v1.1"/>';
-  var leaf='<path d="M-3.6 3.6C-3.6-1 0-3.6 4-3.6 4 1 .4 3.6-3.6 3.6Z"/><path d="M-1.8 1.8 2.8-2.6"/>';
-  return '<svg viewBox="0 0 150 150" style="width:120px;height:120px;">'
-    +'<defs><radialGradient id="obg" cx="50%" cy="44%" r="60%"><stop offset="0%" stop-color="#FCF9F0"/><stop offset="100%" stop-color="#F0E8D6"/></radialGradient>'
-    +'<linearGradient id="obmono" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4F8560"/><stop offset="100%" stop-color="#2E5A0E"/></linearGradient></defs>'
-    +'<circle cx="'+cx+'" cy="'+cy+'" r="56" fill="url(#obg)"/>'
-    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#C9A96E" stroke-width="1.2"/>'
-    +'<circle cx="'+cx+'" cy="'+cy+'" r="31" fill="#FFFFFF" stroke="#E6D8B8" stroke-width="1"/>'
-    +'<text x="'+cx+'" y="'+(cy+8)+'" text-anchor="middle" style="font-family:\'Playfair Display\',Georgia,serif;font-size:25px;font-weight:800;"><tspan fill="url(#obmono)">Bio</tspan><tspan fill="#C9A96E">+</tspan></text>'
-    +chip(cx,cy-R,'#3B6D11',dumbbell)
-    +chip(cx+R,cy,'#8B5E52',heart)
-    +chip(cx,cy+R,'#B8860B',bag)
-    +chip(cx-R,cy,'#4F8560',leaf)
-    +'</svg>';
+  return `<svg viewBox="0 0 160 160" style="width:122px;height:122px;">
+<defs>
+  <radialGradient id="onbBg" cx="50%" cy="42%" r="62%"><stop offset="0%" stop-color="#FCF9F0"/><stop offset="100%" stop-color="#EFE7D4"/></radialGradient>
+  <linearGradient id="onbMono" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#56895F"/><stop offset="100%" stop-color="#2C570D"/></linearGradient>
+  <filter id="onbSoft" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#7A5B22" flood-opacity="0.18"/></filter>
+</defs>
+<circle cx="80" cy="78" r="60" fill="url(#onbBg)"/>
+<circle cx="80" cy="78" r="49" fill="none" stroke="#C9A96E" stroke-width="1.3"/>
+<circle cx="80" cy="78" r="42" fill="none" stroke="#D8C490" stroke-width="1" stroke-dasharray="1.5 4" opacity=".8"/>
+<circle cx="80" cy="29" r="2.1" fill="#C9A96E"/>
+<circle cx="80" cy="127" r="2.1" fill="#C9A96E"/>
+<circle cx="80" cy="78" r="31" fill="#FFFFFF" stroke="#E6D8B8" stroke-width="1.1" filter="url(#onbSoft)"/>
+<text x="80" y="87" text-anchor="middle" style="font-family:'Playfair Display',Georgia,serif;font-size:25px;font-weight:800;"><tspan fill="url(#onbMono)">Bio</tspan><tspan fill="#C9A96E">+</tspan></text>
+<g transform="translate(31,78)"><circle r="16.5" fill="#FBF1D8" stroke="#D9BC72" stroke-width="1.2" filter="url(#onbSoft)"/><g transform="translate(-8.7,-8.4) scale(0.72)" fill="none" stroke="#B8860B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.4"/><circle cx="19" cy="21" r="1.4"/><path d="M1.5 2.5h3.2l2.4 11.6a1.7 1.7 0 0 0 1.7 1.4h8.6a1.7 1.7 0 0 0 1.7-1.35L21.5 6H6.2"/></g></g>
+<g transform="translate(129,78)"><circle r="16.5" fill="#EAF1E4" stroke="#AEC596" stroke-width="1.2" filter="url(#onbSoft)"/><g transform="translate(-9,-8.5) scale(0.76)" fill="none" stroke="#3B6D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.3C5.5 15 2.6 12 2.6 8.1A4.3 4.3 0 0 1 12 5.6 4.3 4.3 0 0 1 21.4 8.1c0 1.3-.4 2.5-1.2 3.7"/><path d="M2.8 12.4H8l1.8-3.2 2.4 5.6 1.7-2.7H21"/></g></g>
+</svg>`;
 }
 function renderOnb(){
   const root=document.getElementById('onb-card'); if(!root) return;
