@@ -1826,7 +1826,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.0 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.1 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -6888,7 +6888,8 @@ Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" f
         }
       }
     }catch(e){}
-    filled.push({icon:'🍱', label:isEN?`Meals (${foods.length})`:`อาหาร (${foods.length} รูป)`, detail:`+${Math.round(kcal)} kcal`, color:'var(--accent)'});
+    const _smRunK=Math.round(+((document.getElementById('mac_kcal')||{}).value)||0);
+    filled.push({icon:'🍱', label:isEN?`Meals (${foods.length})`:`อาหาร (${foods.length} รูป)`, detail:isEN?`+${Math.round(kcal)} → today ${_smRunK}`:`+${Math.round(kcal)} → รวม ${_smRunK}`, color:'var(--accent)'});
   }
 
   // SLEEP — merge non-zero values across sleep screens
@@ -7017,9 +7018,16 @@ Respond ONLY with valid JSON:
         }
       }
       const confColor = r.confidence==='high'?'var(--veg)':r.confidence==='medium'?'var(--grain)':'var(--prot)';
+      const _scEN=(typeof currentLang!=='undefined'&&currentLang==='en');
+      const runK=Math.round(+((document.getElementById('mac_kcal')||{}).value)||0);
+      const addK=Math.round(n.kcal||0);
       resWrap.innerHTML = `<div style="background:rgba(74,124,89,.06);border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;background:var(--accent);color:#fff;border-radius:9px;padding:8px 11px;margin-bottom:9px;">
+          <span style="font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:700;">${_scEN?('+'+addK+' kcal added'):('+'+addK+' kcal เพิ่มแล้ว')}</span>
+          <span style="font-family:'Anuphan',sans-serif;font-size:.82rem;font-weight:800;">${_scEN?('Today total: '+runK+' kcal'):('รวมวันนี้ '+runK+' kcal')}</span>
+        </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <span style="font-family:'Anuphan',sans-serif;font-size:.75rem;color:var(--accent);">🍱 Meals Scanned</span>
+          <span style="font-family:'Anuphan',sans-serif;font-size:.75rem;color:var(--accent);">${_scEN?'🍱 This photo':'🍱 รูปนี้'}</span>
           <span style="font-size:.6rem;color:${confColor};background:${confColor}18;padding:2px 8px;border-radius:10px;">Accuracy: ${r.confidence}</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px;">
@@ -7027,7 +7035,7 @@ Respond ONLY with valid JSON:
         </div>
         <div style="font-size:.65rem;color:var(--accent);">✓ Meal descriptions + nutrition filled automatically</div>
       </div>`;
-      toast(`🍱 Meals scanned · ${Math.round(n.kcal||0)} kcal`);
+      toast(_scEN?(`🍱 +${addK} kcal · today ${runK}`):(`🍱 +${addK} kcal · รวมวันนี้ ${runK}`));
     }
 
     else if(mode === 'sleep'){
