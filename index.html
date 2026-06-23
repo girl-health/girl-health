@@ -1259,32 +1259,6 @@ try{
     <div class="pf-philo-big"><span class="lang-th">ร่างกายแข็งแรง<br>จิตใจสงบ<br>ชีวิตงดงาม</span><span class="lang-en" style="display:none;">Strong body.<br>Calm mind.<br>Beautiful life.</span></div>
     <div class="pf-philo-sub"><span class="lang-th">ฉันไม่ไล่ตามความสมบูรณ์แบบ<br>แต่สร้างนิสัยที่อยู่กับเราได้นาน</span><span class="lang-en" style="display:none;">I don\'t chase perfection.<br>I build habits that last.</span></div>
   </div>
-  <!-- BACKUP / RESTORE -->
-  <div style="background:var(--card,#fff);border:1px solid var(--border,#E8DFCB);border-radius:20px;padding:18px;margin-top:16px;box-shadow:0 4px 18px rgba(120,100,60,.06);">
-    <div style="display:flex;align-items:center;gap:11px;">
-      <div style="width:42px;height:42px;border-radius:13px;background:rgba(74,124,89,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="#4A7C59" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v4h-4"/></svg></div>
-      <div style="min-width:0;"><div style="font-family:'Anuphan',sans-serif;font-weight:700;font-size:.92rem;color:var(--text,#2A2A22);"><span class="lang-th">สำรอง &amp; ย้ายข้อมูลข้ามเครื่อง</span><span class="lang-en" style="display:none;">Backup &amp; move data across devices</span></div><div style="font-family:'Anuphan',sans-serif;font-size:.64rem;color:var(--muted,#9A9384);margin-top:1px;"><span class="lang-th">คอม → ดาวน์โหลดไฟล์ → เปิดในมือถือ → กู้คืน</span><span class="lang-en" style="display:none;">Computer → download → open on phone → restore</span></div></div>
-    </div>
-    <div style="display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;">
-      <button type="button" onclick="bioBackup()" style="flex:1;min-width:140px;padding:13px;border:none;border-radius:13px;background:linear-gradient(135deg,#4F8560,#3B6D11);color:#fff;font-family:'Anuphan',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span class="lang-th">สำรองข้อมูล</span><span class="lang-en" style="display:none;">Backup</span></button>
-      <label style="flex:1;min-width:140px;padding:13px;border:1.5px solid var(--accent,#3B6D11);border-radius:13px;background:transparent;color:var(--accent,#3B6D11);font-family:'Anuphan',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M12 15V3m0 0l-4 4m4-4l4 4M5 21h14"/></svg><span class="lang-th">กู้คืนจากไฟล์</span><span class="lang-en" style="display:none;">Restore from file</span><input type="file" accept="application/json,.json" style="display:none" onchange="bioRestoreFile(this)"></label>
-    </div>
-    <div onclick="var b=document.getElementById('bio-bk-paste');b.style.display=b.style.display==='none'?'block':'none';" style="margin-top:12px;font-family:'Anuphan',sans-serif;font-size:.64rem;color:var(--muted,#9A9384);text-align:center;cursor:pointer;"><span class="lang-th">หรือวาง/คัดลอกโค้ดข้อมูลเอง ▾</span><span class="lang-en" style="display:none;">Or paste data code ▾</span></div>
-    <div id="bio-bk-paste" style="display:none;margin-top:9px;">
-      <textarea id="bio-bk-text" placeholder="วางโค้ดข้อมูลที่ก๊อปจากเครื่องอื่น" style="width:100%;box-sizing:border-box;height:70px;border:1px solid var(--border,#E8DFCB);border-radius:11px;padding:9px;font-family:monospace;font-size:.62rem;color:var(--text);resize:vertical;"></textarea>
-      <button type="button" onclick="bioRestoreText()" style="width:100%;margin-top:7px;padding:10px;border:none;border-radius:11px;background:var(--accent,#3B6D11);color:#fff;font-family:'Anuphan',sans-serif;font-weight:700;font-size:.74rem;cursor:pointer;"><span class="lang-th">กู้คืนจากโค้ด</span><span class="lang-en" style="display:none;">Restore from code</span></button>
-    </div>
-    <div id="bio-bk-status" style="display:none;margin-top:11px;font-family:'Anuphan',sans-serif;font-size:.68rem;font-weight:600;text-align:center;"></div>
-  </div>
-  <script>
-  function bioCollectBackup(){var data={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);data[k]=localStorage.getItem(k);}return {app:'bioplus',v:1,exported:new Date().toISOString(),count:Object.keys(data).length,data:data};}
-  function bioBkStatus(msg,ok){var s=document.getElementById('bio-bk-status');if(s){s.style.display='block';s.style.color=ok?'#3B6D11':'#B23A2E';s.textContent=msg;}}
-  function bioBackup(){try{var p=bioCollectBackup();var json=JSON.stringify(p);var blob=new Blob([json],{type:'application/json'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;var d=new Date();var pad=function(n){return String(n).padStart(2,'0');};a.download='bioplus-backup-'+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'-'+pad(d.getHours())+pad(d.getMinutes())+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500);try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(json);}catch(e){}var en=(typeof currentLang!=='undefined'&&currentLang==='en');bioBkStatus((en?'✓ Backed up ':'✓ สำรองแล้ว ')+p.count+(en?' items — file downloaded (also copied to clipboard)':' รายการ — ดาวน์โหลดไฟล์แล้ว (ก๊อปลงคลิปบอร์ดด้วย)'),true);}catch(e){bioBkStatus('Error: '+e.message,false);}}
-  function bioApplyBackup(p){var en=(typeof currentLang!=='undefined'&&currentLang==='en');if(!p||!p.data||typeof p.data!=='object')throw new Error(en?'invalid file':'ไฟล์ไม่ถูกต้อง');var keys=Object.keys(p.data);if(!keys.length)throw new Error(en?'no data':'ไม่มีข้อมูล');if(!confirm((en?'Import ':'นำเข้าข้อมูล ')+keys.length+(en?' items and overwrite this device?':' รายการ ทับข้อมูลในเครื่องนี้?')))return;keys.forEach(function(k){try{localStorage.setItem(k,p.data[k]);}catch(e){}});bioBkStatus((en?'✓ Restored ':'✓ กู้คืน ')+keys.length+(en?' items — reloading…':' รายการ — กำลังรีโหลด…'),true);setTimeout(function(){location.reload();},900);}
-  function bioRestoreFile(input){var f=(input.files||[])[0];if(!f)return;var r=new FileReader();r.onload=function(){try{bioApplyBackup(JSON.parse(r.result));}catch(e){bioBkStatus('อ่านไฟล์ไม่ได้: '+e.message,false);}};r.onerror=function(){bioBkStatus('อ่านไฟล์ไม่สำเร็จ',false);};r.readAsText(f);try{input.value='';}catch(e){}}
-  function bioRestoreText(){var t=document.getElementById('bio-bk-text');if(!t||!t.value.trim()){bioBkStatus('วางโค้ดข้อมูลก่อนนะ',false);return;}try{bioApplyBackup(JSON.parse(t.value.trim()));}catch(e){bioBkStatus('โค้ดข้อมูลไม่ถูกต้อง: '+e.message,false);}}
-  </script>
-
 </div>
 
 
@@ -1829,7 +1803,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.3 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.4 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -8589,6 +8563,15 @@ function saveBodySnapshot(){
   toast('✓ Body measurement saved!');
 }
 
+function deleteBodySnap(date){
+  var en=false; try{ en=(typeof currentLang!=='undefined'&&currentLang==='en'); }catch(e){}
+  if(!confirm(en?('Delete the measurement on '+date+'?'):('ลบข้อมูลร่างกายวันที่ '+date+' ?'))) return;
+  var snaps=getBodySnaps().filter(function(s){return s.date!==date;});
+  saveBodySnaps(snaps);
+  renderBodyPage();
+  try{ toast(en?'✓ Deleted':'✓ ลบแล้ว'); }catch(e){}
+}
+
 function renderBodyPage(){
   const snaps = getBodySnaps();
   const wrap = document.getElementById('body-table-wrap');
@@ -8609,7 +8592,7 @@ function renderBodyPage(){
   };
 
   let html = `<div style="overflow-x:auto;"><table class="body-table"><thead><tr>
-    <th>Date</th><th>Weight<br><span style="font-weight:400;color:var(--muted)">kg</span></th><th>Fat<br><span style="font-weight:400;color:var(--muted)">%</span></th><th>Muscle<br><span style="font-weight:400;color:var(--muted)">kg</span></th><th>Fat kg</th>
+    <th>Date</th><th>Weight<br><span style="font-weight:400;color:var(--muted)">kg</span></th><th>Fat<br><span style="font-weight:400;color:var(--muted)">%</span></th><th>Muscle<br><span style="font-weight:400;color:var(--muted)">kg</span></th><th>Fat kg</th><th></th>
   </tr></thead><tbody>`;
 
   snaps.forEach((s,i)=>{
@@ -8623,6 +8606,7 @@ function renderBodyPage(){
       <td><strong style="color:var(--veg)">${s.muscle||'—'}</strong> ${delta(s.muscle, prev?.muscle, false)}</td>
       <td style="color:var(--muted2)">${fatKg}${prevFatKg?(' '+delta(parseFloat(fatKg), prevFatKg)):''}
       </td>
+      <td style="text-align:center;"><button type="button" onclick="deleteBodySnap('${s.date}')" title="ลบ" style="border:none;background:rgba(178,58,46,.08);color:#B23A2E;width:30px;height:30px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg></button></td>
     </tr>`;
   });
   html += '</tbody></table></div>';
