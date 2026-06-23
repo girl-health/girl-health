@@ -1803,7 +1803,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.4 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.5 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -9902,6 +9902,30 @@ async function loadHomeDashboard(force){
 init();
 try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
 
+</script>
+<script>
+/* ── Girl's body baseline — seeds once on any device that has no body data,
+      so the Body page, year comparison, and Current Body card show everywhere
+      (incl. mobile) without re-entering. Won't overwrite a device that already has data. ── */
+(function(){
+  try{
+    var snapsRaw = localStorage.getItem('girl_body_snapshots');
+    var snaps = []; try{ snaps = JSON.parse(snapsRaw||'[]'); }catch(e){ snaps = []; }
+    if(!Array.isArray(snaps) || snaps.length===0){
+      localStorage.setItem('girl_body_snapshots', JSON.stringify([
+        {date:'2025-04-28', weight:45.7, fat:33.7, muscle:15.9},
+        {date:'2026-06-05', weight:48.7, fat:25.3, muscle:20.2}
+      ]));
+    }
+    var pb = {}; try{ pb = JSON.parse(localStorage.getItem('girl_profile_body')||'{}'); }catch(e){ pb = {}; }
+    if(!pb || pb.weight==null){
+      localStorage.setItem('girl_profile_body', JSON.stringify({
+        weight:48.7, fat:25.3, muscle:20.2, bmi:19, visceral:4, score:69,
+        date:'5 มิ.ย. 2569', age:32, fitnessAge:26.5
+      }));
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
