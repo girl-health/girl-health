@@ -1804,7 +1804,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.6 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.7 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -6938,7 +6938,7 @@ async function analyzeAllDay(input, mode){
     meals: `This photo shows GIRL's meals for the day. ${isHome?'Home-cooked: no added salt/sauces/sugar, olive oil only.':'Dining out: include restaurant sodium.'}
 Identify all dishes. For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
 Respond ONLY with valid JSON:
-{"meals":{"breakfast":"description or empty","lunch":"description or empty","dinner":"description or empty","snack":"description or empty"},"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high|medium|low","summary":"brief"}`,
+{"meals":{"breakfast":"description or empty","lunch":"description or empty","dinner":"description or empty","snack":"description or empty"},"nutrition":{"kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0},"ing_categories":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]},"confidence":"high|medium|low","summary":"short dish name(s), e.g. boiled eggs x2 · brown rice · salad"}`,
     sleep: `This is a Garmin screenshot — it may be the Sleep screen, HRV Status screen, or Body Battery screen. Extract EVERY metric visible. Note: HRV (ms) and Sleep Score are often on DIFFERENT Garmin screens. If a value is not visible, use 0 (don't guess). Convert sleep duration to decimal hours and stage times to minutes. Respond ONLY with valid JSON:
 {"type":"sleep","bedtime":"HH:MM or empty","waketime":"HH:MM or empty","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0}`,
     exercise: `This is a Garmin exercise/activity summary screenshot. Extract ALL visible data. Respond ONLY with valid JSON:
@@ -6966,6 +6966,8 @@ Respond ONLY with valid JSON:
       appendMeal('m_l', r.meals?.lunch);
       appendMeal('m_d', r.meals?.dinner);
       appendMeal('m_s', r.meals?.snack);
+      // Safety net: always capture a menu name (so Timeline/Table show the dish, like other days)
+      try{ var _mb=document.getElementById('m_b'); if(_mb && !(_mb.value||'').trim()){ var _fb=(r.summary||'').trim(); if(_fb && _fb.toLowerCase()!=='brief') _mb.value=_fb; } }catch(e){}
       // Fill nutrition — ADD to existing totals so multiple photos accumulate
       const setN = (id,v) => { const el = document.getElementById(id); if(el&&v) el.value = Math.round((parseFloat(el.value)||0) + (+v||0)); };
       setN('mac_kcal',n.kcal); setN('mac_p',n.protein_g); setN('mac_carb',n.carb_g);
@@ -9911,8 +9913,12 @@ try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
       (incl. mobile) without re-entering. Won't overwrite a device that already has data. ── */
 (function(){
   try{
-    var SEED_FLAG='girl_seed_body_v25';
+    var SEED_FLAG='girl_seed_v27';
     if(localStorage.getItem(SEED_FLAG)) return;
+    // Pin owner identity so every one of Girl's devices sees her cloud data (Timeline / Table).
+    // Her logs live under uid 'owner'; a fresh phone gets a random uid and can't see them.
+    var uidChanged=false;
+    if(localStorage.getItem('girl_uid')!=='owner'){ localStorage.setItem('girl_uid','owner'); uidChanged=true; }
     localStorage.setItem('girl_body_snapshots', JSON.stringify([
       {date:'2025-04-28', weight:45.7, fat:33.7, muscle:15.9},
       {date:'2026-06-05', weight:48.7, fat:25.3, muscle:20.2}
@@ -9922,6 +9928,7 @@ try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
     pb.date='5 มิ.ย. 2569'; if(pb.age==null) pb.age=32; pb.fitnessAge=26.5;
     localStorage.setItem('girl_profile_body', JSON.stringify(pb));
     localStorage.setItem(SEED_FLAG,'1');
+    if(uidChanged){ location.reload(); }
   }catch(e){}
 })();
 </script>
