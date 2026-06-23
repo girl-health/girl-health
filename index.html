@@ -1836,7 +1836,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.3 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.4 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -2149,9 +2149,17 @@ function syncLogRings(){
 
 <!-- ════════ MEMBER · GLOW MEMBERSHIP ════════ -->
 <div class="page" id="page-member">
-  <div class="mb-hero">
-    <div class="mb-eyebrow"><span class="lang-th">BIO+ CLUB</span><span class="lang-en" style="display:none;">BIO+ CLUB</span></div>
-    <div class="mb-title"><span class="lang-th">คอมมูนิตี้ &amp; สิทธิพิเศษ</span><span class="lang-en" style="display:none;">Community &amp; Perks</span></div>
+  <div style="position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(135deg,#2E5A0E 0%,#34685E 58%,#3E7C7B 100%);padding:20px 18px 18px;color:#fff;box-shadow:0 12px 32px rgba(46,90,14,.26);margin-bottom:16px;">
+    <div style="position:absolute;right:-14px;bottom:-18px;opacity:.16;line-height:0;"><svg width="148" height="148" viewBox="0 0 24 24" fill="#fff"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></div>
+    <div style="position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,#EBD9A8,#C9A96E,transparent);"></div>
+    <div style="position:relative;font-size:.58rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#EBD9A8;"><span class="lang-th">เฉพาะสมาชิก</span><span class="lang-en" style="display:none;">Members only</span></div>
+    <div style="position:relative;font-family:'Playfair Display',serif;font-weight:800;font-size:2.1rem;line-height:1.02;margin-top:5px;">Bio<span style="color:#EBD9A8;">+</span> Club</div>
+    <div style="position:relative;font-size:.72rem;opacity:.93;line-height:1.5;margin-top:6px;max-width:84%;"><span class="lang-th">คอมมูนิตี้คนรักสุขภาพ — อีเวนต์สุดเอ็กซ์คลูซีฟ จองคอร์ท ไอซ์บาธ ซาวน่า และสิทธิพิเศษเฉพาะสมาชิก</span><span class="lang-en" style="display:none;">A community for the health-obsessed — exclusive events, court &amp; recovery bookings, and members-only perks.</span></div>
+    <div style="position:relative;display:flex;flex-wrap:wrap;gap:6px;margin-top:13px;">
+      <span style="background:rgba(255,255,255,.15);border:1px solid rgba(235,217,168,.4);border-radius:30px;padding:5px 11px;font-size:.62rem;font-weight:600;">🎾 <span class="lang-th">จองคอร์ท</span><span class="lang-en" style="display:none;">Courts</span></span>
+      <span style="background:rgba(255,255,255,.15);border:1px solid rgba(235,217,168,.4);border-radius:30px;padding:5px 11px;font-size:.62rem;font-weight:600;">🧊 <span class="lang-th">ไอซ์บาธ</span><span class="lang-en" style="display:none;">Ice bath</span></span>
+      <span style="background:rgba(255,255,255,.15);border:1px solid rgba(235,217,168,.4);border-radius:30px;padding:5px 11px;font-size:.62rem;font-weight:600;">🔥 <span class="lang-th">ซาวน่า</span><span class="lang-en" style="display:none;">Sauna</span></span>
+    </div>
   </div>
 
   <div id="mb-card-wrap"></div>
@@ -2166,6 +2174,10 @@ function syncLogRings(){
   <!-- ===== BIO+ CLUB EVENTS ===== -->
   <div class="mb-sec-ttl" style="margin-top:18px;display:flex;align-items:center;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="#3E7C7B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg><span class="lang-th">อีเวนต์ของคลับ</span><span class="lang-en" style="display:none;">Club events</span></div>
   <div id="mb-events"></div>
+
+  <!-- ===== CLUB FACILITY BOOKING ===== -->
+  <div class="mb-sec-ttl" style="margin-top:18px;display:flex;align-items:center;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5"/></svg><span class="lang-th">จองสิ่งอำนวยความสะดวก</span><span class="lang-en" style="display:none;">Book a facility</span></div>
+  <div id="mb-bookings"></div>
 
   <div class="mb-sec-ttl"><span class="lang-th">สิทธิ์ระดับของคุณ</span><span class="lang-en" style="display:none;">Your tier perks</span></div>
   <div id="mb-benefits"></div>
@@ -5332,6 +5344,7 @@ function renderMember(){
   renderRewards();
   memberLang();
   try{ renderClubEvents(); }catch(e){}
+  try{ renderClubBookings(); }catch(e){}
 }
 
 function drawMemberCard(){
@@ -10096,6 +10109,62 @@ function clubRegister(id){
   try{ renderClubEvents(); }catch(e){}
   var en=(typeof currentLang!=='undefined'&&currentLang==='en');
   if(typeof toast==='function') toast(en?'🎉 Registered! Details sent soon':'🎉 ลงทะเบียนแล้ว! เดี๋ยวส่งรายละเอียดให้');
+}
+</script>
+<script>
+/* ===== Bio+ Club facility booking ===== */
+const CLUB_FACILITIES=[
+  {id:'tennis', th:'คอร์ทเทนนิส', en:'Tennis Court', dth:'จองคอร์ท · เล่นกับเพื่อนสมาชิก', den:'Book a court · play with members', grad:['#3B6D11','#5C8A2A'], icon:'<ellipse cx="9.5" cy="8.5" rx="5.2" ry="6.3" transform="rotate(-40 9.5 8.5)"/><path d="M6.3 6.6l5 3.8M11.7 5.4l-4 6"/><path d="M13 13l6.4 6.6"/>'},
+  {id:'icebath', th:'ไอซ์บาธ', en:'Ice Bath', dth:'ฟื้นฟูกล้ามเนื้อ · ลดการอักเสบ', den:'Recovery · cold therapy', grad:['#3E7C7B','#5AA6A6'], icon:'<path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/><path d="M12 3l2.2 2.6M12 3l-2.2 2.6M12 21l2.2-2.6M12 21l-2.2-2.6"/>'},
+  {id:'sauna', th:'ซาวน่า', en:'Sauna', dth:'ผ่อนคลาย · ดีท็อกซ์ความร้อน', den:'Relax · heat detox', grad:['#B8860B','#D8A93E'], icon:'<path d="M7 12c0-2 1.8-2.6 1.8-4.5S7 5 7 3.5M12 12c0-2 1.8-2.6 1.8-4.5S12 5 12 3.5M17 12c0-2 1.8-2.6 1.8-4.5S17 5 17 3.5"/><path d="M4 16h16v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/>'}
+];
+const CLUB_SLOTS=['07:00','08:30','10:00','16:00','17:30','19:00'];
+let _clubBk={fac:null,date:null,time:null};
+function _clubEN(){ return (typeof currentLang!=='undefined'&&currentLang==='en'); }
+function getClubBookings(){ try{ return JSON.parse(localStorage.getItem('girl_club_bookings')||'[]'); }catch(e){ return []; } }
+function _clubBkLabel(d,en){ var th=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']; var ed=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return d.getDate()+' '+(en?ed:th)[d.getMonth()]; }
+function renderClubBookings(){
+  var wrap=document.getElementById('mb-bookings'); if(!wrap) return;
+  var en=_clubEN(); var bk=getClubBookings();
+  wrap.innerHTML = CLUB_FACILITIES.map(function(f){
+    var mine=bk.filter(function(b){return b.fac===f.id;}).slice(-1)[0];
+    var sub = mine ? ('✓ '+(en?'Booked ':'จองแล้ว ')+mine.dateLabel+' · '+mine.time) : (en?f.den:f.dth);
+    return '<div style="display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px 13px;margin-bottom:10px;box-shadow:0 3px 12px rgba(0,0,0,.04);">'
+     +'<div style="width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,'+f.grad[0]+','+f.grad[1]+');display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+f.icon+'</svg></div>'
+     +'<div style="flex:1;min-width:0;"><div style="font-family:\'Anuphan\',sans-serif;font-weight:700;font-size:.86rem;color:var(--text);">'+(en?f.en:f.th)+'</div><div style="font-size:.64rem;color:'+(mine?'var(--accent)':'var(--muted2)')+';line-height:1.35;">'+sub+'</div></div>'
+     +'<button onclick="clubBook(\''+f.id+'\')" style="flex-shrink:0;'+(mine?'border:1px solid var(--accent);background:var(--bg);color:var(--accent);':'border:none;background:linear-gradient(135deg,'+f.grad[0]+','+f.grad[1]+');color:#fff;')+'font-family:\'Anuphan\',sans-serif;font-weight:700;font-size:.72rem;padding:9px 14px;border-radius:11px;cursor:pointer;white-space:nowrap;">'+(mine?(en?'Change':'เปลี่ยน'):(en?'Book':'จอง'))+'</button>'
+     +'</div>';
+  }).join('');
+}
+function clubBook(id){ _clubBk={fac:id,date:null,time:null}; _renderClubBookModal(); }
+function _clubPickDate(iso){ _clubBk.date=iso; _renderClubBookModal(); }
+function _clubPickTime(t){ _clubBk.time=t; _renderClubBookModal(); }
+function _renderClubBookModal(){
+  var f=CLUB_FACILITIES.find(function(x){return x.id===_clubBk.fac;}); if(!f) return;
+  var en=_clubEN(); var old=document.getElementById('club-book-pop'); if(old) old.remove();
+  var days=[]; for(var i=0;i<5;i++){ var d=new Date(); d.setDate(d.getDate()+i); days.push(d); }
+  var dow=en?['Sun','Mon','Tue','Wed','Thu','Fri','Sat']:['อา','จ','อ','พ','พฤ','ศ','ส'];
+  var dayChips=days.map(function(d){ var iso=d.toISOString().split('T')[0]; var sel=_clubBk.date===iso; return '<button onclick="_clubPickDate(\''+iso+'\')" style="flex:1;border:1.5px solid '+(sel?f.grad[1]:'var(--border2)')+';background:'+(sel?f.grad[1]:'var(--card)')+';color:'+(sel?'#fff':'var(--text)')+';border-radius:12px;padding:8px 2px;cursor:pointer;font-family:\'Anuphan\',sans-serif;"><div style="font-size:.55rem;opacity:.8;">'+dow[d.getDay()]+'</div><div style="font-weight:700;font-size:.82rem;">'+d.getDate()+'</div></button>'; }).join('');
+  var slotChips=CLUB_SLOTS.map(function(t){ var sel=_clubBk.time===t; return '<button onclick="_clubPickTime(\''+t+'\')" style="border:1.5px solid '+(sel?f.grad[1]:'var(--border2)')+';background:'+(sel?f.grad[1]:'var(--card)')+';color:'+(sel?'#fff':'var(--text)')+';border-radius:11px;padding:10px 0;cursor:pointer;font-family:\'Anuphan\',sans-serif;font-weight:600;font-size:.78rem;">'+t+'</button>'; }).join('');
+  var can=_clubBk.date&&_clubBk.time;
+  var ov=document.createElement('div'); ov.id='club-book-pop'; ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(40,30,30,.55);display:flex;align-items:flex-end;justify-content:center;'; ov.onclick=function(e){ if(e.target===ov) ov.remove(); };
+  ov.innerHTML='<div style="background:var(--bg);width:100%;max-width:460px;border-radius:24px 24px 0 0;padding:20px 18px 26px;max-height:86vh;overflow:auto;box-shadow:0 -10px 40px rgba(0,0,0,.25);">'
+    +'<div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;"><div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,'+f.grad[0]+','+f.grad[1]+');display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+f.icon+'</svg></div><div style="flex:1;"><div style="font-family:\'Playfair Display\',serif;font-weight:700;font-size:1.18rem;color:var(--text);">'+(en?f.en:f.th)+'</div><div style="font-size:.64rem;color:var(--muted2);">'+(en?'Members booking · complimentary':'จองสำหรับสมาชิก · ฟรี')+'</div></div><button onclick="document.getElementById(\'club-book-pop\').remove()" style="border:none;background:rgba(0,0,0,.06);width:30px;height:30px;border-radius:50%;cursor:pointer;color:var(--muted2);flex-shrink:0;">✕</button></div>'
+    +'<div style="font-size:.62rem;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px;">'+(en?'Select date':'เลือกวัน')+'</div><div style="display:flex;gap:6px;margin-bottom:15px;">'+dayChips+'</div>'
+    +'<div style="font-size:.62rem;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px;">'+(en?'Select time':'เลือกเวลา')+'</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:18px;">'+slotChips+'</div>'
+    +'<button onclick="clubBookConfirm()" '+(can?'':'disabled')+' style="width:100%;border:none;background:'+(can?'linear-gradient(135deg,'+f.grad[0]+','+f.grad[1]+')':'var(--border2)')+';color:#fff;font-family:\'Anuphan\',sans-serif;font-weight:800;font-size:.86rem;padding:14px;border-radius:13px;cursor:'+(can?'pointer':'default')+';">'+(en?'Confirm booking':'ยืนยันการจอง')+'</button>'
+    +'</div>';
+  document.body.appendChild(ov);
+}
+function clubBookConfirm(){
+  if(!_clubBk.date||!_clubBk.time) return;
+  var en=_clubEN(); var f=CLUB_FACILITIES.find(function(x){return x.id===_clubBk.fac;});
+  var d=new Date(_clubBk.date+'T00:00:00'); var label=_clubBkLabel(d,en);
+  var arr=getClubBookings(); arr.push({fac:_clubBk.fac,date:_clubBk.date,dateLabel:label,time:_clubBk.time});
+  try{ localStorage.setItem('girl_club_bookings', JSON.stringify(arr)); }catch(e){}
+  var pop=document.getElementById('club-book-pop'); if(pop) pop.remove();
+  try{ renderClubBookings(); }catch(e){}
+  if(typeof toast==='function') toast((en?'✓ Booked ':'✓ จองแล้ว ')+(en?f.en:f.th)+' · '+label+' '+_clubBk.time);
 }
 </script>
 </body>
