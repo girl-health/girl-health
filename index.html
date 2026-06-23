@@ -1275,7 +1275,8 @@ try{
 #page-log .s-body{background:linear-gradient(165deg,#FFFFFF,#FBF6EC);}
 #page-log .s-supp{background:linear-gradient(165deg,#FFFFFF,#F4EFE3);}
 #page-log .sec-hdr{margin-bottom:13px;}
-#page-log .sec-ico{width:44px;height:44px;border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6);}
+#page-log .sec-ico{width:66px;height:66px;border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6);}
+#page-log .sec-ico svg{width:48px!important;height:48px!important;}
 #page-log .s-eat .sec-ico{background:rgba(59,109,17,.12);}
 #page-log .s-sleep .sec-ico{background:rgba(74,124,176,.12);}
 #page-log .s-ex .sec-ico{background:rgba(139,94,82,.14);}
@@ -1629,8 +1630,8 @@ function syncLogRings(){
   </div>
   <div class="section s-body">
     <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#C9A96E;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></div><div class="sec-ttl"><span class="lang-th">ข้อมูลร่างกาย</span><span class="lang-en" style="display:none;">Body Metrics</span></div></div>
-    <button type="button" class="dl-moretoggle" data-more="dl-body-more" onclick="dlMore(this)"><span class="lang-th">บันทึกเพิ่มเติม · รอบเดือน, น้ำ, อารมณ์, เรตติ้งวัน, แอลกอฮอล์, โน้ต</span><span class="lang-en" style="display:none;">More logging · period, water, mood, day rating, alcohol, notes</span> <span class="cv">▾</span></button>
-    <div class="dl-more" id="dl-body-more">
+    <button type="button" class="dl-moretoggle open" data-more="dl-body-more" onclick="dlMore(this)"><span class="lang-th">บันทึกเพิ่มเติม · รอบเดือน, น้ำ, อารมณ์, เรตติ้งวัน, แอลกอฮอล์, โน้ต</span><span class="lang-en" style="display:none;">More logging · period, water, mood, day rating, alcohol, notes</span> <span class="cv">▾</span></button>
+    <div class="dl-more open" id="dl-body-more">
 
     <!-- 🌸 Period Tracker — TOP for easy access -->
     <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:13px;padding:11px 13px;margin-bottom:12px;">
