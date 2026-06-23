@@ -1264,6 +1264,72 @@ try{
 
 
 <!-- PAGE LOG -->
+<style id="dl-redesign">
+/* ===== Daily Log — Camera-first redesign (scoped to #page-log) ===== */
+#page-log .log-tabs{display:none!important;}
+#page-log .section{border-radius:24px;padding:17px;margin-bottom:14px;box-shadow:0 10px 30px rgba(70,55,28,.07), inset 0 1px 0 rgba(255,255,255,.7);border-color:var(--border);}
+#page-log .section::before{display:none;}
+#page-log .s-eat{background:linear-gradient(165deg,#FFFFFF,#EDF1E4);}
+#page-log .s-sleep{background:linear-gradient(165deg,#FFFFFF,#E6ECF2);}
+#page-log .s-ex{background:linear-gradient(165deg,#FFFFFF,#F1EAE3);}
+#page-log .s-body{background:linear-gradient(165deg,#FFFFFF,#FBF6EC);}
+#page-log .s-supp{background:linear-gradient(165deg,#FFFFFF,#F4EFE3);}
+#page-log .sec-hdr{margin-bottom:13px;}
+#page-log .sec-ico{width:44px;height:44px;border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6);}
+#page-log .s-eat .sec-ico{background:rgba(59,109,17,.12);}
+#page-log .s-sleep .sec-ico{background:rgba(74,124,176,.12);}
+#page-log .s-ex .sec-ico{background:rgba(139,94,82,.14);}
+#page-log .s-supp .sec-ico{background:rgba(59,109,17,.12);}
+#page-log .sec-ttl{font-size:1.02rem;font-weight:700;}
+
+/* dashboard rings */
+.dl-dash{background:linear-gradient(160deg,#FFFFFF,#FCF8EE);border:1px solid #ECE0C2;border-radius:26px;padding:18px 10px 15px;box-shadow:0 12px 34px rgba(120,95,40,.10), inset 0 1px 0 rgba(255,255,255,.85);margin-bottom:14px;position:relative;overflow:hidden;}
+.dl-dash::before{content:"";position:absolute;top:-46px;left:50%;transform:translateX(-50%);width:220px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.20),transparent 70%);}
+.dl-dash-h{font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted2);text-align:center;margin-bottom:13px;position:relative;}
+.dl-rings{display:flex;justify-content:space-around;position:relative;}
+.dl-ring{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;}
+.dl-ring-ctr{position:relative;width:84px;height:84px;}
+.dl-ring-ctr svg{transform:rotate(-90deg);}
+.dl-rp{transition:stroke-dashoffset .9s cubic-bezier(.3,1.05,.35,1);}
+.dl-ring-ctr .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.dl-ring-num{font-family:'Playfair Display',serif;font-weight:700;font-size:1.28rem;line-height:1;}
+.dl-ring-unit{font-family:'Anuphan',sans-serif;font-size:.48rem;color:var(--muted2);margin-top:2px;letter-spacing:.3px;}
+.dl-ring-name{font-family:'Anuphan',sans-serif;font-size:.64rem;font-weight:600;color:var(--muted);letter-spacing:.3px;}
+
+/* collapsible "see more" */
+.dl-moretoggle{width:100%;box-sizing:border-box;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(255,255,255,.55);border:1px solid var(--border);border-radius:14px;padding:11px 12px;font-family:'Anuphan',sans-serif;font-size:.72rem;font-weight:600;color:var(--muted);cursor:pointer;line-height:1.3;text-align:center;}
+.dl-moretoggle:active{transform:scale(.99);}
+.dl-moretoggle .cv{transition:transform .25s;font-size:.62rem;flex-shrink:0;}
+.dl-moretoggle.open .cv{transform:rotate(180deg);}
+.dl-more{max-height:0;overflow:hidden;transition:max-height .42s ease;}
+.dl-more.open{max-height:4000px;}
+</style>
+<script>
+/* Daily Log redesign helpers */
+function dlMore(btn){
+  var el=document.getElementById(btn.getAttribute('data-more'));
+  if(!el) return;
+  var open=el.classList.toggle('open');
+  btn.classList.toggle('open',open);
+}
+function syncLogRings(){
+  var R=226.2; // 2*pi*36
+  var gv=function(id){var e=document.getElementById(id);return e?(+e.value||0):0;};
+  var kcal=gv('mac_kcal')||(gv('e1_k')+gv('e2_c'));
+  var prot=gv('mac_p')+gv('prot_supp');
+  var slH=gv('sl_total_h');
+  if(!slH){ var m=+(document.getElementById('sl_min_h')||{}).value||0; slH=m/60; }
+  var put=function(ringId,numId,val,goal,dec){
+    var ro=document.getElementById(ringId);
+    if(ro) ro.style.strokeDashoffset = R - R*Math.min(goal?val/goal:0,1);
+    var no=document.getElementById(numId);
+    if(no) no.textContent = val ? (dec? (Math.round(val*10)/10).toString() : Math.round(val).toString()) : '0';
+  };
+  put('dl-ring-kcal','dl-num-kcal',kcal,1600,0);
+  put('dl-ring-prot','dl-num-prot',prot,120,0);
+  put('dl-ring-sleep','dl-num-sleep',slH,8,1);
+}
+</script>
 <div class="page" id="page-log">
   <div class="date-nav">
     <button onclick="chDay(-1)">‹</button>
@@ -1297,7 +1363,24 @@ try{
       <div style="display:flex;align-items:center;gap:4px;"><div style="width:8px;height:8px;border-radius:2px;border:2px solid var(--accent);"></div><span style="font-size:.6rem;color:var(--muted2);">Today</span></div>
     </div>
   </div>
-  <div class="qstats" style="grid-template-columns:repeat(4,1fr);">
+  <div class="dl-dash">
+    <div class="dl-dash-h"><span class="lang-th">วันนี้ของเกิล</span><span class="lang-en" style="display:none;">Your day</span></div>
+    <div class="dl-rings">
+      <div class="dl-ring"><div class="dl-ring-ctr">
+        <svg width="84" height="84"><defs><linearGradient id="dlg-kcal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E0C589"/><stop offset="1" stop-color="#B8923F"/></linearGradient></defs><circle cx="42" cy="42" r="36" fill="none" stroke="#F0E7D4" stroke-width="8"/><circle id="dl-ring-kcal" class="dl-rp" cx="42" cy="42" r="36" fill="none" stroke="url(#dlg-kcal)" stroke-width="8" stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"/></svg>
+        <div class="in"><div class="dl-ring-num" id="dl-num-kcal" style="color:#B8923F">0</div><div class="dl-ring-unit">/ 1600</div></div>
+      </div><div class="dl-ring-name"><span class="lang-th">แคลอรี่</span><span class="lang-en" style="display:none;">Calories</span></div></div>
+      <div class="dl-ring"><div class="dl-ring-ctr">
+        <svg width="84" height="84"><defs><linearGradient id="dlg-prot" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A8736A"/><stop offset="1" stop-color="#7A4F44"/></linearGradient></defs><circle cx="42" cy="42" r="36" fill="none" stroke="#F0E7D4" stroke-width="8"/><circle id="dl-ring-prot" class="dl-rp" cx="42" cy="42" r="36" fill="none" stroke="url(#dlg-prot)" stroke-width="8" stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"/></svg>
+        <div class="in"><div class="dl-ring-num" id="dl-num-prot" style="color:#8B5E52">0</div><div class="dl-ring-unit">/ 120g</div></div>
+      </div><div class="dl-ring-name"><span class="lang-th">โปรตีน</span><span class="lang-en" style="display:none;">Protein</span></div></div>
+      <div class="dl-ring"><div class="dl-ring-ctr">
+        <svg width="84" height="84"><defs><linearGradient id="dlg-sleep" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6BA0C6"/><stop offset="1" stop-color="#3D6E9E"/></linearGradient></defs><circle cx="42" cy="42" r="36" fill="none" stroke="#F0E7D4" stroke-width="8"/><circle id="dl-ring-sleep" class="dl-rp" cx="42" cy="42" r="36" fill="none" stroke="url(#dlg-sleep)" stroke-width="8" stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"/></svg>
+        <div class="in"><div class="dl-ring-num" id="dl-num-sleep" style="color:#4A7CB0">0</div><div class="dl-ring-unit"><span class="lang-th">/ 8 ชม.</span><span class="lang-en" style="display:none;">/ 8 hr</span></div></div>
+      </div><div class="dl-ring-name"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div></div>
+    </div>
+  </div>
+  <div class="qstats" style="grid-template-columns:repeat(4,1fr);display:none;">
     <div class="qcard"><div class="qval" id="q-kcal" style="color:var(--grain)">—</div><div class="qlbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><path d="M12 3s5 4 5 9a5 5 0 0 1-10 0c0-1.6.7-3 1.6-4 .1 1.2.9 2 1.9 2 0-2.3.8-5 1.5-7z"/></svg>kcal</div></div>
     <div class="qcard"><div class="qval" id="q-prot" style="color:var(--prot)">—</div><div class="qlbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M4.5 12c0-3 3-5.3 6.5-5.3h2a5.3 5.3 0 0 1 0 10.6h-2C7.5 17.3 4.5 15 4.5 12z"/><circle cx="13.5" cy="12" r="1.7"/></svg>protein</div></div>
     <div class="qcard"><div class="qval" id="q-sleep" style="color:var(--sleep)">—</div><div class="qlbl"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>นอน</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;color:var(--sleep);vertical-align:-2px;margin-right:4px;"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>sleep</span></div></div>
@@ -1345,6 +1428,7 @@ try{
         </div>
         <div id="prot_total_lbl" style="font-size:.6rem;color:var(--prot);font-weight:700;margin-top:7px;"></div>
       </div>
+      <div class="dl-more" id="dl-food-more" style="grid-column:1/-1;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
       <!-- คาร์บ -->
       <div style="background:rgba(162,155,254,.06);border:1px solid rgba(162,155,254,.2);border-radius:16px;padding:13px;">
         <div style="font-size:.62rem;color:var(--other);letter-spacing:.5px;margin-bottom:6px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--other);vertical-align:-2px;margin-right:4px;"><path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M7.5 9.3 8.5 8M12 9 12 7.2M16.5 9.3 15.5 8"/></svg>คาร์บ</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--other);vertical-align:-2px;margin-right:4px;"><path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M7.5 9.3 8.5 8M12 9 12 7.2M16.5 9.3 15.5 8"/></svg>Carbs</span></div>
@@ -1391,7 +1475,9 @@ try{
         <input type="number" id="mac_s" placeholder="0" min="0" style="background:transparent;border:none;color:var(--veg);font-family:Kanit,sans-serif;font-size:.9rem;font-weight:600;outline:none;width:50px;text-align:right;padding:0;">
         <span style="font-size:.65rem;color:var(--muted2);">g</span>
       </div>
+    </div></div>
     </div>
+    <button type="button" class="dl-moretoggle" data-more="dl-food-more" onclick="dlMore(this)"><span class="lang-th">ดูมาโครเพิ่มเติม · คาร์บ ไขมัน ไฟเบอร์ น้ำตาล โซเดียม</span><span class="lang-en" style="display:none;">More macros · carbs, fat, fiber, sugar, sodium</span> <span class="cv">▾</span></button>
     <!-- Meal Mode Toggle -->
     <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;padding:10px 13px;background:var(--bg);border-radius:12px;border:1px solid var(--border);">
       <span style="font-size:.68rem;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase;font-weight:600;flex:1;">Nutrition Mode</span>
@@ -1465,6 +1551,8 @@ try{
       <input type="number" id="sl_total_h" min="0" max="24" step="0.5" placeholder="6.5" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:80px;text-align:center;" oninput="updateQ()">
       <span class="lbl" style="margin-left:5px">ชม.</span>
     </div>
+    <button type="button" class="dl-moretoggle" data-more="dl-sleep-more" onclick="dlMore(this)"><span class="lang-th">ดูค่าการนอนละเอียด · Score, RHR, HRV, Body Battery, คุณภาพ</span><span class="lang-en" style="display:none;">Sleep details · Score, RHR, HRV, Body Battery, quality</span> <span class="cv">▾</span></button>
+    <div class="dl-more" id="dl-sleep-more">
     <div class="row2" style="margin-top:7px">
       <div><label class="lbl">Sleep Score</label><input type="number" id="sl_score" placeholder="0-100" min="0" max="100"></div>
       <div><label class="lbl">RHR (bpm)</label><input type="number" id="sl_rhr" placeholder="49"></div>
@@ -1478,10 +1566,13 @@ try{
       <span class="star sl-star" data-i="3" onclick="setSQ(3)">★</span><span class="star sl-star" data-i="4" onclick="setSQ(4)">★</span>
       <span class="star sl-star" data-i="5" onclick="setSQ(5)">★</span>
     </div>
+    </div>
   </div>
   <div class="section s-ex">
     <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#8B5E52;"><path d="M6.5 9.5v5M3.8 11v2M17.5 9.5v5M20.2 11v2M6.5 12h11"/></svg></div><div class="sec-ttl"><span class="lang-th">ออกกำลังกาย</span><span class="lang-en" style="display:none;">Exercise</span></div><label style="margin-left:auto;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;border:1px dashed var(--border2);background:var(--card2);cursor:pointer;font-family:'Anuphan',sans-serif;font-size:.62rem;font-weight:600;color:var(--exercise);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h8l1.5 2h2A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.2"/></svg><span class="lang-th">สแกน (หลายรูป)</span><span class="lang-en" style="display:none;">Scan (multi)</span><input type="file" accept="image/*" multiple style="display:none" onchange="analyzeExercisePhoto(this)"></label></div>
     <div id="ex-scan-result" style="display:none;margin-bottom:10px;"></div>
+    <button type="button" class="dl-moretoggle" data-more="dl-ex-more" onclick="dlMore(this)"><span class="lang-th">กรอกเอง · Strength, Cardio, ความเข้มข้น</span><span class="lang-en" style="display:none;">Enter manually · Strength, Cardio, intensity</span> <span class="cv">▾</span></button>
+    <div class="dl-more" id="dl-ex-more">
     <div class="ex-block">
       <div class="ex-bl-ttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg>Strength</div>
       <div class="ex-g">
@@ -1509,6 +1600,7 @@ try{
       <span class="star ex-star" data-i="3" onclick="setEQ(3)">★</span><span class="star ex-star" data-i="4" onclick="setEQ(4)">★</span>
       <span class="star ex-star" data-i="5" onclick="setEQ(5)">★</span>
     </div>
+    </div>
 
     <!-- HYROX → dedicated page -->
     <div onclick="goPage('hyrox')" style="margin-top:14px;display:flex;align-items:center;gap:11px;background:linear-gradient(135deg,var(--card),rgba(192,57,43,.06));border:1px solid var(--border);border-radius:16px;padding:13px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);">
@@ -1522,6 +1614,8 @@ try{
   </div>
   <div class="section s-body">
     <div class="sec-hdr"><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px;color:#C9A96E;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg></div><div class="sec-ttl"><span class="lang-th">ข้อมูลร่างกาย</span><span class="lang-en" style="display:none;">Body Metrics</span></div></div>
+    <button type="button" class="dl-moretoggle" data-more="dl-body-more" onclick="dlMore(this)"><span class="lang-th">บันทึกเพิ่มเติม · รอบเดือน, น้ำ, อารมณ์, เรตติ้งวัน, แอลกอฮอล์, โน้ต</span><span class="lang-en" style="display:none;">More logging · period, water, mood, day rating, alcohol, notes</span> <span class="cv">▾</span></button>
+    <div class="dl-more" id="dl-body-more">
 
     <!-- 🌸 Period Tracker — TOP for easy access -->
     <div style="background:rgba(192,57,43,.04);border:1px solid rgba(192,57,43,.15);border-radius:13px;padding:11px 13px;margin-bottom:12px;">
@@ -1650,6 +1744,7 @@ try{
     </div>
     <label class="lbl" style="margin-top:8px">📝 Notes</label>
     <textarea id="h_note" placeholder="symptoms, how you feel, anything worth noting..."></textarea>
+    </div>
   </div>
   <style>
   .logrec-wrap{display:flex;flex-wrap:wrap;gap:8px;}
@@ -2942,6 +3037,7 @@ function updateQ(){
   const sl=+document.getElementById('sl_min_h').value||0;
   const totalH=+document.getElementById('sl_total_h').value||0;
   document.getElementById('q-sleep').textContent=sl?Math.floor(sl/60)+'h'+(sl%60?sl%60+'m':''):totalH?totalH+'h':'—';
+  if(typeof syncLogRings==='function') syncLogRings();
 }
 
 // ── CALENDAR PICKER ──
