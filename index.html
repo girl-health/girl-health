@@ -745,6 +745,15 @@ textarea{min-height:42px;}
 .onb-dot.on{background:var(--accent);width:22px;border-radius:4px;}
 .onb-next{width:100%;border:none;border-radius:14px;padding:14px;background:linear-gradient(135deg,#4A7C59,#3d6b4a);color:#fff;font-family:'Anuphan',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;box-shadow:0 5px 16px rgba(74,124,89,.3);}
 .onb-skip{width:100%;border:none;background:none;color:var(--muted2);font-family:'Anuphan',sans-serif;font-size:.78rem;cursor:pointer;padding:9px;margin-top:2px;}
+.onb-card{background:linear-gradient(180deg,#FBF7EE,#F3ECDC);}
+.onb-hero{position:relative;padding:16px 4px 6px;}
+.onb-hero::before{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle,rgba(201,169,110,.18),transparent 66%);pointer-events:none;z-index:0;}
+.onb-emblem{position:relative;z-index:1;display:flex;justify-content:center;margin-bottom:8px;}
+.onb-eyebrow{position:relative;z-index:1;font-size:.6rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:#B8860B;margin-bottom:9px;}
+.onb-hero .onb-h1,.onb-hero .onb-sub,.onb-hero .onb-hero-pills{position:relative;z-index:1;}
+.onb-pill{border:1px solid rgba(120,90,40,.07);}
+.onb-next{background:linear-gradient(135deg,#4F8560,#2E5A0E);box-shadow:0 8px 22px rgba(46,90,14,.30);letter-spacing:.3px;}
+.onb-dot.on{background:#B8860B;}
 /* nutrition/training/recovery */
 .pf-ntr-list{display:flex;flex-direction:column;gap:10px;}
 .pf-ntr{display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(0,0,0,.04);border-radius:16px;padding:12px 14px;}
@@ -1817,7 +1826,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.9 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.0 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -9275,6 +9284,29 @@ let onbStep=0, onbProfile={name:'',gender:'',birth:'',height:'',weight:'',goals:
 function onbEN(){ return (typeof currentLang!=='undefined'&&currentLang==='en'); }
 function onbIcon(o,sz){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:${sz||26}px;height:${sz||26}px;">${o.ic}</svg>`; }
 
+function onbEmblemSVG(){
+  var cx=75, cy=72, R=48;
+  function chip(x,y,stroke,inner){
+    return '<g transform="translate('+x+','+y+')"><circle r="14" fill="#FBF7EE" stroke="#DCC9A0" stroke-width="1"/>'
+      +'<g stroke="'+stroke+'" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">'+inner+'</g></g>';
+  }
+  var dumbbell='<path d="M-5 0h10"/><rect x="-6.6" y="-3" width="2.3" height="6" rx="1"/><rect x="4.3" y="-3" width="2.3" height="6" rx="1"/>';
+  var heart='<path d="M0 4.4C-2.6 2.1-5 .6-5-1.7A2.1 2.1 0 0 1 0-2.9 2.1 2.1 0 0 1 5-1.7C5 .6 2.6 2.1 0 4.4Z"/>';
+  var bag='<path d="M-4.3-1.4h8.6l-.7 6.6a1 1 0 0 1-1 .9h-5.2a1 1 0 0 1-1-.9z"/><path d="M-2.3-1.4v-1.1a2.3 2.3 0 0 1 4.6 0v1.1"/>';
+  var leaf='<path d="M-3.6 3.6C-3.6-1 0-3.6 4-3.6 4 1 .4 3.6-3.6 3.6Z"/><path d="M-1.8 1.8 2.8-2.6"/>';
+  return '<svg viewBox="0 0 150 150" style="width:120px;height:120px;">'
+    +'<defs><radialGradient id="obg" cx="50%" cy="44%" r="60%"><stop offset="0%" stop-color="#FCF9F0"/><stop offset="100%" stop-color="#F0E8D6"/></radialGradient>'
+    +'<linearGradient id="obmono" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4F8560"/><stop offset="100%" stop-color="#2E5A0E"/></linearGradient></defs>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="56" fill="url(#obg)"/>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#C9A96E" stroke-width="1.2"/>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="31" fill="#FFFFFF" stroke="#E6D8B8" stroke-width="1"/>'
+    +'<text x="'+cx+'" y="'+(cy+8)+'" text-anchor="middle" style="font-family:\'Playfair Display\',Georgia,serif;font-size:25px;font-weight:800;"><tspan fill="url(#obmono)">Bio</tspan><tspan fill="#C9A96E">+</tspan></text>'
+    +chip(cx,cy-R,'#3B6D11',dumbbell)
+    +chip(cx+R,cy,'#8B5E52',heart)
+    +chip(cx,cy+R,'#B8860B',bag)
+    +chip(cx-R,cy,'#4F8560',leaf)
+    +'</svg>';
+}
 function renderOnb(){
   const root=document.getElementById('onb-card'); if(!root) return;
   const en=onbEN();
@@ -9282,13 +9314,14 @@ function renderOnb(){
   let body='';
   if(onbStep===0){
     body=`<div class="onb-hero">
-      <div class="onb-logo"><svg viewBox="0 0 130 130" style="width:104px;height:104px;"><circle cx="65" cy="65" r="36" fill="none" stroke="#E7DECB" stroke-width="1.5" stroke-dasharray="2 4"/><circle cx="65" cy="65" r="30" fill="#EAF3EC"/><text x="65" y="76" text-anchor="middle" style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;fill:#4A7C59;">B</text><g transform="translate(65,22)"><circle r="14" fill="#EAF5EC"/><g transform="translate(-7.5,-7.5)" stroke="#4A7C59" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M3 5h2l1-1h4l1 1h2M4 5v1.5a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V5"/></g></g><g transform="translate(102,65)"><circle r="14" fill="#FBE9F0"/><g transform="translate(-7.5,-7.5)" stroke="#C2799F" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M7.5 12.5C4.5 10 2.5 8 2.5 5.5A2.3 2.3 0 0 1 7.5 4.2a2.3 2.3 0 0 1 5 1.3C12.5 8 10.5 10 7.5 12.5z"/></g></g><g transform="translate(65,108)"><circle r="14" fill="#FDF4DC"/><g transform="translate(-7.5,-7.5)" stroke="#C79A2E" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M2 9h1.5L5.5 4l2.5 7L9.5 7h3"/></g></g><g transform="translate(28,65)"><circle r="14" fill="#E9F1F8"/><g transform="translate(-7.5,-7.5)" stroke="#4E86AE" stroke-width="1.5" fill="none" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="4.5"/><path d="M7.5 5V7.5l1.8 1"/></g></g></svg></div>
-      <div class="onb-h1">${en?'Welcome to Bio+':'ยินดีต้อนรับสู่ Bio+'}</div>
-      <div class="onb-sub">${en?'Your personal health journal — know your body, care a little every day, and watch real results.':'ไดอารี่สุขภาพส่วนตัว — รู้จักร่างกายตัวเอง ดูแลทีละนิดทุกวัน แล้วเห็นผลลัพธ์จริง'}</div>
+      <div class="onb-emblem">${onbEmblemSVG()}</div>
+      <div class="onb-eyebrow">${en?'TRACK · CARE · GLOW':'ติดตาม · ดูแล · เห็นผล'}</div>
+      <div class="onb-h1">${en?'Welcome to Bio<span style=\"color:#B8860B;\">+</span>':'ยินดีต้อนรับสู่ Bio<span style=\"color:#B8860B;\">+</span>'}</div>
+      <div class="onb-sub">${en?'A health-tracking app, made beautiful — and the BioActive that proves your results. Care a little every day, and watch real change.':'แอปติดตามสุขภาพที่สวยที่สุด — พร้อม BioActive ที่พิสูจน์ผลได้จริง ดูแลทีละนิดทุกวัน แล้วเห็นผลลัพธ์'}</div>
       <div class="onb-hero-pills">
-        <span class="onb-pill" style="background:#EAF5EC;color:#4A7C59;">${en?'Daily score':'คะแนนรายวัน'}</span>
-        <span class="onb-pill" style="background:#FBE9F0;color:#C2799F;">${en?'Skin & body':'ผิว & รูปร่าง'}</span>
-        <span class="onb-pill" style="background:#FDF4DC;color:#C79A2E;">${en?'AI insights':'AI ช่วยวิเคราะห์'}</span>
+        <span class="onb-pill" style="background:#EAF1E4;color:#3B6D11;">${en?'Daily score':'คะแนนรายวัน'}</span>
+        <span class="onb-pill" style="background:#F1E7D8;color:#8B5E52;">${en?'Skin & body':'ผิว & รูปร่าง'}</span>
+        <span class="onb-pill" style="background:#FBF1D8;color:#B8860B;">${en?'Shop & prove':'ช้อป & พิสูจน์ผล'}</span>
       </div>
     </div>`;
   } else if(onbStep===1){
