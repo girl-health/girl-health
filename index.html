@@ -1333,6 +1333,7 @@ try{
 .dl-hero-u{font-family:'Anuphan',sans-serif;font-size:.54rem;letter-spacing:.6px;text-transform:uppercase;opacity:.92;display:block;margin-top:2px;}
 .dl-hero-tag{position:absolute;top:12px;right:13px;z-index:2;font-family:'Anuphan',sans-serif;font-size:.55rem;font-weight:700;color:#fff;background:rgba(255,255,255,.2);backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.32);padding:4px 9px;border-radius:20px;display:flex;align-items:center;gap:4px;}
 .dl-hero-tag svg{width:10px;height:10px;}
+#page-log .ai-wrap{display:none!important;}
 </style>
 <script>
 /* Daily Log redesign helpers */
@@ -1803,7 +1804,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.5 · 23 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v2.6 · 23 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -6959,13 +6960,14 @@ Respond ONLY with valid JSON:
     if(mode === 'meals'){
       const n = r.nutrition || {};
       if(isHome) n.sodium_mg = 0;
-      // Fill meal fields if detected
-      if(r.meals?.breakfast && r.meals.breakfast !== 'empty') document.getElementById('m_b').value = r.meals.breakfast;
-      { let _e; if(r.meals?.lunch && r.meals.lunch !== 'empty' && (_e=document.getElementById('m_l'))) _e.value = r.meals.lunch; }
-      { let _e; if(r.meals?.dinner && r.meals.dinner !== 'empty' && (_e=document.getElementById('m_d'))) _e.value = r.meals.dinner; }
-      { let _e; if(r.meals?.snack && r.meals.snack !== 'empty' && (_e=document.getElementById('m_s'))) _e.value = r.meals.snack; }
-      // Fill nutrition
-      const setN = (id,v) => { const el = document.getElementById(id); if(el&&v) el.value = Math.round(v); };
+      // Fill meal fields if detected (append, don't overwrite — log adds up)
+      const appendMeal=(id,txt)=>{ if(!txt||txt==='empty')return; const el=document.getElementById(id); if(!el)return; const cur=(el.value||'').trim(); if(cur && cur.toLowerCase().indexOf(txt.toLowerCase())>=0) return; el.value = cur ? (cur+', '+txt) : txt; };
+      appendMeal('m_b', r.meals?.breakfast);
+      appendMeal('m_l', r.meals?.lunch);
+      appendMeal('m_d', r.meals?.dinner);
+      appendMeal('m_s', r.meals?.snack);
+      // Fill nutrition — ADD to existing totals so multiple photos accumulate
+      const setN = (id,v) => { const el = document.getElementById(id); if(el&&v) el.value = Math.round((parseFloat(el.value)||0) + (+v||0)); };
       setN('mac_kcal',n.kcal); setN('mac_p',n.protein_g); setN('mac_carb',n.carb_g);
       if(n.water_ml>0) addScanWater(n.water_ml);
       setN('mac_fat',n.fat_g); setN('mac_f',n.fiber_g); setN('mac_sugar_total',n.sugar_g);
@@ -9909,21 +9911,17 @@ try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
       (incl. mobile) without re-entering. Won't overwrite a device that already has data. ── */
 (function(){
   try{
-    var snapsRaw = localStorage.getItem('girl_body_snapshots');
-    var snaps = []; try{ snaps = JSON.parse(snapsRaw||'[]'); }catch(e){ snaps = []; }
-    if(!Array.isArray(snaps) || snaps.length===0){
-      localStorage.setItem('girl_body_snapshots', JSON.stringify([
-        {date:'2025-04-28', weight:45.7, fat:33.7, muscle:15.9},
-        {date:'2026-06-05', weight:48.7, fat:25.3, muscle:20.2}
-      ]));
-    }
+    var SEED_FLAG='girl_seed_body_v25';
+    if(localStorage.getItem(SEED_FLAG)) return;
+    localStorage.setItem('girl_body_snapshots', JSON.stringify([
+      {date:'2025-04-28', weight:45.7, fat:33.7, muscle:15.9},
+      {date:'2026-06-05', weight:48.7, fat:25.3, muscle:20.2}
+    ]));
     var pb = {}; try{ pb = JSON.parse(localStorage.getItem('girl_profile_body')||'{}'); }catch(e){ pb = {}; }
-    if(!pb || pb.weight==null){
-      localStorage.setItem('girl_profile_body', JSON.stringify({
-        weight:48.7, fat:25.3, muscle:20.2, bmi:19, visceral:4, score:69,
-        date:'5 มิ.ย. 2569', age:32, fitnessAge:26.5
-      }));
-    }
+    pb.weight=48.7; pb.fat=25.3; pb.muscle=20.2; pb.bmi=19; pb.visceral=4; pb.score=69;
+    pb.date='5 มิ.ย. 2569'; if(pb.age==null) pb.age=32; pb.fitnessAge=26.5;
+    localStorage.setItem('girl_profile_body', JSON.stringify(pb));
+    localStorage.setItem(SEED_FLAG,'1');
   }catch(e){}
 })();
 </script>
