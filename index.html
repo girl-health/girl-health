@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Bio+ Health Journal</title>
   <!-- ===== Bio+ PWA · วางบรรทัดพวกนี้ไว้ใน <head> ของ index.html (ก่อน </head>) ===== -->
 
@@ -811,14 +814,13 @@ try{
     <div class="nav-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px;margin-right:4px;color:var(--accent);"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>Bio+</div>
     <div class="nav-tabs">
       <div class="ntab active" onclick="goPage('home')" id="ntab-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M4 11.3 12 4l8 7.3"/><path d="M6 10.3V20h12v-9.7"/><path d="M10 20v-5h4v5"/></svg><span class="ntab-tx">Home</span></div>
+      <div class="ntab" onclick="goPage('skin')" id="ntab-skin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg><span class="lang-th">ผิว</span><span class="lang-en" style="display:none;">Skin</span></div>
       <div class="ntab" onclick="goPage('timeline')" id="ntab-timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M5 4v16"/><circle cx="5" cy="8" r="1.5"/><circle cx="5" cy="15" r="1.5"/><path d="M9 8h10M9 15h7"/></svg><span class="lang-th">ไทม์ไลน์</span><span class="lang-en" style="display:none;">Timeline</span></div>
       <div class="ntab" onclick="goPage('profile')" id="ntab-profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg><span class="ntab-tx">Profile</span></div>
       <div class="ntab" onclick="goPage('log')" id="ntab-log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M4 20h3.6L18 9.6a1.9 1.9 0 0 0-2.6-2.6L5 17.4z"/><path d="m13.5 8.5 2.6 2.6"/></svg><span class="ntab-tx">บันทึกวัน</span></div>
       <div class="ntab" onclick="goPage('table')" id="ntab-table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6h6v.9M8.5 10h7M8.5 13.5h7M8.5 17h4.5"/></svg><span class="ntab-tx">ตาราง</span></div>
       <div class="ntab" onclick="goPage('stats')" id="ntab-stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg><span class="ntab-tx">สถิติ</span></div>
-      <div class="ntab" onclick="goPage('body')" id="ntab-body"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg><span class="ntab-tx">Body</span></div>
-      <div class="ntab" onclick="goPage('skin')" id="ntab-skin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg><span class="lang-th">ผิว</span><span class="lang-en" style="display:none;">Skin</span></div>
-      <div class="ntab" onclick="goPage('hyrox')" id="ntab-hyrox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX</div>
+      <div class="ntab" onclick="goPage('body')" id="ntab-body"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><rect x="3" y="8" width="18" height="8" rx="1.6"/><path d="M7 8v3M11 8v4M15 8v3M19 8v3"/></svg><span class="ntab-tx">Body</span></div>      <div class="ntab" onclick="goPage('hyrox')" id="ntab-hyrox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg>HYROX</div>
       <div class="ntab" onclick="goPage('ing')" id="ntab-ing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M20.4 11.4c.95.3 1.6.9 1.6 1.6 0 1-1.2 1.9-3 2.2"/><path d="M9 7c1.4-1.9 3.8-2.4 5.3-1.4M12.2 10.9C11.3 8.5 12.7 6 14.6 5.5"/></svg><span class="ntab-tx">โภชนาการ</span></div>
       <div class="ntab" onclick="goPage('bio')" id="ntab-bio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg><span class="ntab-tx">BioActive+</span></div>
       <div class="ntab" onclick="goPage('shop')" id="ntab-shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><path d="M6 8h12l-1 11.5a1.5 1.5 0 0 1-1.5 1.4H8.5A1.5 1.5 0 0 1 7 19.5z"/><path d="M9 8.5V6.3a3 3 0 0 1 6 0v2.2"/></svg><span class="lang-th">ช้อป</span><span class="lang-en" style="display:none;">Shop</span></div>
@@ -2430,149 +2432,6 @@ function syncLogRings(){
 
   </div><!-- /bpanel-map -->
 
-  <!-- ───────── TAB: SKIN SCAN ───────── -->
-  <div id="bpanel-skin" style="display:none;">
-
-    <!-- Upload zone -->
-    <div style="background:linear-gradient(135deg,rgba(255,126,179,.06),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.2);border-radius:20px;padding:15px;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-        <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,rgba(255,126,179,.3),rgba(212,132,90,.3));display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--fruit);"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div>
-        <div>
-          <div style="font-family:'Playfair Display',serif;font-size:.92rem;color:var(--fruit);font-weight:700;">Skin Age Scan</div>
-          <div style="font-size:.62rem;color:var(--muted2);">อัปโหลด 1–4 รูป · AI วิเคราะห์อายุผิวจริง + แนะนำสารอาหาร</div>
-        </div>
-      </div>
-
-      <!-- Photo preview grid -->
-      <div id="skin-preview-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;"></div>
-
-      <!-- Upload button -->
-      <label id="skin-scan-label" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:13px;border:2px dashed rgba(255,126,179,.35);background:rgba(255,126,179,.03);cursor:pointer;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--fruit);"><path d="M4 8.5h2.8L8 6.5h8l1.2 2H20a1 1 0 0 1 1 1V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.2"/></svg>
-        <div style="text-align:center;">
-          <div style="font-family:'Anuphan',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;">ถ่าย/เลือกรูปหน้า (สูงสุด 4 รูป)</div>
-          <div style="font-size:.6rem;color:var(--muted2);">ถ่ายซ้ำเพิ่มได้ · แสงธรรมชาติ · ไม่มีเมคอัพ · หลายมุม</div>
-        </div>
-        <input type="file" accept="image/*" multiple style="display:none" onchange="previewSkinPhotos(this)">
-      </label>
-
-      <!-- Analyze button (shows after preview) -->
-      <button id="skin-analyze-btn" onclick="analyzeSkinAge()" style="display:none;width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,rgba(255,126,179,.8),rgba(212,132,90,.8));color:#fff;border:none;border-radius:12px;font-family:'Anuphan',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:#fff;vertical-align:-3px;margin-right:6px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg>วิเคราะห์ผิวหน้า
-      </button>
-
-      <!-- Loading -->
-      <div id="skin-scan-loading" style="display:none;text-align:center;padding:16px;">
-        <div style="margin-bottom:8px;line-height:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--fruit);"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.3-4.3"/></svg></div>
-        <div style="font-family:'Anuphan',sans-serif;font-size:.8rem;color:var(--fruit);font-weight:700;margin-bottom:4px;">AI กำลังวิเคราะห์ผิวหน้า…</div>
-        <div style="font-size:.65rem;color:var(--muted2);">วิเคราะห์ละเอียดจาก <span id="skin-photo-count">1</span> รูป · ใช้เวลาสักครู่</div>
-        <div id="skin-scan-stage" style="font-size:.62rem;color:var(--fruit);margin-top:6px;min-height:1em;"></div>
-      </div>
-    </div>
-
-    <!-- Result -->
-    <div id="skin-result-wrap" style="display:none;"></div>
-
-    <!-- SKIN DASHBOARD -->
-    <div id="skin-dashboard" style="display:none;">
-
-      <!-- Dashboard sub-tabs -->
-      <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;">
-        <button onclick="switchSkinTab('overview')" class="body-tab active" id="stab-overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>Overview</button>
-        <button onclick="switchSkinTab('trend')"    class="body-tab"        id="stab-trend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3 17l5-5 4 3 7-8"/><path d="M17 7h4v4"/></svg>Trend</button>
-        <button onclick="switchSkinTab('history')"  class="body-tab"        id="stab-history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg>History</button>
-        <button onclick="switchSkinTab('insights')" class="body-tab"        id="stab-insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.7.6 1.1 1.1 1.3 2.4h5c.2-1.3.6-1.8 1.3-2.4A6 6 0 0 0 12 3z"/></svg>Insights</button>
-      </div>
-
-      <!-- OVERVIEW TAB -->
-      <div id="spanel-overview">
-        <!-- Big score summary -->
-        <div style="background:linear-gradient(135deg,rgba(255,126,179,.07),rgba(212,132,90,.04));border:1px solid rgba(255,126,179,.18);border-radius:20px;padding:16px;margin-bottom:10px;">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">ค่าเฉลี่ยทั้งหมด</span><span class="lang-en" style="display:none;">OVERALL AVERAGE</span></div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
-            <div style="text-align:center;">
-              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--fruit);" id="sdash-avg-age">—</div>
-              <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Avg Skin Age</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--accent);" id="sdash-avg-score">—</div>
-              <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Avg Score</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--veg);" id="sdash-scans">—</div>
-              <div style="font-size:.58rem;color:var(--muted2);margin-top:2px;">Total Scans</div>
-            </div>
-          </div>
-          <!-- Best / latest -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div style="background:var(--card);border-radius:12px;padding:10px;">
-              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4.6a2.4 2.4 0 0 0 2.4 3M17 6h2.4a2.4 2.4 0 0 1-2.4 3"/><path d="M12 13v3M9 20h6M10.2 20l.4-4h2.8l.4 4"/></svg><span class="lang-th">Best Score</span><span class="lang-en" style="display:none;">Best Score</span></div>
-              <div style="font-family:'Anuphan',sans-serif;font-size:.88rem;font-weight:700;color:var(--veg);" id="sdash-best"></div>
-            </div>
-            <div style="background:var(--card);border-radius:12px;padding:10px;">
-              <div style="font-size:.58rem;color:var(--muted2);margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--muted2);vertical-align:-2px;margin-right:4px;"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3.5v4M15.5 3.5v4M8 13h3M8 16.5h3"/></svg><span class="lang-th">ล่าสุด</span><span class="lang-en" style="display:none;">Latest</span></div>
-              <div style="font-family:'Anuphan',sans-serif;font-size:.88rem;font-weight:700;color:var(--fruit);" id="sdash-latest"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Metrics average radar -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;margin-bottom:10px;">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;"><span class="lang-th">ค่าเฉลี่ยแต่ละ Metric</span><span class="lang-en" style="display:none;">AVERAGE METRICS</span></div>
-          <div id="sdash-metrics-wrap" style="display:flex;flex-direction:column;gap:6px;"></div>
-        </div>
-
-        <!-- Most common needs -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;margin-bottom:10px;">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ แนะนำตามผิว</span><span class="lang-en" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent);vertical-align:-2px;margin-right:4px;"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ Skin Recommendations</span></div>
-          <div id="sdash-nutrients-wrap"></div>
-        </div>
-      </div>
-
-      <!-- TREND TAB -->
-      <div id="spanel-trend" style="display:none;">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:10px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;color:var(--fruit);vertical-align:-2px;margin-right:4px;"><path d="M3 17l5-5 4 3 7-8"/><path d="M17 7h4v4"/></svg>Skin Age Trend</div>
-            <div style="font-size:.6rem;color:var(--muted2);">เส้นสีชมพู = Skin Age · เส้นสีทอง = Score/10</div>
-          </div>
-          <canvas id="skin-trend-chart" style="width:100%;height:160px;display:block;"></canvas>
-        </div>
-
-        <!-- Score trend -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:10px;">
-          <div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--text);margin-bottom:4px;">🔄 Progress vs Last Scan</div>
-          <div id="sdash-progress-wrap" style="margin-top:8px;"></div>
-        </div>
-      </div>
-
-      <!-- HISTORY TAB -->
-      <div id="spanel-history" style="display:none;">
-        <!-- month selector -->
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <button onclick="skinHistoryMonth(-1)" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted2);">‹</button>
-          <div id="skin-hist-mo-lbl" style="flex:1;text-align:center;font-family:'Anuphan',sans-serif;font-size:.78rem;color:var(--text);font-weight:600;"></div>
-          <button onclick="skinHistoryMonth(1)" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted2);">›</button>
-        </div>
-        <div id="skin-history-wrap" style="background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
-          <div style="text-align:center;padding:20px;color:var(--muted2);font-size:.75rem;">ยังไม่มีข้อมูล</div>
-        </div>
-      </div>
-
-      <!-- INSIGHTS TAB -->
-      <div id="spanel-insights" style="display:none;">
-        <div id="sdash-insights-wrap"></div>
-      </div>
-
-    </div><!-- /skin-dashboard -->
-
-    <!-- Show dashboard button (when no scan yet today) -->
-    <div id="skin-dashboard-btn-wrap" style="text-align:center;margin-top:6px;margin-bottom:4px;">
-      <button onclick="showSkinDashboard()" style="padding:8px 20px;border-radius:20px;border:1px solid rgba(255,126,179,.3);background:rgba(255,126,179,.06);color:var(--fruit);font-family:'Anuphan',sans-serif;font-size:.72rem;cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:4px;"><path d="M3.5 20h17"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="7" width="3" height="10" rx="1"/><rect x="15.5" y="13" width="3" height="4" rx="1"/></svg>ดู Dashboard ประวัติผิว</button>
-    </div>
-
-  </div><!-- /bpanel-skin -->
-
   <!-- ───────── TAB: STATS ───────── -->
   <div id="bpanel-stats" style="display:none;">
     <div style="margin-bottom:12px;">
@@ -2785,11 +2644,279 @@ function syncLogRings(){
 </div>
 
 <!-- PAGE HYROX -->
+<style>
+/* ══════ SKIN STUDIO · luxury beauty-tech (mobile-first, 430px) ══════ */
+#page-skin{
+  --sk-ivory:#FAF6EF; --sk-blush:#FBEAE5; --sk-rose:#C98262; --sk-rosebrown:#8B4A3A;
+  --sk-green:#2F6B1F; --sk-gold:#D6B46A; --sk-ink:#2B2925; --sk-mut:#9B9081;
+  background:radial-gradient(130% 55% at 50% -2%, #FCEFE9 0%, var(--sk-ivory) 46%, #F4EEE2 100%);
+  font-family:'Anuphan',sans-serif; color:var(--sk-ink);
+}
+/* the one rule that matters: never stretch on desktop */
+.sk-shell{ max-width:430px; margin:0 auto; }
+
+/* 1 · PAGE TITLE */
+.sk-pagettl{ text-align:center; margin:2px 0 20px; }
+.sk-pagettl h1{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.6rem; letter-spacing:.4px; color:var(--sk-ink); }
+.sk-pagettl p{ font-size:.64rem; letter-spacing:1px; color:var(--sk-rose); margin-top:6px; font-weight:600; }
+
+/* 2 · HERO */
+.sk-hero{ position:relative; display:flex; align-items:center; gap:14px; padding:24px 22px; margin-bottom:28px; border-radius:24px; overflow:hidden;
+  background:linear-gradient(140deg,#FCEDE7 0%, var(--sk-blush) 52%, #F7ECDD 100%);
+  box-shadow:0 1px 2px rgba(120,80,40,.05), 0 20px 46px rgba(180,120,80,.13); }
+.sk-hero-glow{ position:absolute; top:-50%; right:-26%; width:72%; height:175%; pointer-events:none;
+  background:radial-gradient(circle, rgba(201,130,98,.30), transparent 66%); }
+.sk-hero-l{ position:relative; flex:1; min-width:0; }
+.sk-eyebrow{ font-size:.56rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--sk-rose); margin-bottom:7px; }
+.sk-age{ display:flex; align-items:baseline; gap:6px; }
+.sk-age-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:3.2rem; line-height:.9; color:var(--sk-ink); }
+.sk-age-unit{ font-family:'Playfair Display',serif; font-size:1rem; color:var(--sk-rose); }
+.sk-age-sub{ font-size:.72rem; color:var(--sk-rosebrown); line-height:1.4; margin-top:8px; max-width:155px; }
+.sk-badge{ display:inline-flex; align-items:center; gap:5px; margin-top:13px; padding:5px 12px; border-radius:30px;
+  background:rgba(255,255,255,.7); border:1px solid rgba(201,130,98,.32); font-size:.58rem; font-weight:700; letter-spacing:.6px; color:var(--sk-rosebrown); }
+.sk-badge svg{ width:11px; height:11px; color:var(--sk-rose); }
+.sk-hero-r{ position:relative; text-align:center; flex-shrink:0; }
+.sk-ring{ position:relative; width:108px; height:108px; filter:drop-shadow(0 4px 12px rgba(201,130,98,.35)); }
+.sk-ring svg{ width:100%; height:100%; transform:rotate(-90deg); }
+.sk-ring-val{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.sk-ring-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:2rem; line-height:1; color:var(--sk-ink); }
+.sk-ring-den{ font-size:.58rem; color:var(--sk-mut); letter-spacing:.5px; margin-top:1px; }
+.sk-ring-cap{ font-size:.55rem; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--sk-rose); margin-top:9px; }
+.sk-ring-ex{ font-size:.66rem; font-weight:700; letter-spacing:.4px; color:var(--sk-green); margin-top:2px; }
+
+/* section heading */
+.sk-sec{ margin:0 0 14px; }
+.sk-sec-eye{ font-size:.56rem; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:var(--sk-rose); }
+.sk-sec h2{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.22rem; color:var(--sk-ink); margin-top:3px; letter-spacing:.3px; }
+
+/* 3 · AI INSIGHTS grid (2×2, no progress bars) */
+.sk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:30px; }
+.sk-ins{ position:relative; padding:16px 15px 17px; border-radius:22px; box-shadow:0 1px 2px rgba(120,80,40,.04), 0 10px 26px rgba(150,100,60,.07); overflow:hidden; }
+.sk-ins-ico{ width:38px; height:38px; border-radius:13px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.72); margin-bottom:12px; }
+.sk-ins-ico svg{ width:20px; height:20px; }
+.sk-ins-name{ font-size:.92rem; font-weight:700; color:var(--sk-ink); font-family:'Playfair Display',serif; }
+.sk-ins-status{ font-size:.64rem; font-weight:700; letter-spacing:.3px; margin-top:4px; }
+.sk-ins-desc{ font-size:.64rem; color:var(--sk-rosebrown); line-height:1.45; margin-top:7px; }
+
+/* 4 · SKIN JOURNEY */
+.sk-journey{ padding:20px; margin-bottom:30px; border-radius:24px;
+  background:linear-gradient(160deg,#FFFFFF, #FBF4EC); box-shadow:0 1px 2px rgba(120,80,40,.04), 0 16px 40px rgba(150,100,60,.09); }
+.sk-chart{ margin-bottom:6px; }
+.sk-chart svg{ width:100%; height:88px; display:block; }
+.sk-chart-x{ display:flex; justify-content:space-between; padding:0 4px; margin-bottom:16px; }
+.sk-chart-x span{ font-size:.58rem; color:var(--sk-mut); font-weight:600; letter-spacing:.3px; }
+.sk-jrow{ display:flex; align-items:center; gap:12px; padding-top:14px; border-top:1px solid rgba(201,130,98,.14); }
+.sk-jcell{ flex:1; text-align:center; }
+.sk-jcell .lbl{ font-size:.58rem; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--sk-mut); margin-bottom:6px; }
+.sk-jcell .big{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.7rem; color:var(--sk-ink); line-height:1; }
+.sk-jcell .sub{ font-size:.62rem; color:var(--sk-rose); margin-top:4px; font-weight:600; letter-spacing:.4px; }
+.sk-jarrow{ flex-shrink:0; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(201,130,98,.12); color:var(--sk-rose); }
+.sk-jarrow svg{ width:15px; height:15px; }
+.sk-note{ display:flex; align-items:center; gap:11px; margin-top:16px; padding:13px 15px; border-radius:16px;
+  background:rgba(47,107,31,.08); border:1px solid rgba(47,107,31,.14); }
+.sk-note-pts{ flex-shrink:0; font-family:'Playfair Display',serif; font-weight:700; font-size:1.05rem; color:var(--sk-green); }
+.sk-note p{ font-size:.72rem; line-height:1.45; color:var(--sk-rosebrown); }
+
+/* 5 · PRODUCT IMPACT */
+.sk-prod{ display:flex; align-items:center; gap:13px; padding:14px 15px; margin-bottom:12px; border-radius:20px; background:#fff;
+  box-shadow:0 1px 2px rgba(120,80,40,.04), 0 10px 26px rgba(150,100,60,.06); }
+.sk-prod-ico{ width:46px; height:46px; flex-shrink:0; border-radius:14px; display:flex; align-items:center; justify-content:center; }
+.sk-prod-ico svg{ width:24px; height:24px; }
+.sk-prod-mid{ flex:1; min-width:0; }
+.sk-prod-name{ font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; color:var(--sk-ink); }
+.sk-prod-benefit{ font-size:.66rem; color:var(--sk-mut); margin-top:2px; }
+.sk-prod-pill{ display:inline-block; margin-top:6px; padding:2px 9px; border-radius:30px; font-size:.54rem; font-weight:700; letter-spacing:.6px; text-transform:uppercase;
+  background:rgba(47,107,31,.1); color:var(--sk-green); }
+.sk-prod-r{ flex-shrink:0; text-align:right; }
+.sk-prod-pct{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem; color:var(--sk-green); line-height:1; }
+.sk-prod-btn{ margin-top:8px; padding:7px 14px; border-radius:30px; border:1px solid var(--sk-rose); background:transparent;
+  color:var(--sk-rose); font-family:'Anuphan',sans-serif; font-size:.66rem; font-weight:700; white-space:nowrap; cursor:pointer; transition:all .18s; }
+.sk-prod-btn:hover{ background:rgba(201,130,98,.08); }
+
+/* 6 · BOTTOM CTA */
+.sk-cta{ position:relative; overflow:hidden; margin-top:30px; padding:26px 22px; border-radius:24px; text-align:center; color:#fff;
+  background:linear-gradient(135deg,#D9A06B 0%, var(--sk-rose) 52%, #A85E3F 100%);
+  box-shadow:0 16px 40px rgba(201,130,98,.4); }
+.sk-cta-glow{ position:absolute; top:-60%; left:-20%; width:80%; height:200%; pointer-events:none;
+  background:radial-gradient(circle, rgba(255,255,255,.22), transparent 64%); }
+.sk-cta h3{ position:relative; font-family:'Playfair Display',serif; font-weight:700; font-size:1.3rem; letter-spacing:.3px; }
+.sk-cta p{ position:relative; font-size:.74rem; line-height:1.5; margin-top:8px; color:rgba(255,255,255,.92); }
+.sk-cta-btn{ position:relative; width:100%; margin-top:18px; padding:15px; border:none; border-radius:16px; cursor:pointer;
+  background:#fff; color:var(--sk-rosebrown); font-family:'Anuphan',sans-serif; font-size:.92rem; font-weight:700; letter-spacing:.3px;
+  box-shadow:0 8px 20px rgba(120,60,40,.2); transition:transform .18s; }
+.sk-cta-btn:active{ transform:scale(.98); }
+</style>
+
 <div class="page" id="page-skin">
-  <div style="text-align:center;margin-bottom:16px;padding-top:4px;">
-    <div style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--text);letter-spacing:.5px;">Skin Studio</div>
-    <div style="font-size:.64rem;color:var(--muted2);letter-spacing:.3px;">สแกนผิว · ติดตามอายุผิว · ประวัติการดูแล</div>
+ <div class="sk-shell">
+
+  <!-- 1 · PAGE TITLE -->
+  <div class="sk-pagettl">
+    <h1>Skin Studio</h1>
+    <p><span class="lang-th">สแกนผิว · ติดตามอายุผิว · ประวัติการดูแล</span><span class="lang-en" style="display:none;">Scan · Track skin age · Care history</span></p>
   </div>
+
+  <!-- 2 · PREMIUM HERO CARD -->
+  <div class="sk-hero">
+    <div class="sk-hero-glow"></div>
+    <div class="sk-hero-l">
+      <div class="sk-eyebrow"><span class="lang-th">อายุผิวของคุณ</span><span class="lang-en" style="display:none;">Your Skin Age</span></div>
+      <div class="sk-age"><span class="sk-age-num">24</span><span class="sk-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">Years</span></span></div>
+      <div class="sk-age-sub"><span class="lang-th">อ่อนกว่าอายุจริงของคุณ</span><span class="lang-en" style="display:none;">Younger than your actual age</span></div>
+      <div class="sk-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.2L20 9l-4 3.9.9 5.6L12 16l-4.9 2.5.9-5.6L4 9l5.5-.8z"/></svg>
+        <span>TOP 5% · <span class="lang-th">คุณภาพผิว</span><span class="lang-en" style="display:none;">Skin Quality</span></span>
+      </div>
+    </div>
+    <div class="sk-hero-r">
+      <div class="sk-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(201,130,98,.16)" stroke-width="7"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="url(#skg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="23.8"/>
+          <defs><linearGradient id="skg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6C28A"/><stop offset="1" stop-color="#C98262"/></linearGradient></defs>
+        </svg>
+        <div class="sk-ring-val"><div class="sk-ring-num">91</div><div class="sk-ring-den">/ 100</div></div>
+      </div>
+      <div class="sk-ring-cap"><span class="lang-th">คะแนนผิว</span><span class="lang-en" style="display:none;">Skin Score</span></div>
+      <div class="sk-ring-ex"><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
+    </div>
+  </div>
+
+  <!-- 3 · AI SKIN INSIGHTS (2×2) -->
+  <div class="sk-sec">
+    <div class="sk-sec-eye"><span class="lang-th">จากการสแกนล่าสุด</span><span class="lang-en" style="display:none;">From your latest scan</span></div>
+    <h2>AI Skin Insights</h2>
+  </div>
+  <div class="sk-grid">
+    <!-- Hydration -->
+    <div class="sk-ins" style="background:#EAF1F4;">
+      <span class="sk-ins-ico" style="color:#5B8AA6;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg></span>
+      <div class="sk-ins-name">Hydration</div>
+      <div class="sk-ins-status" style="color:var(--sk-green);"><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
+      <div class="sk-ins-desc"><span class="lang-th">ผิวชุ่มชื้นสมดุลมาก</span><span class="lang-en" style="display:none;">Well-balanced hydration</span></div>
+    </div>
+    <!-- Radiance -->
+    <div class="sk-ins" style="background:#FBF1DE;">
+      <span class="sk-ins-ico" style="color:#C99A3E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></span>
+      <div class="sk-ins-name">Radiance</div>
+      <div class="sk-ins-status" style="color:var(--sk-green);"><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
+      <div class="sk-ins-desc"><span class="lang-th">ผิวกระจ่างใส สุขภาพดี</span><span class="lang-en" style="display:none;">Bright, healthy glow</span></div>
+    </div>
+    <!-- Elasticity -->
+    <div class="sk-ins" style="background:#FBEDE4;">
+      <span class="sk-ins-ico" style="color:#C0622A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12l3 4.5-9 11.5L3 8.5z"/><path d="M3 8.5h18M9 4 7.5 8.5 12 20l4.5-11.5L15 4"/></svg></span>
+      <div class="sk-ins-name">Elasticity</div>
+      <div class="sk-ins-status" style="color:var(--sk-green);"><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
+      <div class="sk-ins-desc"><span class="lang-th">ผิวแน่นกระชับ ยืดหยุ่นดี</span><span class="lang-en" style="display:none;">Firm and elastic</span></div>
+    </div>
+    <!-- Pores -->
+    <div class="sk-ins" style="background:#FBEAE5;">
+      <span class="sk-ins-ico" style="color:#C98262;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7.5" cy="8" r="1.3"/><circle cx="14" cy="6.5" r="1"/><circle cx="17" cy="11" r="1.4"/><circle cx="10" cy="13" r="1.1"/><circle cx="15" cy="16" r="1.2"/><circle cx="8" cy="17" r="1"/></svg></span>
+      <div class="sk-ins-name">Pores</div>
+      <div class="sk-ins-status" style="color:var(--sk-rosebrown);"><span class="lang-th">ควรดูแลเพิ่ม</span><span class="lang-en" style="display:none;">Needs Attention</span></div>
+      <div class="sk-ins-desc"><span class="lang-th">รูขุมขนบริเวณทีโซนควรดูแลเพิ่มเติม</span><span class="lang-en" style="display:none;">T-zone pores need extra care</span></div>
+    </div>
+  </div>
+
+  <!-- 4 · SKIN JOURNEY -->
+  <div class="sk-sec">
+    <div class="sk-sec-eye"><span class="lang-th">ความคืบหน้า</span><span class="lang-en" style="display:none;">Your progress</span></div>
+    <h2>Skin Journey</h2>
+  </div>
+  <div class="sk-journey">
+    <div class="sk-chart">
+      <svg viewBox="0 0 300 88" preserveAspectRatio="none" fill="none">
+        <defs>
+          <linearGradient id="skj" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E6C28A"/><stop offset="1" stop-color="#C98262"/></linearGradient>
+          <linearGradient id="skjf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(201,130,98,.18)"/><stop offset="1" stop-color="rgba(201,130,98,0)"/></linearGradient>
+        </defs>
+        <path d="M30,64 L150,42 L270,22 L270,88 L30,88 Z" fill="url(#skjf)"/>
+        <polyline points="30,64 150,42 270,22" stroke="url(#skj)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="30" cy="64" r="4" fill="#fff" stroke="#C98262" stroke-width="2.4"/>
+        <circle cx="150" cy="42" r="4" fill="#fff" stroke="#C98262" stroke-width="2.4"/>
+        <circle cx="270" cy="22" r="5" fill="#C98262"/>
+        <text x="30" y="54" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#8B4A3A">91</text>
+        <text x="150" y="32" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#8B4A3A">92</text>
+        <text x="270" y="13" text-anchor="middle" font-family="'Playfair Display',serif" font-size="14" font-weight="700" fill="#2F6B1F">93</text>
+      </svg>
+    </div>
+    <div class="sk-chart-x">
+      <span>Jun 10</span><span>Jun 17</span><span>Jun 24</span>
+    </div>
+    <div class="sk-jrow">
+      <div class="sk-jcell">
+        <div class="lbl"><span class="lang-th">สแกนครั้งก่อน</span><span class="lang-en" style="display:none;">Previous Scan</span></div>
+        <div class="big">91</div>
+        <div class="sub">pts</div>
+      </div>
+      <div class="sk-jarrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="sk-jcell">
+        <div class="lbl"><span class="lang-th">สแกนล่าสุด</span><span class="lang-en" style="display:none;">Latest Scan</span></div>
+        <div class="big" style="color:var(--sk-green);">93</div>
+        <div class="sub" style="color:var(--sk-green);">pts</div>
+      </div>
+    </div>
+    <div class="sk-note">
+      <div class="sk-note-pts">+2 pts</div>
+      <p><span class="lang-th">ผิวของคุณดีขึ้นอย่างต่อเนื่อง</span><span class="lang-en" style="display:none;">Your skin keeps improving steadily</span></p>
+    </div>
+  </div>
+
+  <!-- 5 · PRODUCT IMPACT -->
+  <div class="sk-sec">
+    <div class="sk-sec-eye"><span class="lang-th">BioActive+ ที่ได้ผล</span><span class="lang-en" style="display:none;">BioActive+ results</span></div>
+    <h2><span class="lang-th">อะไรช่วยผิวคุณมากที่สุด</span><span class="lang-en" style="display:none;">What Improved Your Skin?</span></h2>
+  </div>
+
+  <div class="sk-prod">
+    <div class="sk-prod-ico" style="background:#FBEDE4;color:#C0622A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v3.2L7 11.5a4 4 0 0 0 3.4 6.2h3.2A4 4 0 0 0 17 11.5L14 6.2V3"/><path d="M8 14h8"/></svg></div>
+    <div class="sk-prod-mid">
+      <div class="sk-prod-name">Collagen</div>
+      <div class="sk-prod-benefit"><span class="lang-th">ความยืดหยุ่น</span><span class="lang-en" style="display:none;">Elasticity</span></div>
+      <span class="sk-prod-pill">Impact</span>
+    </div>
+    <div class="sk-prod-r">
+      <div class="sk-prod-pct">+18%</div>
+      <button class="sk-prod-btn" onclick="goPage('shop')"><span class="lang-th">ซื้ออีกครั้ง</span><span class="lang-en" style="display:none;">Buy Again</span></button>
+    </div>
+  </div>
+
+  <div class="sk-prod">
+    <div class="sk-prod-ico" style="background:#FBF1DE;color:#C99A3E;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5.2L20 9l-4 3.9.9 5.6L12 16l-4.9 2.5.9-5.6L4 9l5.6-.8z"/></svg></div>
+    <div class="sk-prod-mid">
+      <div class="sk-prod-name">Gold</div>
+      <div class="sk-prod-benefit"><span class="lang-th">ความกระจ่างใส</span><span class="lang-en" style="display:none;">Radiance</span></div>
+      <span class="sk-prod-pill">Impact</span>
+    </div>
+    <div class="sk-prod-r">
+      <div class="sk-prod-pct">+12%</div>
+      <button class="sk-prod-btn" onclick="goPage('shop')"><span class="lang-th">ซื้ออีกครั้ง</span><span class="lang-en" style="display:none;">Buy Again</span></button>
+    </div>
+  </div>
+
+  <div class="sk-prod">
+    <div class="sk-prod-ico" style="background:#EAF1F4;color:#5B8AA6;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg></div>
+    <div class="sk-prod-mid">
+      <div class="sk-prod-name">Juvecol</div>
+      <div class="sk-prod-benefit"><span class="lang-th">ความชุ่มชื้น</span><span class="lang-en" style="display:none;">Hydration</span></div>
+      <span class="sk-prod-pill">Impact</span>
+    </div>
+    <div class="sk-prod-r">
+      <div class="sk-prod-pct">+15%</div>
+      <button class="sk-prod-btn" onclick="goPage('shop')"><span class="lang-th">ซื้ออีกครั้ง</span><span class="lang-en" style="display:none;">Buy Again</span></button>
+    </div>
+  </div>
+
+  <!-- 6 · BOTTOM CTA -->
+  <div class="sk-cta">
+    <div class="sk-cta-glow"></div>
+    <h3>Continue Your Glow Journey</h3>
+    <p><span class="lang-th">ดูแลผิววันนี้ เพื่อผิวที่ดีที่สุดในเวอร์ชันของคุณ</span><span class="lang-en" style="display:none;">Care for your skin today — for the best version of you</span></p>
+    <button class="sk-cta-btn" onclick="goPage('shop')"><span class="lang-th">สั่งซ้ำรูทีนของฉัน</span><span class="lang-en" style="display:none;">Reorder My Routine</span></button>
+  </div>
+
+ </div>
 </div>
 
 <div class="page" id="page-hyrox">
@@ -3505,7 +3632,7 @@ function goPage(name){
   if(name==='table')renderTable();
   if(name==='stats')renderStats();
   if(name==='ing')renderIng();
-  if(name==='skin'){ try{ renderSkinHistory(); }catch(e){} (async()=>{ try{ const log=await getSkinLog(); if(log&&log.length){ const d=document.getElementById('skin-dashboard'); if(d)d.style.display='block'; const w=document.getElementById('skin-dashboard-btn-wrap'); if(w)w.style.display='none'; switchSkinTab('overview'); } }catch(e){} })(); }
+  // skin = static luxury Skin Studio page; no dynamic dashboard logic needed
   if(name==='bio'){curBioDay=curDay;curBioMo=curDay.substring(0,7);renderBio();}
   if(name==='shop'){ renderShop(); }
   if(name==='member'){ renderMember(); }
@@ -3899,7 +4026,7 @@ async function renderCompanion(){
 
 // ── SWIPE NAV (left/right to change page) ──
 (function(){
-  const ORDER=['home','bodystudio','timeline','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders'];
+  const ORDER=['home','bodystudio','skin','timeline','profile','log','table','stats','body','hyrox','ing','bio','shop','member','orders'];
   let sx=0,sy=0,st=0,ok=false;
   function curPage(){ const p=document.querySelector('.page.active'); return p?p.id.replace('page-',''):'home'; }
   function hscroll(node){ while(node && node!==document.body){ try{ if(node.scrollWidth-node.clientWidth>8){ const ov=getComputedStyle(node).overflowX; if(ov==='auto'||ov==='scroll') return true; } }catch(e){} node=node.parentElement; } return false; }
@@ -4522,8 +4649,6 @@ type: good (จุดแข็ง), info (ข้อสังเกต), add (แ
 
 // ── INIT ──
 async function init(){
-  // Move skin panel into its own page
-  try{ const sp=document.getElementById('page-skin'), bp=document.getElementById('bpanel-skin'); if(sp&&bp&&bp.parentElement!==sp){ bp.style.display='block'; sp.appendChild(bp); } }catch(e){}
   // Set default body date to today
   const todayStr = new Date().toISOString().split('T')[0];
   const bodyDateEl = document.getElementById('body-date');
