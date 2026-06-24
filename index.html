@@ -1836,7 +1836,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v4.1 · 24 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v4.2 · 24 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -3899,7 +3899,7 @@ async function renderCompanion(){
 
 // ── SWIPE NAV (left/right to change page) ──
 (function(){
-  const ORDER=['home','timeline','profile','log','table','stats','body','bodystudio','skin','hyrox','ing','bio','shop','member','orders'];
+  const ORDER=['home','bodystudio','timeline','profile','log','table','stats','body','skin','hyrox','ing','bio','shop','member','orders'];
   let sx=0,sy=0,st=0,ok=false;
   function curPage(){ const p=document.querySelector('.page.active'); return p?p.id.replace('page-',''):'home'; }
   function hscroll(node){ while(node && node!==document.body){ try{ if(node.scrollWidth-node.clientWidth>8){ const ov=getComputedStyle(node).overflowX; if(ov==='auto'||ov==='scroll') return true; } }catch(e){} node=node.parentElement; } return false; }
@@ -10354,7 +10354,7 @@ window.BodyStudio = (function(){
   function setTab(id){active=id;buildTabs();buildCar();}
   function pick(cat,id){
     const it=item(cat,id),cost=it.cost||0,owned=owns(cat,id);
-    if(!owned&&cost>0){ if(S.coins>=cost){S.coins-=cost;S.owned.push(cat+':'+id);document.getElementById('bsx-coin').textContent=S.coins;toast((L()==='en'?'🎉 Unlocked ':'🎉 ปลดล็อก ')+itemName(cat,it)+(L()==='en'?'!':' แล้ว!'));}else{toast((L()==='en'?'Need ':'ต้องการอีก ')+(cost-S.coins)+(L()==='en'?' more coins':' แต้ม'));return;} }
+    if(!owned&&cost>0){ if(S.coins>=cost){S.coins-=cost;S.owned.push(cat+':'+id);document.getElementById('bsx-coin').textContent=S.coins;toast((L()==='en'?'🎉 Unlocked ':'🎉 ปลดล็อก ')+itemName(cat,it)+(L()==='en'?'!':' แล้ว!'));}else{toast(L()==='en'?('🛒 Buy BioActive to unlock '+itemName(cat,it)):('🛒 ซื้อ BioActive เพื่อปลดล็อก '+itemName(cat,it)));try{if(typeof goPage==='function')goPage('shop');}catch(e){}return;} }
     if(cat==='reward'){const a=S.cfg.reward||[];const i=a.indexOf(id);if(i>=0)a.splice(i,1);else a.push(id);S.cfg.reward=a;}
     else S.cfg[cat]=id;
     save();renderAvatar();buildCar();
@@ -10410,12 +10410,12 @@ window.BodyStudio = (function(){
   function initBS(){
     if(document.getElementById('ntab-bodystudio')) return;
     var navtabs=document.querySelector('.nav-tabs');
-    var bodyTab=document.getElementById('ntab-body');
+    var homeTab=document.getElementById('ntab-home');
     if(navtabs){
       var tab=document.createElement('div');
       tab.className='ntab'; tab.id='ntab-bodystudio'; tab.setAttribute('onclick',"goPage('bodystudio')");
       tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M12 2l1.2 2.2M12 2l-1.2 2.2" /></svg><span class="lang-th">สตูดิโอ</span><span class="lang-en" style="display:none;">Studio</span>';
-      if(bodyTab&&bodyTab.nextSibling) navtabs.insertBefore(tab, bodyTab.nextSibling); else navtabs.appendChild(tab);
+      if(homeTab&&homeTab.nextSibling) navtabs.insertBefore(tab, homeTab.nextSibling); else navtabs.appendChild(tab);
     }
     var home=document.getElementById('page-home');
     if(home&&!document.getElementById('page-bodystudio')){
