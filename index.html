@@ -1836,7 +1836,7 @@ function syncLogRings(){
     <textarea id="supps" placeholder="e.g. melatonin (before bed), other medications..."></textarea>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
-  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.8 · 24 มิ.ย.</div>
+  <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v3.9 · 24 มิ.ย.</div>
 </div>
 
 <!-- PAGE TABLE -->
@@ -10258,7 +10258,11 @@ window.BodyStudio = (function(){
     shoes:[{id:'oncloud',name:'On Cloud',c:'#FFFFFF',ac:'#C0C8D2'},{id:'hoka',name:'Hoka',c:'#F4DCC8',ac:'#E0A0BE'},{id:'nb',name:'New Balance',c:'#E8E4DC',ac:'#9AAFC0'},{id:'nike',name:'Nike',c:'#FFFFFF',ac:'#222',cost:180},{id:'carbon',name:'Carbon',c:'#2A2A2E',ac:'#C9FF5A',cost:400,limited:true}],
     reward:[{id:'apple_watch',name:'Apple Watch'},{id:'garmin',name:'Garmin',cost:150},{id:'bottle',name:'ขวดน้ำ'},{id:'cap',name:'หมวก',cost:120},{id:'headphones',name:'หูฟัง',cost:200}]
   };
-  const TABS=[{id:'gender',name:'เพศ'},{id:'face',name:'หน้า'},{id:'hair',name:'ผม'},{id:'makeup',name:'เมคอัพ'},{id:'outfit',name:'ชุด'},{id:'shoes',name:'รองเท้า'},{id:'reward',name:'รางวัล'}];
+  const TABS=[{id:'gender',name:'เพศ',en:'Gender'},{id:'face',name:'หน้า',en:'Face'},{id:'hair',name:'ผม',en:'Hair'},{id:'makeup',name:'เมคอัพ',en:'Makeup'},{id:'outfit',name:'ชุด',en:'Outfit'},{id:'shoes',name:'รองเท้า',en:'Shoes'},{id:'reward',name:'รางวัล',en:'Rewards'}];
+  function L(){return (typeof currentLang!=='undefined'&&currentLang==='en')?'en':'th';}
+  var ENITEM={'gender:female':'Female','gender:male':'Male','gender:kid':'Kid','reward:bottle':'Water bottle','reward:cap':'Cap','reward:headphones':'Headphones'};
+  function itemName(cat,it){return L()==='en'?(ENITEM[cat+':'+it.id]||it.name):it.name;}
+  var ORG_EN={hair:'Hair',eyes:'Eyes',lungs:'Lungs',heart:'Heart',kidney:'Kidney',gut:'Gut',muscle:'Muscle',skin:'Skin'};
 
   const KEY='girl_bodystudio_v1';
   const DEFAULT={coins:240,owned:['gender:female','gender:male','gender:nonbinary','gender:kid','face:oval','face:heart','face:round','face:soft','face:diamond','hair:long','hair:wave','hair:bob','hair:ponytail','hair:bun','hair:short','hair:twin','makeup:natural','makeup:fresh','outfit:yoga','outfit:running','outfit:pilates','shoes:oncloud','shoes:hoka','shoes:nb','reward:apple_watch','reward:bottle'],cfg:{gender:'female',face:'oval',hair:'long',makeup:'natural',outfit:'yoga',shoes:'oncloud',reward:['apple_watch']}};
@@ -10299,7 +10303,7 @@ window.BodyStudio = (function(){
     const pg=document.getElementById('page-bodystudio'); if(!pg)return;
     pg.innerHTML=''+
     '<div class="bsx-wrap">'+
-      '<div class="bsx-head"><div class="bsx-h1"><small>Body Studio · Longevity Avatar</small>ตัวละครของฉัน</div>'+
+      '<div class="bsx-head"><div class="bsx-h1"><small>BODY STUDIO · LONGEVITY AVATAR</small>GIRL</div>'+
         '<div class="bsx-coin"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="9" opacity=".25"/><path d="M12 6l1.5 3.2 3.5.5-2.6 2.4.6 3.4L12 14.4 9 15.9l.6-3.4L7 10.2l3.5-.5z"/></svg> <span id="bsx-coin">240</span></div>'+
       '</div>'+
       '<div class="bsx-ai" id="bsx-ai"></div>'+'<div class="bsx-dash"><div class="bsx-ocol" id="bsx-ocolL"></div>'+'<div class="bsx-stage">'+
@@ -10313,35 +10317,35 @@ window.BodyStudio = (function(){
       '</div>'+
       '<div class="bsx-ocol" id="bsx-ocolR"></div></div>'+'<div class="bsx-tabs" id="bsx-tabs"></div>'+
       '<div class="bsx-panel"><div class="bsx-pt" id="bsx-pt"></div><div class="bsx-car" id="bsx-car"></div></div>'+
-      '<div class="bsx-note">เปลี่ยนลุค = สลับรูปอวตาร (ใส่รูป PNG ต่อลุคได้ใน IMG_MAP) · เก็บแต้มปลดล็อกของสะสม · โครงสร้างรองรับโมเดล 3D (.glb) ในอนาคต</div>'+
+      '<div class="bsx-note" id="bsx-note"></div>'+
     '</div>';
     built=true; buildTabs(); buildCar();
   }
-  function buildTabs(){document.getElementById('bsx-tabs').innerHTML=TABS.map(t=>'<div class="bsx-tab '+(t.id===active?'on':'')+'" onclick="BodyStudio.setTab(\''+t.id+'\')">'+t.name+'</div>').join('');}
+  function buildTabs(){var en=L()==='en';document.getElementById('bsx-tabs').innerHTML=TABS.map(t=>'<div class="bsx-tab '+(t.id===active?'on':'')+'" onclick="BodyStudio.setTab(\''+t.id+'\')">'+(en?t.en:t.name)+'</div>').join('');}
   function labelEn(c){return {gender:'Gender',face:'Face',hair:'Hairstyle',makeup:'Makeup',outfit:'Sportswear',shoes:'Shoes',reward:'Rewards'}[c]||'';}
   function buildCar(){
     const cat=active, items=CATALOG[cat]||[], multi=cat==='reward', cur=S.cfg[cat];
-    document.getElementById('bsx-pt').innerHTML=(TABS.find(t=>t.id===cat).name)+' · '+labelEn(cat)+' <span>'+items.length+' แบบ</span>';
+    document.getElementById('bsx-pt').innerHTML=(L()==='en'?labelEn(cat):(TABS.find(t=>t.id===cat).name+' · '+labelEn(cat)))+' <span>'+items.length+' '+(L()==='en'?'styles':'แบบ')+'</span>';
     document.getElementById('bsx-car').innerHTML=items.map(it=>{
       const owned=owns(cat,it.id), cost=it.cost||0, eq=multi?(S.cfg.reward||[]).includes(it.id):cur===it.id;
       let prem=(it.limited||it.brand)?'prem':'';
       let badge=it.limited?'<div class="lim">LIMITED</div>':(it.brand?'<div class="brand">'+it.brand+'</div>':'');
       let corner=eq?'<div class="eqp">✓</div>':((!owned&&cost>0)?'<div class="lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9A7EC8" stroke-width="2.4"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>':'');
-      let foot=owned?(eq?'<div class="ow">ใส่อยู่</div>':'<div class="ow" style="color:#A89BB8">มีแล้ว</div>'):'<div class="pr"><svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l7 7-7 13L5 9z"/></svg>'+cost+'</div>';
-      return '<div class="bsx-opt '+(eq?'on':'')+' '+((!owned&&cost>0)?'lk':'')+' '+prem+'" onclick="BodyStudio.pick(\''+cat+'\',\''+it.id+'\')"><div class="th">'+thumb(cat,it)+'</div>'+badge+corner+'<div class="nm">'+it.name+'</div>'+foot+'</div>';
+      let foot=owned?(eq?'<div class="ow">'+(L()==='en'?'Wearing':'ใส่อยู่')+'</div>':'<div class="ow" style="color:#A89BB8">'+(L()==='en'?'Owned':'มีแล้ว')+'</div>'):'<div class="pr"><svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l7 7-7 13L5 9z"/></svg>'+cost+'</div>';
+      return '<div class="bsx-opt '+(eq?'on':'')+' '+((!owned&&cost>0)?'lk':'')+' '+prem+'" onclick="BodyStudio.pick(\''+cat+'\',\''+it.id+'\')"><div class="th">'+thumb(cat,it)+'</div>'+badge+corner+'<div class="nm">'+itemName(cat,it)+'</div>'+foot+'</div>';
     }).join('');
   }
   function setTab(id){active=id;buildTabs();buildCar();}
   function pick(cat,id){
     const it=item(cat,id),cost=it.cost||0,owned=owns(cat,id);
-    if(!owned&&cost>0){ if(S.coins>=cost){S.coins-=cost;S.owned.push(cat+':'+id);document.getElementById('bsx-coin').textContent=S.coins;toast('🎉 ปลดล็อก '+it.name+' แล้ว!');}else{toast('ต้องการอีก '+(cost-S.coins)+' แต้ม');return;} }
+    if(!owned&&cost>0){ if(S.coins>=cost){S.coins-=cost;S.owned.push(cat+':'+id);document.getElementById('bsx-coin').textContent=S.coins;toast((L()==='en'?'🎉 Unlocked ':'🎉 ปลดล็อก ')+itemName(cat,it)+(L()==='en'?'!':' แล้ว!'));}else{toast((L()==='en'?'Need ':'ต้องการอีก ')+(cost-S.coins)+(L()==='en'?' more coins':' แต้ม'));return;} }
     if(cat==='reward'){const a=S.cfg.reward||[];const i=a.indexOf(id);if(i>=0)a.splice(i,1);else a.push(id);S.cfg.reward=a;}
     else S.cfg[cat]=id;
     save();renderAvatar();buildCar();
   }
-  function spin(){const m=document.getElementById('bsx-av');if(!m)return;m.classList.add('spin');setTimeout(()=>m.classList.remove('spin'),520);toast('หมุน 360° เต็มรูปแบบใน Phase 3 (โมเดล .glb)');}
+  function spin(){const m=document.getElementById('bsx-av');if(!m)return;m.classList.add('spin');setTimeout(()=>m.classList.remove('spin'),520);toast(L()==='en'?'Full 360° spin in Phase 3 (.glb model)':'หมุน 360° เต็มรูปแบบใน Phase 3 (โมเดล .glb)');}
   let tt; function toast(msg){let t=document.getElementById('bsx-toast');if(!t){t=document.createElement('div');t.id='bsx-toast';t.className='bsx-toast';document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
-  function readStatus(){ try{ var b=JSON.parse(localStorage.getItem('girl_profile_body')||'{}'); var sc=b.score; if(sc==null && typeof computeGirlScore==='function'){ try{sc=computeGirlScore();}catch(e){} } if(typeof sc==='number'){ var s=document.getElementById('bsx-status'); if(s){ var label=sc>=80?'สดใสเต็มพลัง':sc>=60?'สดใส':sc>=40?'โอเค':'พักผ่อนหน่อย'; var col=sc>=60?'#7CC79A':sc>=40?'#E0B44A':'#E08A8A'; s.innerHTML='<i style="background:'+col+'"></i> วันนี้ '+label+' · '+Math.round(sc); } } }catch(e){} }
+  function readStatus(){ try{ var b=JSON.parse(localStorage.getItem('girl_profile_body')||'{}'); var sc=b.score; if(sc==null && typeof computeGirlScore==='function'){ try{sc=computeGirlScore();}catch(e){} } if(typeof sc==='number'){ var s=document.getElementById('bsx-status'); if(s){ var en=L()==='en'; var label=en?(sc>=80?'Energized':sc>=60?'Fresh':sc>=40?'Okay':'Rest up'):(sc>=80?'สดใสเต็มพลัง':sc>=60?'สดใส':sc>=40?'โอเค':'พักผ่อนหน่อย'); var col=sc>=60?'#7CC79A':sc>=40?'#E0B44A':'#E08A8A'; s.innerHTML='<i style="background:'+col+'"></i> '+(en?'Today ':'วันนี้ ')+label+' · '+Math.round(sc); } } }catch(e){} }
   var ICON_O={hair:'<path d="M8 3c-2 3 2 5 0 8s2 5 0 8M12 3c-2 3 2 5 0 8s2 5 0 8M16 3c-2 3 2 5 0 8s2 5 0 8"/>',eyes:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',lungs:'<path d="M12 3v9"/><path d="M9 12c0-2-3-2-4.5 0C3 14 3 18 4 19.5c1 1.5 4 1 4.5-1 .5-2 .5-4.5.5-5.5zM15 12c0-2 3-2 4.5 0C21 14 21 18 20 19.5c-1 1.5-4 1-4.5-1-.5-2-.5-4.5-.5-5.5z"/>',heart:'<path d="M12 20.5C7 17 4 13.6 4 10.1A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 8 2.1c0 3.5-3 6.9-8 10.4z"/>',kidney:'<path d="M15 4.5c-4.5 0-7.5 3.3-7.5 7.5s3 7.5 7 7.5c2 0 3.3-1.2 3.3-2.8s-1.2-2.6-2.8-2.6c-1.4 0-2.3-.8-2.3-2s1-2 2.3-2c1.8 0 3 1.2 4.8 1.2"/>',gut:'<path d="M5 5h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/>',muscle:'<path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/>',skin:'<path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/>'};
   var TH_O={hair:'ผม',eyes:'ดวงตา',lungs:'ปอด',heart:'หัวใจ',kidney:'ไต',gut:'ลำไส้',muscle:'กล้ามเนื้อ',skin:'ผิว'};
   var FOOD_O={'Moringa':'มะรุม','Amla':'มะขามป้อม','Red Lentils':'ถั่วเลนทิลแดง','Pumpkin Seeds':'เมล็ดฟักทอง','Kale':'เคล','Carrots':'แครอท','Spinach':'ผักโขม','Pistachios':'พิสตาชิโอ','Grapes':'องุ่น','Pears':'ลูกแพร์','Pomegranate':'ทับทิม','Turmeric':'ขมิ้น','Walnuts daily':'วอลนัท','Beets':'บีทรูท','Green tea':'ชาเขียว','Celery':'ขึ้นฉ่าย','Red Bell Pepper':'พริกหวานแดง','Cauliflower':'กะหล่ำดอก','Sauerkraut':'กะหล่ำดอง','Kimchi':'กิมจิ','Miso':'มิโซะ','Chickpeas':'ถั่วชิกพี','Tofu':'เต้าหู้','Peas':'ถั่วลันเตา','Red/Orange veg':'ผักแดง/ส้ม','Brazil nuts':'บราซิลนัท','Bone broth':'น้ำซุปกระดูก'};
@@ -10357,8 +10361,8 @@ window.BodyStudio = (function(){
       ['hair','eyes','lungs','heart','kidney','gut','muscle','skin'].forEach(function(id){ var d=OD[id]; if(!d)return;
         var mf=d.matchFoods||[]; var matched=mf.filter(function(f){return allText.includes(f.toLowerCase());});
         var pct=Math.round(Math.min(100,(matched.length/Math.max(mf.length,1))*100+20));
-        var food=(d.missingFoods&&d.missingFoods[0])?(FOOD_O[d.missingFoods[0].name]||d.missingFoods[0].name):'';
-        out.push({id:id,pct:pct,color:d.color,name:TH_O[id]||d.title,food:food}); });
+        var fn=(d.missingFoods&&d.missingFoods[0])?d.missingFoods[0].name:''; var food=(L()==='en')?fn:(FOOD_O[fn]||fn);
+        out.push({id:id,pct:pct,color:d.color,name:(L()==='en'?(ORG_EN[id]||d.title):(TH_O[id]||d.title)),food:food}); });
     }catch(e){} return out;
   }
   function organTip(id){ var o=_organs.find(function(x){return x.id===id;}); if(o) toast(o.name+' '+o.pct+'% · กินเพิ่ม '+o.food); }
@@ -10367,10 +10371,10 @@ window.BodyStudio = (function(){
     var avg=Math.round(organs.reduce(function(s,o){return s+o.pct;},0)/organs.length);
     var best=organs.slice().sort(function(a,b){return b.pct-a.pct;})[0];
     var weak=organs.slice().sort(function(a,b){return a.pct-b.pct;})[0];
-    var tier=avg>=85?'ดีเยี่ยม':avg>=75?'ดีมาก':avg>=65?'ดี':avg>=50?'พอใช้':'ควรดูแลเพิ่ม';
+    var en=L()==='en'; var tier=en?(avg>=85?'Excellent':avg>=75?'Great':avg>=65?'Good':avg>=50?'Fair':'Needs care'):(avg>=85?'ดีเยี่ยม':avg>=75?'ดีมาก':avg>=65?'ดี':avg>=50?'พอใช้':'ควรดูแลเพิ่ม');
     var col=avg>=75?'#7CA86A':avg>=55?'#E0B44A':'#E08A8A';
     el.innerHTML='<div class="aiic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9A7EC8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 1 4 4c1.5.5 2.5 2 2.5 3.7 0 1-.4 1.9-1 2.6.3.5.5 1.1.5 1.7a3.2 3.2 0 0 1-3.2 3.2c-.5 0-1-.1-1.4-.3A3 3 0 0 1 12 22a3 3 0 0 1-3.4-2.4c-.4.2-.9.3-1.4.3A3.2 3.2 0 0 1 4 16.7c0-.6.2-1.2.5-1.7-.6-.7-1-1.6-1-2.6C3.5 10.7 4.5 9.2 6 8.7A4 4 0 0 1 12 3Z"/></svg></div>'+
-      '<div class="aitx"><div class="aitt">✨ AI วิเคราะห์ร่างกายวันนี้</div><div class="aibd">วันนี้ร่างกายเกิลโดยรวมอยู่ในเกณฑ์ <b>'+tier+'</b> · แข็งแรงสุดคือ<b>'+best.name+'</b> ('+best.pct+'%) · ควรเสริม<b>'+weak.name+'</b> ลองเพิ่ม '+weak.food+' วันนี้นะคะ</div></div>'+
+      '<div class="aitx"><div class="aitt">'+(en?'✨ AI body analysis · today':'✨ AI วิเคราะห์ร่างกาย GIRL วันนี้')+'</div><div class="aibd">'+(en?('Today GIRL\'s body is overall <b>'+tier+'</b> · Strongest is <b>'+best.name+'</b> ('+best.pct+'%) · Boost <b>'+weak.name+'</b> — try '+weak.food+' today'):('วันนี้ร่างกายของ GIRL โดยรวมอยู่ในเกณฑ์ <b>'+tier+'</b> · แข็งแรงสุดคือ<b>'+best.name+'</b> ('+best.pct+'%) · ควรเสริม<b>'+weak.name+'</b> ลองเพิ่ม '+weak.food+' วันนี้นะคะ'))+'</div></div>'+
       '<div class="aisc"><div class="n" style="color:'+col+'">'+avg+'</div><div class="l">/100</div></div>';
   }
   async function renderHealth(){ var organs=await computeOrgans(); _organs=organs;
@@ -10381,7 +10385,7 @@ window.BodyStudio = (function(){
     if(R)R.innerHTML=organs.slice(4,8).map(card).join('');
     renderAI(organs);
   }
-  function show(){ load(); if(!built)build(); document.getElementById('bsx-coin').textContent=S.coins; renderAvatar(); buildTabs(); buildCar(); readStatus(); renderHealth(); }
+  function show(){ load(); if(!built)build(); document.getElementById('bsx-coin').textContent=S.coins; renderAvatar(); buildTabs(); buildCar(); readStatus(); renderHealth(); var _n=document.getElementById('bsx-note'); if(_n)_n.textContent=(L()==='en'?'Switch look = swap avatar image (add per-look PNG in IMG_MAP) · earn points to unlock collectibles · ready for 3D (.glb)':'เปลี่ยนลุค = สลับรูปอวตาร (ใส่รูป PNG ต่อลุคได้ใน IMG_MAP) · เก็บแต้มปลดล็อกของสะสม · รองรับโมเดล 3D (.glb) ในอนาคต'); }
   return {show,setTab,pick,spin,organTip,IMG_MAP,_get:()=>S};
 })();
 
@@ -10408,6 +10412,7 @@ window.BodyStudio = (function(){
       window.goPage=function(n){ try{_gp.apply(this,arguments);}catch(e){console.error(e);} if(n==='bodystudio'){ try{BodyStudio.show();}catch(e){console.error(e);} } if(n==='body'){ try{ if(typeof switchBodyTab==='function') switchBodyTab('stats'); }catch(e){} } };
       window.__bsxWrapped=true;
     }
+    if(typeof window.toggleLang==='function' && !window.__bsxLangWrapped){ var _tl=window.toggleLang; window.toggleLang=function(){ try{_tl.apply(this,arguments);}catch(e){} try{ var a=document.querySelector('.page.active'); if(a&&a.id==='page-bodystudio'&&window.BodyStudio) BodyStudio.show(); }catch(e){} }; window.__bsxLangWrapped=true; }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initBS); else initBS();
   setTimeout(initBS,800);
