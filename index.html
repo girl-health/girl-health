@@ -2654,6 +2654,7 @@ function syncLogRings(){
 }
 /* the one rule that matters: never stretch on desktop */
 .sk-shell{ max-width:430px; margin:0 auto; }
+@keyframes skspin{ to{ transform:rotate(360deg); } }
 
 /* 1 · PAGE TITLE */
 .sk-pagettl{ text-align:center; margin:2px 0 20px; }
@@ -2672,7 +2673,7 @@ function syncLogRings(){
 /* soft rose-gold lighting */
 .sk-hero-light{ position:absolute; border-radius:50%; pointer-events:none; z-index:0; filter:blur(6px); }
 .sk-hero-light-1{ top:-34%; right:-8%; width:48%; height:130%;
-  background:radial-gradient(circle, rgba(214,180,106,.34), rgba(201,130,98,.12) 46%, transparent 70%); }
+  background:radial-gradient(circle, rgba(214,180,106,.42), rgba(201,130,98,.16) 46%, transparent 72%); }
 .sk-hero-light-2{ bottom:-44%; left:-14%; width:44%; height:118%;
   background:radial-gradient(circle, rgba(251,234,229,.62), transparent 68%); }
 
@@ -2690,7 +2691,7 @@ function syncLogRings(){
 
 /* center · premium glowing rose-gold score ring */
 .sk-hero-c{ grid-area:c; position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center; }
-.sk-ring{ position:relative; width:clamp(116px,15vw,146px); height:clamp(116px,15vw,146px); filter:drop-shadow(0 12px 30px rgba(201,130,98,.5)); }
+.sk-ring{ position:relative; width:clamp(116px,15vw,146px); height:clamp(116px,15vw,146px); filter:drop-shadow(0 10px 26px rgba(201,130,98,.55)) drop-shadow(0 0 26px rgba(214,180,106,.55)); }
 .sk-ring svg{ width:100%; height:100%; }
 .sk-ring-val{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 .sk-ring-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(2.2rem,4.6vw,2.9rem); line-height:1; color:var(--sk-ink); }
@@ -2702,7 +2703,7 @@ function syncLogRings(){
 .sk-hero-r{ grid-area:r; position:relative; z-index:2; }
 .sk-portrait{ position:relative; width:100%; height:clamp(250px,30vw,330px); margin:0 auto; border-radius:24px; overflow:hidden;
   background:radial-gradient(120% 92% at 60% 16%, #FFF6EE 0%, var(--sk-blush) 46%, #EFD2C2 100%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55), 0 18px 42px rgba(180,120,80,.2); }
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55), 0 18px 42px rgba(180,120,80,.22), 0 0 48px rgba(214,180,106,.4); }
 .sk-portrait svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
 .sk-portrait-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 14%; z-index:1; }
 .sk-portrait::after{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none; border-radius:inherit;
@@ -2746,7 +2747,7 @@ function syncLogRings(){
 /* 5 · PRODUCT IMPACT */
 .sk-prod{ display:flex; align-items:center; gap:13px; padding:14px 15px; margin-bottom:12px; border-radius:20px; background:#fff;
   box-shadow:0 1px 2px rgba(120,80,40,.04), 0 10px 26px rgba(150,100,60,.06); }
-.sk-prod-thumb{ width:54px; height:54px; flex-shrink:0; border-radius:14px; overflow:hidden; background:#F3E7DC; box-shadow:inset 0 0 0 1px rgba(201,130,98,.16); }
+.sk-prod-thumb{ width:70px; height:70px; flex-shrink:0; border-radius:16px; overflow:hidden; background:#F3E7DC; box-shadow:inset 0 0 0 1px rgba(201,130,98,.16); }
 .sk-prod-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 .sk-prod-mid{ flex:1; min-width:0; }
 .sk-prod-name{ font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; color:var(--sk-ink); }
@@ -2791,7 +2792,7 @@ function syncLogRings(){
    <!-- LEFT · skin age + score + badge -->
    <div class="sk-hero-l">
      <div class="sk-eyebrow"><span class="lang-th">อายุผิวของคุณ</span><span class="lang-en" style="display:none;">Your Skin Age</span></div>
-     <div class="sk-age"><span class="sk-age-num">24</span><span class="sk-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">Years</span></span></div>
+     <div class="sk-age"><span class="sk-age-num" id="sk-age-num">24</span><span class="sk-age-unit"><span class="lang-th">ปี</span><span class="lang-en" style="display:none;">Years</span></span></div>
      <div class="sk-age-sub"><span class="lang-th">อ่อนกว่าอายุจริงของคุณ</span><span class="lang-en" style="display:none;">Younger than your actual age</span></div>
      <div class="sk-badge">
        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.2L20 9l-4 3.9.9 5.6L12 16l-4.9 2.5.9-5.6L4 9l5.5-.8z"/></svg>
@@ -2816,10 +2817,10 @@ function syncLogRings(){
            <circle cx="33.2" cy="17.8" r="7" fill="#FFF4E2" opacity=".9" filter="url(#skglow)"/>
            <circle cx="33.2" cy="17.8" r="3.4" fill="#C98262"/>
          </svg>
-         <div class="sk-ring-val"><div class="sk-ring-num">91</div><div class="sk-ring-den">/ 100</div></div>
+         <div class="sk-ring-val"><div class="sk-ring-num" id="sk-ring-num">91</div><div class="sk-ring-den">/ 100</div></div>
        </div>
        <div class="sk-ring-cap"><span class="lang-th">คะแนนผิว</span><span class="lang-en" style="display:none;">Skin Score</span></div>
-       <div class="sk-ring-ex"><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
+       <div class="sk-ring-ex" id="sk-ring-ex"><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
    </div>
 
    <!-- RIGHT · luxury beauty portrait -->
@@ -2980,7 +2981,7 @@ function syncLogRings(){
   <div class="sk-cta">
     <div class="sk-cta-glow"></div>
     <h3>Continue Your Glow Journey</h3>
-    <p><span class="lang-th">ดูแลผิววันนี้ เพื่อผิวที่ดีที่สุดในเวอร์ชันของคุณ</span><span class="lang-en" style="display:none;">Care for your skin today — for the best version of you</span></p>
+    <p><span class="lang-th">โปรแกรมดูแลผิวที่เหมาะกับคุณพร้อมแล้ว</span><span class="lang-en" style="display:none;">Your personalized routine is ready.</span></p>
     <button class="sk-cta-btn" onclick="goPage('shop')"><span class="lang-th">สั่งซ้ำรูทีนของฉัน</span><span class="lang-en" style="display:none;">Reorder My Routine</span></button>
   </div>
 
@@ -3066,6 +3067,8 @@ function syncLogRings(){
 
 <div class="toast" id="toast"></div>
 <input type="hidden" id="sl_min_h" value="0">
+<!-- Skin Studio · AI face scan picker (global, persistent) -->
+<input type="file" id="skin-scan-file" accept="image/*" multiple style="display:none" onchange="skinScanPick(this)">
 
 <script>
 // ── SUPABASE ──
@@ -5292,7 +5295,7 @@ function recommendedProductIds(scan){
   });
   return ids;
 }
-function goSkinScan(){ goPage('skin'); try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){} }
+function goSkinScan(){ try{ if(typeof heroSkinScan==='function') heroSkinScan(); }catch(e){} }
 function renderScanBanner(){
   const el=document.getElementById('shop-scan-banner'); if(!el) return;
   const scan=latestSkinScan();
@@ -7981,18 +7984,15 @@ function removeSkinPhoto(i){
 
 async function analyzeSkinAge(){
   if(!skinPhotoFiles.length){ toast('กรุณาเลือกรูปก่อนค่ะ'); return; }
-  document.getElementById('skin-analyze-btn').style.display = 'none';
-  document.getElementById('skin-scan-loading').style.display = 'block';
-  document.getElementById('skin-photo-count').textContent = skinPhotoFiles.length;
-  document.getElementById('skin-result-wrap').style.display = 'none';
+  _skinScanLoading(true);
 
   // Rotating progress messages so the wait feels alive (detailed multi-photo analysis takes ~15-20s)
   const _stageMsgs = ['กำลังดูพื้นผิว & รูขุมขน…','ประเมินริ้วรอย & ความกระชับ…','วัดความชุ่มชื้น & ความกระจ่างใส…','ตรวจจุดด่างดำ & ความสม่ำเสมอ…','สรุปผล & คำแนะนำ BioActive…'];
   let _stageI = 0;
-  const _stageEl = document.getElementById('skin-scan-stage');
-  if(_stageEl) _stageEl.textContent = _stageMsgs[0];
-  let skinStageTimer = setInterval(()=>{ _stageI=(_stageI+1)%_stageMsgs.length; if(_stageEl) _stageEl.textContent=_stageMsgs[_stageI]; }, 2500);
-  const _clearStage = ()=>{ if(skinStageTimer){ clearInterval(skinStageTimer); skinStageTimer=null; } if(_stageEl) _stageEl.textContent=''; };
+  const _stageEl = ()=>document.getElementById('skin-scan-stage');
+  if(_stageEl()) _stageEl().textContent = _stageMsgs[0];
+  let skinStageTimer = setInterval(()=>{ _stageI=(_stageI+1)%_stageMsgs.length; var e=_stageEl(); if(e) e.textContent=_stageMsgs[_stageI]; }, 2500);
+  const _clearStage = ()=>{ if(skinStageTimer){ clearInterval(skinStageTimer); skinStageTimer=null; } };
 
   // Convert all images: decode + resize + re-encode to JPEG (handles iPhone HEIC + large files)
   let images;
@@ -8000,10 +8000,7 @@ async function analyzeSkinAge(){
     images = await Promise.all(skinPhotoFiles.map(f => fileToJpegBase64(f, 1280, 0.82)));
   } catch(e){
     console.error('Skin photo read error:', e);
-    _clearStage();
-    document.getElementById('skin-scan-loading').style.display = 'none';
-    document.getElementById('skin-analyze-btn').style.display = 'block';
-    document.getElementById('skin-scan-label').style.display = 'flex';
+    _clearStage(); _skinScanLoading(false);
     toast('⚠ อ่านรูปไม่ได้ — ลองเลือกรูปใหม่ค่ะ');
     return;
   }
@@ -8196,30 +8193,19 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
       localStorage.setItem('girl_profile_body', JSON.stringify(pb));
     } catch(e){}
 
-    _clearStage();
-    document.getElementById('skin-scan-loading').style.display = 'none';
-    renderSkinResult(r);
-    renderSkinHistory();
-    try{ setTimeout(function(){ showSkinCartPopup(r); }, 650); }catch(e){}
-    // Show dashboard
-    setTimeout(()=>{
-      document.getElementById('skin-dashboard').style.display = 'block';
-      document.getElementById('skin-dashboard-btn-wrap').style.display = 'none';
-      switchSkinTab('overview');
-    }, 300);
-
-    // Reset
+    _clearStage(); _skinScanLoading(false);
     skinPhotoFiles = [];
-    document.getElementById('skin-preview-grid').innerHTML = '';
-    document.getElementById('skin-scan-label').style.display = 'flex';
-    toast(skinSaved ? `✨ Skin Age ${r.skin_age} yrs · Score ${r.skin_score}/100 ☁️` : `✨ Skin Age ${r.skin_age} · บันทึกบนเครื่อง · cloud ไม่ได้${window.__skinSaveErr?': '+window.__skinSaveErr:''}`);
+    try{ updateSkinHero(r); }catch(e){}
+    try{ renderSkinHistory(); }catch(e){}
+    try{ if(typeof goPage==='function') goPage('skin'); }catch(e){}
+    try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
+    // Sales: recommend BioActive products to buy right away
+    setTimeout(function(){ try{ showSkinCartPopup(r); }catch(e){} }, 480);
+    toast(skinSaved ? `✨ Skin Age ${r.skin_age} · Score ${r.skin_score}/100 ☁️` : `✨ Skin Age ${r.skin_age} · บันทึกบนเครื่อง`);
 
   } catch(err) {
     console.error('Skin scan error:', err);
-    _clearStage();
-    document.getElementById('skin-scan-loading').style.display = 'none';
-    document.getElementById('skin-analyze-btn').style.display = 'block';
-    document.getElementById('skin-scan-label').style.display = 'flex';
+    _clearStage(); _skinScanLoading(false);
     toast('⚠ วิเคราะห์ผิวไม่ได้: '+((err&&err.message)||'').toString().substring(0,70));
   }
 }
@@ -10217,10 +10203,29 @@ try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
 </script>
 <script>
 /* Skin-scan sales hook: launch scan from Home, then offer recommended BioActive → cart */
-function heroSkinScan(){
-  try{ if(typeof goPage==='function') goPage('skin'); }catch(e){}
-  try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
-  try{ var inp=document.querySelector('#skin-scan-label input[type=file]'); if(inp) inp.click(); }catch(e){}
+function heroSkinScan(){ try{ var i=document.getElementById('skin-scan-file'); if(i){ i.value=''; i.click(); } }catch(e){} }
+function skinScanPick(input){ var f=Array.from(input.files||[]); input.value=''; if(!f.length) return; skinPhotoFiles=f.slice(0,4); try{ analyzeSkinAge(); }catch(e){ console.error(e); } }
+function _skinScanLoading(show){
+  var ov=document.getElementById('skin-scan-loading-ov');
+  if(!show){ if(ov) ov.remove(); return; }
+  if(ov) return;
+  ov=document.createElement('div'); ov.id='skin-scan-loading-ov';
+  ov.style.cssText='position:fixed;inset:0;z-index:99998;background:rgba(40,30,30,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;';
+  ov.innerHTML='<div style="background:var(--bg,#FAF6EF);border-radius:24px;padding:30px 26px;width:min(330px,86vw);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);">'
+    +'<div style="width:52px;height:52px;margin:0 auto 14px;border-radius:50%;border:3px solid rgba(201,130,98,.22);border-top-color:#C98262;animation:skspin .9s linear infinite;"></div>'
+    +'<div style="font-family:\'Playfair Display\',serif;font-weight:700;font-size:1.05rem;color:#2B2925;">AI กำลังวิเคราะห์ผิว…</div>'
+    +'<div id="skin-scan-stage" style="font-family:\'Anuphan\',sans-serif;font-size:.72rem;color:#C98262;margin-top:8px;min-height:1.2em;"></div></div>';
+  document.body.appendChild(ov);
+}
+function updateSkinHero(r){
+  if(!r) return;
+  var en=false; try{ en=(typeof currentLang!=='undefined'&&currentLang==='en'); }catch(e){}
+  var set=function(id,v){ var e=document.getElementById(id); if(e&&v!=null&&v!=='') e.textContent=v; };
+  set('sk-age-num', r.skin_age);
+  set('sk-ring-num', r.skin_score);
+  var exEl=document.getElementById('sk-ring-ex'), cond=r.overall_condition||'';
+  if(exEl&&cond){ var th={'Excellent':'ดีเยี่ยม','Very Good':'ดีมาก','Good':'ดีมาก','Fair':'พอใช้'}[cond]||cond;
+    exEl.innerHTML='<span class="lang-th"'+(en?' style="display:none;"':'')+'>'+th+'</span><span class="lang-en"'+(en?'':' style="display:none;"')+'>'+cond+'</span>'; }
 }
 function skinPopAdd(btn,id){ try{ addToCart(id); }catch(e){} try{ var en=(typeof currentLang!=='undefined'&&currentLang==='en'); btn.textContent=en?'Added ✓':'เพิ่มแล้ว ✓'; btn.style.background='var(--muted2,#9A9384)'; btn.disabled=true; }catch(e){} }
 function skinPopAddAll(){ try{ (window._skinPopIds||[]).forEach(function(id){ try{ addToCart(id); }catch(e){} }); }catch(e){} var pop=document.getElementById('skin-cart-pop'); if(pop) pop.remove(); try{ if(typeof goPage==='function') goPage('shop'); }catch(e){} }
