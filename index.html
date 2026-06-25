@@ -2998,50 +2998,71 @@ function initLogCollapse(){
 <!-- ════════ HEALTH TIMELINE ════════ -->
 <div class="page" id="page-timeline">
   <style>
-  .tl-hero{padding:14px 2px 12px;}
-  .tl-hero-ttl{font-family:'Playfair Display',serif;font-weight:800;font-size:1.5rem;color:var(--text);letter-spacing:-.3px;line-height:1.1;}
-  .tl-hero-sub{font-family:'Anuphan',sans-serif;font-size:.74rem;color:var(--muted2);margin-top:4px;line-height:1.45;}
-  .tl-sum{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.03);}
-  .tl-sum-i{background:#fff;padding:11px 6px;text-align:center;}
-  .tl-sum-v{font-family:'Playfair Display',serif;font-weight:800;font-size:1.18rem;color:var(--accent);line-height:1;}
-  .tl-sum-v small{font-size:.58rem;font-weight:700;color:var(--muted2);}
-  .tl-sum-l{font-family:'Anuphan',sans-serif;font-size:.52rem;font-weight:700;letter-spacing:.2px;text-transform:uppercase;color:var(--muted2);margin-top:6px;line-height:1.2;}
-  .tl-sum-up{color:#4A9E6A;} .tl-sum-dn{color:#C75D4E;}
-  .tl-ai{background:#fff;border:1px solid var(--border);border-radius:16px;padding:13px 15px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,.03);}
-  .tl-ai-h{display:flex;align-items:center;gap:8px;font-family:'Anuphan',sans-serif;font-size:.78rem;font-weight:800;color:var(--text);margin-bottom:8px;}
-  .tl-ai-h svg{width:17px;height:17px;color:var(--accent);flex-shrink:0;}
-  .tl-ai-li{display:flex;align-items:flex-start;gap:8px;font-family:'Anuphan',sans-serif;font-size:.7rem;color:var(--muted);line-height:1.4;padding:3px 0;}
-  .tl-ai-li i{width:5px;height:5px;border-radius:50%;background:var(--accent);margin-top:6px;flex-shrink:0;}
-  .tl-list{position:relative;padding-left:3px;}
-  .tl-list::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1.5px;background:linear-gradient(180deg,transparent,var(--border) 8%,var(--border) 92%,transparent);border-radius:2px;}
-  .tlr{background:#fff;border:1px solid var(--border);border-left:3px solid var(--bd,#ccc);border-radius:13px;padding:8px 13px;margin-bottom:10px;cursor:pointer;transition:box-shadow .15s,transform .12s;box-shadow:0 1px 3px rgba(0,0,0,.022);}
-  .tlr:active{transform:scale(.995);}
-  .tlr.open{box-shadow:0 5px 16px rgba(0,0,0,.065);}
-  .tlr-head{display:flex;align-items:center;gap:8px;}
-  .tlr-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-  .tlr-date{font-family:'Anuphan',sans-serif;font-size:.8rem;font-weight:800;color:var(--text);letter-spacing:-.1px;}
-  .tlr-status{font-family:'Anuphan',sans-serif;font-size:.66rem;font-weight:700;}
-  .tlr-sp{flex:1;}
-  .tlr-score{min-width:29px;height:29px;padding:0 5px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:.8rem;flex-shrink:0;border:1.25px solid;}
-  .tlr-metrics{display:flex;flex-wrap:wrap;gap:3px 12px;font-family:'Anuphan',sans-serif;font-size:.63rem;color:var(--muted2);margin-top:6px;}
-  .tlr-metrics b{color:var(--text);font-weight:700;}
-  .tlr-ai{font-family:'Anuphan',sans-serif;font-size:.575rem;color:#B5AE9F;margin-top:4px;display:flex;align-items:center;gap:5px;}
-  .tlr-ai svg{width:10px;height:10px;flex-shrink:0;color:#C3BCAC;}
-  .tlr-ai span{font-style:italic;}
-  .tlr-exp{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
-  .tlr.open .tlr-exp{display:block;animation:tlExp .25s ease;}
+  /* ===== Timeline — luxury wellness journal ===== */
+  .tl-hero2{padding:16px 2px 12px;}
+  .tl-hero2-ttl{font-family:'Playfair Display',serif;font-weight:800;font-size:1.78rem;color:var(--text);letter-spacing:-.4px;line-height:1.08;}
+  .tl-hero2-sub{font-family:'Anuphan',sans-serif;font-size:.76rem;color:var(--muted2);margin-top:7px;line-height:1.55;max-width:340px;}
+  .tl-statcard{background:linear-gradient(150deg,rgba(74,124,89,.085),rgba(201,169,110,.075));border:1px solid rgba(74,124,89,.14);border-radius:22px;padding:16px 14px 14px;margin-bottom:20px;box-shadow:0 6px 22px rgba(74,124,89,.07);}
+  .tl-stat-row{display:flex;align-items:stretch;}
+  .tl-stat{flex:1;text-align:center;padding:0 4px;}
+  .tl-stat+.tl-stat{border-left:1px solid rgba(74,124,89,.13);}
+  .tl-stat-v{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--accent);line-height:1.05;}
+  .tl-stat-v small{font-size:.62rem;font-weight:700;color:var(--muted2);}
+  .tl-stat-l{font-family:'Anuphan',sans-serif;font-size:.52rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted2);margin-top:6px;line-height:1.2;}
+  .tl-spark{margin-top:13px;padding-top:11px;border-top:1px solid rgba(74,124,89,.1);}
+  .tl-spark-svg{width:100%;height:34px;display:block;}
+  .tl-ins{margin-bottom:20px;}
+  .tl-ins-h{display:flex;align-items:center;gap:8px;font-family:'Anuphan',sans-serif;font-size:.84rem;font-weight:800;color:var(--text);margin:2px 2px 12px;}
+  .tl-ins-h svg{width:18px;height:18px;color:var(--accent);flex-shrink:0;}
+  .tl-ins-card{display:flex;align-items:center;gap:12px;border:1px solid;border-radius:17px;padding:14px 15px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.025);}
+  .tl-ins-ic{width:33px;height:33px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .tl-ins-ic svg{width:17px;height:17px;}
+  .tl-ins-tx{font-family:'Anuphan',sans-serif;font-size:.77rem;line-height:1.5;color:var(--text);font-weight:500;}
+  .tl-week{margin-bottom:22px;}
+  .tl-week-h{font-family:'Anuphan',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);margin:2px 2px 11px;}
+  .tl-week-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .tl-wk{background:#fff;border:1px solid var(--border);border-radius:15px;padding:13px 14px;box-shadow:0 1px 6px rgba(0,0,0,.022);}
+  .tl-wk-ic{width:24px;height:24px;}
+  .tl-wk-v{font-family:'Playfair Display',serif;font-weight:800;font-size:1.16rem;color:var(--text);margin-top:5px;line-height:1;}
+  .tl-wk-l{font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:700;color:var(--muted2);letter-spacing:.2px;margin-top:4px;}
+  .tl-listttl{font-family:'Anuphan',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);margin:2px 2px 12px;}
+  .tl-list{position:relative;padding-left:6px;}
+  .tl-list::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:1.5px;background:linear-gradient(180deg,transparent,var(--border) 6%,var(--border) 94%,transparent);}
+  .tlr{background:var(--tlbg,#fff);border:1px solid var(--border);border-left:3px solid var(--bd,#ccc);border-radius:18px;padding:14px 16px;margin-bottom:12px;cursor:pointer;transition:box-shadow .16s,transform .12s;box-shadow:0 2px 8px rgba(0,0,0,.03);}
+  .tlr:active{transform:scale(.994);}
+  .tlr.open{box-shadow:0 7px 22px rgba(0,0,0,.07);}
+  .tlr-head{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .tlr-l{min-width:0;}
+  .tlr-date{font-family:'Anuphan',sans-serif;font-size:.88rem;font-weight:800;color:var(--text);letter-spacing:-.2px;line-height:1.1;}
+  .tlr-status{display:flex;align-items:center;gap:6px;margin-top:4px;font-family:'Anuphan',sans-serif;font-size:.67rem;font-weight:700;}
+  .tlr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .tlr-ring{position:relative;width:40px;height:40px;flex-shrink:0;}
+  .tlr-ring svg{width:100%;height:100%;display:block;}
+  .tlr-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:.84rem;}
+  .tlr-metrics{display:flex;flex-wrap:wrap;gap:7px 15px;margin-top:12px;}
+  .tlr-m{display:inline-flex;align-items:center;gap:5px;font-family:'Anuphan',sans-serif;font-size:.72rem;color:var(--muted);}
+  .tlr-m b{font-weight:700;color:var(--text);}
+  .tlr-note{margin-top:13px;}
+  .tlr-note-l{font-family:'Anuphan',sans-serif;font-size:.5rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);opacity:.75;}
+  .tlr-note-t{font-family:'Anuphan',sans-serif;font-size:.71rem;color:var(--muted);line-height:1.5;margin-top:4px;font-style:italic;}
+  .tlr-note-t::before{content:'\201C';} .tlr-note-t::after{content:'\201D';}
+  .tlr-exp{display:none;margin-top:13px;padding-top:12px;border-top:1px dashed var(--border);}
+  .tlr.open .tlr-exp{display:block;animation:tlExp .26s ease;}
   @keyframes tlExp{from{opacity:0;transform:translateY(-3px);}to{opacity:1;transform:none;}}
-  .tlr-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 16px;}
-  .tlr-exp-i{display:flex;justify-content:space-between;gap:8px;font-family:'Anuphan',sans-serif;font-size:.66rem;color:var(--muted2);}
+  .tlr-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .tlr-exp-i{display:flex;justify-content:space-between;gap:8px;font-family:'Anuphan',sans-serif;font-size:.68rem;color:var(--muted2);}
   .tlr-exp-i b{color:var(--text);font-weight:700;text-align:right;}
   </style>
-  <div class="tl-hero">
-    <div class="tl-hero-ttl"><span class="lang-th">ไทม์ไลน์สุขภาพ</span><span class="lang-en" style="display:none;">Health Timeline</span></div>
-    <div class="tl-hero-sub"><span class="lang-th">AI หาแพทเทิร์นจากประวัติสุขภาพล่าสุดของคุณ</span><span class="lang-en" style="display:none;">AI finds patterns from your recent health history.</span></div>
+  <div class="tl-hero2">
+    <div class="tl-hero2-ttl"><span class="lang-th">เส้นทางสุขภาพ</span><span class="lang-en" style="display:none;">Health Journey</span></div>
+    <div class="tl-hero2-sub"><span class="lang-th">AI กำลังเรียนรู้พฤติกรรมของคุณ และค้นหาสิ่งที่ช่วยให้สุขภาพดีขึ้นจริง ๆ</span><span class="lang-en" style="display:none;">AI is learning your habits and finding what truly improves your health.</span></div>
   </div>
   <div id="tl-summary"></div>
   <div id="timeline-insight"></div>
+  <div id="tl-week"></div>
+  <div class="tl-listttl"><span class="lang-th">ไดอารี่รายวัน</span><span class="lang-en" style="display:none;">Daily Journal</span></div>
   <div id="timeline-wrap" style="padding-bottom:30px;"></div>
+</div>
 </div>
 </div>
 
@@ -4432,7 +4453,7 @@ function goPage(name){
 
 
 // ════════ HEALTH INTELLIGENCE — Coach + Timeline ════════
-const COACH_KEY='girl_coach_v4', TLINS_KEY='girl_tlinsight_v6';
+const COACH_KEY='girl_coach_v4', TLINS_KEY='girl_tlinsight_v7';
 async function _aiJSON(prompt, maxTok){
   const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTok||900,messages:[{role:'user',content:prompt}]})});
   const data=await res.json();
@@ -4616,21 +4637,25 @@ function _tlScore(d){
   return Math.round(sum/w);
 }
 function _tlStatus(score){
-  if(score==null) return {c:'#9C8F76',th:'มีบันทึก',en:'Logged'};
-  if(score>=80) return {c:'#4A9E6A',th:'แข็งแรงเต็มที่',en:'Thriving'};
-  if(score>=60) return {c:'#D4A53A',th:'คงที่',en:'Stable'};
-  return {c:'#C75D4E',th:'ต้องฟื้นฟู',en:'Recovery Needed'};
+  if(score==null) return {c:'#9C8F76',bg:'#FAF8F3',th:'มีบันทึก',en:'Logged'};
+  if(score>=85) return {c:'#4A9E6A',bg:'#F2F7F1',th:'แข็งแรงเต็มที่',en:'Thriving'};
+  if(score>=70) return {c:'#C0962F',bg:'#FAF6EA',th:'คงที่',en:'Stable'};
+  if(score>=60) return {c:'#5B8FB0',bg:'#EFF4F8',th:'กำลังฟื้นตัว',en:'Recovering'};
+  if(score>=45) return {c:'#D2894A',bg:'#FBF3EB',th:'พลังงานต่ำ',en:'Low Energy'};
+  return {c:'#C76E86',bg:'#FBF0F3',th:'ควรพักฟื้น',en:'Needs Rest'};
 }
 function _tlAiLine(d,score,en){
-  var sh=_sleepH(d), hrv=+d.sl_hrv||0, prot=+d.mac_p||0, water=+d.water||0, mv=(+d.e1_m||0)+(+d.e2_m||0);
+  var sh=_sleepH(d), hrv=+d.sl_hrv||0, prot=+d.mac_p||0, water=+d.water||0, mv=(+d.e1_m||0)+(+d.e2_m||0), bb=+d.sl_bb||0;
   if(sh&&sh<6) return en?'Sleep debt detected.':'นอนไม่พอ ควรพักฟื้น';
   if(score!=null&&score>=85) return en?'Excellent recovery today.':'ฟื้นตัวดีเยี่ยมวันนี้';
   if(prot>=100) return en?'Protein target achieved.':'โปรตีนถึงเป้าแล้ว';
   if(mv>=40) return en?'Strong training day.':'วันออกกำลังกายเต็มที่';
+  if(bb&&bb>=70) return en?'Body Battery recovered well.':'แบตเตอรี่ร่างกายฟื้นดี';
   if(hrv&&hrv>=50) return en?'Recovery trending up.':'การฟื้นตัวกำลังดีขึ้น';
   if(water>=2.5) return en?'Hydration on point.':'ดื่มน้ำได้ดีมาก';
   if(sh&&sh>=7.5) return en?'Restful sleep last night.':'เมื่อคืนนอนหลับสนิทดี';
   if(prot&&prot<60) return en?'Protein below goal.':'โปรตีนยังต่ำกว่าเป้า';
+  if(water&&water<1.5) return en?'Hydration needs attention.':'ควรดื่มน้ำเพิ่ม';
   return en?'Steady, balanced day.':'วันที่สมดุลและคงที่';
 }
 function _tlExpand(d,en){
@@ -4653,87 +4678,128 @@ function _tlExpand(d,en){
   if(!rows.length) return '';
   return '<div class="tlr-exp-grid">'+rows.join('')+'</div>';
 }
+function _tlRing(score,c){
+  var r=15.5, C=2*Math.PI*r, off=C*(1-Math.max(0,Math.min(100,score))/100);
+  return '<div class="tlr-ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="'+c+'24" stroke-width="2.4"/><circle cx="18" cy="18" r="15.5" fill="none" stroke="'+c+'" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 18 18)"/></svg><b style="color:'+c+';">'+score+'</b></div>';
+}
+function _tlSpark(scores){
+  if(!scores||scores.length<2) return '';
+  var w=300,h=34,pad=4;
+  var min=Math.min.apply(null,scores), max=Math.max.apply(null,scores); var rng=(max-min)||1;
+  var pts=scores.map(function(v,i){ var x=pad+(w-2*pad)*i/(scores.length-1); var y=pad+(h-2*pad)*(1-(v-min)/rng); return x.toFixed(1)+','+y.toFixed(1); });
+  var last=pts[pts.length-1].split(',');
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" class="tl-spark-svg"><defs><linearGradient id="tlspk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9D9AE"/><stop offset="1" stop-color="#4A9E6A"/></linearGradient></defs><path d="M'+pts.join(' L')+'" fill="none" stroke="url(#tlspk)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+last[0]+'" cy="'+last[1]+'" r="2.8" fill="#4A9E6A"/></svg>';
+}
+function _tlMchip(path,val){ return '<span class="tlr-m">'+_tlIco(path,'#A89C84')+'<b>'+val+'</b></span>'; }
 function _tlDay(d,en){
   var sh=_sleepH(d);
   var hasAny = sh||+d.mac_p||((+d.e1_m||0)+(+d.e2_m||0))||+d.water||+d.sl_hrv||+d.mac_kcal||(d._rec&&d._rec.length)||d._skin;
   if(!hasAny) return '';
   var score=_tlScore(d); var st=_tlStatus(score);
   var dt=new Date(d.date+'T00:00:00'); var dlabel=dt.toLocaleDateString(en?'en-US':'th-TH',{weekday:'short',day:'numeric',month:'short'});
+  var P_MOON='<path d="M19 13.5A7 7 0 1 1 10.5 5 5.6 5.6 0 0 0 19 13.5z"/>';
+  var P_DUMB='<path d="M4 9.5v5M6.6 7.8v8.4M17.4 7.8v8.4M20 9.5v5M6.6 12h10.8"/>';
+  var P_FLAME='<path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/>';
+  var P_BATT='<rect x="2.5" y="8.5" width="15" height="7" rx="2"/><path d="M20.5 11v2"/>';
   var mets=[];
-  if(sh) mets.push('<span>'+(en?'Sleep ':'นอน ')+'<b>'+sh.toFixed(1)+'h</b></span>');
-  if(+d.mac_p) mets.push('<span>'+(en?'Protein ':'โปรตีน ')+'<b>'+d.mac_p+'g</b></span>');
-  var mv=(+d.e1_m||0)+(+d.e2_m||0); if(mv) mets.push('<span>'+(en?'Workout ':'ออกกำลัง ')+'<b>'+mv+'m</b></span>');
-  if(d._rec&&d._rec.length) mets.push('<span>'+(en?'Recovery ':'ฟื้นฟู ')+'<b>'+d._rec.length+'</b></span>');
-  else if(+d.sl_bb) mets.push('<span>'+(en?'Battery ':'แบต ')+'<b>'+d.sl_bb+'</b></span>');
+  if(sh) mets.push(_tlMchip(P_MOON, sh.toFixed(1)+'h'));
+  if(+d.mac_p) mets.push(_tlMchip(P_DUMB, d.mac_p+'g'));
+  var mv=(+d.e1_m||0)+(+d.e2_m||0); if(mv) mets.push(_tlMchip(P_FLAME, mv+'m'));
+  if(+d.sl_bb) mets.push(_tlMchip(P_BATT, ''+d.sl_bb));
+  else if(d._rec&&d._rec.length) mets.push(_tlMchip(P_BATT, d._rec.length+(en?' rec':' ฟื้นฟู')));
   mets=mets.slice(0,4);
-  var aiLine=_tlAiLine(d,score,en);
+  var note=_tlAiLine(d,score,en);
   var exp=_tlExpand(d,en);
-  var badge = score!=null? '<span class="tlr-score" style="color:'+st.c+';border-color:'+st.c+';background:'+st.c+'14;">'+score+'</span>' : '';
-  var aiSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.4 4.2L18 8.5l-4.2 1.4L12 14l-1.4-4.1L6 8.5l4.2-1.3z"/></svg>';
-  return '<div class="tlr" style="--bd:'+st.c+';" onclick="this.classList.toggle(\'open\')">'
-    +'<div class="tlr-head"><span class="tlr-dot" style="background:'+st.c+';"></span><span class="tlr-date">'+dlabel+'</span><span class="tlr-status" style="color:'+st.c+';">'+(en?st.en:st.th)+'</span><span class="tlr-sp"></span>'+badge+'</div>'
+  var ring = score!=null? _tlRing(score,st.c) : '';
+  return '<div class="tlr" style="--bd:'+st.c+';--tlbg:'+st.bg+';" onclick="this.classList.toggle(\'open\')">'
+    +'<div class="tlr-head"><div class="tlr-l"><div class="tlr-date">'+dlabel+'</div><div class="tlr-status"><span class="tlr-dot" style="background:'+st.c+';"></span><span style="color:'+st.c+';">'+(en?st.en:st.th)+'</span></div></div>'+ring+'</div>'
     +(mets.length?'<div class="tlr-metrics">'+mets.join('')+'</div>':'')
-    +'<div class="tlr-ai">'+aiSvg+'<span>'+aiLine+'</span></div>'
+    +'<div class="tlr-note"><div class="tlr-note-l">'+(en?'AI Note':'AI โน้ต')+'</div><div class="tlr-note-t">'+note+'</div></div>'
     +(exp?'<div class="tlr-exp">'+exp+'</div>':'')
     +'</div>';
+}
+function _tlWeek(data,en){
+  var cut=new Date(Date.now()-7*864e5).toISOString().split('T')[0];
+  var wk=(data||[]).filter(function(d){return d.date>=cut;});
+  if(!wk.length) return '';
+  var bestSleep=0,longWk=0,bestRec=0,hyd=0;
+  wk.forEach(function(d){ var sh=_sleepH(d); if(sh>bestSleep)bestSleep=sh; var mv=(+d.e1_m||0)+(+d.e2_m||0); if(mv>longWk)longWk=mv; var rec=+d.sl_bb||0; if(rec>bestRec)bestRec=rec; if((+d.water||0)>=2.5)hyd++; });
+  function wkSvg(path,c){ return '<svg viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">'+path+'</svg>'; }
+  function card(path,c,val,lbl){ return '<div class="tl-wk"><div class="tl-wk-ic">'+wkSvg(path,c)+'</div><div class="tl-wk-v">'+val+'</div><div class="tl-wk-l">'+lbl+'</div></div>'; }
+  var MOON='<path d="M19 13.5A7 7 0 1 1 10.5 5 5.6 5.6 0 0 0 19 13.5z"/>';
+  var FLAME='<path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/>';
+  var HEART='<path d="M12 20.3C7 16.8 4 13.5 4 9.8A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 8 2.8c0 3.7-3 7-8 10.5z"/>';
+  var DROP='<path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/>';
+  var html=card(MOON,'#5B8FB0', bestSleep?bestSleep.toFixed(1)+'h':'—', en?'Best Sleep':'นอนดีที่สุด')
+    +card(FLAME,'#C08552', longWk?longWk+'m':'—', en?'Longest Workout':'ออกกำลังนานสุด')
+    +card(HEART,'#4A9E6A', bestRec?(''+bestRec):'—', en?'Best Recovery':'ฟื้นตัวดีสุด')
+    +card(DROP,'#54A0FF', hyd+'/7', en?'Hydration Goal':'เป้าน้ำ');
+  return '<div class="tl-week"><div class="tl-week-h">'+(en?'This Week':'สัปดาห์นี้')+'</div><div class="tl-week-grid">'+html+'</div></div>';
 }
 function _tlSummary(data,en){
   var days=(data||[]).filter(function(d){ return _tlScore(d)!=null; });
   if(days.length<2) return '';
-  var scores=days.map(_tlScore);
-  var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);
-  var best=days[0], bestS=_tlScore(days[0]);
-  days.forEach(function(d){ var sc=_tlScore(d); if(sc>bestS){ bestS=sc; best=d; } });
-  var bdt=new Date(best.date+'T00:00:00'); var blabel=bdt.toLocaleDateString(en?'en-US':'th-TH',{day:'numeric',month:'short'});
-  var cons=Math.round(days.length/30*100); if(cons>100)cons=100;
   var sorted=days.slice().sort(function(a,b){return a.date.localeCompare(b.date);});
-  var half=Math.floor(sorted.length/2);
-  var older=sorted.slice(0,half).map(_tlScore), newer=sorted.slice(half).map(_tlScore);
-  var oa=older.length?older.reduce(function(a,b){return a+b;},0)/older.length:0;
-  var na=newer.length?newer.reduce(function(a,b){return a+b;},0)/newer.length:0;
+  var scores=sorted.map(_tlScore);
+  var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);
+  var best=sorted[0],bestS=scores[0]; sorted.forEach(function(d,i){ if(scores[i]>bestS){bestS=scores[i];best=d;} });
+  var blabel=new Date(best.date+'T00:00:00').toLocaleDateString(en?'en-US':'th-TH',{day:'numeric',month:'short'});
+  var cons=Math.round(days.length/30*100); if(cons>100)cons=100;
+  var half=Math.floor(scores.length/2);
+  var oa=scores.slice(0,half).reduce(function(a,b){return a+b;},0)/(half||1);
+  var na=scores.slice(half).reduce(function(a,b){return a+b;},0)/((scores.length-half)||1);
   var trend=Math.round(na-oa);
-  var trendHtml = trend>0?'<span class="tl-sum-up">+'+trend+'</span>':(trend<0?'<span class="tl-sum-dn">'+trend+'</span>':'0');
-  return '<div class="tl-sum">'
-    +'<div class="tl-sum-i"><div class="tl-sum-v">'+avg+'</div><div class="tl-sum-l">'+(en?'Avg score':'คะแนนเฉลี่ย')+'</div></div>'
-    +'<div class="tl-sum-i"><div class="tl-sum-v" style="font-size:.92rem;">'+blabel+'</div><div class="tl-sum-l">'+(en?('Best · '+bestS):('ดีสุด · '+bestS))+'</div></div>'
-    +'<div class="tl-sum-i"><div class="tl-sum-v">'+cons+'<small>%</small></div><div class="tl-sum-l">'+(en?'Consistency':'สม่ำเสมอ')+'</div></div>'
-    +'<div class="tl-sum-i"><div class="tl-sum-v">'+trendHtml+'</div><div class="tl-sum-l">'+(en?'vs earlier':'เทียบก่อน')+'</div></div>'
+  var tcol= trend>0?'#4A9E6A':(trend<0?'#C76E86':'#9C8F76'); var tstr=(trend>0?'+':'')+trend;
+  function stat(v,l){ return '<div class="tl-stat"><div class="tl-stat-v">'+v+'</div><div class="tl-stat-l">'+l+'</div></div>'; }
+  return '<div class="tl-statcard">'
+    +'<div class="tl-stat-row">'
+      +stat(avg, en?'Avg Score':'คะแนนเฉลี่ย')
+      +stat('<span style="font-size:.98rem;">'+blabel+'</span>', en?('Best · '+bestS):('ดีสุด · '+bestS))
+      +stat(cons+'<small>%</small>', en?'Consistency':'สม่ำเสมอ')
+      +stat('<span style="color:'+tcol+';">'+tstr+'</span>', en?'Trend':'แนวโน้ม')
+    +'</div>'
+    +'<div class="tl-spark">'+_tlSpark(scores)+'</div>'
     +'</div>';
 }
 
 window.tlToggleDay=function(i){ const el=document.getElementById('tlmin-'+i), b=document.getElementById('tlbtn-'+i); if(!el)return; if(el.style.display==='none'){ el.style.display='flex'; if(b)b.textContent=b.dataset.less; } else { el.style.display='none'; if(b)b.textContent=b.dataset.more; } };
 window.tlToggleIns=function(i){ const el=document.getElementById('tlins-'+i), c=document.getElementById('tlinsc-'+i); if(!el)return; if(el.style.display==='none'){ el.style.display='block'; if(c)c.style.transform='rotate(180deg)'; } else { el.style.display='none'; if(c)c.style.transform='none'; } };
 async function renderTimeline(){
-  const wrap=document.getElementById('timeline-wrap'); const ins=document.getElementById('timeline-insight'); const sum=document.getElementById('tl-summary');
+  const wrap=document.getElementById('timeline-wrap'); const ins=document.getElementById('timeline-insight'); const sum=document.getElementById('tl-summary'); const week=document.getElementById('tl-week');
   if(!wrap) return;
   const en=(typeof currentLang!=='undefined'&&currentLang==='en');
-  wrap.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.74rem;padding:14px;font-family:\'Anuphan\',sans-serif;"><div style="width:15px;height:15px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Loading your timeline…':'กำลังโหลดไทม์ไลน์…')+'</div>';
+  wrap.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--muted2);font-size:.74rem;padding:14px;font-family:\'Anuphan\',sans-serif;"><div style="width:15px;height:15px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div>'+(en?'Loading your journey…':'กำลังโหลดเส้นทางสุขภาพ…')+'</div>';
   let data; try{ data=await gatherHealthData(30); }catch(e){ data=[]; }
   const days=data.slice().reverse();
   const rows=days.map(function(d){ return _tlDay(d,en); }).filter(Boolean);
   wrap.innerHTML = rows.length? '<div class="tl-list">'+rows.join('')+'</div>' : '<div style="text-align:center;padding:28px;color:var(--muted2);font-size:.78rem;font-family:\'Anuphan\',sans-serif;">'+(en?'No entries in the last 30 days yet.':'ยังไม่มีบันทึกใน 30 วันล่าสุดค่ะ')+'</div>';
   if(sum) try{ sum.innerHTML=_tlSummary(data,en); }catch(e){}
+  if(week) try{ week.innerHTML=_tlWeek(data,en); }catch(e){}
   if(ins) renderTimelineInsight(data, ins, en);
 }
 async function renderTimelineInsight(data, ins, en){
   const today=new Date().toISOString().split('T')[0];
   const brain='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3.5A2.8 2.8 0 0 0 6.8 6 2.8 2.8 0 0 0 5.5 11.3 2.8 2.8 0 0 0 7 16.5a2.6 2.6 0 0 0 5 .8 2.6 2.6 0 0 0 5-.8 2.8 2.8 0 0 0 1.5-5.2A2.8 2.8 0 0 0 17.2 6 2.8 2.8 0 0 0 12 4.6a2.8 2.8 0 0 0-2.5-1.1z"/><path d="M12 5v13"/></svg>';
-  function shell(inner){ return '<div class="tl-ai"><div class="tl-ai-h">'+brain+inner.h+'</div>'+inner.b+'</div>'; }
+  const PAL=[{c:'#4A9E6A',bg:'#F2F7F1'},{c:'#C2799F',bg:'#FBF0F5'},{c:'#5B8FB0',bg:'#EEF4F8'},{c:'#C0962F',bg:'#FAF6EA'}];
+  const spark='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.4 4.2L18 8.5l-4.2 1.4L12 14l-1.4-4.1L6 8.5l4.2-1.3z"/></svg>';
+  const head=(en?'AI learned about you':'AI เรียนรู้เกี่ยวกับคุณ');
+  function shell(cards){ return '<div class="tl-ins"><div class="tl-ins-h">'+brain+head+'</div>'+cards+'</div>'; }
+  function soft(txt){ return '<div class="tl-ins-card" style="background:#FAF8F3;border-color:rgba(0,0,0,.05);"><span class="tl-ins-ic" style="background:rgba(74,124,89,.12);color:var(--accent);">'+spark+'</span><span class="tl-ins-tx" style="color:var(--muted2);">'+txt+'</span></div>'; }
   try{ const c=JSON.parse(localStorage.getItem(TLINS_KEY)||'{}'); if(c.date===today&&c.lang===currentLang&&c.html){ ins.innerHTML=c.html; return; } }catch(e){}
   const withData=(data||[]).filter(function(d){return _coachLine(d).indexOf('no data logged')<0;});
-  if(withData.length<4){ ins.innerHTML=shell({h:(en?'AI patterns':'อินไซต์จาก AI'),b:'<div class="tl-ai-li"><span style="color:var(--muted2);">'+(en?'Keep logging — after about a week, AI will reveal correlations across your days.':'บันทึกต่อไปเรื่อย ๆ พอครบ ~1 สัปดาห์ AI จะหาความเชื่อมโยงข้ามวันให้ค่ะ')+'</span></div>'}); return; }
-  ins.innerHTML=shell({h:(en?'Finding patterns…':'กำลังค้นหารูปแบบ…'),b:''});
+  if(withData.length<4){ ins.innerHTML=shell(soft(en?'Keep logging — after about a week, AI will reveal what truly improves your health.':'บันทึกต่อไปเรื่อย ๆ พอครบ ~1 สัปดาห์ AI จะบอกสิ่งที่ช่วยให้สุขภาพดีขึ้นจริง ๆ ให้ค่ะ')); return; }
+  ins.innerHTML=shell('<div class="tl-ins-card" style="background:#FAF8F3;border-color:rgba(0,0,0,.05);"><span class="tl-ins-ic" style="background:rgba(74,124,89,.12);color:var(--accent);">'+spark+'</span><span class="tl-ins-tx" style="color:var(--muted2);">'+(en?'Finding patterns…':'กำลังค้นหารูปแบบ…')+'</span></div>');
   try{
     const lines=withData.map(_coachLine).join('\n');
-    const prompt='You are a longevity data analyst. Here is GIRL\'s health log for the last '+withData.length+' days (most recent last). Find the most useful CROSS-DAY correlations a human would miss — link sleep, HRV, RHR, body battery, training, recovery rituals, water, sugar, protein, skin, mood. Only state patterns supported by the data, and cite real numbers.\n\nDATA:\n'+lines+'\n\nRespond in '+(en?'English':'Thai')+'. Respond ONLY with valid JSON, no markdown:\n{"insights":[{"title":"a SHORT punchy insight as one line, max 9 words, may cite a number"}]}  Provide exactly 4 insights.';
+    const prompt='You are a longevity data analyst. Here is GIRL\'s health log for the last '+withData.length+' days (most recent last). Find the most useful CROSS-DAY correlations a human would miss — link sleep, HRV, RHR, body battery, training, recovery rituals, water, sugar, protein, skin, mood. Only state patterns supported by the data, and cite real numbers when natural.\n\nDATA:\n'+lines+'\n\nWrite each insight as ONE warm, plain-language sentence the user enjoys reading (like a wellness journal), max 13 words. Respond in '+(en?'English':'Thai')+'. Respond ONLY with valid JSON, no markdown:\n{"insights":[{"title":"one warm sentence"}]}  Provide exactly 4 insights.';
     const r=await _aiJSON(prompt,700);
     const list=(r.insights||[]).filter(function(x){return x&&x.title;}).slice(0,4);
     if(!list.length) throw new Error('empty');
-    const body=list.map(function(x){ return '<div class="tl-ai-li"><i></i><span>'+x.title+'</span></div>'; }).join('');
-    const h=shell({h:(en?('AI discovered '+list.length+' insights'):('AI พบ '+list.length+' อินไซต์')),b:body});
+    const cards=list.map(function(x,i){ var p=PAL[i%PAL.length]; return '<div class="tl-ins-card" style="background:'+p.bg+';border-color:'+p.c+'22;"><span class="tl-ins-ic" style="background:'+p.c+'1f;color:'+p.c+';">'+spark+'</span><span class="tl-ins-tx">'+x.title+'</span></div>'; }).join('');
+    const h=shell(cards);
     ins.innerHTML=h;
     try{ localStorage.setItem(TLINS_KEY,JSON.stringify({date:today,lang:currentLang,html:h})); }catch(e){}
-  }catch(e){ console.error('tlinsight',e); ins.innerHTML=shell({h:(en?'AI patterns':'อินไซต์จาก AI'),b:'<div class="tl-ai-li"><span style="color:var(--muted2);">'+(en?'Patterns unavailable right now.':'ยังค้นหารูปแบบไม่ได้ตอนนี้ค่ะ')+'</span></div>'}); }
+  }catch(e){ console.error('tlinsight',e); ins.innerHTML=shell(soft(en?'Patterns unavailable right now.':'ยังค้นหารูปแบบไม่ได้ตอนนี้ค่ะ')); }
 }
 
 
