@@ -3234,12 +3234,60 @@ function initLogCollapse(){
 
 <!-- ════════ ORDERS · TRACK SHIPPING ════════ -->
 <div class="page" id="page-orders">
+  <style id="ord2-css">
+  #page-orders .oc-sum{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+  #page-orders .oc-sum-i{background:var(--card);padding:13px 5px;text-align:center;}
+  #page-orders .oc-sum-v{font-family:'Playfair Display',serif;font-weight:800;font-size:1.22rem;color:var(--accent);line-height:1;}
+  #page-orders .oc-sum-l{font-family:'Anuphan',sans-serif;font-size:.5rem;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.3px;margin-top:6px;}
+  #page-orders .oc-filters{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 12px;position:sticky;top:48px;z-index:20;background:var(--bg);}
+  #page-orders .oc-filters::-webkit-scrollbar{height:0;}
+  #page-orders .oc-pill{flex:0 0 auto;border:1px solid var(--border);background:var(--card);color:var(--muted2);border-radius:30px;padding:7px 15px;font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .15s;}
+  #page-orders .oc-pill.on{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 12px rgba(74,124,89,.25);}
+  #page-orders .oc-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 3px 14px rgba(0,0,0,.04);transition:box-shadow .18s ease,transform .12s ease;animation:ocFade .4s ease both;}
+  #page-orders .oc-card:hover{box-shadow:0 10px 26px rgba(0,0,0,.08);transform:translateY(-1px);}
+  @keyframes ocFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  #page-orders .oc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+  #page-orders .oc-id{font-family:'Anuphan',sans-serif;font-weight:800;font-size:.82rem;color:var(--text);}
+  #page-orders .oc-date{font-size:.6rem;color:var(--muted2);white-space:nowrap;}
+  #page-orders .oc-badge{display:inline-flex;align-items:center;gap:5px;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.64rem;padding:4px 11px;border-radius:30px;margin-top:10px;}
+  #page-orders .oc-statusline{font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:600;margin:9px 2px 2px;}
+  #page-orders .oc-eta{font-family:'Anuphan',sans-serif;font-size:.66rem;color:#4E86AE;font-weight:700;margin:10px 2px 2px;}
+  #page-orders .oc-track{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--bg);border-radius:11px;padding:8px 11px;margin:6px 0 2px;font-family:'Anuphan',sans-serif;font-size:.62rem;color:var(--muted);}
+  #page-orders .oc-track-k{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #page-orders .oc-copy{flex-shrink:0;border:1px solid var(--border2);background:var(--card);color:var(--accent);border-radius:8px;padding:4px 10px;font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:700;cursor:pointer;}
+  #page-orders .oc-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);margin-top:11px;padding-top:11px;}
+  #page-orders .oc-foot-l{font-family:'Anuphan',sans-serif;font-size:.7rem;color:var(--muted2);font-weight:600;display:flex;align-items:center;gap:7px;}
+  #page-orders .oc-paid{font-size:.54rem;font-weight:800;color:#4A9E6A;background:rgba(74,158,106,.14);border-radius:20px;padding:2px 8px;}
+  #page-orders .oc-tot{font-family:'Anuphan',sans-serif;font-weight:800;font-size:1rem;color:var(--text);}
+  #page-orders .oc-pts{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-family:'Anuphan',sans-serif;font-size:.62rem;font-weight:800;color:#4A9E6A;background:rgba(74,158,106,.12);border-radius:20px;padding:5px 11px;}
+  #page-orders .oc-acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  #page-orders .oc-btn{flex:1;min-width:92px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--border);background:var(--card);color:var(--accent);border-radius:12px;padding:10px;font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;transition:transform .12s;}
+  #page-orders .oc-btn:active{transform:scale(.97);}
+  #page-orders .oc-btn.pri{background:linear-gradient(135deg,#4A7C59,#356B2A);color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(53,107,42,.24);}
+  #page-orders .oc-none{text-align:center;padding:30px;color:var(--muted2);font-size:.76rem;font-family:'Anuphan',sans-serif;}
+  #page-orders .oc-empty{text-align:center;padding:26px 16px 8px;}
+  #page-orders .oc-empty-box{position:relative;display:inline-block;margin-bottom:8px;}
+  #page-orders .oc-empty-box .oc-spark{position:absolute;top:-2px;right:-12px;color:#C9A96E;font-size:1.1rem;}
+  #page-orders .oc-empty-ttl{font-family:'Playfair Display',serif;font-weight:800;font-size:1.25rem;color:var(--text);}
+  #page-orders .oc-empty-sub{font-family:'Anuphan',sans-serif;font-size:.72rem;color:var(--muted2);margin-top:6px;line-height:1.5;}
+  #page-orders .oc-shop{margin-top:17px;border:none;border-radius:14px;padding:13px 24px;background:linear-gradient(135deg,#C9824A,#B05E2E);color:#fff;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.86rem;cursor:pointer;box-shadow:0 10px 24px rgba(176,94,46,.3);}
+  #page-orders .oc-trust{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin:18px 0 34px;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+  #page-orders .oc-trust-h{font-family:'Anuphan',sans-serif;font-weight:800;font-size:.82rem;color:var(--text);margin-bottom:11px;}
+  #page-orders .oc-tr{display:flex;align-items:center;gap:12px;padding:9px 0;}
+  #page-orders .oc-tr+.oc-tr{border-top:1px solid var(--border);}
+  #page-orders .oc-tr-ic{width:34px;height:34px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  #page-orders .oc-tr-t{font-family:'Anuphan',sans-serif;font-weight:800;font-size:.74rem;color:var(--text);}
+  #page-orders .oc-tr-s{font-family:'Anuphan',sans-serif;font-size:.62rem;color:var(--muted2);margin-top:1px;}
+  </style>
   <div class="ord-hero">
     <div class="eyebrow"><span class="lang-th">คำสั่งซื้อของฉัน</span><span class="lang-en" style="display:none;">MY ORDERS</span></div>
     <div class="ttl"><span class="lang-th">ติดตามพัสดุ</span><span class="lang-en" style="display:none;">Track Orders</span></div>
+    <div class="ord-note" style="margin:6px 0 14px;"><span class="lang-th">ติดตามทุกการสั่งซื้อและการจัดส่ง BioActive+ ของคุณ</span><span class="lang-en" style="display:none;">All your orders and delivery status</span></div>
   </div>
-  <div class="ord-note"><span class="lang-th">สถานะอัปเดตโดยประมาณ · เฟสถัดไปจะซิงก์เลขพัสดุจริงอัตโนมัติ</span><span class="lang-en" style="display:none;">Approximate status · live tracking syncs in next phase</span></div>
+  <div id="ord-summary"></div>
+  <div id="ord-filters"></div>
   <div id="orders-list"></div>
+  <div id="ord-trust"></div>
 </div>
 <style>
 /* ===== Recovery & Rituals ===== */
@@ -6980,57 +7028,100 @@ function ordersLang(){
   document.querySelectorAll('#page-orders .lang-th').forEach(e=>e.style.display=en?'none':'');
   document.querySelectorAll('#page-orders .lang-en').forEach(e=>e.style.display=en?'':'none');
 }
+let ordFilter='all';
+function setOrdFilter(f){ ordFilter=f; renderOrders(); }
+function _ordPts(o){ return Math.floor((+o.total||0)/10); }
+function _ordStatusKey(o){ if(o&&o.status==='cancelled') return 'cancelled'; const st=orderStage(o); if(st>=4) return 'delivered'; if(st===3) return 'shipped'; return 'processing'; }
+function _ordMeta(k){ return ({
+  processing:{c:'#C79A2E',th:'กำลังเตรียม',en:'Processing',ic:'<rect x="4" y="7" width="16" height="12" rx="2"/><path d="M4 11h16M9 7V5h6v2"/>'},
+  shipped:{c:'#4E86AE',th:'จัดส่งแล้ว',en:'Shipped',ic:'<path d="M3 7h11v8H3zM14 10h4l3 3v2h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/>'},
+  delivered:{c:'#4A9E6A',th:'ส่งถึงแล้ว',en:'Delivered',ic:'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/>'},
+  cancelled:{c:'#C0392B',th:'ยกเลิก',en:'Cancelled',ic:'<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>'}
+})[k]||({c:'#9C8F76',th:'',en:'',ic:''}); }
+function _ordIc(pp,c,sz){ return '<svg viewBox="0 0 24 24" fill="none" stroke="'+(c||'currentColor')+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:'+(sz||14)+'px;height:'+(sz||14)+'px;">'+pp+'</svg>'; }
+const ORD2_STEPS=[{th:'ยืนยัน',en:'Confirmed'},{th:'เตรียมของ',en:'Preparing'},{th:'จัดส่ง',en:'Shipped'},{th:'ออกส่ง',en:'Out for delivery'},{th:'ถึงแล้ว',en:'Delivered'}];
+function ordAgain(id){ try{ var os=JSON.parse(localStorage.getItem('girl_orders')||'[]'); var o=os.find(function(x){return x.id===id;}); if(o){ (o.items||[]).forEach(function(it){ shopCart[it.id]=(shopCart[it.id]||0)+(it.qty||1); }); saveCart(); } }catch(e){} try{ toast((typeof currentLang!=='undefined'&&currentLang==='en')?'Added to cart':'เพิ่มลงตะกร้าแล้ว'); }catch(e){} try{ goPage('shop'); }catch(e){} }
+function ordTrack(id){ try{ var os=JSON.parse(localStorage.getItem('girl_orders')||'[]'); var o=os.find(function(x){return x.id===id;}); var sh=orderShip(o); window.open('https://track.thailandpost.co.th/?trackNumber='+encodeURIComponent(sh.track),'_blank'); }catch(e){} }
+function ordCancel(id){ try{ var os=JSON.parse(localStorage.getItem('girl_orders')||'[]'); var o=os.find(function(x){return x.id===id;}); if(o){ o.status='cancelled'; localStorage.setItem('girl_orders',JSON.stringify(os)); } }catch(e){} try{ renderOrders(); }catch(e){} try{ toast((typeof currentLang!=='undefined'&&currentLang==='en')?'Order cancelled':'ยกเลิกออเดอร์แล้ว'); }catch(e){} }
+function ordInvoice(id){ try{ toast((typeof currentLang!=='undefined'&&currentLang==='en')?'Invoice ready soon':'ใบเสร็จเร็ว ๆ นี้ค่ะ'); }catch(e){} }
+function ordReview(id){ try{ toast((typeof currentLang!=='undefined'&&currentLang==='en')?'Thanks for the love ⭐':'ขอบคุณสำหรับรีวิวค่ะ ⭐'); }catch(e){} }
+function ordView(id){ try{ toast((typeof currentLang!=='undefined'&&currentLang==='en')?'Order details':'รายละเอียดออเดอร์'); }catch(e){} }
+function ordTrustHTML(en){
+  var it=function(pp,c,t,sub){ return '<div class="oc-tr"><span class="oc-tr-ic">'+_ordIc(pp,c,18)+'</span><div><div class="oc-tr-t">'+t+'</div><div class="oc-tr-s">'+sub+'</div></div></div>'; };
+  return '<div class="oc-trust"><div class="oc-trust-h">'+(en?'Why shop with Bio+?':'ทำไมต้องช้อปกับ Bio+?')+'</div>'
+    +it('<path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/>','#4A7C59',en?'100% Authentic':'ของแท้ 100%',en?'Direct from official store':'จากร้านทางการ')
+    +it('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>','#5B8FB0',en?'Secure checkout':'จ่ายปลอดภัย',en?'Encrypted payment':'เข้ารหัสทุกการชำระ')
+    +it('<path d="M3 7h11v8H3zM14 10h4l3 3v2h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/>','#C08552',en?'Fast delivery':'ส่งไว',en?'Track every step':'ติดตามทุกขั้นตอน')
+    +it('<path d="M12 3l2.3 6.5 6.7.2-5.4 4 2 6.5L12 16l-5.6 4.2 2-6.5-5.4-4 6.7-.2z"/>','#C9A96E',en?'Earn rewards':'สะสมแต้ม',en?'BioPoints every order':'รับ BioPoints ทุกออเดอร์')
+    +'</div>';
+}
 function orderCardHTML(o){
-  const st=orderStage(o);
-  const {courier,track}=orderShip(o);
-  const cur=ORDER_STAGES[st];
-  const eta=(()=>{ try{ return thDate(new Date(o.date).getTime()+3*86400000,false); }catch(e){ return '—'; } })();
-  const tl=ORDER_STAGES.map((s,i)=>{
-    const cls = i<st ? 'done' : (i===st ? 'current' : '');
-    return `<div class="ord-tl-step ${cls}"><div class="dot">${i<st?'✓':s.icon}</div><div class="lbl"><span class="lang-th">${s.th}</span><span class="lang-en" style="display:none;">${s.en}</span></div></div>`;
-  }).join('');
-  let ship;
-  if(st>=3){
-    const delivered = st>=4;
-    ship=`<div class="ord-ship">
-      <div class="ord-ship-row"><span class="k"><span class="lang-th">ขนส่ง</span><span class="lang-en" style="display:none;">Courier</span></span><span class="v">${courier}</span></div>
-      <div class="ord-ship-row"><span class="k"><span class="lang-th">เลขพัสดุ</span><span class="lang-en" style="display:none;">Tracking</span></span><span class="v">${track}<button class="ord-copy" onclick="copyTrack('${track}')"><span class="lang-th">คัดลอก</span><span class="lang-en" style="display:none;">Copy</span></button></span></div>
-      <div class="ord-ship-row"><span class="k">${delivered?'<span class="lang-th">ส่งถึงแล้วเมื่อ</span><span class="lang-en" style="display:none;">Delivered</span>':'<span class="lang-th">คาดว่าถึง</span><span class="lang-en" style="display:none;">Est. arrival</span>'}</span><span class="v">${eta}</span></div>
-    </div>`;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  const k=_ordStatusKey(o), m=_ordMeta(k);
+  const pts=_ordPts(o);
+  const items=(o.items||[]).map(function(it){ return '<div class="ord-item"><div class="ord-item-img" style="background-image:url(\''+shopImg(it.id)+'\')"></div><div class="ord-item-name">'+(it.name||it.id)+'</div><div class="ord-item-qty">×'+it.qty+'</div><div class="ord-item-price">'+fmtB((it.price||0)*(it.qty||0))+'</div></div>'; }).join('');
+  let mid='';
+  if(k==='shipped'){
+    const step=2;
+    const tl=ORD2_STEPS.map(function(sp,i){ var cls=i<step?'done':(i===step?'current':''); return '<div class="ord-tl-step '+cls+'"><div class="dot">'+(i<step?'✓':(i+1))+'</div><div class="lbl"><span class="lang-th">'+sp.th+'</span><span class="lang-en" style="display:none;">'+sp.en+'</span></div></div>'; }).join('');
+    const sh=orderShip(o); const e1=thDate(new Date(o.date).getTime()+2*864e5,false), e2=thDate(new Date(o.date).getTime()+4*864e5,false);
+    mid='<div class="oc-eta"><span class="lang-th">กำลังจัดส่ง · ถึงประมาณ '+e1+'–'+e2+'</span><span class="lang-en" style="display:none;">In transit · Arriving '+e1+'–'+e2+'</span></div>'
+      +'<div class="ord-tl">'+tl+'</div>'
+      +'<div class="oc-track"><span class="oc-track-k">'+sh.courier+' · '+sh.track+'</span><button class="oc-copy" onclick="copyTrack(\''+sh.track+'\')">'+(en?'Copy':'คัดลอก')+'</button></div>';
+  } else if(k==='delivered'){
+    const dd=thDate(new Date(o.date).getTime()+3*864e5,true);
+    mid='<div class="oc-statusline" style="color:#4A9E6A;"><span class="lang-th">ส่งถึงแล้วเมื่อ '+dd+'</span><span class="lang-en" style="display:none;">Delivered on '+dd+'</span></div>';
+  } else if(k==='cancelled'){
+    mid='<div class="oc-statusline" style="color:#C0392B;"><span class="lang-th">ออเดอร์ถูกยกเลิก</span><span class="lang-en" style="display:none;">Order cancelled</span></div>';
   } else {
-    ship=`<div class="ord-ship pending"><span class="lang-th">กำลังเตรียมจัดส่ง · คาดว่าจัดส่งภายใน 1–2 วัน แล้วจะมีเลขพัสดุค่ะ</span><span class="lang-en" style="display:none;">Preparing your order · tracking number in 1–2 days</span></div>`;
+    mid='<div class="oc-statusline" style="color:#C79A2E;"><span class="lang-th">กำลังเตรียมสินค้าของคุณ</span><span class="lang-en" style="display:none;">Preparing your order</span></div>';
   }
-  const items=(o.items||[]).map(it=>`<div class="ord-item">
-      <div class="ord-item-img" style="background-image:url('${shopImg(it.id)}')"></div>
-      <div class="ord-item-name">${it.name||it.id}</div>
-      <div class="ord-item-qty">×${it.qty}</div>
-      <div class="ord-item-price">${fmtB((it.price||0)*(it.qty||0))}</div>
-    </div>`).join('');
-  return `<div class="ord-card">
-    <div class="ord-head">
-      <div><div class="ord-id">#${o.id||'—'}</div><div class="ord-date">${thDate(o.date,true)}</div></div>
-      <div class="ord-badge s${st}">${cur.icon} <span class="lang-th">${cur.th}</span><span class="lang-en" style="display:none;">${cur.en}</span></div>
-    </div>
-    <div class="ord-tl">${tl}</div>
-    ${ship}
-    <div class="ord-items">${items}</div>
-    <div class="ord-foot"><span class="lab"><span class="lang-th">ยอดรวม</span><span class="lang-en" style="display:none;">Total</span></span><span class="tot">${fmtB(o.total||0)}</span></div>
-  </div>`;
+  function btn(pri,label,onclick,icon){ return '<button class="oc-btn'+(pri?' pri':'')+'" onclick="'+onclick+'">'+(icon?_ordIc(icon,pri?'#fff':'var(--accent)',14):'')+'<span>'+label+'</span></button>'; }
+  const IC_INV='<path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>', IC_AGAIN='<path d="M4 12a8 8 0 1 1 2.4 5.7"/><path d="M4 20v-5h5"/>', IC_REV='<path d="M12 3l2.3 6.5 6.7.2-5.4 4 2 6.5L12 16l-5.6 4.2 2-6.5-5.4-4 6.7-.2z"/>', IC_TRK='<path d="M3 7h11v8H3zM14 10h4l3 3v2h-7"/>', IC_VIEW='<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>', IC_CX='<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>';
+  let acts='';
+  if(k==='delivered') acts=btn(0,en?'Invoice':'ใบเสร็จ','ordInvoice(\''+o.id+'\')',IC_INV)+btn(0,en?'Order again':'สั่งซ้ำ','ordAgain(\''+o.id+'\')',IC_AGAIN)+btn(0,en?'Review':'รีวิว','ordReview(\''+o.id+'\')',IC_REV);
+  else if(k==='shipped') acts=btn(1,en?'Track package':'ติดตามพัสดุ','ordTrack(\''+o.id+'\')',IC_TRK)+btn(0,en?'Invoice':'ใบเสร็จ','ordInvoice(\''+o.id+'\')',IC_INV);
+  else if(k==='cancelled') acts=btn(0,en?'Order again':'สั่งซ้ำ','ordAgain(\''+o.id+'\')',IC_AGAIN);
+  else acts=btn(1,en?'View order':'ดูออเดอร์','ordView(\''+o.id+'\')',IC_VIEW)+btn(0,en?'Cancel':'ยกเลิก','ordCancel(\''+o.id+'\')',IC_CX);
+  return '<div class="oc-card">'
+   +'<div class="oc-top"><div class="oc-id">'+(en?'Order #':'ออเดอร์ #')+(o.id||'—')+'</div><div class="oc-date">'+thDate(o.date,true)+'</div></div>'
+   +'<div class="oc-badge" style="color:'+m.c+';background:'+m.c+'18;">'+_ordIc(m.ic,m.c,13)+'<span class="lang-th">'+m.th+'</span><span class="lang-en" style="display:none;">'+m.en+'</span></div>'
+   +mid
+   +'<div class="ord-items" style="margin-top:11px;">'+items+'</div>'
+   +'<div class="oc-foot"><span class="oc-foot-l"><span class="lang-th">ยอดชำระ</span><span class="lang-en" style="display:none;">Total Paid</span> <span class="oc-paid">'+(en?'Paid':'จ่ายแล้ว')+'</span></span><span class="oc-tot">'+fmtB(o.total||0)+'</span></div>'
+   +(pts>0?'<div class="oc-pts">'+_ordIc(IC_REV,'#4A9E6A',12)+'<span>+'+pts+' '+(en?'pts earned':'แต้มที่ได้รับ')+'</span></div>':'')
+   +'<div class="oc-acts">'+acts+'</div>'
+   +'</div>';
 }
 function renderOrders(){
   const el=document.getElementById('orders-list'); if(!el) return;
+  const en=(typeof currentLang!=='undefined'&&currentLang==='en');
   let orders=[]; try{ orders=JSON.parse(localStorage.getItem('girl_orders')||'[]'); }catch(e){}
+  const sumEl=document.getElementById('ord-summary'), fEl=document.getElementById('ord-filters'), tEl=document.getElementById('ord-trust');
+  if(tEl) tEl.innerHTML=ordTrustHTML(en);
   if(!orders.length){
-    el.innerHTML=`<div class="ord-empty">
-      <div style="line-height:0;margin-bottom:4px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:46px;height:46px;color:var(--grain);"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></div>
-      <div class="ord-empty-ttl"><span class="lang-th">ยังไม่มีออเดอร์</span><span class="lang-en" style="display:none;">No orders yet</span></div>
-      <div class="ord-empty-sub"><span class="lang-th">เริ่มช้อป BioActive+ แล้วติดตามสถานะจัดส่งได้ที่นี่</span><span class="lang-en" style="display:none;">Shop BioActive+ and track your delivery here</span></div>
-      <button onclick="goPage('shop')"><span class="lang-th">ไปช้อปเลย →</span><span class="lang-en" style="display:none;">Shop now →</span></button>
-    </div>`;
+    if(sumEl) sumEl.innerHTML=''; if(fEl) fEl.innerHTML='';
+    el.innerHTML='<div class="oc-empty"><div class="oc-empty-box"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:56px;height:56px;"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg><span class="oc-spark">✦</span></div>'
+      +'<div class="oc-empty-ttl"><span class="lang-th">ยังไม่มีออเดอร์</span><span class="lang-en" style="display:none;">No orders yet</span></div>'
+      +'<div class="oc-empty-sub"><span class="lang-th">ช้อป BioActive+ แล้วการจัดส่งจะมาแสดงที่นี่</span><span class="lang-en" style="display:none;">Shop BioActive+ and your deliveries will appear here</span></div>'
+      +'<button class="oc-shop" onclick="goPage(\'shop\')"><span class="lang-th">ช้อป BioActive+ →</span><span class="lang-en" style="display:none;">Shop BioActive+ →</span></button></div>';
     ordersLang(); return;
   }
-  orders=orders.slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
-  el.innerHTML=orders.map(orderCardHTML).join('');
+  const total=orders.length;
+  const ship=orders.filter(function(o){return _ordStatusKey(o)==='shipped';}).length;
+  const deliv=orders.filter(function(o){return _ordStatusKey(o)==='delivered';}).length;
+  const ptsAll=orders.reduce(function(a,o){return a+_ordPts(o);},0);
+  const savedB=Math.round(ptsAll/2);
+  if(sumEl) sumEl.innerHTML='<div class="oc-sum">'
+    +'<div class="oc-sum-i"><div class="oc-sum-v">'+total+'</div><div class="oc-sum-l">'+(en?'Orders':'ออเดอร์')+'</div></div>'
+    +'<div class="oc-sum-i"><div class="oc-sum-v" style="color:#4E86AE;">'+ship+'</div><div class="oc-sum-l">'+(en?'Shipping':'กำลังส่ง')+'</div></div>'
+    +'<div class="oc-sum-i"><div class="oc-sum-v" style="color:#4A9E6A;">'+deliv+'</div><div class="oc-sum-l">'+(en?'Delivered':'ส่งแล้ว')+'</div></div>'
+    +'<div class="oc-sum-i"><div class="oc-sum-v" style="color:#C9A96E;">'+fmtB(savedB)+'</div><div class="oc-sum-l">'+(en?'Saved':'ประหยัด')+'</div></div></div>';
+  const fs=[['all',en?'All':'ทั้งหมด'],['processing',en?'Processing':'กำลังเตรียม'],['shipped',en?'Shipped':'จัดส่ง'],['delivered',en?'Delivered':'ส่งแล้ว'],['cancelled',en?'Cancelled':'ยกเลิก']];
+  if(fEl) fEl.innerHTML='<div class="oc-filters">'+fs.map(function(f){ return '<button class="oc-pill'+(ordFilter===f[0]?' on':'')+'" onclick="setOrdFilter(\''+f[0]+'\')">'+f[1]+'</button>'; }).join('')+'</div>';
+  let list=orders.slice().sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''));});
+  if(ordFilter!=='all') list=list.filter(function(o){return _ordStatusKey(o)===ordFilter;});
+  el.innerHTML = list.length? list.map(orderCardHTML).join('') : '<div class="oc-none"><span class="lang-th">ไม่มีออเดอร์ในหมวดนี้</span><span class="lang-en" style="display:none;">No orders in this filter</span></div>';
   ordersLang();
 }
 
