@@ -1324,7 +1324,7 @@ try{
 .dl-hscore-l{flex:1;min-width:0;}
 .dl-hscore-eye{font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#A8842E;}
 .dl-hscore-num{font-family:'Playfair Display',serif;font-weight:700;font-size:2.6rem;line-height:1;color:#7A5A1E;margin-top:5px;}
-.dl-hscore-status{font-family:'Anuphan',sans-serif;font-size:.82rem;font-weight:700;margin-top:3px;color:#B8923F;}
+.dl-hscore-status{font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:700;margin-top:3px;color:#B8923F;}
 .dl-hscore-ring{position:relative;width:72px;height:72px;flex-shrink:0;}
 .dl-hscore-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
 .dl-hscore-ring .lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:#7A5A1E;}
@@ -1492,7 +1492,10 @@ try{
 .nut-sum-cell{flex:1;min-width:0;}
 .nut-sum-num{font-family:'Playfair Display',serif;font-weight:700;font-size:1.55rem;color:var(--text);line-height:1;}
 .nut-sum-lbl{font-family:'Anuphan',sans-serif;font-size:.62rem;font-weight:600;color:var(--muted2);margin-top:3px;letter-spacing:.3px;}
-.nut-sum-brk{font-family:'Anuphan',sans-serif;font-size:.6rem;color:var(--accent);margin-top:3px;}
+.nut-sum-brk{font-family:'Anuphan',sans-serif;font-size:.6rem;color:var(--muted2);opacity:.85;margin-top:3px;}
+#dl-sleep-more .row2{margin-top:10px;}
+#dl-sleep-more .lbl{line-height:1.55;}
+#dl-sleep-more .row2 input{padding-top:7px;padding-bottom:7px;}
 .nut-sum-div{width:1px;align-self:stretch;background:rgba(201,160,90,.25);}
 .nut-toggle{display:inline-flex;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;font-family:'Anuphan',sans-serif;font-size:.74rem;font-weight:700;color:var(--accent);padding:2px 0 10px;}
 .nut-toggle svg{width:15px;height:15px;transition:transform .22s;}
@@ -1989,7 +1992,7 @@ function initLogCollapse(){
     <input type="file" id="ex-lib" accept="image/*" style="display:none" onchange="analyzeExercisePhoto(this)">
     <input type="file" id="ex-garmin" accept="image/*" multiple style="display:none" onchange="analyzeExercisePhoto(this)">
     <div id="ex-scan-result" style="display:none;margin-bottom:10px;"></div>
-    <button type="button" class="dl-moretoggle" data-more="dl-ex-more" onclick="dlMore(this)" style="background:none;border:none;padding:6px 0;font-size:.68rem;color:var(--muted2);font-weight:600;text-align:left;text-decoration:underline;text-underline-offset:2px;"><span class="lang-th">กรอกเอง (Strength / Cardio)</span><span class="lang-en" style="display:none;">Enter manually (Strength / Cardio)</span> <span class="cv">▾</span></button>
+    <button type="button" class="dl-moretoggle" data-more="dl-ex-more" onclick="dlMore(this)" style="background:none;border:none;padding:6px 0;font-size:.68rem;color:var(--muted2);font-weight:600;text-align:left;text-decoration:underline;text-underline-offset:2px;"><span class="lang-th">กรอกเอง →</span><span class="lang-en" style="display:none;">Manual entry →</span></button>
     <div class="dl-more" id="dl-ex-more">
     <div class="ex-block">
       <div class="ex-bl-ttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg>Strength</div>
@@ -2172,7 +2175,7 @@ function initLogCollapse(){
   <div class="dsum-card">
     <div class="dsum-glow"></div>
     <div class="dsum-head"><span class="dsum-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></span><span class="dsum-ttl"><span class="lang-th">สรุปวันนี้โดย AI</span><span class="lang-en" style="display:none;">Today's AI Summary</span></span></div>
-    <div class="dsum-p"><span class="lang-th">วันนี้ฟื้นตัวได้ดีเยี่ยม โปรตีนถึงเป้าและคุณภาพการนอนดีขึ้นกว่าเมื่อวาน โดยรวมอยู่ในเกณฑ์ดีมาก — พรุ่งนี้ลองเพิ่มน้ำอีกสัก 400 มล. แล้วจะสมดุลยิ่งขึ้น</span><span class="lang-en" style="display:none;">Excellent recovery today — your protein hit target and sleep quality improved over yesterday, so overall you're in great shape. Try adding about 400 ml more water tomorrow to round things out.</span></div>
+    <div class="dsum-p"><span class="lang-th">เกิลทำได้ดีมากวันนี้ — ร่างกายฟื้นตัวเต็มที่ โปรตีนแตะเป้าพอดี และหลับลึกขึ้นกว่าเมื่อวานเห็นได้ชัด เหลือแค่เรื่องน้ำที่ยังขาดอยู่นิดเดียว พรุ่งนี้จิบเพิ่มอีกสัก 400 มล. แล้ววันนี้จะเกือบเพอร์เฟกต์เลย</span><span class="lang-en" style="display:none;">You're having a strong day, Girl — your body's fully recovered, protein landed right on target, and your sleep went noticeably deeper than yesterday. The only gap is water; sip about 400 ml more tomorrow and today would be just about perfect.</span></div>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
   <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v4.2 · 24 มิ.ย.</div>
