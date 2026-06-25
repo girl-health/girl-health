@@ -1386,6 +1386,13 @@ try{
 #bad-day-btn.cheat-btn{flex-basis:100%;width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#E8A94E,#D2872E);color:#fff;font-family:'Anuphan',sans-serif;font-size:.86rem;font-weight:800;letter-spacing:.3px;cursor:pointer;text-transform:none;box-shadow:0 6px 16px rgba(210,135,46,.32);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;}
 #bad-day-btn.cheat-btn.active{background:linear-gradient(135deg,#9A7338,#7A5A22);}
 #bad-day-btn.cheat-btn svg{width:16px;height:16px;}
+.cheat-top{display:flex;align-items:center;flex-wrap:wrap;gap:12px 14px;border-radius:18px;padding:14px 16px;margin-bottom:14px;background:linear-gradient(140deg,#FBEFD8,#F6E3C0);border:1px solid #EDD7A8;box-shadow:0 6px 20px rgba(184,146,63,.14);}
+.cheat-top .cheat-ico{width:44px;height:44px;}
+.cheat-top .cheat-tx{flex:1;min-width:140px;}
+.cheat-top .cheat-ttl{font-size:1.02rem;}
+.cheat-top .cheat-desc{font-size:.66rem;}
+#bad-day-btn.cheat-btn-top{flex-basis:auto;width:auto;padding:10px 16px;font-size:.8rem;}
+@media(max-width:430px){#bad-day-btn.cheat-btn-top{flex-basis:100%;width:100%;}}
 /* recovery groups */
 #log-rec-chips{display:block;}
 .logrec-group{margin-bottom:13px;}
@@ -1463,6 +1470,28 @@ try{
 .ads2 .ads-ck{color:#A89B84;}
 .ads2 .ads-ck.on{color:#3B7C2A;}
 .ads2 .ads-ckdone{color:#3B7C2A;}
+/* AI Scan Review — premium timeline */
+.air-wrap{background:linear-gradient(160deg,#FFFDF8,#F7F0E2);border:1px solid #ECDFC4;border-radius:18px;padding:16px;}
+.air-h{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-weight:700;font-size:1.04rem;color:#2E5A22;margin-bottom:3px;}
+.air-h svg{width:16px;height:16px;color:#C9A96E;}
+.air-sub{font-family:'Anuphan',sans-serif;font-size:.66rem;color:#9A8F7E;margin-bottom:14px;}
+.air-item{display:flex;gap:11px;align-items:flex-start;padding:12px;border-radius:14px;background:#fff;border:1px solid #EEE3CC;box-shadow:0 3px 12px rgba(150,120,70,.05);margin-bottom:11px;}
+.air-thumb{width:46px;height:46px;border-radius:11px;object-fit:cover;flex-shrink:0;background:#F2E8D6;}
+.air-ic{width:46px;height:46px;border-radius:11px;flex-shrink:0;}
+.air-mid{flex:1;min-width:0;}
+.air-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;}
+.air-conf{display:inline-flex;align-items:center;gap:3px;font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:800;padding:2px 8px;border-radius:20px;}
+.air-move{margin-left:auto;font-family:'Anuphan',sans-serif;font-size:.62rem;border:1px solid var(--border);border-radius:8px;padding:3px 6px;background:var(--bg);color:var(--text);max-width:120px;}
+.air-lbl{width:100%;border:none;background:transparent;font-family:'Anuphan',sans-serif;font-size:.85rem;font-weight:600;color:#3A3328;padding:1px 0;outline:none;}
+.air-valrow{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap;}
+.air-val{border:1px solid var(--border2);border-radius:8px;padding:4px 8px;font-family:'Anuphan',sans-serif;font-size:.72rem;color:var(--accent);font-weight:700;width:64px;outline:none;}
+.air-unit{font-family:'Anuphan',sans-serif;font-size:.66rem;color:var(--muted2);}
+.air-extra{font-family:'Anuphan',sans-serif;font-size:.66rem;color:var(--muted2);}
+.air-warn{font-family:'Anuphan',sans-serif;font-size:.6rem;color:#C0883E;font-weight:600;}
+.air-cb{width:22px;height:22px;flex-shrink:0;align-self:center;accent-color:#4A7C59;cursor:pointer;}
+.air-merge{font-family:'Anuphan',sans-serif;font-size:.58rem;color:#A8842E;cursor:pointer;border:1px dashed #D9C28A;border-radius:8px;padding:2px 8px;background:transparent;}
+.air-save{width:100%;margin-top:6px;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,#4A7C59,#356B2A);color:#fff;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 8px 22px rgba(53,107,42,.3);}
+.air-cancel{width:100%;margin-top:8px;padding:11px;border:1px solid var(--border);border-radius:12px;background:transparent;color:var(--muted2);font-family:'Anuphan',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;}
 /* v5 collapsible sections — fast daily check-in */
 #page-log .section.dl-col{padding-bottom:16px;}
 #page-log .section.dl-col > :not(.sec-hdr){display:none !important;}
@@ -1552,7 +1581,8 @@ function syncLogRings(){
 function updateHealthScore(kcal,prot,slH,exMin){
   try{
     var sl=Math.min((slH||0)/8,1), p=Math.min((prot||0)/120,1);
-    var k=kcal>0?Math.max(0,1-Math.abs(kcal-1600)/1600):0, ex=exMin>0?1:0.55;
+    var cheat=(typeof isBadDay!=='undefined'&&isBadDay);
+    var k=cheat?1:(kcal>0?Math.max(0,1-Math.abs(kcal-1600)/1600):0), ex=exMin>0?1:0.55;
     var score=Math.round(sl*38 + p*27 + k*20 + ex*15); if(score>100)score=100; if(score<0)score=0;
     var any=(kcal||prot||slH||exMin);
     var numEl=document.getElementById('dl-hscore-num'); if(numEl) numEl.textContent=any?score:'—';
@@ -1691,6 +1721,16 @@ function initLogCollapse(){
       </div><div class="dl-ring-name"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div></div>
     </div>
   </div>
+  <!-- Cheat Day quick card (under Health Score) -->
+  <div class="cheat-top">
+    <div class="cheat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path d="M9.3 6.6l.9 1.6M15.2 7.4l1-1.3M17.4 11.2l1.5.2M17 16l1.3.9M11.5 17.4l-.2 1.5"/></svg></div>
+    <div class="cheat-tx">
+      <div class="cheat-ttl">Cheat Day</div>
+      <div class="cheat-desc"><span class="lang-th">บันทึกได้เต็มที่ — คะแนนสุขภาพจะไม่ถูกหักในวันนี้</span><span class="lang-en" style="display:none;">Track freely — nutrition score won't be penalized.</span></div>
+    </div>
+    <button id="bad-day-btn" class="cheat-btn cheat-btn-top" onclick="toggleBadDay()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/></svg><span class="lang-th">เริ่มวันชีตเดย์</span><span class="lang-en" style="display:none;">Start Cheat Day</span></button>
+  </div>
+
   <!-- ✨ AI ALL-DAY SCAN — flagship hero (mockup) -->
   <div class="ads2">
     <div class="ads2-top">
@@ -2040,15 +2080,7 @@ function initLogCollapse(){
       </div>
     </div>
 
-    <!-- Cheat Day card -->
-    <div class="cheat-card">
-      <div class="cheat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path d="M9.3 6.6l.9 1.6M15.2 7.4l1-1.3M17.4 11.2l1.5.2M17 16l1.3.9M11.5 17.4l-.2 1.5"/></svg></div>
-      <div class="cheat-tx">
-        <div class="cheat-ttl">Cheat Day</div>
-        <div class="cheat-desc"><span class="lang-th">ผ่อนคลายได้เต็มที่ กินของโปรดวันนี้ — ยังบันทึกแคลอรี่ตามปกติ แต่คะแนนโภชนาการจะไม่ถูกหักในวันนี้</span><span class="lang-en" style="display:none;">Relax. Enjoy your favorite food. Today's calories are still tracked — your nutrition score won't be penalized.</span></div>
-      </div>
-      <button id="bad-day-btn" class="cheat-btn" onclick="toggleBadDay()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/></svg><span class="lang-th">เริ่มวันชีตเดย์</span><span class="lang-en" style="display:none;">Start Cheat Day</span></button>
-    </div>
+    <!-- Cheat Day moved to top (under Health Score) -->
     <div id="daily-photo-preview" style="display:none;margin-bottom:10px;"></div>
     <div id="daily-photo-result" style="display:none;margin-bottom:10px;"></div>
 
@@ -6899,6 +6931,7 @@ function toggleBadDay(){
   } else {
     if(note) note.value = note.value.replace(/·?\s*🍰?\s*Cheat day/g,'').replace(/^\s*·\s*/,'').trim();
   }
+  try{ syncLogRings(); }catch(e){}
 }
 
 // ── WATER ──
@@ -7725,8 +7758,9 @@ async function analyzeSmartScan(){
 Types: "food" (a meal / drink / dish), "sleep" (a Garmin SLEEP screen — sleep score, stages, bedtime/wake, HRV, RHR, body battery), "exercise" (a Garmin/workout activity screen — duration, calories, heart rate, distance), or "other" (anything else, e.g. scenery, a desk, a person, a supplement label).
 ${isHome?'If food: home-cooked, no added salt/sauces/sugar, olive oil only.':'If food: some dining out — include sodium.'}
 For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
+ALSO return "confidence": an integer 0-100 (how sure you are of the type AND the main values) and "label": a short 2-4 word name (the dish/activity name, e.g. "Chicken Salad", "Walking", "Sleep").
 Respond ONLY with valid JSON, no markdown, no extra text:
-{"type":"food",
+{"type":"food","confidence":90,"label":"",
  "food":{"items":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}},
  "sleep":{"bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
  "exercise":{"activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}}
@@ -7762,94 +7796,95 @@ Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" f
     return;
   }
 
-  const foods  = results.filter(r=>r.type==='food' && r.food);
-  const sleeps = results.filter(r=>r.type==='sleep' && r.sleep);
-  const exs    = results.filter(r=>r.type==='exercise' && r.exercise);
-  const filled = [];
-
-  // FOOD — append text + ADD macros (accumulate across all food photos)
-  if(foods.length){
-    const items = foods.map(r=>(r.food.items||'').trim()).filter(Boolean);
-    if(items.length){ const mb=document.getElementById('m_b'); if(mb){ mb.value = (mb.value.trim()? mb.value.trim()+' · ':'') + items.join(' · '); if(typeof autoResize==='function') autoResize(mb); } }
-    const sum=(k)=>foods.reduce((t,r)=>t+(+r.food[k]||0),0);
-    const kcal=sum('kcal'),prot=sum('protein_g'),carb=sum('carb_g'),fat=sum('fat_g'),fib=sum('fiber_g'),sug=sum('sugar_g'),fsug=sum('fruit_sugar_g'),sod=isHome?0:sum('sodium_mg'),water=sum('water_ml');
-    const addN=(id,v)=>{ const el=document.getElementById(id); if(el&&(+v||0)){ el.value = Math.round((parseFloat(el.value)||0)+(+v||0)); } };
-    addN('mac_kcal',kcal); addN('mac_p',prot); addN('mac_carb',carb); addN('mac_fat',fat); addN('mac_f',fib); addN('mac_sugar_total',sug); addN('mac_s',fsug); addN('mac_sodium',sod);
-    if(water>0 && typeof addScanWater==='function') addScanWater(water);
-    try{
-      const merged={};
-      foods.forEach(r=>{ Object.entries(r.food.ing||{}).forEach(([c,arr])=>{ (merged[c]=merged[c]||[]).push(...(arr||[])); }); });
-      for(const [catId,itemsArr] of Object.entries(merged)){
-        for(const it of itemsArr){
-          const name=(it||'').split('(')[0].trim(); if(name.length<2) continue;
-          const existing=await dbLoadIng(curIngMo);
-          const already=(existing[catId]||[]).some(i=>i.name.toLowerCase()===name.toLowerCase());
-          if(!already) await dbAddIng(curIngMo,catId,name,ING_CATS.find(c=>c.id===catId)?.emojis[0]||'🌿',1);
-        }
-      }
-    }catch(e){}
-    const _smRunK=Math.round(+((document.getElementById('mac_kcal')||{}).value)||0);
-    filled.push({icon:'🍱', label:isEN?`Meals (${foods.length})`:`อาหาร (${foods.length} รูป)`, detail:isEN?`+${Math.round(kcal)} → today ${_smRunK}`:`+${Math.round(kcal)} → รวม ${_smRunK}`, color:'var(--accent)'});
-  }
-
-  // SLEEP — merge non-zero values across sleep screens
-  if(sleeps.length){
-    const pick=(k)=>{ for(const r of sleeps){ const v=r.sleep[k]; if(v && +v>0) return v; } return 0; };
-    const pickT=(k)=>{ for(const r of sleeps){ const v=r.sleep[k]; if(v && v!=='' && v!=='HH:MM' && v!=='00:00') return v; } return ''; };
-    const bt=pickT('bedtime'), wt=pickT('waketime');
-    if(bt){ const el=document.getElementById('sl_s'); if(el) el.value=bt; }
-    if(wt){ const el=document.getElementById('sl_e'); if(el) el.value=wt; }
-    const setIf=(id,v)=>{ if(v&&+v>0){ const el=document.getElementById(id); if(el) el.value=v; } };
-    let th=+pick('total_hours')||0; if(th>16||th<0) th=0;
-    setIf('sl_total_h',th); setIf('sl_score',pick('sleep_score')); setIf('sl_rhr',pick('rhr')); setIf('sl_hrv',pick('hrv')); setIf('sl_bb',pick('body_battery'));
-    try{ if(bt&&wt) calcSleep(); }catch(e){}
-    const sc=pick('sleep_score'), hrv=pick('hrv');
-    filled.push({icon:'🌙', label:isEN?'Sleep':'การนอน', detail:(th||0)+'h'+(sc?' · '+sc:'')+(hrv?' · HRV '+hrv:''), color:'var(--sleep)'});
-  }
-
-  // EXERCISE — sum across workout screens
-  if(exs.length){
-    const sum=(k)=>exs.reduce((t,r)=>t+(+r.exercise[k]||0),0);
-    const isStrength = exs.some(r=>r.exercise.activity==='strength'||r.exercise.activity==='weights');
-    const dur=sum('duration_min'), cal=sum('calories'), dist=sum('distance_km');
-    const hr=Math.max(0,...exs.map(r=>+r.exercise.avg_hr||0));
-    if(isStrength){
-      const a=document.getElementById('e1_m'); if(a&&dur) a.value=dur;
-      const b=document.getElementById('e1_k'); if(b&&cal) b.value=cal;
-      const c=document.getElementById('e1_h'); if(c&&hr) c.value=hr;
-    } else {
-      const a=document.getElementById('e2_m'); if(a&&dur) a.value=dur;
-      const b=document.getElementById('e2_c'); if(b&&cal) b.value=cal;
-      const c=document.getElementById('e2_h'); if(c&&hr) c.value=hr;
-      const d=document.getElementById('e2_k'); if(d&&dist) d.value=dist;
+  // Build review items (thumbnail + confidence) — show REVIEW before applying
+  var _items=[];
+  settled.forEach(function(s2,ix){
+    if(!s2||s2.status!=='fulfilled') return;
+    var r=s2.value||{}; var conf=Math.round(+r.confidence||0); if(!conf) conf=72; if(conf>100)conf=100; if(conf<0)conf=0;
+    var thumb=''; try{ thumb=URL.createObjectURL(files[ix]); }catch(e){}
+    if(r.type==='food' && r.food){
+      var f=r.food;
+      _items.push({id:'ai'+ix,cat:'food',conf:conf,label:(r.label||f.items||'Food'),prim:Math.round(+f.kcal||0),prot:Math.round(+f.protein_g||0),data:f,thumb:thumb,on:true});
+      if(+f.water_ml>0) _items.push({id:'ai'+ix+'w',cat:'water',conf:conf,label:(isEN?'Water':'น้ำ'),prim:Math.round(+f.water_ml||0),data:{},thumb:thumb,on:true});
+    } else if(r.type==='sleep' && r.sleep){
+      var h=+r.sleep.total_hours||0; if(h>16||h<0)h=0;
+      _items.push({id:'ai'+ix,cat:'sleep',conf:conf,label:(r.label||(isEN?'Sleep':'การนอน')),prim:h,data:r.sleep,thumb:thumb,on:true});
+    } else if(r.type==='exercise' && r.exercise){
+      _items.push({id:'ai'+ix,cat:'exercise',conf:conf,label:(r.label||r.exercise.activity||(isEN?'Workout':'ออกกำลังกาย')),prim:Math.round(+r.exercise.duration_min||0),data:r.exercise,thumb:thumb,on:true});
     }
-    const notes=exs.map(r=>(r.exercise.notes||'').trim()).filter(Boolean).join(' · ');
-    if(notes){ const n=document.getElementById('ex_n'); if(n && !n.value) n.value=notes; }
-    filled.push({icon:'🏋️', label:isEN?'Exercise':'ออกกำลังกาย', detail:(dur||0)+'min', color:'var(--exercise)'});
-  }
-
-  try{ updateQ(); }catch(e){}
-
-  const otherCount = results.filter(r=>r.type==='other').length;
-  if(!filled.length){
-    resWrap.innerHTML = `<div style="padding:9px;background:rgba(201,164,110,.12);border-radius:9px;font-size:.72rem;color:var(--grain);">${isEN?'No food / sleep / exercise detected. Try clearer photos or fill in manually.':'ไม่พบข้อมูลอาหาร/นอน/ออกกำลังกายในรูป ลองถ่ายให้ชัดขึ้น หรือกรอกเองได้ค่ะ'}</div>`;
+  });
+  window._aiR=_items;
+  if(!_items.length){
+    resWrap.innerHTML='<div style="padding:9px;background:rgba(201,164,110,.12);border-radius:9px;font-size:.72rem;color:var(--grain);">'+(isEN?'No food / sleep / exercise detected. Try clearer photos or add manually.':'ไม่พบข้อมูลในรูป ลองถ่ายให้ชัดขึ้น หรือกรอกเองได้ค่ะ')+'</div>';
     return;
   }
+  renderAiReview();
+}
 
-  const notes2=[];
-  if(failed.length) notes2.push(isEN?`${failed.length} photo(s) failed`:`${failed.length} รูปอ่านไม่ได้`);
-  if(otherCount) notes2.push(isEN?`${otherCount} skipped (not health)`:`ข้าม ${otherCount} รูป (ไม่ใช่ข้อมูลสุขภาพ)`);
-  if(tooMany) notes2.push(isEN?`max ${MAX_PHOTOS}/scan`:`สูงสุด ${MAX_PHOTOS} รูป/ครั้ง`);
 
-  resWrap.innerHTML = `<div style="background:rgba(74,124,89,.06);border:1px solid rgba(74,124,89,.2);border-radius:11px;padding:11px;">
-    <div style="font-family:'Anuphan',sans-serif;font-size:.75rem;color:var(--accent);margin-bottom:8px;">✨ ${isEN?'Smart Scan — auto-sorted':'Smart Scan — แยกให้อัตโนมัติ'}</div>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      ${filled.map(f=>`<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:8px;padding:8px 10px;"><span style="font-size:.72rem;color:${f.color};">${f.icon} ${f.label}</span><span style="font-size:.72rem;font-weight:700;color:${f.color};font-family:'Anuphan',sans-serif;">${f.detail}</span></div>`).join('')}
-    </div>
-    <div style="font-size:.64rem;color:var(--accent);margin-top:8px;">✓ ${isEN?'Added to today — totals accumulate. Review &amp; save':'บวกเพิ่มให้วันนี้แล้ว · แคลสะสมรวม ตรวจแล้วกดบันทึก'}</div>
-    ${notes2.length?`<div style="font-size:.6rem;color:var(--muted2);margin-top:5px;">${notes2.join(' · ')}</div>`:''}
-  </div>`;
-  toast(`✨ ${isEN?'Scanned':'สแกนแล้ว'} · ${filled.map(f=>f.label).join(' · ')}`);
+// ====== AI Scan Review (timeline) ======
+var AI_CATS=[['food','Food','อาหาร'],['water','Water','น้ำ'],['supplement','Supplement','อาหารเสริม'],['exercise','Exercise','ออกกำลังกาย'],['sleep','Sleep','การนอน'],['body','Body','ร่างกาย']];
+function _aiConfBadge(c){ if(c>=80) return {col:'#2E7D32',bg:'#E6F2E0',dot:'🟢'}; if(c>=50) return {col:'#B07A1E',bg:'#FBF1DE',dot:'🟡'}; return {col:'#C0392B',bg:'#FBE3E0',dot:'🔴'}; }
+function _aiUnit(cat){ return cat==='food'?'kcal':cat==='water'?'ml':cat==='sleep'?'hr':cat==='exercise'?'min':''; }
+function aiRevSet(idx,key,v){ var R=window._aiR||[]; if(!R[idx])return; if(key==='on'){R[idx].on=!!v;renderAiReview();} else if(key==='val'){R[idx].prim=parseFloat(v)||0;} else {R[idx][key]=v;} }
+function aiRevMove(idx,cat){ var R=window._aiR||[]; if(R[idx]){R[idx].cat=cat;renderAiReview();} }
+function aiRevMerge(a,b){ var R=window._aiR||[]; if(!R[a]||!R[b])return; R[a].prim=(+R[a].prim||0)+(+R[b].prim||0); R[a].prot=(+R[a].prot||0)+(+R[b].prot||0); R.splice(b,1); window._aiR=R; renderAiReview(); }
+function renderAiReview(){
+  var R=window._aiR||[]; var resWrap=document.getElementById('allday-result'); if(!resWrap)return;
+  var en=(typeof currentLang!=='undefined'&&currentLang==='en'); var seen={};
+  var rows=R.map(function(it,idx){
+    var cb=_aiConfBadge(it.conf); var unit=_aiUnit(it.cat);
+    var extra = (it.cat==='food'&&it.prot)?(it.prot+'g '+(en?'protein':'โปรตีน')):'';
+    var key=it.cat+'|'+(it.label||'').toLowerCase().trim(); var dup=(seen[key]!==undefined); var firstIdx=seen[key]; if(!dup) seen[key]=idx;
+    var opts=AI_CATS.map(function(c){return '<option value="'+c[0]+'"'+(c[0]===it.cat?' selected':'')+'>'+(en?c[1]:c[2])+'</option>';}).join('');
+    var thumb=it.thumb?('<img class="air-thumb" src="'+it.thumb+'">'):'<span class="air-ic" style="background:#F2E8D6;"></span>';
+    var warn=it.conf<80?('<span class="air-warn">'+(en?'Please review this item':'โปรดตรวจสอบรายการนี้')+'</span>'):'';
+    var mergeBtn=dup?('<button class="air-merge" onclick="aiRevMerge('+firstIdx+','+idx+')">'+(en?'Merge':'รวม')+'</button>'):'';
+    return '<div class="air-item"'+(it.on?'':' style="opacity:.42;"')+'>'+thumb
+      +'<div class="air-mid"><div class="air-top"><span class="air-conf" style="color:'+cb.col+';background:'+cb.bg+';">'+cb.dot+' '+it.conf+'%</span>'
+      +'<select class="air-move" onchange="aiRevMove('+idx+',this.value)">'+opts+'</select>'+mergeBtn+'</div>'
+      +'<input class="air-lbl" value="'+String(it.label||'').replace(/"/g,'&quot;')+'" onchange="aiRevSet('+idx+',\'label\',this.value)">'
+      +'<div class="air-valrow"><input class="air-val" value="'+(it.prim||0)+'" onchange="aiRevSet('+idx+',\'val\',this.value)"><span class="air-unit">'+unit+'</span>'+(extra?'<span class="air-extra">· '+extra+'</span>':'')+' '+warn+'</div></div>'
+      +'<input type="checkbox" class="air-cb"'+(it.on?' checked':'')+' onchange="aiRevSet('+idx+',\'on\',this.checked)"></div>';
+  }).join('');
+  resWrap.innerHTML='<div class="air-wrap"><div class="air-h"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.7 5L19 8.5l-5.3 1.6L12 15l-1.7-4.9L5 8.5l5.3-1.5z"/></svg>'+(en?'AI Scan Results':'ผลสแกนจาก AI')+'</div><div class="air-sub">'+(en?'Review & edit, then save to today.':'ตรวจสอบ/แก้ไข แล้วบันทึกลงวันนี้')+'</div>'+rows
+    +'<button class="air-save" onclick="aiReviewSave()">'+(en?'Save to Day':'บันทึกลงวันนี้')+'</button>'
+    +'<button class="air-cancel" onclick="(function(){var w=document.getElementById(\'allday-result\');if(w){w.style.display=\'none\';w.innerHTML=\'\';}window._aiR=[];})()">'+(en?'Cancel':'ยกเลิก')+'</button></div>';
+}
+function applyReviewItems(items){
+  var addN=function(id,v){var el=document.getElementById(id);if(el&&(+v||0)){el.value=Math.round((parseFloat(el.value)||0)+(+v||0));}};
+  var foods=items.filter(function(i){return i.cat==='food';});
+  var waters=items.filter(function(i){return i.cat==='water';});
+  var sleeps=items.filter(function(i){return i.cat==='sleep';});
+  var exs=items.filter(function(i){return i.cat==='exercise';});
+  var supps=items.filter(function(i){return i.cat==='supplement';});
+  var bodies=items.filter(function(i){return i.cat==='body';});
+  if(foods.length){
+    var mb=document.getElementById('m_b'); var labels=foods.map(function(f){return f.label;}).filter(Boolean);
+    if(mb&&labels.length){ mb.value=(mb.value.trim()?mb.value.trim()+' · ':'')+labels.join(' · '); if(typeof autoResize==='function') autoResize(mb); }
+    foods.forEach(function(f){ var d=f.data||{}; addN('mac_kcal',f.prim); addN('mac_p',f.prot||0); addN('mac_carb',d.carb_g); addN('mac_fat',d.fat_g); addN('mac_f',d.fiber_g); addN('mac_sugar_total',d.sugar_g); addN('mac_s',d.fruit_sugar_g); });
+  }
+  if(waters.length && typeof addScanWater==='function'){ var w=waters.reduce(function(t,i){return t+(+i.prim||0);},0); if(w>0) addScanWater(w); }
+  if(sleeps.length){ var sp=sleeps[0]; var d=sp.data||{}; var setIf=function(id,v){if(v&&+v>0){var el=document.getElementById(id);if(el)el.value=v;}};
+    var th=+sp.prim||0; if(th>16||th<0)th=0; setIf('sl_total_h',th); setIf('sl_score',d.sleep_score); setIf('sl_rhr',d.rhr); setIf('sl_hrv',d.hrv); setIf('sl_bb',d.body_battery);
+    if(d.bedtime){var e1=document.getElementById('sl_s');if(e1)e1.value=d.bedtime;} if(d.waketime){var e2=document.getElementById('sl_e');if(e2)e2.value=d.waketime;}
+    try{ if(d.bedtime&&d.waketime) calcSleep(); }catch(e){}
+  }
+  if(exs.length){ var dur=exs.reduce(function(t,i){return t+(+i.prim||0);},0); var cal=exs.reduce(function(t,i){return t+(+((i.data||{}).calories)||0);},0);
+    var a=document.getElementById('e2_m'); if(a&&dur)a.value=dur; var b=document.getElementById('e2_c'); if(b&&cal)b.value=cal;
+    var notes=exs.map(function(i){return (i.data||{}).notes||i.label;}).filter(Boolean).join(' · '); if(notes){var n=document.getElementById('ex_n'); if(n&&!n.value)n.value=notes;}
+  }
+  if(supps.length){ var st=document.getElementById('supps'); if(st){ var names=supps.map(function(i){return i.label;}).filter(Boolean).join(', '); st.value=(st.value.trim()?st.value.trim()+', ':'')+names; } }
+  if(bodies.length){ var hn=document.getElementById('h_note'); if(hn){ var bn=bodies.map(function(i){return i.label+(i.prim?(' '+i.prim+'kg'):'');}).join(' · '); hn.value=(hn.value.trim()?hn.value.trim()+' · ':'')+bn; } }
+  try{ updateQ(); }catch(e){} try{ syncLogRings(); }catch(e){}
+}
+function aiReviewSave(){
+  var items=(window._aiR||[]).filter(function(i){return i.on;});
+  try{ applyReviewItems(items); }catch(e){ console.error(e); }
+  var en=(typeof currentLang!=='undefined'&&currentLang==='en'); var w=document.getElementById('allday-result');
+  if(w){ w.innerHTML='<div style="padding:13px 15px;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.25);border-radius:13px;font-family:\'Anuphan\',sans-serif;font-size:.8rem;color:var(--accent);font-weight:700;">✓ '+(en?'Saved to today':'บันทึกลงวันนี้แล้ว')+'</div>'; }
+  try{ toast(en?'✓ Saved to today':'✓ บันทึกลงวันนี้แล้ว'); }catch(e){}
+  window._aiR=[];
 }
 
 async function analyzeAllDay(input, mode){
