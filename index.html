@@ -1320,6 +1320,14 @@ try{
 .dl-dash{background:linear-gradient(160deg,#FFFFFF,#FCF8EE);border:1px solid #ECE0C2;border-radius:26px;padding:18px 10px 15px;box-shadow:0 12px 34px rgba(120,95,40,.10), inset 0 1px 0 rgba(255,255,255,.85);margin-bottom:14px;position:relative;overflow:hidden;}
 .dl-dash::before{content:"";position:absolute;top:-46px;left:50%;transform:translateX(-50%);width:220px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.20),transparent 70%);}
 .dl-dash-h{font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted2);text-align:center;margin-bottom:13px;position:relative;}
+.dl-hscore{display:flex;align-items:center;gap:16px;margin-bottom:18px;padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,#FBF3E2,#F3E7CC);border:1px solid #EAD9B0;box-shadow:0 4px 18px rgba(184,146,63,.12);}
+.dl-hscore-l{flex:1;min-width:0;}
+.dl-hscore-eye{font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#A8842E;}
+.dl-hscore-num{font-family:'Playfair Display',serif;font-weight:700;font-size:2.6rem;line-height:1;color:#7A5A1E;margin-top:5px;}
+.dl-hscore-status{font-family:'Anuphan',sans-serif;font-size:.82rem;font-weight:700;margin-top:3px;color:#B8923F;}
+.dl-hscore-ring{position:relative;width:72px;height:72px;flex-shrink:0;}
+.dl-hscore-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.dl-hscore-ring .lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:#7A5A1E;}
 .dl-rings{display:flex;justify-content:space-around;position:relative;}
 .dl-ring{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;}
 .dl-ring-ctr{position:relative;width:84px;height:84px;}
@@ -1396,6 +1404,27 @@ function syncLogRings(){
   var exMin=gv('e1_m')+gv('e2_m');
   var sh=function(id,v,dec){var e=document.getElementById(id); if(e) e.textContent = v ? (dec?(Math.round(v*10)/10).toString():Math.round(v).toString()) : '0';};
   sh('dl-hdr-kcal',kcal,0); sh('dl-hdr-sleep',slH,1); sh('dl-hdr-ex',exMin,0);
+  updateHealthScore(kcal,prot,slH,exMin);
+}
+function updateHealthScore(kcal,prot,slH,exMin){
+  try{
+    var sl=Math.min((slH||0)/8,1), p=Math.min((prot||0)/120,1);
+    var k=kcal>0?Math.max(0,1-Math.abs(kcal-1600)/1600):0, ex=exMin>0?1:0.55;
+    var score=Math.round(sl*38 + p*27 + k*20 + ex*15); if(score>100)score=100; if(score<0)score=0;
+    var any=(kcal||prot||slH||exMin);
+    var numEl=document.getElementById('dl-hscore-num'); if(numEl) numEl.textContent=any?score:'—';
+    var rn=document.getElementById('dl-hscore-ringnum'); if(rn) rn.textContent=any?score:'—';
+    var arc=document.getElementById('dl-hscore-arc'); if(arc){ var C=188.5; arc.style.strokeDashoffset=C-C*(any?score:0)/100; }
+    var st=document.getElementById('dl-hscore-status');
+    if(st){ var isEN=(typeof currentLang!=='undefined'&&currentLang==='en'); var t,c;
+      if(!any){ t=isEN?'Start logging today':'เริ่มบันทึกวันนี้'; c='#A8842E'; }
+      else if(score>=85){ t=isEN?'Excellent':'ดีเยี่ยม'; c='#3B7C2A'; }
+      else if(score>=70){ t=isEN?'Good':'ดีมาก'; c='#4A7C59'; }
+      else if(score>=55){ t=isEN?'Fair':'พอใช้'; c='#B8923F'; }
+      else { t=isEN?'Keep going':'สู้ๆ นะ'; c='#A8842E'; }
+      st.textContent=t; st.style.color=c;
+    }
+  }catch(e){}
 }
 </script>
 <div class="page" id="page-log">
@@ -1433,6 +1462,18 @@ function syncLogRings(){
   </div>
   <div class="dl-dash">
     <div class="dl-dash-h"><span class="lang-th">วันนี้ของเกิล</span><span class="lang-en" style="display:none;">Your day</span></div>
+    <!-- Today's Health Score (command-center headline) -->
+    <div class="dl-hscore">
+      <div class="dl-hscore-l">
+        <div class="dl-hscore-eye"><span class="lang-th">คะแนนสุขภาพวันนี้</span><span class="lang-en" style="display:none;">Today's Health Score</span></div>
+        <div class="dl-hscore-num" id="dl-hscore-num">—</div>
+        <div class="dl-hscore-status" id="dl-hscore-status"></div>
+      </div>
+      <div class="dl-hscore-ring">
+        <svg viewBox="0 0 72 72"><defs><linearGradient id="dlhs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E0C589"/><stop offset="1" stop-color="#B8923F"/></linearGradient></defs><circle cx="36" cy="36" r="30" fill="none" stroke="#EAD9B0" stroke-width="6"/><circle id="dl-hscore-arc" cx="36" cy="36" r="30" fill="none" stroke="url(#dlhs)" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5"/></svg>
+        <div class="lbl" id="dl-hscore-ringnum">—</div>
+      </div>
+    </div>
     <div class="dl-rings">
       <div class="dl-ring"><div class="dl-ring-ctr">
         <svg width="84" height="84"><defs><linearGradient id="dlg-kcal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E0C589"/><stop offset="1" stop-color="#B8923F"/></linearGradient></defs><circle cx="42" cy="42" r="36" fill="none" stroke="#F0E7D4" stroke-width="8"/><circle id="dl-ring-kcal" class="dl-rp" cx="42" cy="42" r="36" fill="none" stroke="url(#dlg-kcal)" stroke-width="8" stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"/></svg>
@@ -3348,7 +3389,7 @@ function syncLogRings(){
   <div class="chat-row">
     <button class="chat-cam" onclick="document.getElementById('chat-photo-input').click()" title="Scan photo">📷</button>
     <input type="file" id="chat-photo-input" accept="image/*" multiple style="display:none" onchange="if(typeof analyzeChatPhoto==='function'){analyzeChatPhoto(this)}else{analyzeAllDay(this,'meals')}">
-    <textarea class="chat-input" id="chatIn" placeholder="เช่น: กินข้าวโอ๊ตกับไข่ 2 ฟอง · นอน 7 ชม. · วิ่ง 30 นาที" rows="1" oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+    <textarea class="chat-input" id="chatIn" placeholder="บอก AI ได้ทุกอย่าง… ‘กินซูชิ’ · ‘นอน 7 ชม.’ · ‘เดิน 8,000 ก้าว’ · ‘วิเคราะห์วันนี้’" rows="1" oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
     <button class="chat-send" onclick="sendChat()">↑</button>
   </div>
 </div>
@@ -5145,7 +5186,7 @@ const translations = {
     lbl_mood: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 14c1 1.4 2.1 2 3.7 2s2.7-.6 3.7-2M9 10h.01M15 10h.01"/></svg>อารมณ์',
     lbl_note: '📝 โน้ตสุขภาพ',
     lbl_supp_ph: 'Collagen (เช้า), Probiotic (เย็น)...',
-    chat_ph: 'เช่น: ข้าวโอ๊ตกับไข่ 2 ฟอง · นอน 7 ชม. · วิ่ง 30 นาที',
+    chat_ph: 'บอก AI ได้ทุกอย่าง… ‘กินซูชิ’ · ‘นอน 7 ชม.’ · ‘เดิน 8,000 ก้าว’ · ‘วิเคราะห์วันนี้’',
     today_btn: 'วันนี้',
     langBtn: '🇬🇧 EN',
     ing_analyze_title: 'วิเคราะห์โภชนาการรายเดือน',
@@ -5208,7 +5249,7 @@ const translations = {
     lbl_mood: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--grain);vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 14c1 1.4 2.1 2 3.7 2s2.7-.6 3.7-2M9 10h.01M15 10h.01"/></svg>Mood',
     lbl_note: '📝 Health Notes',
     lbl_supp_ph: 'Collagen (morning), Probiotic (evening)...',
-    chat_ph: "e.g. oatmeal with 2 eggs · slept 7h · ran 30 min",
+    chat_ph: "Tell AI anything… ‘I ate sushi’ · ‘I slept 7 hours’ · ‘I walked 8,000 steps’ · ‘Analyze today’",
     today_btn: 'Today',
     langBtn: '🇹🇭 TH',
     ing_analyze_title: 'Monthly Nutrition Analysis',
