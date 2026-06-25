@@ -1484,6 +1484,18 @@ try{
 .dl-chev{margin-left:auto;display:flex;align-items:center;color:var(--muted2);transition:transform .25s;flex-shrink:0;}
 .dl-chev svg{width:18px;height:18px;}
 #page-log .section:not(.dl-col) .dl-chev{transform:rotate(180deg);}
+/* Nutrition summary + collapsible details */
+.nut-sum{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(240,160,64,.07),rgba(74,124,89,.05));border:1px solid rgba(201,160,90,.22);border-radius:16px;padding:14px 16px;margin-bottom:11px;}
+.nut-sum-cell{flex:1;min-width:0;}
+.nut-sum-num{font-family:'Playfair Display',serif;font-weight:700;font-size:1.55rem;color:var(--text);line-height:1;}
+.nut-sum-lbl{font-family:'Anuphan',sans-serif;font-size:.62rem;font-weight:600;color:var(--muted2);margin-top:3px;letter-spacing:.3px;}
+.nut-sum-brk{font-family:'Anuphan',sans-serif;font-size:.6rem;color:var(--accent);margin-top:3px;}
+.nut-sum-div{width:1px;align-self:stretch;background:rgba(201,160,90,.25);}
+.nut-toggle{display:inline-flex;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;font-family:'Anuphan',sans-serif;font-size:.74rem;font-weight:700;color:var(--accent);padding:2px 0 10px;}
+.nut-toggle svg{width:15px;height:15px;transition:transform .22s;}
+.nut-toggle.open svg{transform:rotate(180deg);}
+.nut-details{display:none;}
+.nut-details.open{display:block;}
 .dl-rings{display:flex;justify-content:space-around;position:relative;}
 .dl-ring{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;}
 .dl-ring-ctr{position:relative;width:84px;height:84px;}
@@ -1561,6 +1573,16 @@ function syncLogRings(){
   var sh=function(id,v,dec){var e=document.getElementById(id); if(e) e.textContent = v ? (dec?(Math.round(v*10)/10).toString():Math.round(v).toString()) : '0';};
   sh('dl-hdr-kcal',kcal,0); sh('dl-hdr-sleep',slH,1); sh('dl-hdr-ex',exMin,0);
   updateHealthScore(kcal,prot,slH,exMin);
+  try{ updateNutSummary(kcal, prot, gv('mac_p'), gv('prot_supp')); }catch(e){}
+}
+function nutToggleDetails(){ var d=document.getElementById('nut-details'),b=document.getElementById('nut-toggle'); if(!d)return; var open=d.classList.toggle('open'); if(b)b.classList.toggle('open',open); }
+function updateNutSummary(kcal,prot,protFood,protSupp){
+  try{
+    var en=(typeof currentLang!=='undefined'&&currentLang==='en');
+    var c=document.getElementById('nut-sum-cal'); if(c) c.textContent=Math.round(kcal||0);
+    var p=document.getElementById('nut-sum-prot'); if(p) p.innerHTML=Math.round(prot||0)+'<span style="font-size:.6em;">g</span>';
+    var bk=document.getElementById('nut-sum-brk'); if(bk) bk.textContent=(en?'Food ':'อาหาร ')+Math.round(protFood||0)+'g · '+(en?'Supp ':'เสริม ')+Math.round(protSupp||0)+'g';
+  }catch(e){}
 }
 function updateHealthScore(kcal,prot,slH,exMin){
   try{
@@ -1628,7 +1650,7 @@ function openExUpload(){ openUploadSheet([{svg:_upCam,th:'ถ่ายรูป'
 function initLogCollapse(){
   try{
     var pg=document.getElementById('page-log'); if(!pg) return;
-    var secs=pg.querySelectorAll('.section.s-eat,.section.s-sleep,.section.s-ex,.section.s-body,.section.s-supp');
+    var secs=pg.querySelectorAll('.section.s-sleep,.section.s-ex,.section.s-body,.section.s-supp');
     secs.forEach(function(sec){
       if(sec.getAttribute('data-dlc')) return;
       sec.setAttribute('data-dlc','1');
@@ -1781,6 +1803,14 @@ function initLogCollapse(){
     <input type="file" id="food-cam" accept="image/*" capture="environment" style="display:none" onchange="if(typeof analyzeChatPhoto==='function'){analyzeChatPhoto(this)}else{analyzeAllDay(this,'meals')}">
     <input type="file" id="food-lib" accept="image/*" style="display:none" onchange="if(typeof analyzeChatPhoto==='function'){analyzeChatPhoto(this)}else{analyzeAllDay(this,'meals')}">
     <input type="file" id="food-multi" accept="image/*" multiple style="display:none" onchange="if(typeof analyzeChatPhoto==='function'){analyzeChatPhoto(this)}else{analyzeAllDay(this,'meals')}">
+    <!-- Nutrition summary (default view) -->
+    <div class="nut-sum">
+      <div class="nut-sum-cell"><div class="nut-sum-num" id="nut-sum-cal">0</div><div class="nut-sum-lbl"><span class="lang-th">แคลอรี่</span><span class="lang-en" style="display:none;">Calories</span></div></div>
+      <div class="nut-sum-div"></div>
+      <div class="nut-sum-cell"><div class="nut-sum-num" id="nut-sum-prot">0<span style="font-size:.6em;">g</span></div><div class="nut-sum-lbl"><span class="lang-th">โปรตีน</span><span class="lang-en" style="display:none;">Protein</span></div><div class="nut-sum-brk" id="nut-sum-brk"></div></div>
+    </div>
+    <button type="button" class="nut-toggle" id="nut-toggle" onclick="nutToggleDetails()"><span class="lang-th">รายละเอียด</span><span class="lang-en" style="display:none;">Details</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div id="nut-details" class="nut-details">
     <div class="sugar-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#C0392B;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M6.2 6.2 17.8 17.8"/></svg>งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
       <!-- แคลอรี่ - featured -->
@@ -1913,6 +1943,7 @@ function initLogCollapse(){
       </div>
       </div>
     </div>
+  </div><!--/nut-details-->
   </div>
   <div class="section s-sleep">
     <div class="dl-hero sleep"><div class="dl-hero-ill"><svg viewBox="0 0 100 98"><defs><mask id="dlh-moon"><rect width="100" height="100" fill="#fff"/><circle cx="66" cy="40" r="31" fill="#000"/></mask></defs><g fill="#FBEFC9"><path d="M20 30 l2.2 5.5 5.5 2.2 -5.5 2.2 -2.2 5.5 -2.2 -5.5 -5.5 -2.2 5.5 -2.2z"/><path d="M84 20 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z"/></g><circle cx="50" cy="52" r="33" fill="#F4E6BE" mask="url(#dlh-moon)"/><g stroke="#B08A57" stroke-width="2.8" stroke-linecap="round" fill="none"><path d="M34 50 q4 4.5 8.5 0"/><path d="M46 47 q4 4.5 8.5 0"/><path d="M37 61 q5.5 5 11 0"/></g><circle cx="32" cy="47" r="2.4" fill="#E8A6A0" opacity=".7"/><g fill="#FBEFC9" font-family="serif" font-weight="700"><text x="73" y="46" font-size="13">z</text><text x="82" y="35" font-size="9">z</text></g></svg></div><div class="dl-hero-scrim"></div><div class="dl-hero-tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 6.4L20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6z"/></svg><span class="lang-th">AI อ่านจากรูป</span><span class="lang-en" style="display:none;">AI from photo</span></div><div class="dl-hero-foot"><div class="dl-hero-ttl"><span class="lang-th">การนอน</span><span class="lang-en" style="display:none;">Sleep</span></div><div class="dl-hero-sub"><span class="lang-th">ถ่ายหน้าจอ Garmin — AI อ่านให้</span><span class="lang-en" style="display:none;">Snap your Garmin — AI reads it</span></div></div><div class="dl-hero-val"><span class="dl-hero-num" id="dl-hdr-sleep">0</span><span class="dl-hero-u"><span class="lang-th">ชม.</span><span class="lang-en" style="display:none;">hr</span></span></div></div>
