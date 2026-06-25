@@ -4616,8 +4616,10 @@ async function sendChat(){
   try{
     const res=await fetch('https://small-dawn-d691.passaranunofficial.workers.dev',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
-    const raw=data.content.map(i=>i.text||'').join('').trim();
-    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    if(!res.ok || !Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
+    let _raw=data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const _ca=_raw.indexOf('{'), _cb=_raw.lastIndexOf('}'); if(_ca>=0&&_cb>_ca) _raw=_raw.slice(_ca,_cb+1);
+    const parsed=JSON.parse(_raw);
     // Load current day data first
     const existing=await dbLoadDay(curDay)||{};
     const merged={...existing};
@@ -8652,9 +8654,10 @@ Respond ONLY with valid JSON:
         {type:'text', text:prompts[mode]}
       ]}]})
     });
-    if(!res.ok){ throw new Error('HTTP '+res.status); }
     const data = await res.json();
-    const raw = data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim();
+    if(!res.ok || !Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
+    let raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const _ja=raw.indexOf('{'), _jb=raw.lastIndexOf('}'); if(_ja>=0&&_jb>_ja) raw=raw.slice(_ja,_jb+1);
     const r = JSON.parse(raw);
     if(mode === 'meals'){
       const n = r.nutrition || {};
@@ -8755,7 +8758,8 @@ Respond ONLY with valid JSON:
     }
 
   } catch(err) {
-    resWrap.innerHTML = `<div style="padding:9px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);">⚠ Could not read image — please try again</div>`;
+    resWrap.innerHTML = `<div style="padding:10px 11px;background:rgba(239,108,108,.07);border-radius:9px;font-size:.72rem;color:var(--prot);line-height:1.5;"><span class="lang-th">⚠ AI อ่านรูปไม่สำเร็จ — ลองถ่ายให้ชัดขึ้น หรือแตะลองใหม่อีกครั้งค่ะ</span><span class="lang-en" style="display:none;">⚠ AI couldn't read the photo — try a clearer shot or tap again</span></div>`;
+    try{ var _en=(typeof currentLang!=='undefined'&&currentLang==='en'); resWrap.querySelectorAll('.lang-th').forEach(function(e){e.style.display=_en?'none':'';}); resWrap.querySelectorAll('.lang-en').forEach(function(e){e.style.display=_en?'':'none';}); }catch(e){}
   }
 }
 
