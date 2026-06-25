@@ -1890,31 +1890,277 @@ function syncLogRings(){
 </div>
 
 <!-- PAGE ING -->
+<style>
+/* ══════ NUTRITION · AI Nutrition Intelligence (mobile-first) ══════ */
+#page-ing{
+  --nx-ivory:#FAF6EF; --nx-blush:#FBEAE5; --nx-rose:#C98262; --nx-rosebrown:#8B4A3A;
+  --nx-green:#2F6B1F; --nx-amber:#C0883E; --nx-ink:#2B2925; --nx-mut:#9B9081;
+  background:radial-gradient(120% 50% at 50% -2%, #F1F5EB 0%, var(--nx-ivory) 44%, #F4EEE2 100%);
+  font-family:'Anuphan',sans-serif; color:var(--nx-ink);
+}
+.nx-shell{ max-width:480px; margin:0 auto; }
+#page-ing .tbl-monthbar{ margin-bottom:16px; }
+.nx-sec{ margin:26px 0 13px; }
+.nx-sec-eye{ font-size:.56rem; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:var(--nx-rose); }
+.nx-sec h2{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.2rem; color:var(--nx-ink); margin-top:3px; letter-spacing:.2px; }
+
+/* 1 · HERO */
+.nx-hero{ position:relative; overflow:hidden; border-radius:26px; padding:22px 20px;
+  background:linear-gradient(140deg,#FCEDE7 0%, var(--nx-blush) 50%, #EFF1E2 100%);
+  box-shadow:0 1px 2px rgba(120,80,40,.05), 0 20px 46px rgba(150,120,70,.14); }
+.nx-hero-glow{ position:absolute; top:-40%; right:-18%; width:62%; height:155%; pointer-events:none;
+  background:radial-gradient(circle, rgba(123,160,80,.30), transparent 68%); }
+.nx-hero-top{ position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.nx-eyebrow{ display:flex; align-items:center; gap:6px; font-size:.58rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--nx-rose); }
+.nx-eyebrow svg{ width:13px; height:13px; }
+.nx-hero-h1{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.35rem; color:var(--nx-ink); margin-top:6px; line-height:1.08; max-width:200px; }
+.nx-hero-status{ display:inline-block; margin-top:10px; padding:4px 13px; border-radius:30px; font-size:.7rem; font-weight:700; letter-spacing:.3px;
+  background:rgba(47,107,31,.1); color:var(--nx-green); }
+.nx-ring{ position:relative; width:100px; height:100px; flex-shrink:0; filter:drop-shadow(0 8px 22px rgba(110,150,60,.45)); }
+.nx-ring svg{ width:100%; height:100%; }
+.nx-ring-val{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.nx-ring-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.8rem; line-height:1; color:var(--nx-ink); }
+.nx-ring-den{ font-size:.54rem; color:var(--nx-mut); margin-top:1px; }
+.nx-summary{ position:relative; z-index:2; margin-top:16px; padding:13px 15px; border-radius:16px; background:rgba(255,255,255,.62);
+  border:1px solid rgba(201,130,98,.16); font-size:.82rem; line-height:1.5; color:var(--nx-rosebrown); }
+.nx-analyze-btn{ position:relative; z-index:2; width:100%; margin-top:11px; padding:12px; border:1px solid var(--nx-rose); border-radius:14px;
+  background:transparent; color:var(--nx-rose); font-family:'Anuphan',sans-serif; font-size:.78rem; font-weight:700; cursor:pointer; transition:all .18s; display:flex; align-items:center; justify-content:center; gap:6px; }
+.nx-analyze-btn svg{ width:14px; height:14px; }
+.nx-analyze-btn:hover{ background:rgba(201,130,98,.07); }
+
+/* 2 · diversity insight */
+.nx-insight-sm{ display:flex; gap:11px; margin-top:11px; padding:14px 15px; border-radius:18px; background:linear-gradient(160deg,#FFFFFF,#F6F4EC);
+  box-shadow:0 1px 2px rgba(120,80,40,.04), 0 10px 26px rgba(150,120,70,.07); }
+.nx-insight-sm svg{ width:18px; height:18px; flex-shrink:0; color:var(--nx-green); margin-top:1px; }
+.nx-insight-sm p{ font-size:.78rem; line-height:1.5; color:var(--nx-rosebrown); }
+.nx-insight-sm b{ color:var(--nx-ink); }
+
+/* 3 · nutrient cards (2×2) */
+.nx-grid{ display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+.nx-card{ padding:15px 15px 16px; border-radius:20px; background:#fff;
+  box-shadow:0 1px 2px rgba(120,80,40,.04), 0 10px 26px rgba(150,120,70,.07); }
+.nx-card-top{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
+.nx-card-name{ font-family:'Playfair Display',serif; font-weight:700; font-size:.98rem; color:var(--nx-ink); }
+.nx-card-score{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem; }
+.nx-card-status{ display:inline-flex; align-items:center; gap:5px; font-size:.66rem; font-weight:700; letter-spacing:.2px; }
+.nx-card-status svg{ width:13px; height:13px; }
+.nx-card-tip{ font-size:.64rem; color:var(--nx-mut); line-height:1.45; margin-top:7px; }
+.nx-good{ color:var(--nx-green); } .nx-warn{ color:var(--nx-amber); }
+
+/* 4 · today's recommendation */
+.nx-rec{ padding:18px 18px 5px; border-radius:22px; background:linear-gradient(160deg,#FFFFFF,#FBF4EC);
+  box-shadow:0 1px 2px rgba(120,80,40,.04), 0 14px 36px rgba(150,120,70,.09); }
+.nx-rec-item{ display:flex; align-items:flex-start; gap:11px; padding-bottom:13px; }
+.nx-rec-ico{ width:27px; height:27px; flex-shrink:0; border-radius:9px; display:flex; align-items:center; justify-content:center; background:rgba(47,107,31,.1); color:var(--nx-green); }
+.nx-rec-ico svg{ width:15px; height:15px; }
+.nx-rec-item p{ font-size:.82rem; line-height:1.4; color:var(--nx-ink); padding-top:4px; }
+
+/* 5 · supplement recommendation */
+.nx-supp{ display:flex; align-items:center; gap:13px; padding:14px 15px; margin-bottom:11px; border-radius:20px; background:#fff;
+  box-shadow:0 1px 2px rgba(120,80,40,.04), 0 10px 26px rgba(150,120,70,.06); }
+.nx-supp-ico{ width:46px; height:46px; flex-shrink:0; border-radius:14px; display:flex; align-items:center; justify-content:center; }
+.nx-supp-ico svg{ width:23px; height:23px; }
+.nx-supp-mid{ flex:1; min-width:0; }
+.nx-supp-name{ font-family:'Playfair Display',serif; font-weight:700; font-size:.98rem; color:var(--nx-ink); }
+.nx-supp-why{ font-size:.68rem; color:var(--nx-mut); line-height:1.4; margin-top:2px; }
+.nx-supp-btn{ flex-shrink:0; padding:8px 14px; border-radius:30px; border:1px solid var(--nx-rose); background:transparent;
+  color:var(--nx-rose); font-family:'Anuphan',sans-serif; font-size:.66rem; font-weight:700; white-space:nowrap; cursor:pointer; transition:all .18s; }
+.nx-supp-btn:hover{ background:rgba(201,130,98,.08); }
+
+/* 6 · monthly progress */
+.nx-prog{ padding:20px; border-radius:22px; background:linear-gradient(160deg,#FFFFFF,#F6F4EC);
+  box-shadow:0 1px 2px rgba(120,80,40,.04), 0 14px 36px rgba(150,120,70,.09); }
+.nx-prog-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
+.nx-prog-head .l{ font-size:.6rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--nx-mut); }
+.nx-prog-head .pts{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem; color:var(--nx-green); }
+.nx-spark svg{ width:100%; height:56px; display:block; }
+.nx-prog-x{ display:flex; justify-content:space-between; padding:6px 2px 0; }
+.nx-prog-x span{ font-size:.58rem; color:var(--nx-mut); font-weight:600; }
+.nx-prog-note{ margin-top:14px; padding-top:14px; border-top:1px solid rgba(201,130,98,.14); font-size:.78rem; color:var(--nx-rosebrown); line-height:1.45; }
+
+/* 7 · big AI insight */
+.nx-bigsight{ position:relative; overflow:hidden; margin-top:26px; padding:24px 22px; border-radius:24px; color:#fff;
+  background:linear-gradient(135deg,#3E7C2A 0%, var(--nx-green) 55%, #244F18 100%);
+  box-shadow:0 16px 40px rgba(47,107,31,.3); }
+.nx-bigsight-glow{ position:absolute; top:-50%; right:-15%; width:62%; height:185%; pointer-events:none;
+  background:radial-gradient(circle, rgba(255,255,255,.18), transparent 64%); }
+.nx-bigsight-eye{ position:relative; display:flex; align-items:center; gap:6px; font-size:.58rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.82); margin-bottom:11px; }
+.nx-bigsight-eye svg{ width:14px; height:14px; }
+.nx-bigsight h3{ position:relative; font-family:'Playfair Display',serif; font-weight:700; font-size:1.16rem; line-height:1.4; }
+.nx-bigsight p{ position:relative; font-size:.84rem; line-height:1.55; margin-top:10px; color:rgba(255,255,255,.9); }
+.nx-foodlog{ margin-top:26px; }
+</style>
+
 <div class="page" id="page-ing">
+ <div class="nx-shell">
+
   <div class="tbl-monthbar">
     <button class="tbl-mo-arrow" onclick="chIngMonth(-1)">‹</button>
     <div class="tbl-mo-label" id="ing-mo-lbl" onclick="openIngMonthPicker()" title="เลือกเดือน">—</div>
     <button class="tbl-mo-arrow" onclick="chIngMonth(1)">›</button>
   </div>
-  <!-- Month picker popup -->
-  <div id="ing-mp-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);" onclick="closeIngMonthPicker()"></div>
-  <div id="ing-mp-popup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;width:min(330px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25);">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <button class="tbl-mo-arrow" onclick="ingMpChYear(-1)">‹</button>
-      <div id="ing-mp-year" style="font-family:'Anuphan',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);"></div>
-      <button class="tbl-mo-arrow" onclick="ingMpChYear(1)">›</button>
+
+  <!-- 1 · HERO · AI Nutrition Intelligence -->
+  <div class="nx-hero">
+    <div class="nx-hero-glow"></div>
+    <div class="nx-hero-top">
+      <div>
+        <div class="nx-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.4L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.6z"/></svg><span class="lang-th">โภชนาการอัจฉริยะ</span><span class="lang-en" style="display:none;">AI-Powered</span></div>
+        <div class="nx-hero-h1">AI Nutrition Intelligence</div>
+        <div class="nx-hero-status"><span class="lang-th">ดี</span><span class="lang-en" style="display:none;">Good</span></div>
+      </div>
+      <div class="nx-ring">
+        <svg viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="nxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A6CC78"/><stop offset=".6" stop-color="#5F9A37"/><stop offset="1" stop-color="#2F6B1F"/></linearGradient>
+            <filter id="nxglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(47,107,31,.13)" stroke-width="8"/>
+          <path d="M60 10 A50 50 0 1 1 14.8 38.7" fill="none" stroke="url(#nxg)" stroke-width="8" stroke-linecap="round" filter="url(#nxglow)"/>
+          <circle cx="14.8" cy="38.7" r="6" fill="#EAF3DF" opacity=".9" filter="url(#nxglow)"/>
+          <circle cx="14.8" cy="38.7" r="3" fill="#2F6B1F"/>
+        </svg>
+        <div class="nx-ring-val"><div class="nx-ring-num">82</div><div class="nx-ring-den">/ 100</div></div>
+      </div>
     </div>
-    <div id="ing-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
+    <div class="nx-summary" id="ing-advice"><span class="lang-th">โดยรวมอาหารของคุณสมดุลดี แต่สัปดาห์นี้ใยอาหารยังต่ำกว่าเป้าเล็กน้อย</span><span class="lang-en" style="display:none;">Your diet is well balanced, but fiber intake has been slightly low this week.</span></div>
+    <button class="nx-analyze-btn" id="ingAdvBtn" onclick="analyzeIng()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg><span class="lang-th">วิเคราะห์เดือนนี้ใหม่ด้วย AI</span><span class="lang-en" style="display:none;">Re-analyze with AI</span></button>
   </div>
-  <!-- Diversity summary (donut) -->
+
+  <!-- 2 · INGREDIENT DIVERSITY -->
+  <div class="nx-sec">
+    <div class="nx-sec-eye"><span class="lang-th">จากบันทึกของคุณ</span><span class="lang-en" style="display:none;">From your log</span></div>
+    <h2><span class="lang-th">ความหลากหลายของวัตถุดิบ</span><span class="lang-en" style="display:none;">Ingredient Diversity</span></h2>
+  </div>
   <div id="ing-summary"></div>
-  <div class="hist-months" id="ing-hist"></div>
-  <div class="ai-wrap" style="margin-bottom:12px">
-    <div class="ai-hdr"><div class="ai-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#fff;"><path d="M6 20h12M9 20l-2-3M8.5 14.5 13 7a2.2 2.2 0 0 0-3.8-2.2L5 12z"/><path d="M11 9l2.5 1.5M13.5 13a4 4 0 0 1 3.5 4"/></svg></div><div><div class="ai-ttl"><span class="lang-th">วิเคราะห์โภชนาการรายเดือน</span><span class="lang-en" style="display:none;">Monthly Nutrition Analysis</span></div><div class="ai-sub"><span class="lang-th">AI ตรวจสอบความหลากหลายของวัตถุดิบ</span><span class="lang-en" style="display:none;">AI checks your ingredient diversity</span></div></div></div>
-  <div class="ai-content" id="ing-advice"><div style="color:var(--muted2);font-size:.76rem"><span class="lang-th">เพิ่มวัตถุดิบก่อน แล้วกด "วิเคราะห์"</span><span class="lang-en" style="display:none;">Add ingredients then tap "Analyze"</span></div></div>
-    <button class="analyze-btn" id="ingAdvBtn" onclick="analyzeIng()"><span class="lang-th"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:currentColor;vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg>วิเคราะห์วัตถุดิบเดือนนี้</span><span class="lang-en" style="display:none;">🔍 Analyze This Month</span></button>
+  <div class="hist-months" id="ing-hist" style="display:none;"></div>
+  <div class="nx-insight-sm">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.4L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.6z"/></svg>
+    <p><span class="lang-th"><b>ความหลากหลายดีเยี่ยม</b> เดือนนี้คุณกินวัตถุดิบไม่ซ้ำกันถึง <b id="nx-div-count">409</b> ชนิด · ความหลากหลายของอาหารช่วยเสริมจุลินทรีย์ในลำไส้ (Gut Health) และส่งผลดีต่อสุขภาพผิว</span><span class="lang-en" style="display:none;"><b>Excellent food diversity.</b> You consumed <b>409</b> unique ingredients this month · higher food variety supports gut health and healthier skin.</span></p>
+  </div>
+
+  <!-- 3 · AI NUTRITION ANALYSIS -->
+  <div class="nx-sec">
+    <div class="nx-sec-eye"><span class="lang-th">เดือนนี้</span><span class="lang-en" style="display:none;">This month</span></div>
+    <h2>AI Nutrition Analysis</h2>
+  </div>
+  <div class="nx-grid">
+    <div class="nx-card">
+      <div class="nx-card-top"><div class="nx-card-name">Protein</div><div class="nx-card-score nx-good">92</div></div>
+      <div class="nx-card-status nx-good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span class="lang-th">ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent</span></div>
+      <div class="nx-card-tip"><span class="lang-th">เพียงพอต่อการซ่อมแซมกล้ามเนื้อและผิว</span><span class="lang-en" style="display:none;">Great for muscle & skin repair</span></div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-card-top"><div class="nx-card-name">Fiber</div><div class="nx-card-score nx-warn">58</div></div>
+      <div class="nx-card-status nx-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 4.3 2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><span class="lang-th">ควรเพิ่ม</span><span class="lang-en" style="display:none;">Needs Improvement</span></div>
+      <div class="nx-card-tip"><span class="lang-th">เพิ่มผักและธัญพืชเต็มเมล็ดเพื่อลำไส้</span><span class="lang-en" style="display:none;">Add more veggies & whole grains</span></div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-card-top"><div class="nx-card-name"><span class="lang-th">ไขมันดี</span><span class="lang-en" style="display:none;">Healthy Fat</span></div><div class="nx-card-score nx-good">80</div></div>
+      <div class="nx-card-status nx-good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span class="lang-th">ดี</span><span class="lang-en" style="display:none;">Good</span></div>
+      <div class="nx-card-tip"><span class="lang-th">อะโวคาโด น้ำมันมะกอก กำลังดี</span><span class="lang-en" style="display:none;">Avocado & olive oil on track</span></div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-card-top"><div class="nx-card-name">Omega-3</div><div class="nx-card-score nx-warn">45</div></div>
+      <div class="nx-card-status nx-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 4.3 2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><span class="lang-th">ต่ำกว่าเป้า</span><span class="lang-en" style="display:none;">Below Target</span></div>
+      <div class="nx-card-tip"><span class="lang-th">เพิ่มปลาแซลมอน หรือเสริมโอเมก้า-3</span><span class="lang-en" style="display:none;">Add salmon or an omega-3 supplement</span></div>
+    </div>
+  </div>
+
+  <!-- 4 · TODAY'S RECOMMENDATION -->
+  <div class="nx-sec">
+    <div class="nx-sec-eye"><span class="lang-th">ทำวันนี้</span><span class="lang-en" style="display:none;">For today</span></div>
+    <h2><span class="lang-th">คำแนะนำวันนี้</span><span class="lang-en" style="display:none;">Today's Recommendation</span></h2>
+  </div>
+  <div class="nx-rec">
+    <div class="nx-rec-item"><span class="nx-rec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-7M12 14c-3 0-5-1.7-5-4 0-2.5 2.2-4.5 5-4.5s5 2 5 4.5c0 2.3-2 4-5 4z"/></svg></span><p><span class="lang-th">เพิ่มผัก 1 ส่วน</span><span class="lang-en" style="display:none;">Add one serving of vegetables.</span></p></div>
+    <div class="nx-rec-item"><span class="nx-rec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg></span><p><span class="lang-th">ดื่มน้ำเพิ่มอีก 500 มล.</span><span class="lang-en" style="display:none;">Drink 500 ml more water.</span></p></div>
+    <div class="nx-rec-item"><span class="nx-rec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 6.5c0-1.2.8-2.2 2-2.5"/></svg></span><p><span class="lang-th">กินกีวี 1 ผล</span><span class="lang-en" style="display:none;">Eat one kiwi.</span></p></div>
+    <div class="nx-rec-item"><span class="nx-rec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s5 5.5 5 9.5a5 5 0 0 1-10 0C7 8.5 12 3 12 3z"/></svg></span><p><span class="lang-th">เพิ่มไขมันดีในมื้อกลางวัน</span><span class="lang-en" style="display:none;">Add healthy fat at lunch.</span></p></div>
+  </div>
+
+  <!-- 5 · SMART SUPPLEMENT RECOMMENDATION -->
+  <div class="nx-sec">
+    <div class="nx-sec-eye"><span class="lang-th">เลือกให้เหมาะกับคุณ</span><span class="lang-en" style="display:none;">Matched to your data</span></div>
+    <h2><span class="lang-th">แนะนำสำหรับคุณ</span><span class="lang-en" style="display:none;">Recommended for You</span></h2>
+  </div>
+  <div class="nx-supp">
+    <div class="nx-supp-ico" style="background:rgba(47,107,31,.1);color:var(--nx-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9M12 9c0-2.5-1.8-4.3-4.5-4.8M12 9c0-2.5 1.8-4.3 4.5-4.8M12 14.5c0-2.5-1.8-4.3-4.5-4.8M12 14.5c0-2.5 1.8-4.3 4.5-4.8"/></svg></div>
+    <div class="nx-supp-mid">
+      <div class="nx-supp-name">BioActive Fiber+</div>
+      <div class="nx-supp-why"><span class="lang-th">แนะนำเพราะใยอาหารของคุณต่ำกว่าเป้า</span><span class="lang-en" style="display:none;">Recommended because your fiber intake has been below target.</span></div>
+    </div>
+    <button class="nx-supp-btn" onclick="goPage('bio')"><span class="lang-th">ดูเหตุผล</span><span class="lang-en" style="display:none;">See Why</span></button>
+  </div>
+  <div class="nx-supp">
+    <div class="nx-supp-ico" style="background:#FBEDE4;color:#C0622A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg></div>
+    <div class="nx-supp-mid">
+      <div class="nx-supp-name">Collagen</div>
+      <div class="nx-supp-why"><span class="lang-th">ช่วยเสริมความยืดหยุ่นของผิว</span><span class="lang-en" style="display:none;">Supports your skin elasticity.</span></div>
+    </div>
+    <button class="nx-supp-btn" onclick="goPage('bio')"><span class="lang-th">ดูเพิ่มเติม</span><span class="lang-en" style="display:none;">Learn More</span></button>
+  </div>
+  <div class="nx-supp">
+    <div class="nx-supp-ico" style="background:#EAF1F4;color:#5B8AA6;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c3-4 7-5 10-5l6 5-6 5c-3 0-7-1-10-5z"/><circle cx="16.5" cy="11" r=".8" fill="currentColor" stroke="none"/></svg></div>
+    <div class="nx-supp-mid">
+      <div class="nx-supp-name">Omega-3</div>
+      <div class="nx-supp-why"><span class="lang-th">ช่วยดูแลสมองและหัวใจ</span><span class="lang-en" style="display:none;">Supports brain and heart health.</span></div>
+    </div>
+    <button class="nx-supp-btn" onclick="goPage('bio')"><span class="lang-th">ดูเพิ่มเติม</span><span class="lang-en" style="display:none;">Learn More</span></button>
+  </div>
+
+  <!-- 6 · MONTHLY PROGRESS -->
+  <div class="nx-sec">
+    <div class="nx-sec-eye"><span class="lang-th">ความคืบหน้า</span><span class="lang-en" style="display:none;">Your progress</span></div>
+    <h2><span class="lang-th">พัฒนาการรายเดือน</span><span class="lang-en" style="display:none;">Monthly Progress</span></h2>
+  </div>
+  <div class="nx-prog">
+    <div class="nx-prog-head"><div class="l"><span class="lang-th">คะแนนโภชนาการ</span><span class="lang-en" style="display:none;">Nutrition Score</span></div><div class="pts">+5 pts</div></div>
+    <div class="nx-spark">
+      <svg viewBox="0 0 300 56" preserveAspectRatio="none" fill="none">
+        <defs>
+          <linearGradient id="nxsp" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A6CC78"/><stop offset="1" stop-color="#2F6B1F"/></linearGradient>
+          <linearGradient id="nxspf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(95,154,55,.18)"/><stop offset="1" stop-color="rgba(95,154,55,0)"/></linearGradient>
+        </defs>
+        <path d="M18,42 L107,34 L196,22 L282,14 L282,56 L18,56 Z" fill="url(#nxspf)"/>
+        <polyline points="18,42 107,34 196,22 282,14" stroke="url(#nxsp)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="18" cy="42" r="3.6" fill="#fff" stroke="#5F9A37" stroke-width="2.2"/>
+        <circle cx="107" cy="34" r="3.6" fill="#fff" stroke="#5F9A37" stroke-width="2.2"/>
+        <circle cx="196" cy="22" r="3.6" fill="#fff" stroke="#5F9A37" stroke-width="2.2"/>
+        <circle cx="282" cy="14" r="5" fill="#2F6B1F"/>
+      </svg>
+    </div>
+    <div class="nx-prog-x"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div>
+    <div class="nx-prog-note"><span class="lang-th">คุณภาพโภชนาการของคุณดีขึ้นอย่างต่อเนื่อง</span><span class="lang-en" style="display:none;">Your nutrition quality keeps improving.</span></div>
+  </div>
+
+  <!-- 7 · BIG AI INSIGHT (heart) -->
+  <div class="nx-bigsight">
+    <div class="nx-bigsight-glow"></div>
+    <div class="nx-bigsight-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.7L18.5 9l-4.9 1.5L12 15l-1.6-4.5L5.5 9l4.9-1.3z"/></svg>AI Insight</div>
+    <h3><span class="lang-th">เดือนนี้พฤติกรรมการกินของคุณสม่ำเสมอขึ้นอย่างเห็นได้ชัด</span><span class="lang-en" style="display:none;">Your eating habits have become significantly more consistent this month.</span></h3>
+    <p><span class="lang-th">ความหลากหลายของผักที่สูงขึ้นอาจช่วยให้สุขภาพลำไส้และผิวดีขึ้น</span><span class="lang-en" style="display:none;">Higher vegetable diversity may contribute to better gut health and healthier skin.</span></p>
+  </div>
+
+  <!-- FOOD LOG (existing tracker) -->
+  <div class="nx-sec nx-foodlog">
+    <div class="nx-sec-eye"><span class="lang-th">บันทึกของคุณ</span><span class="lang-en" style="display:none;">Your log</span></div>
+    <h2><span class="lang-th">บันทึกวัตถุดิบ</span><span class="lang-en" style="display:none;">Food Log</span></h2>
   </div>
   <div id="ing-cats"></div>
+
+ </div>
+
+ <!-- Month picker popup -->
+ <div id="ing-mp-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;backdrop-filter:blur(3px);" onclick="closeIngMonthPicker()"></div>
+ <div id="ing-mp-popup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;width:min(330px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25);">
+   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+     <button class="tbl-mo-arrow" onclick="ingMpChYear(-1)">‹</button>
+     <div id="ing-mp-year" style="font-family:'Anuphan',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);"></div>
+     <button class="tbl-mo-arrow" onclick="ingMpChYear(1)">›</button>
+   </div>
+   <div id="ing-mp-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
+ </div>
 </div>
 
 <!-- PAGE BIO -->
@@ -4542,6 +4788,7 @@ async function renderIng(){
 
   document.getElementById('ing-cats').innerHTML='';
   ING_CATS.forEach(c=>renderIngCat(c,ingData[c.id]||[],totalItems));
+  try{ var _dc=document.getElementById('nx-div-count'); if(_dc) _dc.textContent=totalItems; }catch(e){}
 }
 
 // ── ING MONTH PICKER ──
@@ -4861,7 +5108,7 @@ const translations = {
     langBtn: '🇬🇧 EN',
     ing_analyze_title: 'วิเคราะห์โภชนาการรายเดือน',
     ing_analyze_sub: 'AI ตรวจสอบความหลากหลายของวัตถุดิบ',
-    ing_analyze_btn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:currentColor;vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg>วิเคราะห์วัตถุดิบเดือนนี้',
+    ing_analyze_btn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:5px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg>วิเคราะห์เดือนนี้ใหม่ด้วย AI',
   ing_placeholder: 'เพิ่มวัตถุดิบก่อน แล้วกด "วิเคราะห์" ',
     lbl_min: 'นาที',
     lbl_avghr: 'Avg HR',
@@ -4924,7 +5171,7 @@ const translations = {
     langBtn: '🇹🇭 TH',
     ing_analyze_title: 'Monthly Nutrition Analysis',
     ing_analyze_sub: 'AI checks ingredient diversity',
-    ing_analyze_btn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:currentColor;vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg>Analyze This Month',
+    ing_analyze_btn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:currentColor;vertical-align:-2px;margin-right:5px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.35-4.35"/></svg>Re-analyze with AI',
   ing_placeholder: 'Add ingredients first, then tap "Analyze" ',
     lbl_min: 'min',
     lbl_avghr: 'Avg HR',
