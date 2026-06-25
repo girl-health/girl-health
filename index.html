@@ -1454,6 +1454,9 @@ try{
 .ads2 .ads-ck{color:#A89B84;}
 .ads2 .ads-ck.on{color:#3B7C2A;}
 .ads2 .ads-ckdone{color:#3B7C2A;}
+.ads2 .ads-pbar{flex:1;min-width:120px;height:7px;border-radius:7px;background:rgba(120,90,40,.13);overflow:hidden;}
+.ads2 .ads-pbar i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,#9DC46E,#4A7C59);transition:width .4s ease;}
+.dsum-p{font-family:'Anuphan',sans-serif;font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.92);}
 /* AI Scan Review — premium timeline */
 .air-wrap{background:linear-gradient(160deg,#FFFDF8,#F7F0E2);border:1px solid #ECDFC4;border-radius:18px;padding:16px;}
 .air-h{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-weight:700;font-size:1.04rem;color:#2E5A22;margin-bottom:3px;}
@@ -1627,7 +1630,7 @@ function updateSmartProgress(kcal,prot,slH,exMin){
     var done=items.filter(function(i){return i.on;}).length;
     var chk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
     var circ='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/></svg>';
-    wrap.innerHTML=items.map(function(i){return '<span class="ads-ck'+(i.on?' on':'')+'">'+(i.on?chk:circ)+(en?i.en:i.th)+'</span>';}).join('')+'<span class="ads-ckdone">'+done+' / 5 '+(en?'completed':'ครบแล้ว')+'</span>';
+    wrap.innerHTML='<div class="ads-pbar"><i style="width:'+(done/5*100)+'%;"></i></div><span class="ads-ckdone">'+done+'/5 '+(en?'completed':'ครบแล้ว')+'</span>';
   }catch(e){}
 }
 var _upCam='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5a2 2 0 0 1 2-2h1.4l1.2-1.8h6.8L15.6 6.5H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg>';
@@ -1809,7 +1812,7 @@ function initLogCollapse(){
       <div class="nut-sum-div"></div>
       <div class="nut-sum-cell"><div class="nut-sum-num" id="nut-sum-prot">0<span style="font-size:.6em;">g</span></div><div class="nut-sum-lbl"><span class="lang-th">โปรตีน</span><span class="lang-en" style="display:none;">Protein</span></div><div class="nut-sum-brk" id="nut-sum-brk"></div></div>
     </div>
-    <button type="button" class="nut-toggle" id="nut-toggle" onclick="nutToggleDetails()"><span class="lang-th">รายละเอียด</span><span class="lang-en" style="display:none;">Details</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    <button type="button" class="nut-toggle" id="nut-toggle" onclick="nutToggleDetails()"><span class="lang-th">ดูรายละเอียด</span><span class="lang-en" style="display:none;">View details</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
     <div id="nut-details" class="nut-details">
     <div class="sugar-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#C0392B;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="8.5"/><path d="M6.2 6.2 17.8 17.8"/></svg>งดน้ำตาลทุกชนิด — รับได้เฉพาะน้ำตาลธรรมชาติจากผลไม้</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
@@ -1986,7 +1989,7 @@ function initLogCollapse(){
     <input type="file" id="ex-lib" accept="image/*" style="display:none" onchange="analyzeExercisePhoto(this)">
     <input type="file" id="ex-garmin" accept="image/*" multiple style="display:none" onchange="analyzeExercisePhoto(this)">
     <div id="ex-scan-result" style="display:none;margin-bottom:10px;"></div>
-    <button type="button" class="dl-moretoggle" data-more="dl-ex-more" onclick="dlMore(this)"><span class="lang-th">กรอกเอง · Strength, Cardio, ความเข้มข้น</span><span class="lang-en" style="display:none;">Enter manually · Strength, Cardio, intensity</span> <span class="cv">▾</span></button>
+    <button type="button" class="dl-moretoggle" data-more="dl-ex-more" onclick="dlMore(this)" style="background:none;border:none;padding:6px 0;font-size:.68rem;color:var(--muted2);font-weight:600;text-align:left;text-decoration:underline;text-underline-offset:2px;"><span class="lang-th">กรอกเอง (Strength / Cardio)</span><span class="lang-en" style="display:none;">Enter manually (Strength / Cardio)</span> <span class="cv">▾</span></button>
     <div class="dl-more" id="dl-ex-more">
     <div class="ex-block">
       <div class="ex-bl-ttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--prot);vertical-align:-2px;margin-right:4px;"><path d="M6 4.5v3a3 3 0 0 0 3 3h1"/><path d="M10 10.5c3.6 0 6 1.7 6 4.3 0 1.8-1.4 3.2-3.4 3.2H9a3.5 3.5 0 0 1-3.5-3.5v-1.3"/><path d="M6 4.5H4.3"/><path d="M12.4 14c.8.4 1.4 1.1 1.6 2"/></svg>Strength</div>
@@ -2169,10 +2172,7 @@ function initLogCollapse(){
   <div class="dsum-card">
     <div class="dsum-glow"></div>
     <div class="dsum-head"><span class="dsum-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></span><span class="dsum-ttl"><span class="lang-th">สรุปวันนี้โดย AI</span><span class="lang-en" style="display:none;">Today's AI Summary</span></span></div>
-    <div class="dsum-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span><span class="lang-th">วันนี้ฟื้นตัวได้ดีเยี่ยม</span><span class="lang-en" style="display:none;">Excellent recovery today.</span></span></div>
-    <div class="dsum-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span><span class="lang-th">โปรตีนถึงเป้าหมายแล้ว</span><span class="lang-en" style="display:none;">Protein intake reached target.</span></span></div>
-    <div class="dsum-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span><span class="lang-th">คุณภาพการนอนดีขึ้น</span><span class="lang-en" style="display:none;">Sleep quality improved.</span></span></div>
-    <div class="dsum-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><span><span class="lang-th">พรุ่งนี้ลองเพิ่มน้ำอีกประมาณ 400 มล.</span><span class="lang-en" style="display:none;">Try to increase water by ~400ml tomorrow.</span></span></div>
+    <div class="dsum-p"><span class="lang-th">วันนี้ฟื้นตัวได้ดีเยี่ยม โปรตีนถึงเป้าและคุณภาพการนอนดีขึ้นกว่าเมื่อวาน โดยรวมอยู่ในเกณฑ์ดีมาก — พรุ่งนี้ลองเพิ่มน้ำอีกสัก 400 มล. แล้วจะสมดุลยิ่งขึ้น</span><span class="lang-en" style="display:none;">Excellent recovery today — your protein hit target and sleep quality improved over yesterday, so overall you're in great shape. Try adding about 400 ml more water tomorrow to round things out.</span></div>
   </div>
   <button class="save-btn" onclick="saveDay()">Save <span id="save-lbl"></span></button>
   <div style="text-align:center;font-family:'Anuphan',sans-serif;font-size:.58rem;color:var(--muted2);margin-top:12px;letter-spacing:.6px;opacity:.7;">Bio+ · build v4.2 · 24 มิ.ย.</div>
