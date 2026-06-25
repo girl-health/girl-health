@@ -1650,7 +1650,7 @@ function openExUpload(){ openUploadSheet([{svg:_upCam,th:'ถ่ายรูป'
 function initLogCollapse(){
   try{
     var pg=document.getElementById('page-log'); if(!pg) return;
-    var secs=pg.querySelectorAll('.section.s-sleep,.section.s-ex,.section.s-body,.section.s-supp');
+    var secs=pg.querySelectorAll('.section.s-body,.section.s-supp');
     secs.forEach(function(sec){
       if(sec.getAttribute('data-dlc')) return;
       sec.setAttribute('data-dlc','1');
@@ -1952,6 +1952,8 @@ function initLogCollapse(){
     <input type="file" id="sleep-lib" accept="image/*" style="display:none" onchange="analyzeSleepPhoto(this)">
     <input type="file" id="sleep-garmin" accept="image/*" multiple style="display:none" onchange="analyzeSleepPhoto(this)">
     <div id="sleep-scan-result" style="display:none;margin-bottom:10px;"></div>
+    <button type="button" class="dl-moretoggle" data-more="dl-sleep-more" onclick="dlMore(this)"><span class="lang-th">รายละเอียดการนอน · เวลานอน/ตื่น · Score · RHR · HRV · Body Battery</span><span class="lang-en" style="display:none;">Sleep details · bedtime/wake · Score · RHR · HRV · Body Battery</span> <span class="cv">▾</span></button>
+    <div class="dl-more" id="dl-sleep-more">
     <div class="row2">
       <div><label class="lbl"><span class="lang-th">นอนเวลา</span><span class="lang-en" style="display:none;">Bedtime</span></label><input type="time" id="sl_s" onchange="calcSleep()"></div>
       <div><label class="lbl"><span class="lang-th">ตื่นเวลา</span><span class="lang-en" style="display:none;">Wake time</span></label><input type="time" id="sl_e" onchange="calcSleep()"></div>
@@ -1962,8 +1964,6 @@ function initLogCollapse(){
       <input type="number" id="sl_total_h" min="0" max="24" step="0.5" placeholder="6.5" style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Sarabun,sans-serif;font-size:.8rem;padding:7px 9px;outline:none;width:80px;text-align:center;" oninput="updateQ()">
       <span class="lbl" style="margin-left:5px">ชม.</span>
     </div>
-    <button type="button" class="dl-moretoggle" data-more="dl-sleep-more" onclick="dlMore(this)"><span class="lang-th">ดูค่าการนอนละเอียด · Score, RHR, HRV, Body Battery, คุณภาพ</span><span class="lang-en" style="display:none;">Sleep details · Score, RHR, HRV, Body Battery, quality</span> <span class="cv">▾</span></button>
-    <div class="dl-more" id="dl-sleep-more">
     <div class="row2" style="margin-top:7px">
       <div><label class="lbl">Sleep Score</label><input type="number" id="sl_score" placeholder="0-100" min="0" max="100"></div>
       <div><label class="lbl">RHR (bpm)</label><input type="number" id="sl_rhr" placeholder="49"></div>
@@ -2017,8 +2017,8 @@ function initLogCollapse(){
     </div>
     </div>
 
-    <!-- HYROX → dedicated page -->
-    <div onclick="goPage('hyrox')" style="margin-top:14px;display:flex;align-items:center;gap:11px;background:linear-gradient(135deg,var(--card),rgba(192,57,43,.06));border:1px solid var(--border);border-radius:16px;padding:13px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);">
+    <!-- HYROX → dedicated page (hidden on Daily Log; use the HYROX tab) -->
+    <div id="dl-hyrox-link" onclick="goPage('hyrox')" style="margin-top:14px;display:none;align-items:center;gap:11px;background:linear-gradient(135deg,var(--card),rgba(192,57,43,.06));border:1px solid var(--border);border-radius:16px;padding:13px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);">
       <span style="width:38px;height:38px;border-radius:11px;background:rgba(192,57,43,.12);color:#C0392B;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M12 3l7 4v8l-7 4-7-4V7z"/><path d="M12.6 8l-3 4.3h2.6L11 16.5l3.7-5.2h-2.8z"/></svg></span>
       <div style="flex:1;min-width:0;">
         <div style="font-family:'Anuphan',sans-serif;font-weight:700;font-size:.86rem;color:var(--text);letter-spacing:1px;">HYROX</div>
@@ -7880,7 +7880,8 @@ function aiReviewSave(){
   var items=(window._aiR||[]).filter(function(i){return i.on;});
   try{ applyReviewItems(items); }catch(e){ console.error(e); }
   var en=(typeof currentLang!=='undefined'&&currentLang==='en'); var w=document.getElementById('allday-result');
-  if(w){ w.innerHTML='<div style="padding:13px 15px;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.25);border-radius:13px;font-family:\'Anuphan\',sans-serif;font-size:.8rem;color:var(--accent);font-weight:700;">✓ '+(en?'Saved to today':'บันทึกลงวันนี้แล้ว')+'</div>'; }
+  if(w){ var cats={}; items.forEach(function(i){cats[i.cat]=1;}); var nc=Object.keys(cats).length;
+    w.innerHTML='<div style="display:flex;align-items:center;gap:11px;padding:14px 15px;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.25);border-radius:14px;"><span style="width:30px;height:30px;border-radius:50%;background:#4A9E6A;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M5 13l4 4L19 7"/></svg></span><div><div style="font-family:\'Anuphan\',sans-serif;font-size:.84rem;font-weight:800;color:var(--accent);">'+(en?"Today's Life Uploaded":'บันทึกวันนี้แล้ว')+'</div><div style="font-family:\'Anuphan\',sans-serif;font-size:.66rem;color:var(--muted2);margin-top:1px;">'+items.length+' '+(en?'items · ':'รายการ · ')+nc+' '+(en?'categories':'หมวด')+'</div></div></div>'; }
   try{ toast(en?'✓ Saved to today':'✓ บันทึกลงวันนี้แล้ว'); }catch(e){}
   window._aiR=[];
 }
