@@ -892,6 +892,42 @@ try{
 
 <!-- ════════ HOME · LONGEVITY DASHBOARD ════════ -->
 <div class="page active hd-page" id="page-home">
+  <style id="hd-anim">
+  /* ===== Home v2 — premium motion + compression ===== */
+  @media (prefers-reduced-motion:no-preference){
+    #page-home .hd-sec-head,#page-home .v7-nutri,#page-home .v7-q3,#page-home .hdx-meals,#page-home .hd-block,#page-home .hd-bio-strip,#page-home .hdx-ages{animation:hdFade .42s cubic-bezier(.16,1,.3,1) both;}
+    @keyframes hdFade{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:none;}}
+    #page-home .hd-gap-row{animation:hdPop .4s cubic-bezier(.34,1.4,.64,1) both;}
+    @keyframes hdPop{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+    #hd-coach-body.hd-coach-fade{animation:hdCoachIn .5s ease both;}
+    @keyframes hdCoachIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+    .hd-typing span{display:inline-block;width:5px;height:5px;border-radius:50%;background:#EBD9A8;margin:0 1.5px;animation:hdTyp 1s infinite;}
+    .hd-typing span:nth-child(2){animation-delay:.15s;} .hd-typing span:nth-child(3){animation-delay:.3s;}
+    @keyframes hdTyp{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}
+  }
+  /* soft tap feedback */
+  #page-home button:active,#page-home .v7-box:active,#page-home .hd-bio-strip:active,#page-home [onclick]:active{transform:scale(.985);}
+  #page-home .hdx-meal{transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s ease;}
+  #page-home .hdx-meal:active{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.09);}
+  /* compress ~12-15% */
+  #page-home .hd-block{padding:15px 17px;}
+  #page-home .hdx-mimg{height:110px;}
+  #page-home .hdx-meal.feat .hdx-mimg{height:156px;}
+  #page-home .hdx-meals{margin-bottom:20px;}
+  #page-home .hd-sec-head{margin-bottom:11px;}
+  #page-home #hd-gap-block{padding:13px 15px;}
+  #page-home .hd-gap-row{padding:11px 12px;}
+  /* nutrition hierarchy — big values */
+  #page-home .v7-nval{font-size:1.5rem;font-weight:800;letter-spacing:-.5px;}
+  #page-home .v7-nname{font-size:.6rem;color:var(--muted2);font-weight:600;}
+  #page-home .v7-bar{height:6px;margin-top:8px;}
+  /* recovery score chip */
+  #page-home .hd-rscore{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,rgba(74,158,106,.14),rgba(74,124,89,.1));border:1px solid rgba(74,124,89,.22);border-radius:30px;padding:7px 14px 7px 9px;}
+  #page-home .hd-rscore-v{font-family:'Anuphan',sans-serif;font-weight:800;font-size:1.2rem;color:#3B6D11;line-height:1;}
+  #page-home .hd-rscore-l{font-family:'Anuphan',sans-serif;font-size:.62rem;font-weight:700;color:#4A7C59;}
+  #page-home .hd-rscore-ic{width:26px;height:26px;border-radius:50%;background:#4A9E6A;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  #page-home .hd-rscore-ic svg{width:15px;height:15px;color:#fff;}
+  </style>
 
   <!-- VERSION BADGE — ลบออกได้ทีหลัง ใช้เช็กว่าโหลดเวอร์ชันใหม่หรือยัง -->
   <div style="text-align:center;margin:0 0 14px;">
@@ -1122,36 +1158,19 @@ try{
     <div style="text-align:center;padding:8px 0;color:var(--muted2);font-size:.72rem;font-family:'Anuphan',sans-serif;"><span class="lang-th">กำลังโหลด…</span><span class="lang-en" style="display:none;">Loading…</span></div>
   </div>
 
-  <!-- SKIN SCAN HERO (sales hook → BioActive) -->
-  <div onclick="heroSkinScan()" style="margin:2px 0 14px;border-radius:20px;padding:18px;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(135deg,#E8A0B8,#D4849A 55%,#C06B8A);box-shadow:0 8px 24px rgba(192,107,138,.30);">
-    <div style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.12);"></div>
-    <div style="position:relative;display:flex;align-items:center;gap:14px;">
-      <div style="width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div>
-      <div style="flex:1;min-width:0;color:#fff;">
-        <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.18rem;line-height:1.15;"><span class="lang-th">สแกนผิวหน้า · วัดอายุผิวฟรี</span><span class="lang-en" style="display:none;">Scan your skin · free skin-age test</span></div>
-        <div style="font-family:'Anuphan',sans-serif;font-size:.68rem;opacity:.92;margin-top:3px;"><span class="lang-th">AI วิเคราะห์ + แนะนำ BioActive ที่ใช่สำหรับคุณ</span><span class="lang-en" style="display:none;">AI analyzes &amp; recommends your BioActive match</span></div>
+  <!-- TODAY'S COACH -->
+  <div style="margin-top:14px;background:linear-gradient(158deg,#3B6D11 0%,#2C5610 100%);border-radius:26px;padding:22px 22px 20px;position:relative;overflow:hidden;box-shadow:0 14px 36px rgba(44,86,16,.3);">
+    <div style="position:absolute;top:-30%;right:-12%;width:55%;height:75%;background:radial-gradient(circle,rgba(201,169,110,.22),transparent 70%);pointer-events:none;"></div>
+    <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px;position:relative;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A96E,#B8860B);display:flex;align-items:center;justify-content:center;color:#2C5610;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 3l1.6 4.6L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.4z"/></svg></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Anuphan',sans-serif;font-weight:600;font-size:.92rem;color:#fff;line-height:1.1;"><span class="lang-th">โค้ชวันนี้</span><span class="lang-en" style="display:none;">Today's Coach</span></div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.55);margin-top:1px;"><span class="lang-th">AI อ่านข้อมูล 14 วัน</span><span class="lang-en" style="display:none;">AI reads 14 days</span></div>
       </div>
+      <button onclick="loadTodayCoach(true)" style="border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:20px;padding:5px 12px;font-family:'Anuphan',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;flex-shrink:0;"><span class="lang-th">รีเฟรช</span><span class="lang-en" style="display:none;">Refresh</span></button>
     </div>
-    <div style="position:relative;margin-top:13px;background:#fff;color:#C06B8A;border-radius:12px;padding:11px;text-align:center;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.84rem;letter-spacing:.3px;"><span class="lang-th">สแกนเลย ✨</span><span class="lang-en" style="display:none;">Scan now ✨</span></div>
-  </div>
-
-  <!-- CLUB EVENT TEASER -->
-  <div onclick="goPage('member');setTimeout(function(){var e=document.getElementById('mb-events');if(e)e.scrollIntoView({behavior:'smooth',block:'start'});},260);" style="margin:0 0 14px;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#2E5A0E,#3E7C7B);border-radius:16px;padding:13px 15px;cursor:pointer;color:#fff;box-shadow:0 6px 18px rgba(46,90,14,.22);">
-    <div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🏃</div>
-    <div style="flex:1;min-width:0;">
-      <div style="font-family:'Anuphan',sans-serif;font-weight:800;font-size:.84rem;">MOVE LIVELY · <span class="lang-th">งานวิ่งคลับ</span><span class="lang-en" style="display:none;">Club run</span></div>
-      <div style="font-size:.64rem;opacity:.92;"><span class="lang-th">เสาร์ 25 เม.ย. · The Standard · ลงทะเบียนเลย</span><span class="lang-en" style="display:none;">Sat 25 Apr · The Standard · register now</span></div>
-    </div>
-    <div style="font-size:1.1rem;opacity:.8;">›</div>
-  </div>
-
-  <!-- BIOACTIVE 9 DOTS -->
-  <div class="hd-bio-strip" id="hd-bio-strip" onclick="goPage('bio')">
-    <div class="hd-bio-strip-head">
-      <div class="hd-bio-strip-ttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-3px;margin-right:5px;color:var(--accent);"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ <span id="hd-bio-count" style="color:var(--accent);">—</span></div>
-      <div class="hd-bio-strip-go"><span class="lang-th">ดูทั้งหมด</span><span class="lang-en" style="display:none;">View all</span> ›</div>
-    </div>
-    <div class="hd-bio-dots" id="hd-bio-dots"><!-- 9 dots injected by JS --></div>
+    <div id="hd-coach-body" style="position:relative;"></div>
+    <div onclick="goPage('timeline')" style="margin-top:14px;text-align:center;font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:600;color:#EBD9A8;cursor:pointer;border-top:1px solid rgba(255,255,255,.13);padding-top:12px;position:relative;"><span class="lang-th">ดู Health Timeline เต็ม ›</span><span class="lang-en" style="display:none;">View full Health Timeline ›</span></div>
   </div>
 
   <!-- RECOVERY · Garmin -->
@@ -1160,6 +1179,7 @@ try{
     <div class="hd-sec-note"><span class="lang-th">ข้อมูลจาก Garmin</span><span class="lang-en" style="display:none;">From Garmin</span></div>
   </div>
   <div class="hd-block" style="margin-bottom:14px;background:transparent;border:none;box-shadow:none;padding:0;">
+    <div id="hd-rec-score" style="margin-bottom:11px;"></div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
       <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px 4px 11px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04);">
         <div style="width:30px;height:30px;border-radius:9px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:#E0EBE2;color:#3B6D11;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="8.5" width="15" height="7" rx="2"/><path d="M21 11.2v1.6M6.5 10.8v2.4M9.5 10.8v2.4"/></svg></div>
@@ -1197,19 +1217,36 @@ try{
     </div>
   </div>
 
-  <!-- TODAY'S COACH -->
-  <div style="margin-top:14px;background:linear-gradient(158deg,#3B6D11 0%,#2C5610 100%);border-radius:26px;padding:22px 22px 20px;position:relative;overflow:hidden;box-shadow:0 14px 36px rgba(44,86,16,.3);">
-    <div style="position:absolute;top:-30%;right:-12%;width:55%;height:75%;background:radial-gradient(circle,rgba(201,169,110,.22),transparent 70%);pointer-events:none;"></div>
-    <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px;position:relative;">
-      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A96E,#B8860B);display:flex;align-items:center;justify-content:center;color:#2C5610;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 3l1.6 4.6L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.4z"/></svg></div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-family:'Anuphan',sans-serif;font-weight:600;font-size:.92rem;color:#fff;line-height:1.1;"><span class="lang-th">โค้ชวันนี้</span><span class="lang-en" style="display:none;">Today's Coach</span></div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.55);margin-top:1px;"><span class="lang-th">AI อ่านข้อมูล 14 วัน</span><span class="lang-en" style="display:none;">AI reads 14 days</span></div>
-      </div>
-      <button onclick="loadTodayCoach(true)" style="border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:20px;padding:5px 12px;font-family:'Anuphan',sans-serif;font-size:.6rem;font-weight:700;cursor:pointer;flex-shrink:0;"><span class="lang-th">รีเฟรช</span><span class="lang-en" style="display:none;">Refresh</span></button>
+  <!-- BIOACTIVE 9 DOTS -->
+  <div class="hd-bio-strip" id="hd-bio-strip" onclick="goPage('bio')">
+    <div class="hd-bio-strip-head">
+      <div class="hd-bio-strip-ttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-3px;margin-right:5px;color:var(--accent);"><path d="M10.5 4.5 4.5 10.5a4.2 4.2 0 0 0 6 6l6-6a4.2 4.2 0 0 0-6-6z"/><path d="m7.5 7.5 6 6"/></svg>BioActive+ <span id="hd-bio-count" style="color:var(--accent);">—</span></div>
+      <div class="hd-bio-strip-go"><span class="lang-th">ดูทั้งหมด</span><span class="lang-en" style="display:none;">View all</span> ›</div>
     </div>
-    <div id="hd-coach-body" style="position:relative;"></div>
-    <div onclick="goPage('timeline')" style="margin-top:14px;text-align:center;font-family:'Anuphan',sans-serif;font-size:.7rem;font-weight:600;color:#EBD9A8;cursor:pointer;border-top:1px solid rgba(255,255,255,.13);padding-top:12px;position:relative;"><span class="lang-th">ดู Health Timeline เต็ม ›</span><span class="lang-en" style="display:none;">View full Health Timeline ›</span></div>
+    <div class="hd-bio-dots" id="hd-bio-dots"><!-- 9 dots injected by JS --></div>
+  </div>
+
+  <!-- SKIN SCAN HERO (sales hook → BioActive) -->
+  <div onclick="heroSkinScan()" style="margin:2px 0 14px;border-radius:20px;padding:18px;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(135deg,#E8A0B8,#D4849A 55%,#C06B8A);box-shadow:0 8px 24px rgba(192,107,138,.30);">
+    <div style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.12);"></div>
+    <div style="position:relative;display:flex;align-items:center;gap:14px;">
+      <div style="width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;"><path d="M12 3l1.7 5L19 9.7l-5.3 1.7L12 17l-1.7-5.6L5 9.7l5.3-1.7z"/><path d="M18.5 15.5l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg></div>
+      <div style="flex:1;min-width:0;color:#fff;">
+        <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.18rem;line-height:1.15;"><span class="lang-th">สแกนผิวหน้า · วัดอายุผิวฟรี</span><span class="lang-en" style="display:none;">Scan your skin · free skin-age test</span></div>
+        <div style="font-family:'Anuphan',sans-serif;font-size:.68rem;opacity:.92;margin-top:3px;"><span class="lang-th">AI วิเคราะห์ + แนะนำ BioActive ที่ใช่สำหรับคุณ</span><span class="lang-en" style="display:none;">AI analyzes &amp; recommends your BioActive match</span></div>
+      </div>
+    </div>
+    <div style="position:relative;margin-top:13px;background:#fff;color:#C06B8A;border-radius:12px;padding:11px;text-align:center;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.84rem;letter-spacing:.3px;"><span class="lang-th">สแกนเลย ✨</span><span class="lang-en" style="display:none;">Scan now ✨</span></div>
+  </div>
+
+  <!-- CLUB EVENT TEASER -->
+  <div onclick="goPage('member');setTimeout(function(){var e=document.getElementById('mb-events');if(e)e.scrollIntoView({behavior:'smooth',block:'start'});},260);" style="margin:0 0 14px;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#2E5A0E,#3E7C7B);border-radius:16px;padding:13px 15px;cursor:pointer;color:#fff;box-shadow:0 6px 18px rgba(46,90,14,.22);">
+    <div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🏃</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-family:'Anuphan',sans-serif;font-weight:800;font-size:.84rem;">MOVE LIVELY · <span class="lang-th">งานวิ่งคลับ</span><span class="lang-en" style="display:none;">Club run</span></div>
+      <div style="font-size:.64rem;opacity:.92;"><span class="lang-th">เสาร์ 25 เม.ย. · The Standard · ลงทะเบียนเลย</span><span class="lang-en" style="display:none;">Sat 25 Apr · The Standard · register now</span></div>
+    </div>
+    <div style="font-size:1.1rem;opacity:.8;">›</div>
   </div>
 
 </div>
@@ -4746,8 +4783,9 @@ function _coachLine(d){
 async function loadTodayCoach(force){
   const body=document.getElementById('hd-coach-body'); if(!body) return;
   const today=new Date().toISOString().split('T')[0];
-  if(!force){ try{ const c=JSON.parse(localStorage.getItem(COACH_KEY)||'{}'); if(c.date===today&&c.html){ body.innerHTML=c.html; const _en=(typeof currentLang!=='undefined'&&currentLang==='en'); body.querySelectorAll('.lang-th').forEach(function(e){e.style.display=_en?'none':'';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display=_en?'':'none';}); return; } }catch(e){} }
-  body.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:.74rem;font-family:\'Anuphan\',sans-serif;"><div style="width:14px;height:14px;border:2px solid rgba(255,255,255,.5);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></div><span class="lang-th">โค้ชกำลังอ่านข้อมูล 14 วันล่าสุด…</span><span class="lang-en" style="display:none;">Coach is reading your last 14 days…</span></div>';
+  if(!force){ try{ const c=JSON.parse(localStorage.getItem(COACH_KEY)||'{}'); if(c.date===today&&c.html){ body.innerHTML=c.html; body.classList.add('hd-coach-fade'); const _en=(typeof currentLang!=='undefined'&&currentLang==='en'); body.querySelectorAll('.lang-th').forEach(function(e){e.style.display=_en?'none':'';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display=_en?'':'none';}); return; } }catch(e){} }
+  body.classList.remove('hd-coach-fade');
+  body.innerHTML='<div style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.85);font-size:.78rem;font-family:\'Anuphan\',sans-serif;"><span class="hd-typing"><span></span><span></span><span></span></span><span class="lang-th">กำลังวิเคราะห์ข้อมูลสุขภาพล่าสุด…</span><span class="lang-en" style="display:none;">Analyzing your latest health data…</span></div>';
   try{
     const data=await gatherHealthData(14);
     const withData=data.filter(d=>_coachLine(d).indexOf('no data logged')<0);
@@ -4772,7 +4810,7 @@ async function loadTodayCoach(force){
     }
     if(r.gain_en||r.gain_th) h+='<div style="margin-top:6px;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:rgba(201,169,110,.22);border:1px solid rgba(235,217,168,.4);color:#F1E4BE;font-weight:700;font-size:.72rem;border-radius:20px;padding:6px 13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M5 15l5-5 4 4 6-7"/><path d="M16 7h4v4"/></svg>'+L(r.gain_th||'',r.gain_en||'')+'</div>';
     h+='</div>';
-    body.innerHTML=h;
+    body.innerHTML=h; body.classList.add('hd-coach-fade');
     if(typeof currentLang!=='undefined' && currentLang==='en'){ body.querySelectorAll('.lang-th').forEach(function(e){e.style.display='none';}); body.querySelectorAll('.lang-en').forEach(function(e){e.style.display='';}); }
     try{ localStorage.setItem(COACH_KEY,JSON.stringify({date:today,html:h})); }catch(e){}
   }catch(e){ console.error('coach',e); body.innerHTML='<div style="font-size:.74rem;color:rgba(255,255,255,.8);font-family:\'Anuphan\',sans-serif;"><span class="lang-th">โค้ชยังไม่พร้อม กดรีเฟรชลองใหม่อีกครั้งค่ะ</span><span class="lang-en" style="display:none;">Coach is unavailable right now — tap refresh to retry.</span></div>'; }
@@ -11619,6 +11657,15 @@ async function loadHomeDashboard(force){
     _rs('hd-rec-hrv-s', hrv?(hrv>=55?'ดีเยี่ยม':hrv>=40?'คงที่':hrv>=30?'พอใช้':'ต่ำ'):'', hrv?(hrv>=55?'Excellent':hrv>=40?'Stable':hrv>=30?'Fair':'Low'):'', '#4A7CB0');
     _rs('hd-rec-rhr-s', rhr?(rhr<=50?'ดีเยี่ยม':rhr<=60?'ปกติ':rhr<=70?'สูงนิด':'สูง'):'', rhr?(rhr<=50?'Excellent':rhr<=60?'Normal':rhr<=70?'Elevated':'High'):'', '#8B5E52');
     _rs('hd-rec-sleep-s', slSc?(slSc>=80?'ยอดเยี่ยม':slSc>=70?'ดี':slSc>=60?'พอใช้':'ต่ำ'):'', slSc?(slSc>=80?'Great':slSc>=70?'Good':slSc>=60?'Fair':'Low'):'', '#B8860B');
+    try{ var rsEl=document.getElementById('hd-rec-score'); if(rsEl){ var _en2=(typeof currentLang!=='undefined'&&currentLang==='en'); var ps=[],w=0;
+      if(bb){ps.push(Math.min(100,bb));w++;} if(slSc){ps.push(Math.min(100,slSc));w++;}
+      if(hrv){ps.push(Math.max(0,Math.min(100,hrv/60*100)));w++;} if(rhr){ps.push(Math.max(0,Math.min(100,100-(rhr-45)*2)));w++;}
+      if(w){ var rsc=Math.round(ps.reduce(function(a,b){return a+b;},0)/w);
+        var lbl=_en2?(rsc>=80?'Excellent Recovery':rsc>=60?'Good Recovery':rsc>=40?'Fair Recovery':'Needs Rest'):(rsc>=80?'ฟื้นตัวดีเยี่ยม':rsc>=60?'ฟื้นตัวดี':rsc>=40?'ฟื้นตัวพอใช้':'ควรพักฟื้น');
+        var col=rsc>=80?'#4A9E6A':rsc>=60?'#6AA47A':rsc>=40?'#C79A2E':'#C0622A';
+        rsEl.innerHTML='<div class="hd-rscore" style="border-color:'+col+'33;"><span class="hd-rscore-ic" style="background:'+col+';"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="hd-rscore-v" style="color:'+col+';">'+rsc+'</span><span class="hd-rscore-l">'+(_en2?'Recovery Score · ':'คะแนนฟื้นตัว · ')+lbl+'</span></div>';
+      } else rsEl.innerHTML='';
+    } }catch(e){}
   }
 
   // ── GAP ANALYSIS ──
@@ -12186,6 +12233,158 @@ window.BodyStudio = (function(){
 })();
 </script>
 
+<script>
+/* ===== Bio+ Studio v2 — shareable companion layer (non-invasive overlay) ===== */
+(function(){
+  function L(){ return (typeof currentLang!=='undefined'&&currentLang==='en'); }
+  function st2Score(){ try{ var b=JSON.parse(localStorage.getItem('girl_profile_body')||'{}'); if(typeof b.score==='number') return Math.round(b.score); }catch(e){}
+    try{ var v=+localStorage.getItem('girl_hs_'+new Date().toISOString().split('T')[0]); if(v) return Math.round(v); }catch(e){} return 72; }
+  function st2Organ(){ var best=null,bp=-1; document.querySelectorAll('#page-bodystudio .bsx-organ').forEach(function(o){ var pc=parseInt(((o.querySelector('.opct')||{}).textContent)||'0')||0; var nm=((o.querySelector('.onm')||{}).textContent||'').trim(); if(nm&&pc>bp){bp=pc;best={n:nm,p:pc};} }); return best; }
+  function st2Streak(){ var n=0; try{ var d=new Date(); if(localStorage.getItem('girl_hs_'+d.toISOString().split('T')[0])==null) d=new Date(d.getTime()-864e5); while(localStorage.getItem('girl_hs_'+d.toISOString().split('T')[0])!=null){ n++; d=new Date(d.getTime()-864e5);} }catch(e){} return n; }
+  function st2Healthy(){ var c=0; for(var i=0;i<7;i++){ var v=+localStorage.getItem('girl_hs_'+new Date(Date.now()-i*864e5).toISOString().split('T')[0]); if(v>=70)c++; } return c; }
+  function st2Greet(score,en){ var dow=new Date().getDay(); var a;
+    if(score>=85) a=en?["You've become healthier than yesterday.","Glowing today — your body is thriving.","Perfect balance. Keep shining."]:['วันนี้คุณสุขภาพดีขึ้นกว่าเมื่อวาน','เปล่งประกายสุด ๆ ร่างกายแข็งแรงมาก','สมดุลเป๊ะ รักษาไว้แบบนี้นะ'];
+    else if(score>=65) a=en?['You slept beautifully today.','Steady and strong today.','Lovely progress — keep it up.']:['วันนี้คุณนอนหลับได้ดีมาก','วันนี้มั่นคงและแข็งแรง','ก้าวหน้าน่ารักมาก สู้ต่อนะ'];
+    else a=en?['Be gentle with yourself today.','A calm recovery day — rest well.','Small steps still count.']:['วันนี้ใจดีกับตัวเองหน่อยนะ','วันพักฟื้นเบา ๆ พักให้เต็มที่','ก้าวเล็ก ๆ ก็มีความหมาย'];
+    return a[(dow+score)%a.length]; }
+  function st2Aura(score){ var wknd=(new Date().getDay()%6===0);
+    if(score>=80) return 'radial-gradient(80% 62% at 50% 38%,#FFF6DD 0,#FBE7B8 50%,#F3E2F2 100%)';
+    if(wknd) return 'radial-gradient(80% 62% at 50% 38%,#FFE9D6 0,#F8D5C2 52%,#F2E0EE 100%)';
+    if(score>=60) return 'radial-gradient(80% 62% at 50% 38%,#EAF7F0 0,#DDEFF6 54%,#ECE6FA 100%)';
+    return 'radial-gradient(80% 62% at 50% 40%,#EFEAF6 0,#E6E8F0 56%,#F2EEF6 100%)'; }
+  function st2Season(){ var m=new Date().getMonth()+1; if(m===12||m===1) return 'snow'; if(m>=3&&m<=5) return 'blossom'; if(m>=9&&m<=11) return 'leaf'; return 'sparkle'; }
+  function st2Glyph(k){ var c={blossom:'#E8A0B8',leaf:'#C99A4E',snow:'#BFD3E6',sparkle:'#D8C58A'}[k]||'#D8C58A';
+    var p={ blossom:'<path d="M12 7c2 0 3 1.5 3 3s-1 3-3 3-3-1.5-3-3 1-3 3-3z"/><circle cx="12" cy="12" r="1.4"/>', leaf:'<path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/>', snow:'<path d="M12 3v18M4 7l16 10M20 7L4 17"/>', sparkle:'<path d="M12 3l1.6 5L19 9.5l-5.4 1.6L12 16l-1.6-4.9L5 9.5l5.4-1.5z"/>' }[k];
+    return '<svg viewBox="0 0 24 24" fill="'+(k==='snow'?'none':c)+'" stroke="'+(k==='snow'?c:'none')+'" stroke-width="1.6" stroke-linecap="round" style="width:14px;height:14px;">'+p+'</svg>'; }
+  function st2Pet(score){ var sleep=score<45; var eyes= sleep?'<path d="M22 35q4 3 8 0M34 35q4 3 8 0" stroke="#3A2A1A" stroke-width="2" fill="none" stroke-linecap="round"/>':'<circle cx="26" cy="35" r="2.4" fill="#3A2A1A"/><circle cx="38" cy="35" r="2.4" fill="#3A2A1A"/>';
+    return '<svg viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="41" rx="20" ry="16" fill="#C9A06A"/><circle cx="19" cy="27" r="5" fill="#C9A06A"/><circle cx="45" cy="27" r="5" fill="#C9A06A"/><ellipse cx="32" cy="45" rx="11" ry="8" fill="#BE9356"/>'+eyes+'<ellipse cx="32" cy="44" rx="4" ry="3" fill="#7A5A38"/>'+(sleep?'<text x="48" y="22" font-size="11" fill="#A99" font-family="serif">z</text>':'')+'</svg>'; }
+
+  function studioEnhance(){
+    try{
+      var pg=document.getElementById('page-bodystudio'); if(!pg) return;
+      var stage=pg.querySelector('.bsx-stage'); var dash=pg.querySelector('.bsx-dash'); if(!stage||!dash) return;
+      var en=L(), score=st2Score(), org=st2Organ(), streak=st2Streak(), healthy=st2Healthy(), season=st2Season();
+
+      // 2) Daily mood aura
+      stage.style.transition='background-image .6s ease'; stage.style.backgroundImage=st2Aura(score);
+
+      // 12) greeting + 9) streak chips (above avatar)
+      var top=document.getElementById('st2-top'); if(top) top.remove();
+      top=document.createElement('div'); top.id='st2-top';
+      var SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.4 4.2L18 8.5l-4.2 1.4L12 14l-1.4-4.1L6 8.5l4.2-1.3z"/></svg>';
+      var FL='<svg viewBox="0 0 24 24" fill="none" stroke="#D98841" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.6 3 3.2 4.3 3.2 7.4a3.2 3.2 0 0 1-6.4 0c0-.7.2-1.1.4-1.6C7.8 9.7 7.2 10.9 7.2 12.6a4.8 4.8 0 0 0 9.6 0c0-3.8-2.9-5.8-4.8-9.6z"/></svg>';
+      var LF='<svg viewBox="0 0 24 24" fill="none" stroke="#4A9E6A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-7 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19c3-5 6-8 10-10"/></svg>';
+      var DR='<svg viewBox="0 0 24 24" fill="none" stroke="#54A0FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5z"/></svg>';
+      var MN='<svg viewBox="0 0 24 24" fill="none" stroke="#8C7BB0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>';
+      var chips=[ [FL, (streak||0)+(en?' Day Care Streak':' วันต่อเนื่อง')] , [LF, (en?'Healthy Eating':'กินดี')+' '+healthy+'/7'] ];
+      if(healthy>=4) chips.push([DR, en?'Water Master':'มาสเตอร์น้ำ']);
+      if(score>=70) chips.push([MN, en?'Sleep Hero':'นอนเก่ง']);
+      top.innerHTML='<div id="st2-greet">'+SPK+'<span>'+st2Greet(score,en)+'</span></div>'+
+        '<div id="st2-streaks">'+chips.map(function(c){return '<span class="st2-chip">'+c[0]+c[1]+'</span>';}).join('')+'</div>';
+      dash.parentNode.insertBefore(top, dash);
+
+      // 10/1) seasonal floating particles (only on good days, calm)
+      var old=stage.querySelector('#st2-particles'); if(old) old.remove();
+      if(score>=68){ var pc=document.createElement('div'); pc.id='st2-particles';
+        var g=st2Glyph(season); var N=7;
+        for(var i=0;i<N;i++){ var sp=document.createElement('span'); sp.className='st2-particle';
+          sp.style.left=(8+Math.random()*84)+'%'; sp.style.top=(12+Math.random()*70)+'%';
+          sp.style.animationDuration=(4+Math.random()*4).toFixed(1)+'s'; sp.style.animationDelay=(Math.random()*4).toFixed(1)+'s';
+          sp.innerHTML=g; pc.appendChild(sp); }
+        stage.appendChild(pc);
+      }
+
+      // 7) pet companion (reacts to score)
+      var pet=stage.querySelector('#st2-pet'); if(pet) pet.remove();
+      pet=document.createElement('div'); pet.id='st2-pet';
+      pet.innerHTML=st2Pet(score)+'<div class="cap">'+(score<45?(en?'resting':'พักอยู่'):(en?'happy':'มีความสุข'))+'</div>';
+      stage.appendChild(pet);
+
+      // 11) tap avatar = reaction
+      var av=pg.querySelector('#bsx-av');
+      if(av && !av.dataset.st2){ av.dataset.st2='1'; av.style.cursor='pointer'; av.addEventListener('click', st2Tap); }
+
+      // 5/13) share button (below avatar)
+      var sb=document.getElementById('st2-share'); if(sb) sb.remove();
+      sb=document.createElement('button'); sb.id='st2-share';
+      sb.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'+(en?'Share Today\'s Avatar':'แชร์อวตารวันนี้');
+      sb.onclick=shareStudioCard;
+      dash.parentNode.insertBefore(sb, dash.nextSibling);
+    }catch(e){ console.error('studioEnhance',e); }
+  }
+
+  function st2Tap(){ try{ var pg=document.getElementById('page-bodystudio'); var av=pg&&pg.querySelector('#bsx-av'); var stage=pg&&pg.querySelector('.bsx-stage'); if(!av||!stage) return;
+    av.classList.remove('st2-bounce'); void av.offsetWidth; av.classList.add('st2-bounce');
+    var SP='<svg viewBox="0 0 24 24" fill="#C9A96E" style="width:18px;height:18px;"><path d="M12 3l1.6 5L19 9.5l-5.4 1.6L12 16l-1.6-4.9L5 9.5l5.4-1.5z"/></svg>';
+    for(var i=0;i<7;i++){ var s=document.createElement('span'); s.className='st2-burst';
+      s.style.left=(42+Math.random()*16)+'%'; s.style.top=(34+Math.random()*26)+'%';
+      s.style.setProperty('--dx',(Math.random()*140-70).toFixed(0)+'px'); s.style.setProperty('--dy',(-50-Math.random()*90).toFixed(0)+'px');
+      s.innerHTML=SP; stage.appendChild(s); (function(el){ setTimeout(function(){ el.remove(); },820); })(s); }
+  }catch(e){} }
+
+  function shareStudioCard(){ try{
+    var en=L(), score=st2Score(), org=st2Organ();
+    var W=1080,H=1350,c=document.createElement('canvas'); c.width=W;c.height=H; var x=c.getContext('2d');
+    var g=x.createLinearGradient(0,0,0,H);
+    if(score>=80){g.addColorStop(0,'#FFF6DD');g.addColorStop(.55,'#FBE7B8');g.addColorStop(1,'#F0DCEF');}
+    else if(score>=60){g.addColorStop(0,'#EAF7F0');g.addColorStop(.55,'#DDEFF6');g.addColorStop(1,'#ECE6FA');}
+    else {g.addColorStop(0,'#EFEAF6');g.addColorStop(.6,'#E6E8F0');g.addColorStop(1,'#F2EEF6');}
+    x.fillStyle=g; x.fillRect(0,0,W,H);
+    x.textAlign='left'; x.fillStyle='#4A7C59'; x.font='800 46px Georgia,serif'; x.fillText('Bio+',70,112);
+    x.textAlign='right'; x.fillStyle='rgba(70,58,46,.55)'; x.font='700 30px sans-serif';
+    var dt=new Date().toLocaleDateString(en?'en-US':'th-TH',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+    x.fillText('STUDIO · '+dt, W-70, 112);
+    // avatar
+    var avImg=document.querySelector('#page-bodystudio #bsx-av img'); var drew=false;
+    if(avImg && avImg.complete && avImg.naturalWidth){ try{ var iw=avImg.naturalWidth,ih=avImg.naturalHeight; var mh=660,mw=560; var sc=Math.min(mw/iw,mh/ih); var dw=iw*sc,dh=ih*sc; x.drawImage(avImg,(W-dw)/2,150,dw,dh); drew=true; }catch(e){} }
+    // panel
+    var py=drew?860:520; x.fillStyle='rgba(255,255,255,.72)'; rr(x,60,py,W-120,400,34); x.fill();
+    x.textAlign='left'; x.fillStyle='#2A2A22'; x.font='800 170px sans-serif'; x.fillText(String(score),110,py+185);
+    x.fillStyle='rgba(70,58,46,.5)'; x.font='700 44px sans-serif'; x.fillText('/100',110+String(score).length*100,py+185);
+    x.fillStyle='#4A7C59'; x.font='800 40px sans-serif';
+    if(org) x.fillText((en?'Strongest · ':'แข็งแรงสุด · ')+org.n+' '+org.p+'%', 110, py+255);
+    x.fillStyle='rgba(70,58,46,.7)'; x.font='italic 38px Georgia,serif';
+    wrap(x, st2Greet(score,en), 110, py+320, W-220, 46);
+    x.textAlign='center'; x.fillStyle='rgba(70,58,46,.45)'; x.font='700 30px sans-serif';
+    x.fillText('Bio+ · Personal Health OS', W/2, H-54);
+    function done(blob){ var f=null; try{ f=new File([blob],'bioplus-studio.png',{type:'image/png'}); }catch(e){}
+      if(f && navigator.canShare && navigator.canShare({files:[f]})){ navigator.share({files:[f],title:'Bio+ Studio'}).catch(function(){}); }
+      else { var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='bioplus-studio.png'; document.body.appendChild(a); a.click(); a.remove(); try{ if(typeof toast==='function') toast(en?'Studio card saved ✨':'บันทึกการ์ด Studio แล้ว ✨'); }catch(e){} } }
+    if(c.toBlob){ c.toBlob(function(b){ if(b) done(b); },'image/png'); }
+    function rr(ctx,a,b,w,h,r){ ctx.beginPath(); ctx.moveTo(a+r,b); ctx.arcTo(a+w,b,a+w,b+h,r); ctx.arcTo(a+w,b+h,a,b+h,r); ctx.arcTo(a,b+h,a,b,r); ctx.arcTo(a,b,a+w,b,r); ctx.closePath(); }
+    function wrap(ctx,t,a,b,mw,lh){ var ws=(t||'').split(' '),ln='',yy=b; for(var i=0;i<ws.length;i++){ var tst=ln+ws[i]+' '; if(ctx.measureText(tst).width>mw&&i>0){ ctx.fillText(ln,a,yy); ln=ws[i]+' '; yy+=lh; } else ln=tst; } ctx.fillText(ln,a,yy); }
+  }catch(e){ console.error('shareStudioCard',e); try{ if(typeof toast==='function') toast('—'); }catch(_){}}}
+
+  // ---- inject style ----
+  if(!document.getElementById('st2-css')){ var st=document.createElement('style'); st.id='st2-css'; st.textContent=`
+  #page-bodystudio #st2-top{margin:0 2px 12px;text-align:center;animation:st2fade .5s ease both;}
+  #page-bodystudio #st2-greet{display:inline-flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-style:italic;font-size:1.04rem;color:#6E5E8A;line-height:1.3;}
+  #page-bodystudio #st2-greet svg{width:16px;height:16px;color:#C9A96E;flex-shrink:0;}
+  #page-bodystudio #st2-streaks{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+  #page-bodystudio .st2-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.72);border:1px solid rgba(170,140,180,.25);border-radius:30px;padding:5px 11px;font-family:'Anuphan',sans-serif;font-size:.62rem;font-weight:800;color:#6E5E8A;box-shadow:0 2px 8px rgba(150,120,160,.1);}
+  #page-bodystudio .st2-chip svg{width:13px;height:13px;flex-shrink:0;}
+  @keyframes st2fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  #page-bodystudio .st2-particle{position:absolute;z-index:2;pointer-events:none;opacity:0;animation:st2float linear infinite;}
+  @keyframes st2float{0%{transform:translateY(6px) rotate(0);opacity:0;}15%{opacity:.75;}100%{transform:translateY(-46px) rotate(45deg);opacity:0;}}
+  #page-bodystudio #st2-pet{position:absolute;left:14px;bottom:56px;z-index:4;width:64px;text-align:center;animation:st2fade .6s ease both;}
+  #page-bodystudio #st2-pet svg{width:56px;height:56px;}
+  #page-bodystudio #st2-pet .cap{font-family:'Anuphan',sans-serif;font-size:.5rem;font-weight:700;color:#8A7AA0;margin-top:1px;letter-spacing:.3px;}
+  #page-bodystudio #st2-share{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin:2px 0 14px;padding:14px;border:none;border-radius:16px;background:linear-gradient(135deg,#8C6FB8,#6E5E8A);color:#fff;font-family:'Anuphan',sans-serif;font-weight:800;font-size:.86rem;cursor:pointer;box-shadow:0 10px 26px rgba(110,94,138,.3);transition:transform .15s;}
+  #page-bodystudio #st2-share:active{transform:scale(.98);}
+  #page-bodystudio #st2-share svg{width:18px;height:18px;}
+  #page-bodystudio #bsx-av.st2-bounce{animation:st2bounce .55s cubic-bezier(.34,1.5,.6,1);}
+  @keyframes st2bounce{0%{transform:translateY(0);}30%{transform:translateY(-15px);}60%{transform:translateY(0);}80%{transform:translateY(-5px);}100%{transform:translateY(0);}}
+  #page-bodystudio .st2-burst{position:absolute;z-index:6;pointer-events:none;animation:st2burst .82s ease forwards;}
+  @keyframes st2burst{0%{transform:translate(0,0) scale(.4);opacity:0;}20%{opacity:1;}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0;}}
+  `; document.head.appendChild(st); }
+
+  // ---- wire into BodyStudio.show + goPage ----
+  function patch(){ if(window.BodyStudio && !window.__st2wrap){ var _s=window.BodyStudio.show; if(typeof _s==='function'){ window.BodyStudio.show=function(){ var r=_s.apply(this,arguments); try{ setTimeout(studioEnhance,70); }catch(e){} return r; }; window.__st2wrap=true; } } }
+  patch();
+  if(typeof window.goPage==='function' && !window.__st2gp){ var _gp=window.goPage; window.goPage=function(n){ var r=_gp.apply(this,arguments); if(n==='bodystudio'){ patch(); try{ setTimeout(studioEnhance,140); }catch(e){} } return r; }; window.__st2gp=true; }
+  setTimeout(function(){ patch(); var a=document.querySelector('.page.active'); if(a&&a.id==='page-bodystudio') studioEnhance(); }, 400);
+})();
+</script>
 </body>
 </html>
 
