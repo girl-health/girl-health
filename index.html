@@ -2164,6 +2164,32 @@ function syncLogRings(){
 </div>
 
 <!-- PAGE BIO -->
+<style>
+/* ══════ BioActive+ · premium health-companion add-ons (keeps existing palette) ══════ */
+.bio-hero-stats{ position:relative; display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.bio-hero-stat{ display:inline-flex; align-items:center; gap:6px; padding:6px 13px; border-radius:30px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); font-family:'Anuphan',sans-serif; font-size:.7rem; color:rgba(255,255,255,.9); }
+.bio-hero-stat b{ color:#F5E6C8; font-weight:800; }
+.bio-streak-card{ display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--border); border-radius:20px; padding:15px 17px; margin-bottom:13px; box-shadow:0 3px 16px rgba(0,0,0,.04); }
+.bio-streak-flame{ width:46px; height:46px; flex-shrink:0; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; background:linear-gradient(140deg,#FBE9C9,#F0CE88); }
+.bio-streak-mid{ flex:1; min-width:0; }
+.bio-streak-lbl{ font-size:.6rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted2); }
+.bio-streak-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem; color:var(--accent); line-height:1.1; }
+.bio-streak-sub{ font-size:.68rem; color:var(--muted2); margin-top:1px; }
+.bio-sec-ttl{ font-family:'Anuphan',sans-serif; font-weight:700; font-size:.82rem; color:var(--text); margin:4px 2px 10px; }
+.bio-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.bio-chip{ display:inline-flex; align-items:center; gap:5px; padding:8px 13px; border-radius:30px;
+  background:linear-gradient(135deg,var(--card),var(--card2)); border:1px solid var(--border); font-family:'Anuphan',sans-serif; font-size:.72rem; font-weight:600; color:var(--text); box-shadow:0 2px 10px rgba(0,0,0,.03); }
+.bio-result{ display:flex; align-items:flex-start; gap:8px; margin-bottom:12px; padding:10px 12px; border-radius:12px; background:var(--bg); }
+.bio-result svg{ width:14px; height:14px; flex-shrink:0; margin-top:1px; color:var(--bc,var(--accent)); }
+.bio-result span{ font-family:'Anuphan',sans-serif; font-size:.68rem; line-height:1.45; color:var(--text); }
+.bio-result b{ color:var(--bc,var(--accent)); font-weight:700; }
+.bio-msum-note{ margin-top:12px; padding-top:12px; border-top:1px solid var(--border); font-family:'Anuphan',sans-serif; font-size:.74rem; line-height:1.5; color:var(--muted2); }
+.bio-msum-note b{ color:var(--accent); }
+@keyframes bioCardPop{ 0%{transform:scale(1)} 45%{transform:scale(1.03)} 100%{transform:scale(1)} }
+.bio-card.justtook{ animation:bioCardPop .38s ease-out; }
+</style>
+
 <div class="page" id="page-bio">
 
   <!-- BRAND HERO -->
@@ -2183,7 +2209,22 @@ function syncLogRings(){
       </div>
       <div class="bio-hero-msg" id="bio-hero-msg"></div>
     </div>
+    <div class="bio-hero-stats" id="bio-hero-stats"></div>
   </div>
+
+  <!-- Daily streak -->
+  <div class="bio-streak-card">
+    <div class="bio-streak-flame">🔥</div>
+    <div class="bio-streak-mid">
+      <div class="bio-streak-lbl"><span class="lang-th">สตรีคต่อเนื่อง</span><span class="lang-en" style="display:none;">Daily Streak</span></div>
+      <div class="bio-streak-num"><span id="bio-streak-num">0</span> <span style="font-size:.78rem;font-family:'Anuphan',sans-serif;color:var(--muted2);"><span class="lang-th">วัน</span><span class="lang-en" style="display:none;">Days</span></span></div>
+      <div class="bio-streak-sub"><span class="lang-th">ความสม่ำเสมอสร้างผลลัพธ์ที่ดีกว่า</span><span class="lang-en" style="display:none;">Consistency creates better results.</span></div>
+    </div>
+  </div>
+
+  <!-- Today's expected benefits -->
+  <div class="bio-sec-ttl"><span class="lang-th">ผลลัพธ์ที่ร่างกายจะได้รับวันนี้</span><span class="lang-en" style="display:none;">Today's Expected Benefits</span></div>
+  <div class="bio-chips" id="bio-exp-benefits"></div>
 
   <div class="bio-mo-nav">
     <button onclick="chBioMonth(-1)">‹</button>
@@ -2195,6 +2236,7 @@ function syncLogRings(){
   <div class="bio-stats-wrap">
     <div class="bio-stats-ttl"><span class="lang-th">📊 สรุปรายเดือน — วันที่กิน</span><span class="lang-en" style="display:none;">📊 Monthly Summary — Days Taken</span></div>
     <div id="bio-month-stats"></div>
+    <div class="bio-msum-note" id="bio-month-summary-note"></div>
   </div>
   <!-- Calendar for selected product -->
   <div id="bio-cal-wrap" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:12px;">
@@ -6208,14 +6250,16 @@ async function renderBio(){
     ? `📅 ${curBioDay} — Tap ✓ to mark as taken`
     : `📅 ${thaiDate(curBioDay)} — กด ✓ เพื่อบันทึกว่ากินแล้ว`;
 
-  // Load today
+  // Load today + month (cards/hero use month data for streaks & results)
   bioTodayData = await dbLoadBio(curBioDay);
+  const monthRows = await dbLoadBioMonth(curBioMo);
+  window._bioMonthRows = monthRows;
+  window._bioStreak = bioComputeStreak(monthRows);
   renderBioCards();
   updateBioHero();
-
-  // Load month stats
-  const monthRows = await dbLoadBioMonth(curBioMo);
   renderBioMonthStats(monthRows);
+  renderBioExpectedBenefits();
+  var _sn=document.getElementById('bio-streak-num'); if(_sn) _sn.textContent=window._bioStreak;
 }
 
 function updateBioHero(){
@@ -6226,22 +6270,36 @@ function updateBioHero(){
   const countEl = document.getElementById('bio-hero-count');
   const ringEl = document.getElementById('bio-hero-ring');
   const msgEl = document.getElementById('bio-hero-msg');
-  if(countEl) countEl.textContent = `${taken}/${total}`;
+  const streak = window._bioStreak||0;
+  const statsEl = document.getElementById('bio-hero-stats');
+  if(countEl){ countEl.textContent = `${taken}/${total}`; try{ countEl.animate([{transform:'scale(1)'},{transform:'scale(1.22)'},{transform:'scale(1)'}],{duration:300,easing:'ease-out'}); }catch(e){} }
   if(ringEl) ringEl.style.background = `conic-gradient(#C9A96E ${pct*3.6}deg, rgba(255,255,255,.12) 0deg)`;
   if(msgEl){
     let msg;
-    if(taken===0) msg = isEN ? 'Start your ritual — your skin will thank you ✨' : 'เริ่มดูแลตัวเองวันนี้ — ผิวเธอจะขอบคุณ ✨';
-    else if(taken<total) msg = isEN ? `Beautiful start — ${total-taken} more to complete today's glow` : `เริ่มดีแล้ว — อีก ${total-taken} ตัวก็ครบสำหรับวันนี้`;
-    else msg = isEN ? '✨ Perfect! All 9 taken — radiance fully unlocked today' : '✨ ครบทั้ง 9 ตัว! วันนี้ผิวและสุขภาพได้รับการดูแลเต็มที่';
+    if(taken===0) msg = isEN ? "Today's wellness routine is waiting — complete it to maximize your health results." : 'รูทีนดูแลสุขภาพวันนี้รออยู่ — ทำให้ครบเพื่อผลลัพธ์ที่ดีที่สุด';
+    else if(taken<total) msg = isEN ? `Great momentum — ${total-taken} more to complete today's routine.` : `กำลังไปได้สวย — อีก ${total-taken} ตัวก็ครบรูทีนวันนี้`;
+    else msg = isEN ? '✨ Perfect — full routine complete. Your results are compounding.' : '✨ ครบทั้ง 9 ตัว! ผลลัพธ์กำลังสะสมต่อเนื่อง';
     msgEl.textContent = msg;
+  }
+  if(statsEl){
+    statsEl.innerHTML = `<span class="bio-hero-stat">🔥 <b>${streak}</b> ${isEN?'day streak':'วันต่อเนื่อง'}</span><span class="bio-hero-stat">✓ <b>${pct}%</b> ${isEN?'complete today':'ครบวันนี้'}</span>`;
   }
 }
 
 function renderBioCards(){
   const wrap = document.getElementById('bio-cards');
   const isEN = currentLang === 'en';
+  let _recIds=[]; try{ _recIds=recommendedProductIds(latestSkinScan())||[]; }catch(e){}
+  const _rows = window._bioMonthRows||[];
   wrap.innerHTML = BIOACTIVE_PRODUCTS.map(p=>{
     const done = !!bioTodayData[p.id];
+    const st = bioProdStat(p.id, _rows);
+    const isRec = _recIds.indexOf(p.id)>=0;
+    let resultTxt;
+    if(isRec) resultTxt = isEN ? 'Based on your Skin Scan, one of your <b>highest-impact</b> products right now.' : 'จากผลสแกนผิว นี่คือหนึ่งในตัวที่ <b>ส่งผลมากที่สุด</b> ตอนนี้';
+    else if(st.streak>=2) resultTxt = isEN ? `You've taken this <b>${st.streak} days in a row</b>.` : `กินต่อเนื่องมาแล้ว <b>${st.streak} วัน</b>`;
+    else if(st.count>=1) resultTxt = isEN ? `Taken <b>${st.count} days</b> this month — keep it going.` : `เดือนนี้กินไปแล้ว <b>${st.count} วัน</b> — รักษาความต่อเนื่องไว้นะ`;
+    else resultTxt = isEN ? 'Log it today to start tracking its impact on your results.' : 'เริ่มบันทึกวันนี้ เพื่อติดตามผลที่มีต่อสุขภาพของคุณ';
     const tagHtml = p.benefits.map(b=>`<span class="bio-tag" style="background:${p.dotColor}18;color:${p.dotColor}">${b}</span>`).join('');
 
     // BioActive EN descriptions
@@ -6275,8 +6333,8 @@ function renderBioCards(){
     const displayBenefits = isEN ? (benefitsEN[p.id]||p.benefits) : p.benefits;
     const tagHtmlFinal = displayBenefits.map(b=>`<span class="bio-tag" style="background:${p.dotColor}15;color:${p.dotColor};border:1px solid ${p.dotColor}25;">${b}</span>`).join('');
     const tickLabel = done
-      ? (isEN ? '✅ Taken!' : '✅ กินแล้ว!')
-      : (isEN ? '☐ Not taken yet' : '☐ ยังไม่ได้กิน');
+      ? (isEN ? '✓ Taken Today' : '✓ กินแล้ววันนี้')
+      : (isEN ? 'Not taken yet' : 'ยังไม่ได้กิน');
 
     return `<div class="bio-card${done?' taken':''}" id="biocard-${p.id}" style="--bc:${p.dotColor}${done?`;border-color:${p.dotColor}55;background:linear-gradient(160deg,${p.dotColor}0a,var(--card) 55%)`:''}">
       <div class="bio-card-top">
@@ -6289,6 +6347,7 @@ function renderBioCards(){
       </div>
       <div class="bio-benefits">${tagHtmlFinal}</div>
       <div class="bio-note">${displayNote}</div>
+      <div class="bio-result"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 7-8"/><path d="M17 7h4v4"/></svg><span>${resultTxt}</span></div>
       <button class="bio-tick-btn${done?' done':''}" id="biotick-${p.id}"
         style="${done?`background:linear-gradient(135deg,${p.dotColor},${p.dotColor}dd);border-color:${p.dotColor};`:'color:var(--muted2);'}"
         onclick="toggleBio('${p.id}')">
@@ -6301,13 +6360,19 @@ function renderBioCards(){
 async function toggleBio(pid){
   bioTodayData[pid] = !bioTodayData[pid];
   renderBioCards();
+  renderBioExpectedBenefits();
   updateBioHero();
+  try{ var _c=document.getElementById('biocard-'+pid); if(_c&&bioTodayData[pid]){ _c.classList.add('justtook'); setTimeout(function(){ _c.classList.remove('justtook'); },420); } }catch(e){}
   await dbSaveBio(curBioDay, bioTodayData);
-  // Refresh stats
+  // Refresh stats + streak immediately
   const monthRows = await dbLoadBioMonth(curBioMo);
+  window._bioMonthRows = monthRows;
+  window._bioStreak = bioComputeStreak(monthRows);
   renderBioMonthStats(monthRows);
+  var _sn=document.getElementById('bio-streak-num'); if(_sn) _sn.textContent=window._bioStreak;
+  updateBioHero();
   const p = BIOACTIVE_PRODUCTS.find(x=>x.id===pid);
-  toast(bioTodayData[pid] ? `✅ บันทึก ${p.name} แล้ว!` : `↩️ ยกเลิก ${p.name}`);
+  toast(bioTodayData[pid] ? `✅ ${p.name}` : `↩️ ${p.name}`);
 }
 
 function renderBioMonthStats(monthRows){
@@ -6328,6 +6393,56 @@ function renderBioMonthStats(monthRows){
       <div class="bio-stat-val" style="color:${p.dotColor}">${count}/${totalDays||'0'} ${dayWord}</div>
     </div>`;
   }).join('');
+  // Completion summary sentence
+  try{
+    var cells=totalDays*BIOACTIVE_PRODUCTS.length;
+    var takenCells=monthRows.reduce(function(a,r){return a+BIOACTIVE_PRODUCTS.filter(function(p){return r.taken&&r.taken[p.id];}).length;},0);
+    var comp=cells?Math.round(takenCells/cells*100):0;
+    var noteEl=document.getElementById('bio-month-summary-note');
+    if(noteEl) noteEl.innerHTML = isEN ? ('You completed <b>'+comp+'%</b> of your recommended routine this month.') : ('เดือนนี้คุณทำรูทีนได้ <b>'+comp+'%</b> ของที่แนะนำ');
+  }catch(e){}
+}
+
+// ── BioActive+ health-companion helpers ──
+const BIO_BENEFIT_THEMES = {
+  collagen:[['Collagen Synthesis','คอลลาเจน'],['Skin Hydration','ผิวชุ่มชื้น']],
+  gluta:[['Skin Brightening','ผิวกระจ่างใส'],['Antioxidant Protection','ต้านอนุมูลอิสระ']],
+  asta:[['UV Defense','ปกป้องแสงแดด'],['Antioxidant Protection','ต้านอนุมูลอิสระ']],
+  gold:[['Cellular Anti-Aging','ชะลอวัยระดับเซลล์'],['Antioxidant Protection','ต้านอนุมูลอิสระ']],
+  kera:[['Hair & Nail Strength','ผม & เล็บแข็งแรง']],
+  magnesium:[['Deep Sleep & Recovery','นอนลึก ฟื้นตัว']],
+  tribiotic:[['Gut Balance','สมดุลลำไส้'],['Healthy Skin Barrier','เกราะผิวแข็งแรง']],
+  immuchew:[['Immune Support','เสริมภูมิคุ้มกัน']],
+  juvecol:[['Joint & Bone','ข้อต่อ & กระดูก']]
+};
+function _bioFmtDate(x){ return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); }
+function bioComputeStreak(rows){
+  try{
+    var set=new Set((rows||[]).filter(function(r){return r.taken&&Object.keys(r.taken).some(function(k){return r.taken[k];});}).map(function(r){return r.date;}));
+    var p=curBioDay.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]);
+    if(!set.has(_bioFmtDate(d))) d.setDate(d.getDate()-1);
+    var n=0; while(set.has(_bioFmtDate(d))){ n++; d.setDate(d.getDate()-1); }
+    return n;
+  }catch(e){ return 0; }
+}
+function bioProdStat(pid, rows){
+  rows=rows||[];
+  var count=rows.filter(function(r){return r.taken&&r.taken[pid];}).length;
+  var set=new Set(rows.filter(function(r){return r.taken&&r.taken[pid];}).map(function(r){return r.date;}));
+  var p=curBioDay.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]);
+  if(!set.has(_bioFmtDate(d))) d.setDate(d.getDate()-1);
+  var s=0; while(set.has(_bioFmtDate(d))){ s++; d.setDate(d.getDate()-1); }
+  return {count:count, streak:s};
+}
+function renderBioExpectedBenefits(){
+  var wrap=document.getElementById('bio-exp-benefits'); if(!wrap) return;
+  var isEN=currentLang==='en';
+  var src=BIOACTIVE_PRODUCTS.filter(function(p){return bioTodayData&&bioTodayData[p.id];});
+  if(!src.length) src=BIOACTIVE_PRODUCTS;
+  var seen={}, chips=[];
+  src.forEach(function(p){ (BIO_BENEFIT_THEMES[p.id]||[]).forEach(function(t){ if(!seen[t[0]]){ seen[t[0]]=1; chips.push(isEN?t[0]:t[1]); } }); });
+  chips=chips.slice(0,6);
+  wrap.innerHTML=chips.map(function(c){ return '<span class="bio-chip">✨ '+c+'</span>'; }).join('');
 }
 
 // ── PERIOD TRACKER ──
