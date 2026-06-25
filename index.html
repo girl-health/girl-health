@@ -1463,6 +1463,14 @@ try{
 .ads2 .ads-ck{color:#A89B84;}
 .ads2 .ads-ck.on{color:#3B7C2A;}
 .ads2 .ads-ckdone{color:#3B7C2A;}
+/* v5 collapsible sections — fast daily check-in */
+#page-log .section.dl-col{padding-bottom:16px;}
+#page-log .section.dl-col > :not(.sec-hdr){display:none !important;}
+#page-log .section.dl-col .sec-hdr{margin-bottom:0;}
+#page-log .section .sec-hdr{cursor:pointer;}
+.dl-chev{margin-left:auto;display:flex;align-items:center;color:var(--muted2);transition:transform .25s;flex-shrink:0;}
+.dl-chev svg{width:18px;height:18px;}
+#page-log .section:not(.dl-col) .dl-chev{transform:rotate(180deg);}
 .dl-rings{display:flex;justify-content:space-around;position:relative;}
 .dl-ring{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;}
 .dl-ring-ctr{position:relative;width:84px;height:84px;}
@@ -1603,6 +1611,22 @@ function openUploadSheet(opts){
 function openFoodUpload(){ openUploadSheet([{svg:_upCam,th:'ถ่ายรูป',en:'Camera',id:'food-cam'},{svg:_upLib,th:'เลือกจากคลังรูป',en:'Photos',id:'food-lib'},{svg:_upMulti,th:'หลายรูป',en:'Multiple',id:'food-multi'}]); }
 function openSleepUpload(){ openUploadSheet([{svg:_upCam,th:'ถ่ายรูป',en:'Camera',id:'sleep-cam'},{svg:_upLib,th:'เลือกจากแกลเลอรี',en:'Gallery',id:'sleep-lib'},{svg:_upWatch,th:'จาก Garmin',en:'Garmin',id:'sleep-garmin'}]); }
 function openExUpload(){ openUploadSheet([{svg:_upCam,th:'ถ่ายรูป',en:'Camera',id:'ex-cam'},{svg:_upLib,th:'เลือกจากแกลเลอรี',en:'Gallery',id:'ex-lib'},{svg:_upWatch,th:'จาก Garmin',en:'Garmin',id:'ex-garmin'}]); }
+function initLogCollapse(){
+  try{
+    var pg=document.getElementById('page-log'); if(!pg) return;
+    var secs=pg.querySelectorAll('.section.s-eat,.section.s-sleep,.section.s-ex,.section.s-body,.section.s-supp');
+    secs.forEach(function(sec){
+      if(sec.getAttribute('data-dlc')) return;
+      sec.setAttribute('data-dlc','1');
+      var hdr=sec.querySelector('.sec-hdr'); if(!hdr) return;
+      var chev=document.createElement('span'); chev.className='dl-chev';
+      chev.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+      hdr.appendChild(chev);
+      hdr.addEventListener('click',function(e){ if(e.target.closest('a,button,input,textarea,select')) return; sec.classList.toggle('dl-col'); });
+      sec.classList.add('dl-col');
+    });
+  }catch(e){}
+}
 </script>
 <div class="page" id="page-log">
   <div class="date-nav">
@@ -4267,7 +4291,7 @@ function goPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   var _pg=document.getElementById('page-'+name); if(_pg){ _pg.classList.add('active'); }
   var _cb=document.getElementById('chatBar'); if(_cb){ _cb.classList.toggle('visible',name==='log'); }
-  if(name==='log'){ if(!document.body.className.match(/ltab-/)) setLogTab(currentLogTab||'eat'); }
+  if(name==='log'){ if(!document.body.className.match(/ltab-/)) setLogTab(currentLogTab||'eat'); initLogCollapse(); }
   if(name==='home') loadHomeDashboard();
   if(name==='hyrox'){ if(typeof hxRenderPage==='function') hxRenderPage(); }
   if(name==='body'){ try{ renderOrganGrid(); }catch(e){} }
