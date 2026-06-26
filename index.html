@@ -8840,7 +8840,7 @@ async function recalcFood(){
 }
 
 let smartScanFiles=[];
-function loadSmartScan(input){ const add=Array.from(input.files||[]); smartScanFiles=smartScanFiles.concat(add).slice(0,8); try{input.value='';}catch(e){} renderSmartPreview(); }
+function loadSmartScan(input){ const add=Array.from(input.files||[]); smartScanFiles=smartScanFiles.concat(add).slice(0,9); try{input.value='';}catch(e){} renderSmartPreview(); }
 function removeSmartPhoto(i){ smartScanFiles.splice(i,1); renderSmartPreview(); }
 function clearSmartScan(){ smartScanFiles=[]; renderSmartPreview(); const r=document.getElementById('allday-result'); if(r){ r.style.display='none'; r.innerHTML=''; } }
 function renderSmartPreview(){
@@ -8853,7 +8853,7 @@ function renderSmartPreview(){
   act.innerHTML=`<button onclick="analyzeSmartScan()" style="flex:1;padding:11px;border:none;border-radius:11px;background:var(--accent);color:#fff;font-family:'Anuphan',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;">${en?`Analyze ${smartScanFiles.length} photo(s)`:`วิเคราะห์ ${smartScanFiles.length} รูป`}</button><button onclick="clearSmartScan()" style="padding:11px 13px;border:1px solid var(--border2);border-radius:11px;background:var(--card);color:var(--muted2);font-family:'Anuphan',sans-serif;font-size:.74rem;cursor:pointer;">${en?'Clear':'ล้าง'}</button>`;
 }
 async function analyzeSmartScan(){
-  const MAX_PHOTOS = 8;
+  const MAX_PHOTOS = 9;
   const allFiles = smartScanFiles.slice(); smartScanFiles=[];
   const _act=document.getElementById('smartscan-actions'); if(_act) _act.style.display='none';
   const files = allFiles.slice(0, MAX_PHOTOS);
@@ -8882,9 +8882,10 @@ Types: "food" (a meal / drink / dish), "sleep" (a Garmin SLEEP screen — sleep 
 ${isHome?'If food: home-cooked, no added salt/sauces/sugar, olive oil only.':'If food: some dining out — include sodium.'}
 For any beverage (juice, coffee, matcha, tea, smoothie, milk, plain water, soup), ALSO estimate the drink volume in milliliters as "water_ml" (typical cup ~250ml, tall/large ~350-500ml, bottle ~600ml). For solid food with no drink, water_ml is 0. Count this toward daily water intake.
 ALSO return "confidence": an integer 0-100 (how sure you are of the type AND the main values) and "label": a short 2-4 word name (the dish/activity name, e.g. "Chicken Salad", "Walking", "Sleep").
+If type is "food", ALSO set "meal_slot" to EXACTLY one of: breakfast, lunch, dinner, snack — infer from the dish and typical timing (eggs/toast/cereal/congee/coffee+pastry = breakfast; a rice/noodle/main dish eaten midday = lunch; the main evening meal = dinner; fruit/yogurt/nuts/dessert/small bites/standalone drink = snack). If unsure, use "snack".
 Respond ONLY with valid JSON, no markdown, no extra text:
 {"type":"food","confidence":90,"label":"",
- "food":{"items":"","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}},
+ "food":{"items":"","meal_slot":"lunch","kcal":0,"protein_g":0,"carb_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"fruit_sugar_g":0,"sodium_mg":0,"water_ml":0,"ing":{"fruit":[],"veg":[],"prot":[],"grain":[],"dairy":[],"other":[]}},
  "sleep":{"bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
  "exercise":{"activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}}
 Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" for anything not clearly visible (do NOT guess).`;
@@ -8927,7 +8928,7 @@ Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" f
     var thumb=''; try{ thumb=URL.createObjectURL(files[ix]); }catch(e){}
     if(r.type==='food' && r.food){
       var f=r.food;
-      _items.push({id:'ai'+ix,cat:'food',conf:conf,label:(r.label||f.items||'Food'),prim:Math.round(+f.kcal||0),prot:Math.round(+f.protein_g||0),data:f,thumb:thumb,on:true});
+      _items.push({id:'ai'+ix,cat:'food',conf:conf,label:(r.label||f.items||'Food'),slot:String(f.meal_slot||'').toLowerCase(),prim:Math.round(+f.kcal||0),prot:Math.round(+f.protein_g||0),data:f,thumb:thumb,on:true});
       if(+f.water_ml>0) _items.push({id:'ai'+ix+'w',cat:'water',conf:conf,label:(isEN?'Water':'น้ำ'),prim:Math.round(+f.water_ml||0),data:{},thumb:thumb,on:true});
     } else if(r.type==='sleep' && r.sleep){
       var h=+r.sleep.total_hours||0; if(h>16||h<0)h=0;
@@ -8983,9 +8984,13 @@ function applyReviewItems(items){
   var supps=items.filter(function(i){return i.cat==='supplement';});
   var bodies=items.filter(function(i){return i.cat==='body';});
   if(foods.length){
-    var mb=document.getElementById('m_b'); var labels=foods.map(function(f){return f.label;}).filter(Boolean);
-    if(mb&&labels.length){ mb.value=(mb.value.trim()?mb.value.trim()+' · ':'')+labels.join(' · '); if(typeof autoResize==='function') autoResize(mb); }
-    foods.forEach(function(f){ var d=f.data||{}; addN('mac_kcal',f.prim); addN('mac_p',f.prot||0); addN('mac_carb',d.carb_g); addN('mac_fat',d.fat_g); addN('mac_f',d.fiber_g); addN('mac_sugar_total',d.sugar_g); addN('mac_s',d.fruit_sugar_g); });
+    var _slotMap={breakfast:'m_b',lunch:'m_l',dinner:'m_d',snack:'m_s'};
+    foods.forEach(function(f){
+      var _sid=_slotMap[String(f.slot||'').toLowerCase()]||'m_b';
+      var _el=document.getElementById(_sid);
+      if(_el&&f.label){ var _cur=(_el.value||'').trim(); if(_cur.toLowerCase().indexOf(String(f.label).toLowerCase())<0){ _el.value=_cur?(_cur+' · '+f.label):f.label; if(typeof autoResize==='function') autoResize(_el); } }
+      var d=f.data||{}; addN('mac_kcal',f.prim); addN('mac_p',f.prot||0); addN('mac_carb',d.carb_g); addN('mac_fat',d.fat_g); addN('mac_f',d.fiber_g); addN('mac_sugar_total',d.sugar_g); addN('mac_s',d.fruit_sugar_g); addN('mac_sodium',d.sodium_mg);
+    });
   }
   if(waters.length && typeof addScanWater==='function'){ var w=waters.reduce(function(t,i){return t+(+i.prim||0);},0); if(w>0) addScanWater(w); }
   if(sleeps.length){ var sp=sleeps[0]; var d=sp.data||{}; var setIf=function(id,v){if(v&&+v>0){var el=document.getElementById(id);if(el)el.value=v;}};
@@ -9012,7 +9017,13 @@ function aiReviewSave(){
 }
 
 async function analyzeAllDay(input, mode){
-  const file = input.files[0];
+  const _adFiles = Array.from((input&&input.files)||[]);
+  if(!_adFiles.length) return;
+  try{ input.value=''; }catch(e){}
+  if(_adFiles.length>1){ for(let _ai=0;_ai<_adFiles.length;_ai++){ await _analyzeAllDayOne(_adFiles[_ai], mode); } return; }
+  return _analyzeAllDayOne(_adFiles[0], mode);
+}
+async function _analyzeAllDayOne(file, mode){
   if(!file) return;
   const labelId = {meals:'allday-meals-label', sleep:'allday-sleep-label', exercise:'allday-ex-label'}[mode];
   const label = document.getElementById(labelId);
@@ -12816,6 +12827,173 @@ window.BodyStudio = (function(){
     ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){ window.addEventListener(ev,onAct,{passive:true}); });
   }
   if(document.readyState!=='loading') setTimeout(showSwipeHint,500); else window.addEventListener('load',function(){ setTimeout(showSwipeHint,500); });
+})();
+</script>
+<style id="st2res-css">
+#st2-results{margin:8px 2px 6px;animation:st2fade .55s ease both;}
+#st2-results .st2r-head{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:800;color:#5E5277;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0 4px 11px;}
+#st2-results .st2r-sub{font-family:'Anuphan',sans-serif;font-size:.58rem;font-weight:800;color:#A89AC0;letter-spacing:.3px;text-transform:uppercase;}
+#st2-results .st2r-scroll{display:flex;gap:13px;overflow-x:auto;padding:4px 4px 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+#st2-results .st2r-scroll::-webkit-scrollbar{height:0;display:none;}
+.st2r-card{scroll-snap-align:start;flex:0 0 72%;max-width:235px;min-width:198px;background:var(--bg);border:1px solid rgba(255,255,255,.75);border-radius:21px;padding:14px 15px 14px;position:relative;box-shadow:0 12px 28px rgba(120,110,150,.16);cursor:pointer;transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s;overflow:hidden;}
+@media(min-width:780px){.st2r-card{flex-basis:31%;}}
+.st2r-card:active{transform:scale(.975);}
+.st2r-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 82% -10%,rgba(255,255,255,.55),transparent 58%);pointer-events:none;}
+.st2r-card>*{position:relative;z-index:1;}
+.st2r-badge{display:inline-flex;align-items:center;gap:4px;background:#E5F7EC;color:#1C9C53;font-family:'Anuphan',sans-serif;font-size:.53rem;font-weight:800;letter-spacing:.3px;padding:4px 9px;border-radius:30px;border:1px solid rgba(28,156,83,.2);}
+.st2r-emoji{font-size:2.15rem;line-height:1;margin:9px 0 1px;filter:drop-shadow(0 5px 9px rgba(0,0,0,.1));}
+.st2r-ttl{font-family:'Anuphan',sans-serif;font-size:.82rem;font-weight:800;color:#4A4360;letter-spacing:.1px;}
+.st2r-big{font-family:'Playfair Display',serif;font-size:2.25rem;font-weight:800;line-height:1.04;color:var(--c);margin:3px 0 0;letter-spacing:-1px;}
+.st2r-ba{font-family:'Anuphan',sans-serif;font-size:.6rem;font-weight:800;color:#7C7490;background:rgba(255,255,255,.66);display:inline-block;padding:3px 10px;border-radius:20px;margin:5px 0 0;}
+.st2r-desc{font-family:'Anuphan',sans-serif;font-size:.66rem;line-height:1.5;color:#6B6480;margin:9px 0 0;min-height:3em;}
+.st2r-foot{font-family:'Anuphan',sans-serif;font-size:.53rem;font-weight:800;color:#A79DBA;margin:9px 0 11px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
+.st2r-cta{width:100%;border:none;border-radius:13px;padding:11px;background:var(--c);color:#fff;font-family:'Anuphan',sans-serif;font-size:.72rem;font-weight:800;cursor:pointer;box-shadow:0 7px 16px rgba(0,0,0,.13);transition:filter .15s;}
+.st2r-cta:active{filter:brightness(.94);}
+.st2r-empty{font-family:'Anuphan',sans-serif;font-size:.72rem;line-height:1.55;color:#8A8298;background:rgba(255,255,255,.6);border:1px dashed rgba(150,135,175,.4);border-radius:16px;padding:15px 16px;margin:0 4px;text-align:center;cursor:pointer;}
+.st2r-card.st2r-sk{background:linear-gradient(110deg,#EFEBF7 30%,#F7F4FC 50%,#EFEBF7 70%);background-size:220% 100%;animation:st2sk 1.2s linear infinite;min-height:200px;border:none;box-shadow:0 8px 20px rgba(120,110,150,.1);}
+@keyframes st2sk{0%{background-position:120% 0;}100%{background-position:-120% 0;}}
+</style>
+<script>
+/* ===== Bio+ Studio · Your Proven Results (AI, data-driven — never hardcoded) ===== */
+function st2Go(p){ try{ if(typeof goPage==='function') goPage(p); }catch(e){} try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){} }
+function st2OpenProd(id){ st2Go('bio'); setTimeout(function(){ try{ if(typeof openProductDetail==='function') openProductDetail(id); }catch(e){} },340); }
+function st2ResAct(i){ try{ var c=window._st2ResCards||[]; if(c[i]&&typeof c[i].act==='function') c[i].act(); }catch(e){} }
+
+async function st2History(){
+  var rows=[],seen={},monthSet={},base=new Date();
+  for(var i=0;i<120;i++){ var d=new Date(base.getTime()-i*864e5); monthSet[d.toISOString().slice(0,7)]=1; }
+  for(var mo in monthSet){ try{ var r=(typeof dbLoadMonth==='function')?await dbLoadMonth(mo):[]; if(r&&r.length){ r.forEach(function(x){ if(x&&x.date&&!seen[x.date]){ seen[x.date]=1; rows.push(x);} }); } }catch(e){} }
+  rows.sort(function(a,b){ return a.date<b.date?-1:(a.date>b.date?1:0); });
+  return rows;
+}
+
+async function st2ComputeCards(){
+  var rows=[]; try{ rows=await st2History(); }catch(e){ rows=[]; }
+  var skin=[]; try{ if(typeof getSkinLog==='function') skin=(await getSkinLog())||[]; }catch(e){ skin=[]; }
+  function avg(a){ if(!a.length) return 0; var s=0; a.forEach(function(x){s+=x;}); return s/a.length; }
+  function col(field){ var a=[]; rows.forEach(function(r){ var v=+r[field]; if(isFinite(v)&&v>0) a.push(v); }); return a; }
+  function metric(arr,higher,minPts){
+    if(!arr||arr.length<(minPts||3)) return null;
+    var n=arr.length,half=Math.max(1,Math.floor(n/2));
+    var before=avg(arr.slice(0,half)),after=avg(arr.slice(n-half));
+    if(before<=0) return null;
+    var pct=higher?(after-before)/before*100:(before-after)/before*100;
+    return {before:before,after:after,pct:pct,n:n};
+  }
+  function conf(n,pct){ if(n>=6&&pct>=8) return 'High'; if(n>=4&&pct>=5) return 'Medium'; return 'Low'; }
+  function streakRecent(test){ var c=0; for(var i=rows.length-1;i>=0;i--){ var r=rows[i]; if(!r) continue; if(test(r)) c++; else break; } return c; }
+  function isLogged(r){ return !!(r&&((r.m_b&&r.m_b.length)||(r.m_l&&r.m_l.length)||(r.m_d&&r.m_d.length)||(r.m_s&&r.m_s.length)||(+r.sl_score>0)||(+r.water>0)||(+r.mac_p>0))); }
+  function isHealthy(r){ var f=+r.mac_f||0; if(f>=8) return true; var t=((r.m_b||'')+' '+(r.m_l||'')+' '+(r.m_d||'')+' '+(r.m_s||'')).toLowerCase(); return /salad|veg|broccoli|kale|spinach|avocado|fruit|berry|ผัก|สลัด|ผลไม้|อะโวคาโด/.test(t); }
+  function sconf(s){ return s>=7?'High':s>=4?'Medium':'Low'; }
+  var c=[];
+
+  // ── Improvement cards (before → after) ──
+  var sl=metric(col('sl_score'),true,3);
+  if(sl&&sl.pct>=4) c.push({dom:'sleep',score:sl.pct+(conf(sl.n,sl.pct)==='High'?15:conf(sl.n,sl.pct)==='Medium'?7:0),emoji:'😴',col:'#8C7BB0',bg:'linear-gradient(160deg,#F1EEFC,#E6E0F6)',tEn:'Sleep Improved',tTh:'การนอนดีขึ้น',big:'+'+Math.round(sl.pct)+'%',ba:Math.round(sl.before)+' → '+Math.round(sl.after),dEn:'Sleep score improved after staying consistent with your routine.',dTh:'คะแนนการนอนดีขึ้นหลังดูแลตัวเองต่อเนื่อง',cEn:'Continue Magnesium →',cTh:'ทาน Magnesium ต่อ →',act:function(){st2OpenProd('magnesium');},conf:conf(sl.n,sl.pct),days:sl.n});
+
+  var hr=metric(col('sl_rhr'),false,3);
+  if(hr&&hr.pct>=2) c.push({dom:'heart',score:hr.pct+6,emoji:'❤️',col:'#E2706B',bg:'linear-gradient(160deg,#FDEBEB,#FAD8D8)',tEn:'Heart Recovery',tTh:'หัวใจฟื้นตัวดีขึ้น',big:'+'+Math.round(hr.pct)+'%',ba:Math.round(hr.before)+' → '+Math.round(hr.after)+' bpm',dEn:'Resting heart rate improved with consistent cardio.',dTh:'อัตราหัวใจขณะพักดีขึ้นจากคาร์ดิโอสม่ำเสมอ',cEn:'View Heart →',cTh:'ดูหัวใจ →',act:function(){st2Go('body');},conf:conf(hr.n,hr.pct),days:hr.n});
+
+  var pr=metric(col('mac_p'),true,3);
+  if(pr&&pr.pct>=5) c.push({dom:'muscle',score:pr.pct,emoji:'💪',col:'#DD9540',bg:'linear-gradient(160deg,#FCF0E0,#F8E1C6)',tEn:'Muscle Fuel',tTh:'กล้ามได้โปรตีนมากขึ้น',big:'+'+Math.round(pr.pct)+'%',ba:Math.round(pr.before)+'g → '+Math.round(pr.after)+'g',dEn:'Average daily protein increased, supporting muscle recovery.',dTh:'โปรตีนเฉลี่ยต่อวันเพิ่มขึ้น ช่วยฟื้นกล้ามเนื้อ',cEn:'Keep Protein →',cTh:'บันทึกโปรตีนต่อ →',act:function(){st2Go('log');},conf:conf(pr.n,pr.pct),days:pr.n});
+
+  var wt=metric(col('water'),true,3);
+  if(wt&&wt.pct>=8) c.push({dom:'water',score:wt.pct*0.7,emoji:'💧',col:'#54A0FF',bg:'linear-gradient(160deg,#E7F2FE,#D1E6FB)',tEn:'Hydration Up',tTh:'ดื่มน้ำดีขึ้น',big:'+'+Math.round(wt.pct)+'%',ba:wt.before.toFixed(1)+'L → '+wt.after.toFixed(1)+'L',dEn:'Your daily water intake clearly increased.',dTh:'ปริมาณน้ำต่อวันเพิ่มขึ้นชัดเจน',cEn:'Track Water →',cTh:'บันทึกน้ำ →',act:function(){st2Go('log');},conf:conf(wt.n,wt.pct),days:wt.n});
+
+  // ── Skin (from skin scans) ──
+  var sgArr=[]; skin.forEach(function(s){ var v=+s.skin_score; if(isFinite(v)&&v>0) sgArr.push(v); });
+  var sg=metric(sgArr,true,2);
+  if(sg&&sg.pct>=4) c.push({dom:'skin',score:sg.pct+12,emoji:'✨',col:'#E06A86',bg:'linear-gradient(160deg,#FCEAF1,#F8D5E2)',tEn:'Glow Up',tTh:'ผิวเปล่งปลั่งขึ้น',big:'+'+Math.round(sg.pct)+'%',ba:Math.round(sg.before)+' → '+Math.round(sg.after),dEn:'Skin score improved after a consistent skincare routine.',dTh:'คะแนนผิวดีขึ้นหลังดูแลผิวต่อเนื่อง',cEn:'Continue Gold →',cTh:'ทาน Gold ต่อ →',act:function(){st2OpenProd('gold');},conf:conf(sg.n,sg.pct),days:sg.n});
+
+  var saArr=[]; skin.forEach(function(s){ var v=+s.skin_age; if(isFinite(v)&&v>0) saArr.push(v); });
+  if(saArr.length>=2){ var ba0=saArr[0],aa=saArr[saArr.length-1],dy=ba0-aa;
+    if(dy>=1) c.push({dom:'skinage',score:dy*8,emoji:'🧖',col:'#2FA98C',bg:'linear-gradient(160deg,#E3F5EF,#CCEAE0)',tEn:'Skin Age',tTh:'อายุผิว',big:'▼ '+Math.round(dy)+(Math.round(dy)>1?' yrs':' yr'),bigTh:'▼ '+Math.round(dy)+' ปี',ba:Math.round(ba0)+' → '+Math.round(aa),dEn:'AI estimates your skin age improved after maintaining your routine.',dTh:'AI ประเมินว่าอายุผิวอ่อนลงหลังดูแลต่อเนื่อง',cEn:'See Skin →',cTh:'ดูผิว →',act:function(){st2Go('skin');},conf:'High',days:saArr.length}); }
+
+  // ── Streak / achievement cards ──
+  var hs=streakRecent(isHealthy);
+  if(hs>=3) c.push({dom:'nutrition',score:hs*2.2,emoji:'🥬',col:'#4A9E6A',bg:'linear-gradient(160deg,#E9F5E1,#D5EDC8)',tEn:'Healthy Eating',tTh:'กินดีต่อเนื่อง',big:hs+'-Day',bigTh:hs+' วัน',dEn:'You hit your vegetable & whole-food goal '+hs+' days in a row.',dTh:'คุณกินผักและอาหารดีต่อเนื่อง '+hs+' วัน',cEn:'See Healthy Foods →',cTh:'ดูอาหารดี →',act:function(){st2Go('ing');},conf:sconf(hs),days:hs});
+
+  var ps=streakRecent(function(r){ return (+r.mac_p||0)>=80; });
+  if(ps>=3) c.push({dom:'muscle',score:ps*2,emoji:'🍗',col:'#DD9540',bg:'linear-gradient(160deg,#FCF0E0,#F8E1C6)',tEn:'Protein Streak',tTh:'โปรตีนต่อเนื่อง',big:ps+'-Day',bigTh:ps+' วัน',dEn:'Protein target completed '+ps+' days in a row.',dTh:'ถึงเป้าโปรตีนติดต่อกัน '+ps+' วัน',cEn:'Keep Protein →',cTh:'บันทึกโปรตีนต่อ →',act:function(){st2Go('log');},conf:sconf(ps),days:ps});
+
+  var ss=streakRecent(function(r){ return (+r.sl_score||0)>=80; });
+  if(ss>=3) c.push({dom:'sleep',score:ss*2,emoji:'🌙',col:'#8C7BB0',bg:'linear-gradient(160deg,#F1EEFC,#E6E0F6)',tEn:'Sleep Streak',tTh:'นอนดีต่อเนื่อง',big:ss+'-Day',bigTh:ss+' วัน',dEn:'Sleep score stayed 80+ for '+ss+' days straight.',dTh:'คะแนนการนอน 80+ ติดกัน '+ss+' วัน',cEn:'Continue Magnesium →',cTh:'ทาน Magnesium ต่อ →',act:function(){st2OpenProd('magnesium');},conf:sconf(ss),days:ss});
+
+  // ── Dedup by domain (keep highest score), sort, cap 4 ──
+  c.sort(function(a,b){ return b.score-a.score; });
+  var used={},out=[];
+  for(var k=0;k<c.length&&out.length<4;k++){ if(used[c[k].dom]) continue; used[c[k].dom]=1; out.push(c[k]); }
+
+  // ── Fallback: care streak if nothing qualified yet ──
+  if(out.length<1){ var cs=streakRecent(isLogged); if(cs>=2) out.push({dom:'care',emoji:'🌱',col:'#4A9E6A',bg:'linear-gradient(160deg,#E9F5E1,#D5EDC8)',tEn:'Care Streak',tTh:'ดูแลตัวต่อเนื่อง',big:cs+'-Day',bigTh:cs+' วัน',dEn:'You logged your health '+cs+' days in a row. Keep it going!',dTh:'คุณบันทึกสุขภาพ '+cs+' วันติดกัน สู้ต่อไป!',cEn:'Log Today →',cTh:'บันทึกวันนี้ →',act:function(){st2Go('log');},conf:sconf(cs),days:cs}); }
+
+  return out;
+}
+
+function st2ResultsHTML(cards){
+  var en=(typeof currentLang!=='undefined'&&currentLang==='en');
+  var head='<div class="st2r-head">'+(en?'✨ Your Proven Results':'✨ ผลลัพธ์ที่พิสูจน์แล้ว')+'<span class="st2r-sub">'+(en?'AI-verified from your own data':'AI ยืนยันจากข้อมูลของคุณ')+'</span></div>';
+  if(!cards||!cards.length){
+    return head+'<div class="st2r-empty" onclick="st2Go(\'log\')">'+(en?'Keep logging daily — your first AI-verified result is on its way ✨':'บันทึกต่อเนื่องทุกวัน เดี๋ยวผลลัพธ์แรกจาก AI จะมา ✨')+'</div>';
+  }
+  var cnf=function(x){ return en?({High:'High',Medium:'Medium',Low:'Fair'}[x]||x):({High:'สูง',Medium:'ปานกลาง',Low:'พอใช้'}[x]||x); };
+  var body=cards.map(function(c,i){
+    var big=(!en&&c.bigTh)?c.bigTh:c.big;
+    return '<div class="st2r-card" style="--c:'+c.col+';--bg:'+c.bg+';" onclick="st2ResAct('+i+')">'+
+      '<div class="st2r-badge">✅ '+(en?'AI Verified':'ยืนยันโดย AI')+'</div>'+
+      '<div class="st2r-emoji">'+c.emoji+'</div>'+
+      '<div class="st2r-ttl">'+(en?c.tEn:c.tTh)+'</div>'+
+      '<div class="st2r-big">'+big+'</div>'+
+      (c.ba?'<div class="st2r-ba">'+c.ba+'</div>':'')+
+      '<div class="st2r-desc">'+(en?c.dEn:c.dTh)+'</div>'+
+      '<div class="st2r-foot">📈 '+(en?('Last '+c.days+' days'):('ย้อนหลัง '+c.days+' วัน'))+' · 🔬 '+cnf(c.conf)+'</div>'+
+      '<button class="st2r-cta">'+(en?c.cEn:c.cTh)+'</button>'+
+    '</div>';
+  }).join('');
+  return head+'<div class="st2r-scroll">'+body+'</div>';
+}
+
+function st2InsertResults(){
+  var pg=document.getElementById('page-bodystudio'); if(!pg) return;
+  var node=document.getElementById('st2-results');
+  if(!node){
+    node=document.createElement('div'); node.id='st2-results';
+    var share=document.getElementById('st2-share'), dash=pg.querySelector('.bsx-dash'), wrap=pg.querySelector('.bsx-wrap');
+    if(share&&share.parentNode){ share.parentNode.insertBefore(node, share.nextSibling); }
+    else if(dash&&dash.parentNode){ dash.parentNode.insertBefore(node, dash.nextSibling); }
+    else if(wrap){ wrap.appendChild(node); }
+    else return;
+  }
+  node.innerHTML=st2ResultsHTML(window._st2ResCards||[]);
+}
+
+async function st2RenderResults(){
+  var pg=document.getElementById('page-bodystudio'); if(!pg) return;
+  if(window._st2ResCards){ st2InsertResults(); return; }
+  if(window._st2ResBusy) return; window._st2ResBusy=true;
+  // skeleton while computing
+  try{
+    var node=document.getElementById('st2-results');
+    if(!node){ node=document.createElement('div'); node.id='st2-results';
+      var share=document.getElementById('st2-share'), dash=pg.querySelector('.bsx-dash');
+      if(share&&share.parentNode) share.parentNode.insertBefore(node,share.nextSibling);
+      else if(dash&&dash.parentNode) dash.parentNode.insertBefore(node,dash.nextSibling);
+    }
+    if(node){ var en=(currentLang==='en'); node.innerHTML='<div class="st2r-head">'+(en?'✨ Your Proven Results':'✨ ผลลัพธ์ที่พิสูจน์แล้ว')+'</div><div class="st2r-scroll"><div class="st2r-card st2r-sk"></div><div class="st2r-card st2r-sk"></div></div>'; }
+  }catch(e){}
+  var cards=[];
+  try{ cards=await st2ComputeCards(); }catch(e){ console.error('Proven Results:',e); cards=[]; }
+  window._st2ResCards=cards;
+  window._st2ResBusy=false;
+  st2InsertResults();
+}
+
+(function(){
+  if(window.__st2ResWired) return; window.__st2ResWired=true;
+  function wireShow(){ if(window.BodyStudio && typeof window.BodyStudio.show==='function' && !window.BodyStudio.__resWrap){ var _s=window.BodyStudio.show; window.BodyStudio.show=function(){ var r=_s.apply(this,arguments); try{ setTimeout(st2RenderResults,210); }catch(e){} return r; }; window.BodyStudio.__resWrap=true; } }
+  wireShow();
+  if(typeof window.goPage==='function'){ var _gp=window.goPage; window.goPage=function(n){ var r=_gp.apply(this,arguments); if(n==='bodystudio'){ wireShow(); try{ setTimeout(st2RenderResults,300); }catch(e){} } return r; }; }
+  setTimeout(function(){ wireShow(); var a=document.querySelector('.page.active'); if(a&&a.id==='page-bodystudio') st2RenderResults(); },600);
 })();
 </script>
 </body>
