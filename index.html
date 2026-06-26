@@ -12852,6 +12852,11 @@ window.BodyStudio = (function(){
 .st2r-empty{font-family:'Anuphan',sans-serif;font-size:.72rem;line-height:1.55;color:#8A8298;background:rgba(255,255,255,.6);border:1px dashed rgba(150,135,175,.4);border-radius:16px;padding:15px 16px;margin:0 4px;text-align:center;cursor:pointer;}
 .st2r-card.st2r-sk{background:linear-gradient(110deg,#EFEBF7 30%,#F7F4FC 50%,#EFEBF7 70%);background-size:220% 100%;animation:st2sk 1.2s linear infinite;min-height:200px;border:none;box-shadow:0 8px 20px rgba(120,110,150,.1);}
 @keyframes st2sk{0%{background-position:120% 0;}100%{background-position:-120% 0;}}
+.st2r-prod{width:60px;height:60px;object-fit:contain;display:block;margin:10px 0 3px;border-radius:13px;filter:drop-shadow(0 7px 11px rgba(0,0,0,.17));}
+.st2r-prodph{border-radius:14px;}
+.st2r-badge.tracking{background:rgba(255,255,255,.72);color:#8C8174;border-color:rgba(150,135,115,.28);}
+.st2r-card.st2r-tracking{opacity:.97;}
+.st2r-card.st2r-tracking .st2r-big{font-size:1.5rem;color:#9A93A6;letter-spacing:0;}
 </style>
 <script>
 /* ===== Bio+ Studio · Your Proven Results (AI, data-driven — never hardcoded) ===== */
@@ -12867,87 +12872,86 @@ async function st2History(){
   return rows;
 }
 
+function st2Reorder(id){ try{ if(typeof addToCart==='function') addToCart(id); }catch(e){} try{ if(typeof openCart==='function'){ openCart(); return; } }catch(e){} st2OpenProd(id); }
+
 async function st2ComputeCards(){
   var rows=[]; try{ rows=await st2History(); }catch(e){ rows=[]; }
   var skin=[]; try{ if(typeof getSkinLog==='function') skin=(await getSkinLog())||[]; }catch(e){ skin=[]; }
   function avg(a){ if(!a.length) return 0; var s=0; a.forEach(function(x){s+=x;}); return s/a.length; }
-  function col(field){ var a=[]; rows.forEach(function(r){ var v=+r[field]; if(isFinite(v)&&v>0) a.push(v); }); return a; }
-  function metric(arr,higher,minPts){
+  function colD(field){ var a=[]; rows.forEach(function(r){ var v=+r[field]; if(isFinite(v)&&v>0) a.push(v); }); return a; }
+  function colS(field){ var a=[]; skin.forEach(function(r){ var v=+r[field]; if(isFinite(v)&&v>0) a.push(v); }); return a; }
+  function metric(arr,minPts){
     if(!arr||arr.length<(minPts||3)) return null;
     var n=arr.length,half=Math.max(1,Math.floor(n/2));
     var before=avg(arr.slice(0,half)),after=avg(arr.slice(n-half));
     if(before<=0) return null;
-    var pct=higher?(after-before)/before*100:(before-after)/before*100;
-    return {before:before,after:after,pct:pct,n:n};
+    return {before:before,after:after,pct:(after-before)/before*100,n:n};
   }
-  function conf(n,pct){ if(n>=6&&pct>=8) return 'High'; if(n>=4&&pct>=5) return 'Medium'; return 'Low'; }
-  function streakRecent(test){ var c=0; for(var i=rows.length-1;i>=0;i--){ var r=rows[i]; if(!r) continue; if(test(r)) c++; else break; } return c; }
-  function isLogged(r){ return !!(r&&((r.m_b&&r.m_b.length)||(r.m_l&&r.m_l.length)||(r.m_d&&r.m_d.length)||(r.m_s&&r.m_s.length)||(+r.sl_score>0)||(+r.water>0)||(+r.mac_p>0))); }
-  function isHealthy(r){ var f=+r.mac_f||0; if(f>=8) return true; var t=((r.m_b||'')+' '+(r.m_l||'')+' '+(r.m_d||'')+' '+(r.m_s||'')).toLowerCase(); return /salad|veg|broccoli|kale|spinach|avocado|fruit|berry|ผัก|สลัด|ผลไม้|อะโวคาโด/.test(t); }
-  function sconf(s){ return s>=7?'High':s>=4?'Medium':'Low'; }
-  var c=[];
+  function takenDays(re){ var c=0; rows.forEach(function(r){ var t=((r.supps||'')+' '+(r.bio_taken||'')).toLowerCase(); if(re.test(t)) c++; }); return c; }
 
-  // ── Improvement cards (before → after) ──
-  var sl=metric(col('sl_score'),true,3);
-  if(sl&&sl.pct>=4) c.push({dom:'sleep',score:sl.pct+(conf(sl.n,sl.pct)==='High'?15:conf(sl.n,sl.pct)==='Medium'?7:0),emoji:'😴',col:'#8C7BB0',bg:'linear-gradient(160deg,#F1EEFC,#E6E0F6)',tEn:'Sleep Improved',tTh:'การนอนดีขึ้น',big:'+'+Math.round(sl.pct)+'%',ba:Math.round(sl.before)+' → '+Math.round(sl.after),dEn:'Sleep score improved after staying consistent with your routine.',dTh:'คะแนนการนอนดีขึ้นหลังดูแลตัวเองต่อเนื่อง',cEn:'Continue Magnesium →',cTh:'ทาน Magnesium ต่อ →',act:function(){st2OpenProd('magnesium');},conf:conf(sl.n,sl.pct),days:sl.n});
+  var skinScore=colS('skin_score');
+  var astaArr=(colD('sl_bb').length>=3)?colD('sl_bb'):colD('sl_hrv');
+  var DEFS=[
+    {id:'magnesium', dispEn:'Magnesium', dispTh:'Magnesium', col:'#4A7CB0', bg:'linear-gradient(160deg,#EAF2FB,#D6E6F7)',
+     lblEn:'Sleep', lblTh:'การนอน', m:metric(colD('sl_score'),3), minPts:3, kw:/magnesium|แมกนีเซียม|แมก/,
+     proofEn:function(m,d){ return 'After taking Magnesium'+(d>=3?(' for '+d+' days'):'')+', your sleep score improved from '+Math.round(m.before)+' → '+Math.round(m.after)+'.'; },
+     proofTh:function(m,d){ return 'หลังทาน Magnesium'+(d>=3?(' '+d+' วัน'):'')+' คะแนนการนอนดีขึ้นจาก '+Math.round(m.before)+' → '+Math.round(m.after); }},
+    {id:'gold', dispEn:'BioActive Gold', dispTh:'BioActive Gold', col:'#B8860B', bg:'linear-gradient(160deg,#FBF3DD,#F4E4B8)',
+     lblEn:'Skin Glow', lblTh:'ผิวเปล่งปลั่ง', m:metric(skinScore,2), minPts:2, kw:/gold|โกลด์/,
+     proofEn:function(m,d){ return 'Your skin score improved by '+Math.round(m.pct)+'% after consistent BioActive Gold intake.'; },
+     proofTh:function(m,d){ return 'คะแนนผิวดีขึ้น '+Math.round(m.pct)+'% หลังทาน BioActive Gold ต่อเนื่อง'; }},
+    {id:'asta', dispEn:'Asta', dispTh:'Asta', col:'#C0392B', bg:'linear-gradient(160deg,#FBEAE7,#F6D2CC)',
+     lblEn:'Recovery', lblTh:'การฟื้นตัว', m:metric(astaArr,3), minPts:3, kw:/asta|astaxanthin|แอสตา/,
+     proofEn:function(m,d){ return 'Your recovery improved '+Math.round(m.pct)+'% while taking Asta consistently.'; },
+     proofTh:function(m,d){ return 'การฟื้นตัวดีขึ้น '+Math.round(m.pct)+'% ระหว่างทาน Asta ต่อเนื่อง'; }},
+    {id:'gluta', dispEn:'Gluta', dispTh:'Gluta', col:'#D4607A', bg:'linear-gradient(160deg,#FCEAF0,#F7D4E0)',
+     lblEn:'Skin Brightness', lblTh:'ผิวกระจ่างใส', m:null, minPts:2, kw:/gluta|glutathione|กลูต้า|กลูตา/,
+     proofEn:function(m,d){ return 'Your skin brightness trend improved by '+Math.round(m.pct)+'% during your Gluta routine.'; },
+     proofTh:function(m,d){ return 'แนวโน้มผิวกระจ่างดีขึ้น '+Math.round(m.pct)+'% ระหว่างรูทีน Gluta'; }}
+  ];
+  var goldReal = DEFS[1].m && DEFS[1].m.pct>=4 && DEFS[1].m.n>=2;
+  if(!goldReal){ var gm=metric(skinScore,2); if(gm) DEFS[3].m=gm; }
 
-  var hr=metric(col('sl_rhr'),false,3);
-  if(hr&&hr.pct>=2) c.push({dom:'heart',score:hr.pct+6,emoji:'❤️',col:'#E2706B',bg:'linear-gradient(160deg,#FDEBEB,#FAD8D8)',tEn:'Heart Recovery',tTh:'หัวใจฟื้นตัวดีขึ้น',big:'+'+Math.round(hr.pct)+'%',ba:Math.round(hr.before)+' → '+Math.round(hr.after)+' bpm',dEn:'Resting heart rate improved with consistent cardio.',dTh:'อัตราหัวใจขณะพักดีขึ้นจากคาร์ดิโอสม่ำเสมอ',cEn:'View Heart →',cTh:'ดูหัวใจ →',act:function(){st2Go('body');},conf:conf(hr.n,hr.pct),days:hr.n});
-
-  var pr=metric(col('mac_p'),true,3);
-  if(pr&&pr.pct>=5) c.push({dom:'muscle',score:pr.pct,emoji:'💪',col:'#DD9540',bg:'linear-gradient(160deg,#FCF0E0,#F8E1C6)',tEn:'Muscle Fuel',tTh:'กล้ามได้โปรตีนมากขึ้น',big:'+'+Math.round(pr.pct)+'%',ba:Math.round(pr.before)+'g → '+Math.round(pr.after)+'g',dEn:'Average daily protein increased, supporting muscle recovery.',dTh:'โปรตีนเฉลี่ยต่อวันเพิ่มขึ้น ช่วยฟื้นกล้ามเนื้อ',cEn:'Keep Protein →',cTh:'บันทึกโปรตีนต่อ →',act:function(){st2Go('log');},conf:conf(pr.n,pr.pct),days:pr.n});
-
-  var wt=metric(col('water'),true,3);
-  if(wt&&wt.pct>=8) c.push({dom:'water',score:wt.pct*0.7,emoji:'💧',col:'#54A0FF',bg:'linear-gradient(160deg,#E7F2FE,#D1E6FB)',tEn:'Hydration Up',tTh:'ดื่มน้ำดีขึ้น',big:'+'+Math.round(wt.pct)+'%',ba:wt.before.toFixed(1)+'L → '+wt.after.toFixed(1)+'L',dEn:'Your daily water intake clearly increased.',dTh:'ปริมาณน้ำต่อวันเพิ่มขึ้นชัดเจน',cEn:'Track Water →',cTh:'บันทึกน้ำ →',act:function(){st2Go('log');},conf:conf(wt.n,wt.pct),days:wt.n});
-
-  // ── Skin (from skin scans) ──
-  var sgArr=[]; skin.forEach(function(s){ var v=+s.skin_score; if(isFinite(v)&&v>0) sgArr.push(v); });
-  var sg=metric(sgArr,true,2);
-  if(sg&&sg.pct>=4) c.push({dom:'skin',score:sg.pct+12,emoji:'✨',col:'#E06A86',bg:'linear-gradient(160deg,#FCEAF1,#F8D5E2)',tEn:'Glow Up',tTh:'ผิวเปล่งปลั่งขึ้น',big:'+'+Math.round(sg.pct)+'%',ba:Math.round(sg.before)+' → '+Math.round(sg.after),dEn:'Skin score improved after a consistent skincare routine.',dTh:'คะแนนผิวดีขึ้นหลังดูแลผิวต่อเนื่อง',cEn:'Continue Gold →',cTh:'ทาน Gold ต่อ →',act:function(){st2OpenProd('gold');},conf:conf(sg.n,sg.pct),days:sg.n});
-
-  var saArr=[]; skin.forEach(function(s){ var v=+s.skin_age; if(isFinite(v)&&v>0) saArr.push(v); });
-  if(saArr.length>=2){ var ba0=saArr[0],aa=saArr[saArr.length-1],dy=ba0-aa;
-    if(dy>=1) c.push({dom:'skinage',score:dy*8,emoji:'🧖',col:'#2FA98C',bg:'linear-gradient(160deg,#E3F5EF,#CCEAE0)',tEn:'Skin Age',tTh:'อายุผิว',big:'▼ '+Math.round(dy)+(Math.round(dy)>1?' yrs':' yr'),bigTh:'▼ '+Math.round(dy)+' ปี',ba:Math.round(ba0)+' → '+Math.round(aa),dEn:'AI estimates your skin age improved after maintaining your routine.',dTh:'AI ประเมินว่าอายุผิวอ่อนลงหลังดูแลต่อเนื่อง',cEn:'See Skin →',cTh:'ดูผิว →',act:function(){st2Go('skin');},conf:'High',days:saArr.length}); }
-
-  // ── Streak / achievement cards ──
-  var hs=streakRecent(isHealthy);
-  if(hs>=3) c.push({dom:'nutrition',score:hs*2.2,emoji:'🥬',col:'#4A9E6A',bg:'linear-gradient(160deg,#E9F5E1,#D5EDC8)',tEn:'Healthy Eating',tTh:'กินดีต่อเนื่อง',big:hs+'-Day',bigTh:hs+' วัน',dEn:'You hit your vegetable & whole-food goal '+hs+' days in a row.',dTh:'คุณกินผักและอาหารดีต่อเนื่อง '+hs+' วัน',cEn:'See Healthy Foods →',cTh:'ดูอาหารดี →',act:function(){st2Go('ing');},conf:sconf(hs),days:hs});
-
-  var ps=streakRecent(function(r){ return (+r.mac_p||0)>=80; });
-  if(ps>=3) c.push({dom:'muscle',score:ps*2,emoji:'🍗',col:'#DD9540',bg:'linear-gradient(160deg,#FCF0E0,#F8E1C6)',tEn:'Protein Streak',tTh:'โปรตีนต่อเนื่อง',big:ps+'-Day',bigTh:ps+' วัน',dEn:'Protein target completed '+ps+' days in a row.',dTh:'ถึงเป้าโปรตีนติดต่อกัน '+ps+' วัน',cEn:'Keep Protein →',cTh:'บันทึกโปรตีนต่อ →',act:function(){st2Go('log');},conf:sconf(ps),days:ps});
-
-  var ss=streakRecent(function(r){ return (+r.sl_score||0)>=80; });
-  if(ss>=3) c.push({dom:'sleep',score:ss*2,emoji:'🌙',col:'#8C7BB0',bg:'linear-gradient(160deg,#F1EEFC,#E6E0F6)',tEn:'Sleep Streak',tTh:'นอนดีต่อเนื่อง',big:ss+'-Day',bigTh:ss+' วัน',dEn:'Sleep score stayed 80+ for '+ss+' days straight.',dTh:'คะแนนการนอน 80+ ติดกัน '+ss+' วัน',cEn:'Continue Magnesium →',cTh:'ทาน Magnesium ต่อ →',act:function(){st2OpenProd('magnesium');},conf:sconf(ss),days:ss});
-
-  // ── Dedup by domain (keep highest score), sort, cap 4 ──
-  c.sort(function(a,b){ return b.score-a.score; });
-  var used={},out=[];
-  for(var k=0;k<c.length&&out.length<4;k++){ if(used[c[k].dom]) continue; used[c[k].dom]=1; out.push(c[k]); }
-
-  // ── Fallback: care streak if nothing qualified yet ──
-  if(out.length<1){ var cs=streakRecent(isLogged); if(cs>=2) out.push({dom:'care',emoji:'🌱',col:'#4A9E6A',bg:'linear-gradient(160deg,#E9F5E1,#D5EDC8)',tEn:'Care Streak',tTh:'ดูแลตัวต่อเนื่อง',big:cs+'-Day',bigTh:cs+' วัน',dEn:'You logged your health '+cs+' days in a row. Keep it going!',dTh:'คุณบันทึกสุขภาพ '+cs+' วันติดกัน สู้ต่อไป!',cEn:'Log Today →',cTh:'บันทึกวันนี้ →',act:function(){st2Go('log');},conf:sconf(cs),days:cs}); }
-
-  return out;
+  return DEFS.map(function(p){
+    var d=takenDays(p.kw);
+    var real = p.m && p.m.pct>=4 && p.m.n>=p.minPts;
+    var low = d>=18;
+    var card={ id:p.id, col:p.col, bg:p.bg, dispEn:p.dispEn, dispTh:p.dispTh, days:d, low:low, tracking:!real };
+    if(real){
+      card.bigEn = p.lblEn+' +'+Math.round(p.m.pct)+'%';
+      card.bigTh = p.lblTh+' +'+Math.round(p.m.pct)+'%';
+      card.proofEn = p.proofEn(p.m,d);
+      card.proofTh = p.proofTh(p.m,d);
+      card.n = p.m.n;
+    } else {
+      card.proofEn = 'AI is tracking your '+p.lblEn.toLowerCase()+' result — keep taking '+p.dispEn+' to unlock it.';
+      card.proofTh = 'AI กำลังติดตามผลด้าน' + p.lblTh + ' — ทาน '+p.dispEn+' ต่อเนื่องเพื่อปลดล็อก';
+    }
+    card.act = function(){ if(card.low) st2Reorder(p.id); else st2OpenProd(p.id); };
+    return card;
+  });
 }
 
 function st2ResultsHTML(cards){
   var en=(typeof currentLang!=='undefined'&&currentLang==='en');
-  var head='<div class="st2r-head">'+(en?'✨ Your Proven Results':'✨ ผลลัพธ์ที่พิสูจน์แล้ว')+'<span class="st2r-sub">'+(en?'AI-verified from your own data':'AI ยืนยันจากข้อมูลของคุณ')+'</span></div>';
-  if(!cards||!cards.length){
-    return head+'<div class="st2r-empty" onclick="st2Go(\'log\')">'+(en?'Keep logging daily — your first AI-verified result is on its way ✨':'บันทึกต่อเนื่องทุกวัน เดี๋ยวผลลัพธ์แรกจาก AI จะมา ✨')+'</div>';
-  }
-  var cnf=function(x){ return en?({High:'High',Medium:'Medium',Low:'Fair'}[x]||x):({High:'สูง',Medium:'ปานกลาง',Low:'พอใช้'}[x]||x); };
+  var head='<div class="st2r-head">'+(en?'✨ BioActive+ Proven Results':'✨ ผลลัพธ์จาก BioActive+')+'<span class="st2r-sub">'+(en?'AI-verified from your data':'AI ยืนยันจากข้อมูลของคุณ')+'</span></div>';
+  if(!cards||!cards.length){ return head+'<div class="st2r-empty" onclick="st2Go(\'bio\')">'+(en?'Start your BioActive+ routine to unlock results ✨':'เริ่มรูทีน BioActive+ เพื่อปลดล็อกผลลัพธ์ ✨')+'</div>'; }
+  var imgFor=function(id){ try{ if(typeof shopImg==='function') return shopImg(id); }catch(e){} return ''; };
   var body=cards.map(function(c,i){
-    var big=(!en&&c.bigTh)?c.bigTh:c.big;
-    return '<div class="st2r-card" style="--c:'+c.col+';--bg:'+c.bg+';" onclick="st2ResAct('+i+')">'+
-      '<div class="st2r-badge">✅ '+(en?'AI Verified':'ยืนยันโดย AI')+'</div>'+
-      '<div class="st2r-emoji">'+c.emoji+'</div>'+
-      '<div class="st2r-ttl">'+(en?c.tEn:c.tTh)+'</div>'+
+    var disp=en?c.dispEn:c.dispTh;
+    var big=c.tracking?(en?'Tracking':'กำลังติดตาม'):(en?c.bigEn:c.bigTh);
+    var badge=c.tracking?('<div class="st2r-badge tracking">🔬 '+(en?'Tracking':'กำลังติดตาม')+'</div>'):('<div class="st2r-badge">✅ '+(en?'AI Verified · Based on your data':'ยืนยันโดย AI · จากข้อมูลคุณ')+'</div>');
+    var cta = c.low?(en?'Reorder before you run out →':'สั่งซ้ำก่อนหมด →'):((c.tracking&&c.days===0)?(en?('Try '+c.dispEn+' →'):('ลอง '+c.dispEn+' →')):(en?('Continue '+c.dispEn+' →'):('ทาน '+c.dispEn+' ต่อ →')));
+    var foot = c.tracking?('🔬 '+(en?'Awaiting more data':'รอข้อมูลเพิ่ม')):('📈 '+(en?('Last '+(c.n||c.days)+' days'):('ย้อนหลัง '+(c.n||c.days)+' วัน')));
+    var img=imgFor(c.id);
+    var icon=img?('<img class="st2r-prod" src="'+img+'" alt="'+disp+'">'):('<div class="st2r-prod st2r-prodph" style="background:'+c.col+';"></div>');
+    return '<div class="st2r-card'+(c.tracking?' st2r-tracking':'')+'" style="--c:'+c.col+';--bg:'+c.bg+';" onclick="st2ResAct('+i+')">'+
+      badge+icon+
+      '<div class="st2r-ttl">'+disp+' '+(en?'Result':'รีซัลต์')+'</div>'+
       '<div class="st2r-big">'+big+'</div>'+
-      (c.ba?'<div class="st2r-ba">'+c.ba+'</div>':'')+
-      '<div class="st2r-desc">'+(en?c.dEn:c.dTh)+'</div>'+
-      '<div class="st2r-foot">📈 '+(en?('Last '+c.days+' days'):('ย้อนหลัง '+c.days+' วัน'))+' · 🔬 '+cnf(c.conf)+'</div>'+
-      '<button class="st2r-cta">'+(en?c.cEn:c.cTh)+'</button>'+
+      '<div class="st2r-desc">'+(en?c.proofEn:c.proofTh)+'</div>'+
+      '<div class="st2r-foot">'+foot+'</div>'+
+      '<button class="st2r-cta">'+cta+'</button>'+
     '</div>';
   }).join('');
   return head+'<div class="st2r-scroll">'+body+'</div>';
