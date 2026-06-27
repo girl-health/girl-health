@@ -8839,6 +8839,30 @@ async function recalcFood(){
   }catch(e){ console.error('recalcFood error:',e); if(out) out.innerHTML=`<div style="font-size:.66rem;color:var(--prot);padding:6px 0;">⚠ ${isEN?'Could not calculate — try again':'คำนวณไม่ได้ ลองใหม่ค่ะ'}</div>`; }
 }
 
+// Robust AI request with retry/backoff (handles transient 429/529/5xx + network blips so scans don't error out)
+async function aiFetchJSON(body, tries){
+  tries = tries||3; var lastErr;
+  for(var attempt=0; attempt<tries; attempt++){
+    if(attempt>0){ try{ await new Promise(function(r){ setTimeout(r, 600*attempt+400); }); }catch(e){} }
+    try{
+      var res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
+        method:'POST', headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+        body: JSON.stringify(body)
+      });
+      if(res.status===429 || res.status===529 || res.status>=500){ lastErr=new Error('API '+res.status+' (busy)'); continue; }
+      var data = await res.json();
+      if(!res.ok || !Array.isArray(data.content)){
+        var msg=(data&&data.error&&data.error.message)||('API '+res.status);
+        lastErr=new Error(msg);
+        if(/overload|rate|busy|429|529|timeout|temporar/i.test(msg)) continue;
+        throw lastErr;
+      }
+      return data;
+    }catch(e){ lastErr=e; }
+  }
+  throw lastErr||new Error('request failed');
+}
+
 let smartScanFiles=[];
 function loadSmartScan(input){ const add=Array.from(input.files||[]); smartScanFiles=smartScanFiles.concat(add).slice(0,9); try{input.value='';}catch(e){} renderSmartPreview(); }
 function removeSmartPhoto(i){ smartScanFiles.splice(i,1); renderSmartPreview(); }
@@ -8889,13 +8913,7 @@ Respond ONLY with valid JSON, no markdown, no extra text:
  "sleep":{"bedtime":"","waketime":"","total_hours":0,"sleep_score":0,"rhr":0,"hrv":0,"body_battery":0,"deep_min":0,"light_min":0,"rem_min":0,"awake_min":0},
  "exercise":{"activity":"other","duration_min":0,"calories":0,"avg_hr":0,"max_hr":0,"distance_km":0,"notes":""}}
 Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" for anything not clearly visible (do NOT guess).`;
-    const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
-      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1000, messages:[{role:'user', content:[{type:'image', source:{type:'base64', media_type:img.type, data:img.data}},{type:'text', text:prompt}]}]})
-    });
-    const data = await res.json();
-    if(!res.ok || !Array.isArray(data.content)){ throw new Error((data&&data.error&&data.error.message)||('API '+res.status)); }
+    const data = await aiFetchJSON({model:'claude-sonnet-4-6', max_tokens:1400, messages:[{role:'user', content:[{type:'image', source:{type:'base64', media_type:img.type, data:img.data}},{type:'text', text:prompt}]}]}, 3);
     let raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
     const a=raw.indexOf('{'), b=raw.lastIndexOf('}'); if(a>=0&&b>a) raw=raw.slice(a,b+1);
     return JSON.parse(raw);
@@ -8909,7 +8927,7 @@ Fill ONLY the object matching "type"; leave the others at defaults. Use 0 / "" f
     return out;
   }
 
-  const settled = await runLimited(files, 3, analyzeOne);
+  const settled = await runLimited(files, 2, analyzeOne);
   const results = settled.filter(s=>s && s.status==='fulfilled').map(s=>s.value);
   const failed = settled.filter(s=>s && s.status==='rejected');
   if(failed.length) console.error('Smart Scan: '+failed.length+' image(s) failed', failed.map(f=>f.reason&&f.reason.message));
@@ -9048,15 +9066,10 @@ Respond ONLY with valid JSON:
   };
 
   try {
-    const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
-      method:'POST', headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
-      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:800, messages:[{role:'user', content:[
+    const data = await aiFetchJSON({model:'claude-sonnet-4-6', max_tokens:1100, messages:[{role:'user', content:[
         {type:'image', source:{type:'base64', media_type:file.type||'image/jpeg', data:base64}},
         {type:'text', text:prompts[mode]}
-      ]}]})
-    });
-    const data = await res.json();
-    if(!res.ok || !Array.isArray(data.content)) throw new Error((data&&data.error&&data.error.message)||('API '+res.status));
+      ]}]}, 3);
     let raw = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
     const _ja=raw.indexOf('{'), _jb=raw.lastIndexOf('}'); if(_ja>=0&&_jb>_ja) raw=raw.slice(_ja,_jb+1);
     const r = JSON.parse(raw);
@@ -9817,8 +9830,8 @@ function renderSkinPreview(){
 function previewSkinPhotos(input){
   const incoming = Array.from(input.files||[]);
   if(!incoming.length) return;
-  // APPEND new photos (take one, then take/select again to add more) — cap at 4
-  skinPhotoFiles = skinPhotoFiles.concat(incoming).slice(0,4);
+  // APPEND new photos (take one, then take/select again to add more) — cap at 6
+  skinPhotoFiles = skinPhotoFiles.concat(incoming).slice(0,6);
   input.value = ''; // reset so the same input can capture/add again
   renderSkinPreview();
 }
@@ -9986,19 +9999,7 @@ Respond ONLY with COMPLETE valid JSON (no markdown, no backticks). Close every a
     }));
     content.push({ type: 'text', text: prompt });
 
-    const res = await fetch('https://small-dawn-d691.passaranunofficial.workers.dev', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01'},
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2800, messages: [{ role: 'user', content }] })
-    });
-
-    const data = await res.json();
-    if (!res.ok || !Array.isArray(data.content)) {
-      console.error('Skin scan API error:', res.status, data);
-      throw new Error(data?.error?.message || `API ${res.status}`);
-    }
+    const data = await aiFetchJSON({ model: 'claude-sonnet-4-6', max_tokens: 4000, messages: [{ role: 'user', content }] }, 3);
     let raw = data.content.map(i => i.text||'').join('').replace(/```json|```/g,'').trim();
     const _a = raw.indexOf('{'); if(_a>0) raw = raw.slice(_a);
     let r;
@@ -12204,7 +12205,7 @@ try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
 <script>
 /* Skin-scan sales hook: launch scan from Home, then offer recommended BioActive → cart */
 function heroSkinScan(){ try{ var i=document.getElementById('skin-scan-file'); if(i){ i.value=''; i.click(); } }catch(e){} }
-function skinScanPick(input){ var f=Array.from(input.files||[]); input.value=''; if(!f.length) return; skinPhotoFiles=f.slice(0,4); try{ analyzeSkinAge(); }catch(e){ console.error(e); } }
+function skinScanPick(input){ var f=Array.from(input.files||[]); input.value=''; if(!f.length) return; skinPhotoFiles=f.slice(0,6); try{ analyzeSkinAge(); }catch(e){ console.error(e); } }
 function _skinScanLoading(show){
   var ov=document.getElementById('skin-scan-loading-ov');
   if(!show){ if(ov) ov.remove(); return; }
