@@ -1793,7 +1793,7 @@ var _upMulti='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 var _upWatch='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="10" height="12" rx="3"/><path d="M9 6V3.5h6V6M9 18v2.5h6V18"/><path d="M12 10v2.5l1.5 1"/></svg>';
 function openUploadSheet(opts){
   var en=(typeof currentLang!=='undefined'&&currentLang==='en');
-  if(!opts) opts=[{svg:_upCam,th:'ถ่ายรูป',en:'Take Photo',id:'ads-cam'},{svg:_upLib,th:'เลือกจากคลังรูป',en:'Choose From Library',id:'ads-lib'},{svg:_upMulti,th:'เลือกหลายรูป',en:'Select Multiple Photos',id:'ads-multi'}];
+  if(!opts) opts=[{svg:_upCam,th:'ถ่ายรูป',en:'Take Photo',id:'ads-cam'},{svg:_upMulti,th:'เลือกรูป (สูงสุด 10)',en:'Choose Photos (up to 10)',id:'ads-multi'}];
   var old=document.getElementById('ups-ov'); if(old) old.remove();
   var ov=document.createElement('div'); ov.id='ups-ov'; ov.className='ups-ov';
   ov.onclick=function(e){ if(e.target===ov) ov.remove(); };
@@ -8864,7 +8864,7 @@ async function aiFetchJSON(body, tries){
 }
 
 let smartScanFiles=[];
-function loadSmartScan(input){ const add=Array.from(input.files||[]); smartScanFiles=smartScanFiles.concat(add).slice(0,9); try{input.value='';}catch(e){} renderSmartPreview(); }
+function loadSmartScan(input){ const add=Array.from(input.files||[]); smartScanFiles=smartScanFiles.concat(add).slice(0,10); try{input.value='';}catch(e){} renderSmartPreview(); }
 function removeSmartPhoto(i){ smartScanFiles.splice(i,1); renderSmartPreview(); }
 function clearSmartScan(){ smartScanFiles=[]; renderSmartPreview(); const r=document.getElementById('allday-result'); if(r){ r.style.display='none'; r.innerHTML=''; } }
 function renderSmartPreview(){
@@ -9830,8 +9830,8 @@ function renderSkinPreview(){
 function previewSkinPhotos(input){
   const incoming = Array.from(input.files||[]);
   if(!incoming.length) return;
-  // APPEND new photos (take one, then take/select again to add more) — cap at 6
-  skinPhotoFiles = skinPhotoFiles.concat(incoming).slice(0,6);
+  // APPEND new photos (take one, then take/select again to add more) — cap at 4
+  skinPhotoFiles = skinPhotoFiles.concat(incoming).slice(0,4);
   input.value = ''; // reset so the same input can capture/add again
   renderSkinPreview();
 }
@@ -12205,7 +12205,7 @@ try{ if(typeof onbCheck==='function') setTimeout(onbCheck, 500); }catch(e){}
 <script>
 /* Skin-scan sales hook: launch scan from Home, then offer recommended BioActive → cart */
 function heroSkinScan(){ try{ var i=document.getElementById('skin-scan-file'); if(i){ i.value=''; i.click(); } }catch(e){} }
-function skinScanPick(input){ var f=Array.from(input.files||[]); input.value=''; if(!f.length) return; skinPhotoFiles=f.slice(0,6); try{ analyzeSkinAge(); }catch(e){ console.error(e); } }
+function skinScanPick(input){ var f=Array.from(input.files||[]); input.value=''; if(!f.length) return; skinPhotoFiles=f.slice(0,4); try{ analyzeSkinAge(); }catch(e){ console.error(e); } }
 function _skinScanLoading(show){
   var ov=document.getElementById('skin-scan-loading-ov');
   if(!show){ if(ov) ov.remove(); return; }
